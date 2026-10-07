@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Invoice">
+<meta name="theme-color" content="#d2691e">
+<title>Easy Invoice</title>
+<style>*,*::before,*::after{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: profile bar, then one invoice sheet (sender left / bill-to right), editable line table, total, PDF */
+:root{
+  --bg:#eef0ec; --paper:#ffffff; --ink:#1d2321; --muted:#66706b; --line:#d8ddd8;
+  --accent:#d2691e; --accent-soft:#fbeee3; --field:#f5f7f4;
+  --display:"Archivo",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141816; --paper:#1d2321; --ink:#eef1ee; --muted:#9aa49f; --line:#333b37;
+  --accent:#f08a3c; --accent-soft:#3a2a1d; --field:#262d2a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141816; --paper:#1d2321; --ink:#eef1ee; --muted:#9aa49f; --line:#333b37;
+  --accent:#f08a3c; --accent-soft:#3a2a1d; --field:#262d2a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);padding-inline:16px;padding-block:20px}
+.wrap{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.who{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
+.who label{font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.who select{font-weight:600;min-width:12rem;max-width:100%}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:28px clamp(16px,4vw,40px)}
+.top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+h1{font-size:2rem;font-weight:800;letter-spacing:.04em;margin:0;color:var(--accent)}
+.sub{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:2px 0 14px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.meta{display:grid;grid-template-columns:auto auto;gap:8px 12px;align-items:center;margin-left:auto;text-align:right;min-width:0}
+.meta label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+input,select{font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:4px;padding:6px 8px;min-width:0}
+input:focus,select:focus,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.meta input{font-family:var(--mono);text-align:right}
+.meta .pick{width:14rem;max-width:100%}
+.meta select{font-weight:600;width:100%}
+.meta #invno{width:5rem;justify-self:end}
+.pick input{width:100%;text-align:left;font-family:var(--display)}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:26px 0 10px;padding:10px 12px;background:var(--accent-soft);border-radius:4px;font-size:.85rem}
+.tools label{font-weight:600}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:860px}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:left;padding:8px 6px;border-bottom:2px solid var(--ink)}
+th.num,td.num{text-align:right}
+td{padding:6px;border-bottom:1px solid var(--line);vertical-align:middle}
+td input,td select{width:100%}
+td input.date{font-family:var(--mono);min-width:8.5rem}
+td.loc{min-width:10rem}
+td select.tm,td input.rate{font-family:var(--mono)}
+td input.rate{text-align:right}
+td select.tm{min-width:5.6rem}
+table.nopause .pausecol{display:none}
+.footleft{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.chk{display:flex;align-items:center;gap:6px;cursor:pointer}
+.chk input{width:1.1rem;height:1.1rem;accent-color:var(--accent)}
+.datecell{display:flex;align-items:center;gap:6px}
+.dow{font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);width:2.4rem;flex:none}
+td.hrsout{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td input.rate{width:5.5rem}
+td.amt{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+tr.zero td.amt{color:var(--muted)}
+button{font:inherit;cursor:pointer;border-radius:4px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 12px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button.warn{border-color:var(--accent);color:var(--accent);font-weight:600}
+button.del{border:none;background:none;color:var(--muted);font-size:1.1rem;padding:4px 8px}
+button.del:hover{color:var(--accent)}
+.foot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-top:16px}
+.total{display:flex;gap:18px;align-items:baseline;border-top:2px solid var(--ink);padding-top:10px;margin-left:auto}
+.total span{font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;font-weight:800}
+.total strong{font-family:var(--mono);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.hours{font-size:.85rem;color:var(--muted)}
+.me{display:flex;flex-direction:column;gap:2px;max-width:100%}
+.me input{background:transparent;border:1px dashed transparent;padding:3px 6px;margin-left:-7px;width:22rem;max-width:100%}
+.me input:hover{border-color:var(--line)}
+.me input:focus{background:var(--field)}
+.me input:placeholder-shown{border-color:var(--accent);background:var(--accent-soft)}
+.me input.name{font-weight:600;font-size:1.05rem}
+.pair{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pair input{width:12rem;margin-left:0}
+.bank{margin-top:22px;font-size:.85rem;color:var(--muted)}
+.bank.me{flex-direction:row;flex-wrap:wrap;gap:4px 20px}
+.pdfbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:24px}
+#imgbox{margin-top:14px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}#imgbox[hidden]{display:none}#imgpdf{padding:10px 18px;font-size:1rem}#imgbox img{-webkit-touch-callout:default;-webkit-user-select:auto;user-select:auto;display:block;width:100%;max-width:640px;border:1px solid var(--line);border-radius:4px}
+.pdfbar .primary{padding:10px 18px;font-size:1rem}
+details{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:10px 14px}
+summary{cursor:pointer;font-weight:600}
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:10px}
+.lists h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 6px}
+.lists ul{list-style:none;margin:0;padding:0}
+.lists li{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:2px 0}
+.lists li span{min-width:0;overflow-wrap:anywhere}
+.pinov{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.pinov[hidden]{display:none}
+.pinbox{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:320px}
+.pintitle{font-weight:800;font-size:1.25rem;margin:0;text-align:center;text-wrap:balance}
+.pinsub{margin:0;color:var(--muted);font-size:.9rem;text-align:center;min-height:1.3em}
+.dots{display:flex;gap:18px;margin:8px 0 14px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--ink);transition:background .1s}
+.dots i.on{background:var(--ink)}
+.dots.shake{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.pad{display:grid;grid-template-columns:repeat(3,76px);gap:16px 24px}
+.key{width:76px;height:76px;border-radius:50%;border:none;padding:0;background:color-mix(in srgb,var(--ink) 11%,transparent);color:var(--ink);font-family:var(--display);font-size:1.9rem;font-weight:400;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.key:active{background:color-mix(in srgb,var(--ink) 26%,transparent)}
+.key.ghost{background:none;font-size:.95rem;font-weight:600}
+.pinlink{border:none;background:none;color:var(--accent);font-weight:600;margin-top:6px}
+@media (prefers-reduced-motion:reduce){.dots.shake{animation:none}}
+.welcome{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px}
+.welcome p{margin:0;line-height:1.5;color:var(--muted)}
+.welcome .wtitle{font-weight:800;font-size:1.15rem;color:var(--ink);margin-bottom:6px}
+#sync{margin-left:auto}
+.note{font-size:.75rem;color:var(--muted);margin:0}
+</style>
+
+<div class="wrap">
+  <div id="pinov" class="pinov" hidden role="dialog" aria-modal="true" aria-labelledby="pintitle">
+    <div class="pinbox">
+      <p id="pintitle" class="pintitle"></p>
+      <p id="pinsub" class="pinsub" role="status"></p>
+      <div class="dots" id="pindots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="pad" id="pinpad"></div>
+      <button id="pincancel" class="pinlink" type="button">Annuler</button>
+    </div>
+  </div>
+  <div class="who">
+    <label for="person">Qui fait la facture ?</label>
+    <select id="person"></select>
+    <button id="addperson" type="button">+ Nouvelle personne</button>
+    <button id="delperson" type="button">Supprimer</button>
+    <button id="setpin" type="button" hidden>Changer le code</button>
+    <span id="sync" class="hours" role="status"></span>
+  </div>
+
+  <div id="welcome" class="welcome">
+    <p class="wtitle">Choisis ton nom dans la liste</p>
+    <p>Tu n'es pas dans la liste ? Touche « + Nouvelle personne » pour créer ton profil avec un code à 4 chiffres.</p>
+  </div>
+
+  <div class="sheet" hidden>
+    <div class="top">
+      <div class="from">
+        <h1>INVOICE</h1>
+        <div class="sub">Tax invoice</div>
+        <div class="me">
+          <input id="me_name" class="name" placeholder="Ton nom" aria-label="Nom">
+          <div class="pair"><span>ABN number:</span><input id="me_abn" class="mono" placeholder="ABN" aria-label="ABN"></div>
+          <input id="me_email" type="email" placeholder="Email" aria-label="Email">
+          <input id="me_phone" class="mono" placeholder="Téléphone" aria-label="Téléphone">
+          <input id="me_addr" placeholder="Adresse" aria-label="Adresse">
+          <div class="pair"><span>BSB:</span><input id="me_bsb" class="mono" placeholder="000-000" aria-label="BSB"></div>
+          <div class="pair"><span>Account number:</span><input id="me_acc" class="mono" placeholder="Numéro de compte" aria-label="Numéro de compte"></div>
+        </div>
+      </div>
+      <div class="meta">
+        <label for="billto">Bill to</label>
+        <div class="pick"><select id="billto"></select><input id="billto_new" placeholder="Nom du nouveau client" hidden></div>
+        <label for="invno">Invoice No</label><input id="invno" type="number" min="1">
+        <label for="issue">Issue date</label><input id="issue" type="date">
+        <label for="due">Due date</label><input id="due" type="date">
+      </div>
+    </div>
+
+    <div class="tools">
+      <label for="weekstart">Semaine qui commence le</label>
+      <input id="weekstart" type="date">
+      <button class="primary" id="applyweek" type="button">Remplir les 7 jours</button>
+      <label for="allrate">Taux pour tous</label>
+      <input id="allrate" class="mono" type="number" step="1" value="40" style="width:5rem">
+      <button id="applyrate" type="button">Appliquer</button>
+      <label class="chk"><input type="checkbox" id="unpaid"> Pause non payée</label>
+    </div>
+
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Date</th><th>Location</th><th>Description</th><th>Start</th><th>End</th><th class="pausecol">Pause</th><th class="num">Hours</th><th class="num">Rate ($)</th><th class="num">Amount ($)</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+
+    <div class="foot">
+      <div class="footleft">
+        <label class="chk"><input type="checkbox" id="samestart"> Même heure de start pour tous les jours (sauf samedi et dimanche)</label>
+        <button id="addrow" type="button">+ Ajouter un jour</button>
+        <div class="hours" id="hourstotal"></div>
+      </div>
+      <div class="total"><span>Total</span><strong id="total">$0.00</strong></div>
+    </div>
+
+
+    <div class="pdfbar">
+      <button class="primary" id="pdfbtn" type="button" hidden>Télécharger en PDF</button>
+      <button id="imgbtn" type="button">Voir la facture en image</button>
+      <span id="pdfmsg" class="hours" role="status"></span>
+    </div>
+    <div id="imgbox" hidden>
+      <p class="hours" id="imghint">Appuie longtemps sur l'image pour l'enregistrer. Si rien ne s'affiche, fais une capture d'écran. Pour un PDF, ouvre la page dans l'app Claude.</p>
+      <img id="imgout" alt="Aperçu de la facture">
+      <button class="primary" id="imgpdf" type="button">Télécharger en PDF</button>
+      <p class="hours" id="imgpdfmsg" role="status"></p>
+    </div>
+  </div>
+
+  <details>
+    <summary>Gérer les entreprises et les chantiers</summary>
+    <div class="lists">
+      <div><h3>Entreprises</h3><ul id="list_clients"></ul></div>
+      <div><h3>Adresses de chantier</h3><ul id="list_sites"></ul></div>
+    </div>
+  </details>
+  <p class="note">Tes infos sont enregistrées en ligne et protégées par ton code à 4 chiffres.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const PRESET={"people": [{"name": "", "abn": "", "email": "", "phone": "", "addr": "", "bsb": "", "acc": "", "inv": {"billto": "", "invno": 1, "issue": "2026-10-05", "due": "2026-10-11", "weekstart": "2026-10-05", "rows": [{"date": "2026-10-05", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-06", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-07", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-08", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-09", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-10", "loc": "", "desc": "Labour", "hours": 0, "rate": 40}, {"date": "2026-10-11", "loc": "", "desc": "Labour", "hours": 0, "rate": 40}]}}], "clients": [], "sites": []};
+const KEY="facture-v2";
+const TIMES=[];for(let m=0;m<24*60;m+=15)TIMES.push(String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0"));
+const toMin=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
+function calcHours(r){if(!r.start||!r.end)return r.start||r.end?0:(r.hours||0);let d=toMin(r.end)-toMin(r.start);if(d<0)d+=1440;d-=(P().unpaid?(r.pause||0):0);return Math.max(0,Math.round(d/60*100)/100)}
+const ME=["name","abn","email","phone","addr","bsb","acc"];
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+const uid=()=>Math.random().toString(36).slice(2,9);
+function addDays(iso,n){const d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function mondayOf(d=new Date()){const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return x.toISOString().slice(0,10)}
+function blankInv(site){const s=mondayOf();return{billto:"",invno:1,issue:s,due:addDays(s,6),weekstart:s,
+  rows:[0,1,2,3,4,5,6].map(i=>({date:addDays(s,i),loc:site||"",desc:"Labour",hours:i<5?8:0,rate:40}))}}
+function blankPerson(){const p={id:uid(),inv:blankInv(state&&state.sites[0])};ME.forEach(k=>p[k]="");return p}
+
+const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
+async function rpc(fn,args){
+  const r=await fetch(SB_URL+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
+  const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}
+  if(!r.ok)throw new Error((j&&(j.message||j.hint))||("Erreur "+r.status));return j}
+function statusText(st){st=String(st||"");
+  if(st.startsWith("wrong:")){const n=+st.split(":")[1];return `Code incorrect (${n} essai${n>1?"s":""} restant${n>1?"s":""})`}
+  if(st.startsWith("locked:")){return `Trop d'essais. Réessaie dans ${st.split(":")[1]} min.`}
+  if(st==="notfound")return "Cette personne n'existe plus.";
+  if(st==="toolarge")return "Trop de données à enregistrer.";
+  return "Erreur, réessaie."}
+const setSync=t=>{const el=document.getElementById("sync");if(el)el.textContent=t||""};
+let state={people:[],cur:null,clients:[],sites:[]};
+let remote=[],session=null;
+state.people=[blankPerson()];state.cur=state.people[0].id;
+const isWkd=iso=>{if(!iso)return false;const d=new Date(iso+"T12:00:00").getDay();return d===0||d===6};
+function resetHours(p){(p.inv&&p.inv.rows||[]).forEach(r=>{r.start="";r.end="";r.hours=0;if(isWkd(r.date))r.rate=0})}
+let saveTimer=null;
+const save=()=>{if(!session)return;clearTimeout(saveTimer);setSync("Enregistrement…");saveTimer=setTimeout(pushSave,900)};
+async function pushSave(){if(!session)return;const p=P();const {id,name,pinHash,fails,lockUntil,...rest}=p;
+  const data={...rest,clients:state.clients,sites:state.sites};const nm=(name||"").trim()||"Sans nom";
+  try{const r=await rpc("save_person",{p_id:session.id,p_pin:session.pin,p_name:nm,p_data:data});
+    if(r&&r.ok){setSync("Enregistré");const e=remote.find(x=>x.id===session.id);if(e&&e.name!==nm){e.name=nm;renderPeople()}}
+    else setSync(statusText(r&&r.status))}
+  catch(e){setSync("Pas de connexion : pas enregistré")}}
+const P=()=>state.people.find(p=>p.id===state.cur)||state.people[0];
+const I=()=>P().inv;
+const addTo=(list,v)=>{v=v.trim();if(v&&!state[list].includes(v))state[list].push(v);return v};
+
+/* ---- people ---- */
+function renderPeople(){
+  const opts=remote.map(p=>`<option value="${p.id}"${session&&p.id===session.id?" selected":""}>${esc(p.name||"Sans nom")}</option>`).join("");
+  $("person").innerHTML=(session?"":`<option value="" selected>Choisis ton nom…</option>`)+opts;
+  $("delperson").textContent="Supprimer";$("delperson").className="";$("delperson").hidden=!session;
+  const sp=document.getElementById("setpin");if(sp)sp.hidden=!session;
+  document.querySelector(".sheet").hidden=!session;const w=document.getElementById("welcome");if(w)w.hidden=!!session;
+}
+$("person").onchange=e=>{state.cur=e.target.value;save();renderAll()};
+$("addperson").onclick=()=>{const p=blankPerson();state.people.push(p);state.cur=p.id;save();renderAll();$("me_name").focus()};
+$("delperson").onclick=e=>{
+  const b=e.currentTarget;
+  if(!b.classList.contains("warn")){b.classList.add("warn");b.textContent=`Supprimer ${P().name||"cette personne"} ?`;return}
+  state.people=state.people.filter(p=>p.id!==state.cur);state.cur=state.people[0].id;save();renderAll();
+};
+ME.forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;save();if(k==="name")renderPeople()}));
+
+/* ---- bill to ---- */
+function renderBillto(){
+  const cur=I().billto;const opts=[...state.clients];if(cur&&!opts.includes(cur))opts.unshift(cur);
+  $("billto").innerHTML=`<option value="">Choisir…</option>`+opts.map(c=>`<option${c===cur?" selected":""}>${esc(c)}</option>`).join("")+`<option value="__new">＋ Nouvelle entreprise…</option>`;
+  $("billto").hidden=false;$("billto_new").hidden=true;
+}
+$("billto").onchange=e=>{
+  if(e.target.value==="__new"){e.target.hidden=true;$("billto_new").hidden=false;$("billto_new").value="";$("billto_new").focus();return}
+  I().billto=e.target.value;save();
+};
+function commitBillto(){if($("billto_new").hidden)return;const v=addTo("clients",$("billto_new").value);if(v)I().billto=v;save();renderBillto();renderLists()}
+$("billto_new").addEventListener("keydown",e=>{if(e.key==="Enter")commitBillto();if(e.key==="Escape"){$("billto_new").value="";commitBillto()}});
+$("billto_new").addEventListener("blur",commitBillto);
+
+/* ---- meta fields ---- */
+["invno","issue","due","weekstart"].forEach(k=>$(k).addEventListener("input",e=>{I()[k]=e.target.value;save()}));
+
+/* ---- rows ---- */
+const tbody=$("rows");
+function siteOptions(cur){const opts=[...state.sites];if(cur&&!opts.includes(cur))opts.unshift(cur);
+  return `<option value="">Choisir…</option>`+opts.map(s=>`<option${s===cur?" selected":""}>${esc(s)}</option>`).join("")+`<option value="__new">＋ Nouveau chantier…</option>`}
+function renderRows(){
+  const rows=I().rows;tbody.innerHTML="";
+  $("unpaid").checked=!!P().unpaid;$("samestart").checked=!!P().sameStart;tbody.closest("table").classList.toggle("nopause",!P().unpaid);
+  rows.forEach((r,i)=>{
+    const tr=document.createElement("tr");
+    const topts=v=>`<option value="">–</option>`+TIMES.map(t=>`<option${t===v?" selected":""}>${t}</option>`).join("");
+    const popts=[0,15,30,45,60].map(m=>`<option value="${m}"${m==(r.pause||0)?" selected":""}>${m} min</option>`).join("");
+    tr.innerHTML=`
+      <td><div class="datecell"><span class="dow" id="dw${i}">${dayName(r.date)}</span><input class="date" type="date" id="d${i}" value="${r.date||""}"></div></td>
+      <td class="loc"><select id="l${i}">${siteOptions(r.loc)}</select><input id="ln${i}" placeholder="Adresse du chantier" hidden></td>
+      <td><input id="s${i}" value="${esc(r.desc)}"></td>
+      <td><select class="tm" id="st${i}" aria-label="Début">${topts(r.start||"")}</select></td>
+      <td><select class="tm" id="en${i}" aria-label="Fin">${topts(r.end||"")}</select></td>
+      <td class="pausecol"><select class="tm" id="pa${i}" aria-label="Pause non payée">${popts}</select></td>
+      <td class="num hrsout" id="h${i}">${r.hours||0} h</td>
+      <td class="num"><input class="rate" id="r${i}" type="number" step="1" min="0" value="${r.rate}"></td>
+      <td class="num amt" id="a${i}"></td>
+      <td><button class="del" type="button" aria-label="Supprimer ce jour">×</button></td>`;
+    const sel=tr.querySelector(`#l${i}`),inp=tr.querySelector(`#ln${i}`);
+    tr.querySelector(`#d${i}`).onchange=e=>{const was=isWkd(r.date);r.date=e.target.value;if(isWkd(r.date))r.rate=0;else if(was&&!r.rate){const w=I().rows.find(x=>!isWkd(x.date)&&x.rate);r.rate=w?w.rate:40}renderRows()};
+    sel.onchange=e=>{if(e.target.value==="__new"){sel.hidden=true;inp.hidden=false;inp.focus();return}r.loc=e.target.value;update()};
+    const commit=()=>{if(inp.hidden)return;const v=addTo("sites",inp.value);if(v)r.loc=v;save();renderRows();renderLists()};
+    inp.addEventListener("keydown",e=>{if(e.key==="Enter")commit();if(e.key==="Escape"){inp.value="";commit()}});
+    inp.addEventListener("blur",commit);
+    tr.querySelector(`#s${i}`).oninput=e=>{r.desc=e.target.value;update()};
+    const recalc=()=>{r.hours=calcHours(r);tr.querySelector(`#h${i}`).textContent=`${r.hours} h`;update()};
+    tr.querySelector(`#st${i}`).onchange=e=>{r.start=e.target.value;if(P().sameStart){applySameStart(r.start);return}recalc()};
+    tr.querySelector(`#en${i}`).onchange=e=>{r.end=e.target.value;recalc()};
+    tr.querySelector(`#pa${i}`).onchange=e=>{r.pause=parseInt(e.target.value)||0;recalc()};
+    tr.querySelector(`#r${i}`).oninput=e=>{r.rate=parseFloat(e.target.value)||0;update()};
+    tr.querySelector(".del").onclick=()=>{rows.splice(i,1);renderRows()};
+    tbody.appendChild(tr);
+  });
+  update();
+}
+function update(){
+  let total=0,hrs=0;
+  I().rows.forEach((r,i)=>{const amt=(r.hours||0)*(r.rate||0);total+=amt;hrs+=r.hours||0;
+    const c=$("a"+i);if(c){c.textContent=fmt(amt);c.parentElement.classList.toggle("zero",amt===0)}});
+  $("total").textContent="$"+fmt(total);$("hourstotal").textContent=`${hrs} heures au total`;save();
+}
+$("applyweek").onclick=()=>{
+  const inv=I(),start=$("weekstart").value;if(!start)return;
+  for(let i=0;i<7;i++){if(!inv.rows[i])inv.rows.push({date:"",loc:inv.rows[0]?inv.rows[0].loc:"",desc:"Labour",hours:0,rate:40});inv.rows[i].date=addDays(start,i);if(isWkd(inv.rows[i].date))inv.rows[i].rate=0;else if(!inv.rows[i].rate){const w=inv.rows.find(x=>x.rate);inv.rows[i].rate=w?w.rate:40}}
+  inv.issue=start;inv.due=addDays(start,6);inv.weekstart=start;renderInv();
+};
+const isWeekend=x=>{if(!x.date)return false;const d=new Date(x.date+"T12:00:00").getDay();return d===0||d===6};
+const DAYS=["dim","lun","mar","mer","jeu","ven","sam"];
+const dayName=iso=>iso?DAYS[new Date(iso+"T12:00:00").getDay()]:"";
+function applySameStart(v){I().rows.forEach(x=>{if(isWeekend(x))return;x.start=v;if(x.end)x.hours=calcHours(x)});renderRows()}
+$("samestart").onchange=e=>{P().sameStart=e.target.checked;if(e.target.checked){const src=I().rows.find(x=>x.start);if(src)applySameStart(src.start);else save()}else save()};
+$("unpaid").onchange=e=>{P().unpaid=e.target.checked;I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});renderRows()};
+$("applyrate").onclick=()=>{const v=parseFloat($("allrate").value)||0;I().rows.forEach(r=>{if(!isWkd(r.date))r.rate=v});renderRows()};
+$("addrow").onclick=()=>{const rows=I().rows,last=rows[rows.length-1];
+  rows.push({date:last&&last.date?addDays(last.date,1):"",loc:last?last.loc:(state.sites[0]||""),desc:"Labour",start:last?last.start:"",end:last?last.end:"",pause:last?last.pause||0:0,hours:last&&last.start&&last.end?calcHours(last):0,rate:last?last.rate:40});{const n=rows[rows.length-1];if(isWkd(n.date))n.rate=0;else if(!n.rate){const w=rows.find(x=>!isWkd(x.date)&&x.rate);n.rate=w?w.rate:40}}renderRows()};
+
+/* ---- lists ---- */
+function renderLists(){
+  [["clients","list_clients","Aucune entreprise enregistrée."],["sites","list_sites","Aucun chantier enregistré."]].forEach(([k,id,empty])=>{
+    const ul=$(id);ul.innerHTML=state[k].length?"":`<li><span class="hours">${empty}</span></li>`;
+    state[k].forEach((v,i)=>{const li=document.createElement("li");li.innerHTML=`<span>${esc(v)}</span><button class="del" type="button" aria-label="Retirer">×</button>`;
+      li.querySelector("button").onclick=()=>{state[k].splice(i,1);save();renderLists();renderBillto();renderRows()};ul.appendChild(li)});
+  });
+}
+
+function renderInv(){const inv=I();["invno","issue","due","weekstart"].forEach(k=>$(k).value=inv[k]??"");renderBillto();renderRows()}
+function renderAll(){renderPeople();const p=P();ME.forEach(k=>$("me_"+k).value=p[k]||"");renderInv();renderLists()}
+renderAll();
+
+/* ---- PIN lock ---- */
+async function hashPin(pin,id){const d=new TextEncoder().encode(id+":"+pin);
+  try{const h=await crypto.subtle.digest("SHA-256",d);return [...new Uint8Array(h)].map(b=>b.toString(16).padStart(2,"0")).join("")}
+  catch(e){let x=7;for(const c of id+":"+pin)x=(x*31+c.charCodeAt(0))|0;return "s"+x}}
+const pinOv=$("pinov"),pinDots=$("pindots"),pinTitle=$("pintitle"),pinSub=$("pinsub"),pinCancel=$("pincancel");
+(function buildPad(){const keys=["1","2","3","4","5","6","7","8","9","","0","del"];
+  $("pinpad").innerHTML=keys.map(k=>k===""?`<span></span>`:k==="del"?`<button class="key ghost" type="button" data-k="del" aria-label="Effacer">Effacer</button>`:`<button class="key" type="button" data-k="${k}">${k}</button>`).join("")})();
+let pinState=null;
+function drawDots(){[...pinDots.children].forEach((d,i)=>d.classList.toggle("on",i<(pinState?pinState.val.length:0)))}
+function askPin({title,sub,verify,cancelText="Annuler"}){
+  return new Promise(res=>{pinState={val:"",verify,res,sub:sub||""};pinTitle.textContent=title;pinSub.textContent=sub||"";pinCancel.textContent=cancelText;
+    drawDots();pinOv.hidden=false;document.body.style.overflow="hidden";setTimeout(()=>{const b=pinOv.querySelector(".key");b&&b.focus()},50)})}
+function closePin(v){const s=pinState;pinState=null;pinOv.hidden=true;document.body.style.overflow="";s&&s.res(v)}
+async function pinPress(k){if(!pinState||pinState.busy)return;
+  if(k==="del"){pinState.val=pinState.val.slice(0,-1);drawDots();return}
+  if(pinState.val.length>=4)return;pinState.val+=k;drawDots();
+  if(pinState.val.length===4){pinState.busy=true;const v=pinState.val;const r=await pinState.verify(v);
+    if(r===true){setTimeout(()=>closePin(v),120);return}
+    pinSub.textContent=typeof r==="string"?r:"Code incorrect";pinDots.classList.remove("shake");void pinDots.offsetWidth;pinDots.classList.add("shake");
+    setTimeout(()=>{if(pinState){pinState.val="";pinState.busy=false;drawDots()}},380)}}
+$("pinpad").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)pinPress(b.dataset.k)});
+document.addEventListener("keydown",e=>{if(!pinState)return;if(/^[0-9]$/.test(e.key))pinPress(e.key);else if(e.key==="Backspace")pinPress("del");else if(e.key==="Escape")closePin(null)});
+pinCancel.onclick=()=>closePin(null);
+
+async function unlock(p){
+  if(!p.pinHash)return true;
+  return !!(await askPin({title:`Code de ${p.name||"cette personne"}`,verify:async v=>{
+    const now=Date.now();if(p.lockUntil&&p.lockUntil>now)return `Trop d'essais. Réessaie dans ${Math.ceil((p.lockUntil-now)/60000)} min.`;
+    if((await hashPin(v,p.id))===p.pinHash){p.fails=0;p.lockUntil=0;save();return true}
+    p.fails=(p.fails||0)+1;if(p.fails>=5){p.fails=0;p.lockUntil=now+15*60000;save();return "Trop d'essais. Réessaie dans 15 min."}
+    save();return `Code incorrect (${5-p.fails} essai${5-p.fails>1?"s":""} restant${5-p.fails>1?"s":""})`}}));
+}
+async function choosePin(p){
+  const a=await askPin({title:"Choisis un code à 4 chiffres",sub:`Il protège les infos de ${p.name||"cette personne"}.`,verify:()=>true});
+  if(!a)return false;
+  const b=await askPin({title:"Confirme ton code",verify:v=>v===a?true:"Les deux codes ne sont pas pareils"});
+  if(!b)return false;
+  p.pinHash=await hashPin(a,p.id);p.fails=0;p.lockUntil=0;save();renderPeople();return true;
+}
+$("setpin").textContent="Changer le code";
+function loadPerson(id,name,pin,data){
+  data=data||{};const p={id,name:name||"",inv:data.inv||blankInv(),unpaid:!!data.unpaid,sameStart:!!data.sameStart};
+  ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});resetHours(p);
+  state.people=[p];state.cur=id;state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
+  session={id,pin};try{localStorage.setItem("easyinv-last",id)}catch(e){}
+  renderAll();setSync("");
+}
+async function openPerson(id){
+  const e=remote.find(x=>x.id===id);let data=null;
+  const pin=await askPin({title:`Code de ${e?e.name:"cette personne"}`,verify:async v=>{
+    try{const r=await rpc("get_person",{p_id:id,p_pin:v});if(r&&r.ok){data=r.data||{};return true}return statusText(r&&r.status)}
+    catch(err){return "Pas de connexion. Réessaie."}}});
+  if(!pin)return false;loadPerson(id,e?e.name:"",pin,data);return true;
+}
+$("person").onchange=async e=>{const id=e.target.value;if(!id||(session&&id===session.id)){renderPeople();return}
+  if(!(await openPerson(id)))renderPeople()};
+$("addperson").onclick=async()=>{
+  const a=await askPin({title:"Choisis un code à 4 chiffres",sub:"Il protégera tes infos. Retiens-le bien.",verify:()=>true});if(!a)return;
+  const b=await askPin({title:"Confirme ton code",verify:v=>v===a?true:"Les deux codes ne sont pas pareils"});if(!b)return;
+  const inv=blankInv();setSync("Création…");
+  try{const id=await rpc("create_person",{p_name:"Nouvelle personne",p_pin:a,p_data:{inv,clients:[],sites:[]}});
+    remote.push({id,name:"Nouvelle personne"});loadPerson(id,"",a,{inv});setSync("Profil créé. Remplis tes infos.");$("me_name").focus()}
+  catch(err){setSync("Création impossible : "+err.message)}};
+$("delperson").onclick=async e=>{const b=e.currentTarget;if(!session)return;
+  if(!b.classList.contains("warn")){b.classList.add("warn");b.textContent=`Supprimer ${P().name||"cette personne"} ?`;return}
+  const ok=await askPin({title:"Code pour supprimer",sub:"La personne et ses infos seront effacées.",verify:v=>v===session.pin?true:"Code incorrect"});
+  if(!ok){renderPeople();return}
+  try{const r=await rpc("delete_person",{p_id:session.id,p_pin:session.pin});
+    if(r&&r.ok){remote=remote.filter(x=>x.id!==session.id);session=null;try{localStorage.removeItem("easyinv-last")}catch(e){}renderPeople();setSync("Personne supprimée")}
+    else{renderPeople();setSync(statusText(r&&r.status))}}
+  catch(err){renderPeople();setSync("Pas de connexion")}};
+$("setpin").onclick=async()=>{if(!session)return;
+  const o=await askPin({title:"Code actuel",verify:v=>v===session.pin?true:"Code incorrect"});if(!o)return;
+  const a=await askPin({title:"Nouveau code",verify:()=>true});if(!a)return;
+  const b=await askPin({title:"Confirme le nouveau code",verify:v=>v===a?true:"Les deux codes ne sont pas pareils"});if(!b)return;
+  try{const r=await rpc("change_pin",{p_id:session.id,p_pin:session.pin,p_new:a});
+    if(r&&r.ok){session.pin=a;setSync("Code changé")}else setSync(statusText(r&&r.status))}
+  catch(err){setSync("Pas de connexion")}};
+(async()=>{renderPeople();setSync("Connexion…");
+  try{remote=await rpc("list_people",{})||[]}catch(e){setSync("Impossible de joindre la base. Vérifie ta connexion puis recharge.");return}
+  renderPeople();setSync("");
+  let last=null;try{last=localStorage.getItem("easyinv-last")}catch(e){}
+  if(last&&remote.some(x=>x.id===last))await openPerson(last);
+})();
+
+/* ---- PDF ---- */
+document.getElementById("imgpdf").onclick=()=>{const b=document.getElementById("pdfbtn"),m=document.getElementById("imgpdfmsg");
+  if(!b.hidden){m.textContent="";b.click();setTimeout(()=>{m.textContent=document.getElementById("pdfmsg").textContent},800)}
+  else m.textContent="Le PDF ne marche pas dans ce navigateur. Ouvre la page dans l'app Claude pour télécharger le PDF, ou garde l'image avec une capture d'écran."};
+document.getElementById("imgbtn").onclick=()=>{const d=canvasDoc();drawInvoice(d);
+  const img=document.getElementById("imgout");img.src=d.canvas.toDataURL("image/jpeg",0.92);document.getElementById("imgbox").hidden=false;img.scrollIntoView({behavior:"smooth",block:"start"})};
+const dmy=iso=>{if(!iso)return"";const[y,m,d]=iso.split("-");return`${d}/${m}/${y}`};
+const dm=iso=>{if(!iso)return"";const[,m,d]=iso.split("-");return`${d}/${m}`};
+function buildPdf(){const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:"mm",format:"a4"});doc.paged=true;drawInvoice(doc);return doc.output("arraybuffer")}
+/* canvas adapter: same calls as jsPDF, in mm */
+function canvasDoc(){
+  const S=8,rows=I().rows.length,Hmm=Math.max(297,130+rows*8.5+40);
+  const c=document.createElement("canvas");c.width=210*S;c.height=Math.round(Hmm*S);
+  const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.textBaseline="alphabetic";
+  let style="normal",size=10,color="#1d2321",stroke="#000",lw=.2;
+  const font=()=>{g.font=`${style==="bold"?"700":"400"} ${size*0.3528*S}px Helvetica, Arial, sans-serif`};
+  const rgb=(r,gg,b)=>`rgb(${r},${gg},${b})`;
+  return{canvas:c,
+    setFont:(f,s)=>{style=s;font()},setFontSize:s=>{size=s;font()},
+    setTextColor:(r,gg,b)=>{color=rgb(r,gg,b)},setDrawColor:(r,gg,b)=>{stroke=rgb(r,gg,b)},setLineWidth:w=>{lw=w},
+    text:(t,x,y,o)=>{font();g.fillStyle=color;g.textAlign=(o&&o.align)||"left";g.fillText(String(t),x*S,y*S)},
+    line:(x1,y1,x2,y2)=>{g.strokeStyle=stroke;g.lineWidth=lw*S;g.beginPath();g.moveTo(x1*S,y1*S);g.lineTo(x2*S,y2*S);g.stroke()},
+    splitTextToSize:(t,w)=>{font();let s=String(t);if(g.measureText(s).width<=w*S)return[s];while(s&&g.measureText(s+"…").width>w*S)s=s.slice(0,-1);return[s+"…"]},
+    addPage:()=>{}};
+}
+function drawInvoice(doc){
+  const p=P(),inv=I();const L=18,R=192;let y=24;
+  doc.setFont("helvetica","bold");doc.setFontSize(24);doc.setTextColor(210,105,30);doc.text("INVOICE",L,y);
+  doc.setFontSize(9);doc.setTextColor(102,112,107);doc.setFont("helvetica","normal");doc.text("TAX INVOICE",L,y+6);
+  doc.setTextColor(29,35,33);doc.setFontSize(10);
+  const from=[[p.name,true],[p.abn?"ABN number: "+p.abn:""],[p.email],[p.phone],[p.addr],[p.bsb?"BSB: "+p.bsb:""],[p.acc?"Account number: "+p.acc:""]].filter(([t])=>t);
+  let fy=y+16;from.forEach(([t,b])=>{doc.setFont("helvetica",b?"bold":"normal");doc.text(String(t),L,fy);fy+=5.5});
+  const meta=[["Bill to:",inv.billto||""],["Invoice No:",inv.invno||""],["Issue date:",dmy(inv.issue)],["Due date:",dmy(inv.due)]];
+  let my=y+16;meta.forEach(([k,val])=>{doc.setFont("helvetica","normal");doc.setTextColor(102,112,107);doc.text(k,150,my,{align:"right"});doc.setTextColor(29,35,33);doc.setFont("helvetica","bold");doc.text(String(val),R,my,{align:"right"});my+=5.5});
+  y=Math.max(fy,my)+10;
+  const cols=[{t:"Date",x:L},{t:"Location",x:38},{t:"Description",x:88},{t:"Quantity",x:135,a:"right"},{t:"Unit price ($)",x:163,a:"right"},{t:"Amount ($)",x:R,a:"right"}];
+  doc.setFontSize(9);doc.setFont("helvetica","bold");doc.setTextColor(102,112,107);
+  cols.forEach(c=>doc.text(c.t,c.x,y,{align:c.a||"left"}));
+  doc.setDrawColor(29,35,33);doc.setLineWidth(.6);doc.line(L,y+2.5,R,y+2.5);y+=9;
+  doc.setFont("helvetica","normal");doc.setTextColor(29,35,33);doc.setFontSize(10);doc.setDrawColor(216,221,216);doc.setLineWidth(.2);
+  let total=0;
+  inv.rows.forEach(r=>{const amt=(r.hours||0)*(r.rate||0);total+=amt;if(y>265&&doc.paged){doc.addPage();y=24}
+    doc.text(dm(r.date),L,y);doc.text(doc.splitTextToSize(r.loc||"",48)[0]||"",38,y);doc.text(doc.splitTextToSize(r.desc||"",36)[0]||"",88,y);
+    doc.text(String(r.hours||0),135,y,{align:"right"});doc.text(fmt(r.hours?(r.rate||0):0),163,y,{align:"right"});doc.text(fmt(amt),R,y,{align:"right"});
+    doc.line(L,y+3,R,y+3);y+=8.5});
+  y+=4;doc.setDrawColor(29,35,33);doc.setLineWidth(.6);doc.line(120,y,R,y);y+=8;
+  doc.setFont("helvetica","bold");doc.setFontSize(12);doc.text("TOTAL",120,y);doc.text("$"+fmt(total),R,y,{align:"right"});
+}
+(async()=>{
+  const btn=$("pdfbtn"),msg=$("pdfmsg");
+  msg.textContent="Préparation du PDF…";
+  const downloads={save:({filename,data})=>{const u=URL.createObjectURL(new Blob([data],{type:"application/pdf"}));const a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),10000);return Promise.resolve({status:"saved"})}};
+  if(!window.jspdf){msg.textContent="Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge la page.";return}
+  if(!downloads){msg.textContent="Le PDF n'est pas disponible dans ce navigateur. Utilise « Voir la facture en image », ou ouvre la page dans l'app Claude.";return}
+  msg.textContent="";
+  btn.hidden=false;
+  const img=$("imgout");img.style.cursor="pointer";img.title="Toucher pour télécharger en PDF";
+  img.onclick=()=>btn.click();
+  $("imghint").textContent="Touche l'image pour la télécharger en PDF.";
+  btn.onclick=async()=>{msg.textContent="";const inv=I(),p=P();
+    const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();
+    const a=ds[0]||inv.weekstart||inv.issue,b=ds[ds.length-1]||(a?addDays(a,6):"");
+    const name=`Weekly Invoice ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
+    try{await downloads.save({filename:name,data:buildPdf()});msg.textContent="PDF créé."}
+    catch(e){msg.textContent=e&&e.code==="declined"?"Téléchargement annulé.":e&&e.code==="rate_limited"?"Une demande est déjà ouverte, réessaie dans un instant.":"Le PDF n'a pas pu être enregistré."}};
+})();
+</script>
+
+</body>
+</html>
