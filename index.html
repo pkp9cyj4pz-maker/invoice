@@ -38,7 +38,10 @@ button{cursor:pointer;border-radius:8px;border:1px solid var(--line);background:
 /* header */
 .top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .brand{font-weight:800;font-size:1.1rem;letter-spacing:.01em;white-space:nowrap}
-.topr button{padding:8px 11px}
+.topr button{padding:7px 10px;font-size:.9rem}
+.topr{min-width:0}
+@media (max-width:400px){.badge{padding:3px 7px;font-size:.62rem}.brand{font-size:1rem}}
+.hact button{padding:7px 12px;font-size:.85rem}
 .brand b{color:var(--accent)}
 .topr{display:flex;gap:6px;align-items:center}
 .badge{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:4px 9px;border-radius:999px;background:var(--field);border:1px solid var(--line);color:var(--muted)}
@@ -130,6 +133,22 @@ button{cursor:pointer;border-radius:8px;border:1px solid var(--line);background:
 .hist .hinfo{flex:1;min-width:0;display:flex;flex-direction:column;cursor:pointer;background:none;border:none;padding:0;text-align:left;font-weight:400}
 .hist .hname{font-weight:700;overflow-wrap:anywhere}
 .hist .hmeta{font-size:.8rem;color:var(--muted);font-family:var(--mono)}
+.pseg{margin-bottom:12px}
+.saverow{margin-top:14px}
+.saverow button{width:100%;padding:13px;font-size:1rem;border-radius:10px}
+.saverow button.saved{color:var(--ok);border-color:var(--ok);background:transparent}
+.wsep{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin:12px 2px 0}
+.hist li{flex-direction:column;align-items:stretch;gap:10px;padding:14px 0}
+.hopen{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;border:none;background:none;padding:0;font-weight:400;width:100%}
+.hrange{font-size:1.35rem;font-weight:800;line-height:1.2}
+.hsub{font-size:.85rem;color:var(--muted)}
+.htot{font-family:var(--mono);font-size:.95rem}
+.hname{font-size:.85rem;font-style:italic;color:var(--muted)}
+.hist li.cur .hrange::after{content:" · ouverte";font-size:.8rem;color:var(--accent);font-weight:700}
+.hact{display:flex;gap:8px;align-items:center}
+.hact input{flex:1}
+.hact .hdel{margin-left:auto}
+.hdel.warn{background:var(--accent);color:#fff;border-color:var(--accent)}
 .hist .ren{padding:6px 10px;font-size:.8rem}
 .hist li.cur .hname::after{content:" · ouverte";color:var(--accent)}
 .lists ul{list-style:none;margin:0 0 12px;padding:0}
@@ -241,7 +260,7 @@ button{cursor:pointer;border-radius:8px;border:1px solid var(--line);background:
     <section id="p_premium" class="premium" hidden data-title="Easy Invoice Premium">
       <p id="premwhy" class="why"></p>
       <ul class="perks">
-        <li>Toutes tes semaines gardées, sans limite</li>
+        <li>Toutes tes factures gardées, sans limite</li>
         <li>Les nouvelles fonctions en premier</li>
         <li>Annulable à tout moment, tes données restent à toi</li>
       </ul>
@@ -297,12 +316,17 @@ button{cursor:pointer;border-radius:8px;border:1px solid var(--line);background:
     </section>
 
     <section class="card">
-      <div class="weeknav">
-        <button class="arrow" id="prevw" type="button" aria-label="Semaine précédente">‹</button>
-        <div class="wlabel"><span class="lbl">Semaine</span><strong id="wtitle"></strong></div>
-        <button class="arrow" id="nextw" type="button" aria-label="Semaine suivante">›</button>
+      <div class="seg pseg" role="radiogroup" aria-label="Durée de la facture">
+        <label><input type="radio" name="ptype" value="week"> 1 semaine</label>
+        <label><input type="radio" name="ptype" value="fortnight"> 2 semaines</label>
+        <label><input type="radio" name="ptype" value="month"> 1 mois</label>
       </div>
-      <div class="center"><button id="thisweek" class="linkbtn" type="button" hidden>Revenir à cette semaine</button></div>
+      <div class="weeknav">
+        <button class="arrow" id="prevw" type="button" aria-label="Période précédente">‹</button>
+        <div class="wlabel"><span class="lbl" id="plabel">Semaine</span><strong id="wtitle"></strong></div>
+        <button class="arrow" id="nextw" type="button" aria-label="Période suivante">›</button>
+      </div>
+      <div class="center"><button id="thisweek" class="linkbtn" type="button" hidden>Revenir à aujourd'hui</button></div>
       <div class="fields">
         <div class="field"><label for="billto">Client</label><select id="billto"></select><input id="billto_new" placeholder="Nom de l'entreprise" hidden></div>
         <div class="field"><label for="site">Chantier</label><select id="site"></select><input id="site_new" placeholder="Adresse du chantier" hidden></div>
@@ -315,10 +339,7 @@ button{cursor:pointer;border-radius:8px;border:1px solid var(--line);background:
           <div class="field"><label for="due">Échéance</label><input id="due" type="date"></div>
         </div>
       </details>
-      <div id="fullbanner" class="banner" hidden>
-        <p>Historique gratuit plein (3 semaines). Cette semaine ne sera pas gardée : télécharge ton PDF, ou supprime une ancienne semaine.</p>
-        <button class="primary" id="fullprem" type="button">Premium</button>
-      </div>
+      <div class="saverow"><button class="primary" id="savebtn" type="button">Enregistrer la facture</button></div>
       <p id="savestate" class="savestate" role="status"></p>
     </section>
 
@@ -383,36 +404,43 @@ const FREE_LIMIT=()=>plan.free_limit||3;
 const hasHours=inv=>(inv&&inv.rows||[]).some(r=>r.hours>0);
 const invTotal=inv=>(inv.rows||[]).reduce((t,r)=>t+(r.hours||0)*(r.rate||0),0);
 const invHours=inv=>(inv.rows||[]).reduce((t,r)=>t+(r.hours||0),0);
-const weekOf=inv=>mondayOf((inv.rows&&inv.rows[0]&&inv.rows[0].date)||inv.weekstart||inv.issue);
-function defaultName(inv){const a=weekOf(inv);return `Semaine du ${dm(a)} au ${dm(addDays(a,6))}`+(inv.billto?` · ${inv.billto}`:"")}
+const PT={week:{n:"1 semaine",file:"Weekly"},fortnight:{n:"2 semaines",file:"Fortnightly"},month:{n:"1 mois",file:"Monthly"}};
+function periodRange(type,ref){const d=parse(ref);if(type==="month")return[isoLocal(new Date(d.getFullYear(),d.getMonth(),1,12)),isoLocal(new Date(d.getFullYear(),d.getMonth()+1,0,12))];
+  const s=mondayOf(ref);return[s,addDays(s,type==="fortnight"?13:6)]}
+function periodShift(type,start,dir){if(type==="month"){const d=parse(start);return isoLocal(new Date(d.getFullYear(),d.getMonth()+dir,1,12))}return addDays(start,dir*(type==="fortnight"?14:7))}
+function datesBetween(a,b){const out=[];for(let d=a,n=0;d<=b&&n<62;d=addDays(d,1),n++)out.push(d);return out}
+const invType=inv=>PT[inv&&inv.type]?inv.type:"week";
+const todayIso=()=>isoLocal(new Date());
+function rangeText(a,b){const y=parse(b).getFullYear()!==new Date().getFullYear()?" "+parse(b).getFullYear():"";return `${nice(a)} → ${nice(b)}${y}`}
+function defaultName(inv){return `${PT[invType(inv)].n} du ${dm(inv.start)} au ${dm(inv.end)}`+(inv.billto?` · ${inv.billto}`:"")}
 function nextInvNo(){let m=0;(P().saved||[]).forEach(e=>{m=Math.max(m,parseInt(e.inv&&e.inv.invno)||0)});return m+1}
-function newInv(monday){const p=P(),old=p.inv||{};
-  const site=old.site||state.sites[0]||"";
-  return{billto:old.billto||state.clients[0]||"",site,invno:p.inv?nextInvNo():1,issue:monday,due:addDays(monday,6),weekstart:monday,
-    rows:[0,1,2,3,4,5,6].map(i=>{const date=addDays(monday,i);return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate??40)}})}}
+function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate??40)}}
+function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
+function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
+  return{type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site)}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
-let historyFull=false;
 
 /* sauvegarde */
 const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}):null;
 let saveTimer=null;
-function syncSaved(){if(!session||!P())return;const p=P();let e=curEntry();
-  if(!e){if(!hasHours(p.inv)){historyFull=false;return}
-    if(!plan.premium&&(p.saved||[]).length>=FREE_LIMIT()){historyFull=true;return}
-    e={id:uid(),name:"",createdAt:Date.now()};p.saved=p.saved||[];p.saved.unshift(e);p.curSaved=e.id}
-  historyFull=false;e.inv=clone(p.inv);e.updatedAt=Date.now();if(!e.custom)e.name=defaultName(p.inv)}
-function save(){syncSaved();renderStatus();if(!session)return;clearTimeout(saveTimer);setSave("Enregistrement…");saveTimer=setTimeout(pushSave,800)}
+let syncMsg="";
+function syncSaved(){if(!session||!P())return;const e=curEntry();if(!e)return;e.inv=clone(I());e.updatedAt=Date.now();if(!e.custom)e.name=defaultName(I())}
+const roomLeft=()=>plan.premium||(P().saved||[]).length<FREE_LIMIT();
+function addToHistory(){const p=P();if(curEntry())return true;if(!roomLeft())return false;
+  const e={id:uid(),name:"",createdAt:Date.now()};p.saved=p.saved||[];p.saved.unshift(e);p.curSaved=e.id;syncSaved();return true}
+function keepCurrent(){if(P()&&P().inv&&!curEntry()&&hasHours(I()))addToHistory()}
+function save(){syncSaved();if(!session)return;clearTimeout(saveTimer);syncMsg="Enregistrement…";renderStatus();saveTimer=setTimeout(pushSave,800)}
 const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushSave()}};
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
-function setSave(t){$("savestate").textContent=t||""}
+function setSave(t){syncMsg=t||"";renderStatus()}
 async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();const {id,...rest}=p;
   const data={...rest,clients:state.clients,sites:state.sites};
   try{const {data:r,error}=await sb.rpc("save_my_profile",{p_name:(p.name||"").trim(),p_data:data});
     if(error){setSave(/JWT|auth/i.test(error.message)?"Session expirée : reconnecte-toi.":"Pas enregistré : "+error.message);return}
-    if(r&&r.ok){setSave(curEntry()?"Enregistré dans ton historique":"Enregistré");return}
-    if(r&&r.status==="limit"){setSave("Historique gratuit plein");return}
+    if(r&&r.ok){setSave("");return}
+    if(r&&r.status==="limit"){setSave("Historique gratuit plein.");return}
     setSave("Pas enregistré, réessaie.")}
-  catch(e){setSave("Pas de connexion : pas enregistré")}}
+  catch(e){setSave("Pas de connexion : pas enregistré.")}}
 
 /* ---------- rendu ---------- */
 function infosDone(){const p=P();return !!(p.name&&p.abn&&p.bsb&&p.acc)}
@@ -424,14 +452,18 @@ function renderOnboard(){const s1=infosDone(),s2=!!(I().billto&&I().site),s3=has
   $("onboard").hidden=(s1&&s2)||(P().saved||[]).length>0&&s1}
 function listOpts(list,cur,addLabel){const l=[...list];if(cur&&!l.includes(cur))l.unshift(cur);
   return `<option value="">Choisir…</option>`+l.map(c=>`<option${c===cur?" selected":""}>${esc(c)}</option>`).join("")+`<option value="__new">+ ${addLabel}</option>`}
-function renderWeek(){const inv=I(),a=weekOf(inv),b=addDays(a,6);
-  $("wtitle").textContent=`${nice(a)} → ${nice(b)}`;
-  $("thisweek").hidden=a===mondayOf();
+function renderWeek(){const inv=I(),t=invType(inv);
+  document.querySelectorAll('input[name="ptype"]').forEach(x=>x.checked=x.value===t);
+  $("plabel").textContent=t==="month"?parse(inv.start).toLocaleDateString("fr-FR",{month:"long",year:"numeric"}):PT[t].n;
+  $("wtitle").textContent=rangeText(inv.start,inv.end);
+  $("thisweek").hidden=inv.start===periodRange(t,todayIso())[0];
   $("billto").innerHTML=listOpts(state.clients,inv.billto,"Ajouter un client");$("billto").hidden=false;$("billto_new").hidden=true;
   $("site").innerHTML=listOpts(state.sites,inv.site,"Ajouter un chantier");$("site").hidden=false;$("site_new").hidden=true;
   $("invno").value=inv.invno||"";$("issue").value=inv.issue||"";$("due").value=inv.due||"";
   $("invsum").textContent=`Facture n° ${inv.invno||"?"} · émise le ${dm(inv.issue)} · échéance ${dm(inv.due)}`}
-function renderStatus(){if(!session||!P())return;$("fullbanner").hidden=!historyFull||plan.premium}
+function renderStatus(){if(!session||!P())return;const e=curEntry(),b=$("savebtn");
+  b.textContent=e?"Enregistrée ✓":"Enregistrer la facture";b.classList.toggle("primary",!e);b.classList.toggle("saved",!!e);
+  $("savestate").textContent=syncMsg||(e?"Dans ton historique. Tes changements s'enregistrent tout seuls.":hasHours(I())?"Pas encore dans ton historique.":"")}
 function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,d=parse(r.date),on=r.hours>0;
   const cols=hm?2:(up?4:3);
   const inputs=hm?`<label class="mini">Heures<select data-i="${i}" data-f="hours">${hourOpts(r.hours||0)}</select></label>`
@@ -443,12 +475,17 @@ function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,d=parse(r.d
     <div class="dtop"><span class="dname">${DAYS[d.getDay()]}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div>
     <div class="dinputs" style="--cols:${cols}">${inputs}
       <label class="mini">$/h<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate??0}"></label></div>${loc}</div>`}
-function renderDays(){$("daylist").innerHTML=I().rows.map(dayHtml).join("");I().rows.forEach((r,i)=>renderAmt(i));renderCopy()}
+function renderDays(){const inv=I(),multi=invType(inv)!=="week";let h="";
+  inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">Semaine du ${nice(mondayOf(r.date))}</div>`;h+=dayHtml(r,i)});
+  $("daylist").innerHTML=h;inv.rows.forEach((r,i)=>renderAmt(i));renderCopy()}
 function renderAmt(i){const r=I().rows[i],el=$("amt"+i);if(!el)return;
   el.textContent=r.hours>0?`${r.hours} h · $${fmt(r.hours*(r.rate||0))}`:(isWkd(r.date)?"repos":"–");$("day"+i).classList.toggle("on",r.hours>0)}
-function renderTotals(){const inv=I();$("total").textContent="$"+fmt(invTotal(inv));const h=invHours(inv);$("tothours").textContent=`${h} h cette semaine`}
-function renderCopy(){const m=I().rows.find(r=>parse(r.date).getDay()===1);
-  $("copymon").hidden=!(m&&m.hours>0)}
+function renderTotals(){const inv=I();$("total").textContent="$"+fmt(invTotal(inv));$("tothours").textContent=`${invHours(inv)} h au total`}
+const isWeekday=r=>{const g=parse(r.date).getDay();return g>=1&&g<=5};
+const mondaySrc=()=>I().rows.find(r=>parse(r.date).getDay()===1&&r.hours>0);
+function renderCopy(){const m=mondaySrc(),b=$("copymon");
+  b.hidden=!m||!I().rows.some(r=>r!==m&&isWeekday(r)&&!(r.hours>0));
+  b.textContent=invType(I())==="week"?"Copier lundi sur mar → ven":"Copier lundi sur les jours vides"}
 
 /* ---------- interactions ---------- */
 $("daylist").addEventListener("change",onDay);$("daylist").addEventListener("input",e=>{if(e.target.dataset.f==="rate")onDay(e)});
@@ -459,9 +496,13 @@ function onDay(e){const t=e.target,i=+t.dataset.i,f=t.dataset.f;if(!f)return;con
   else if(f==="loc")r.loc=t.value;
   else{r[f]=t.value;r.hours=calcHours(r)}
   renderAmt(i);renderTotals();renderCopy();renderOnboard();save()}
-$("copymon").onclick=()=>{const rows=I().rows,m=rows.find(r=>parse(r.date).getDay()===1);if(!m)return;
-  rows.forEach(r=>{const g=parse(r.date).getDay();if(g>=2&&g<=5){r.start=m.start;r.end=m.end;r.pause=m.pause;r.hours=P().mode==="hours"?m.hours:calcHours(r);if(!r.rate)r.rate=m.rate}});
-  renderDays();renderTotals();renderOnboard();save()};
+$("copymon").onclick=()=>{const m=mondaySrc();if(!m)return;
+  I().rows.forEach(r=>{if(r===m||!isWeekday(r)||r.hours>0)return;r.start=m.start;r.end=m.end;r.pause=m.pause;r.hours=P().mode==="hours"?m.hours:calcHours(r);if(!r.rate)r.rate=m.rate});
+  renderDays();renderTotals();renderOnboard();renderStatus();save()};
+$("savebtn").onclick=()=>{if(curEntry()){save();flushSave();setSave("Déjà enregistrée. Tes changements s'enregistrent tout seuls.");return}
+  if(!hasHours(I())){setSave("Mets au moins une journée avant d'enregistrer.");return}
+  if(!addToHistory()){showPremium(`La version gratuite garde ${FREE_LIMIT()} factures. Supprime-en une dans l'historique ou passe en Premium.`);return}
+  save();flushSave();setSave("Facture enregistrée dans ton historique.")};
 
 function wirePick(selId,inpId,list,key){
   $(selId).onchange=e=>{if(e.target.value==="__new"){e.target.hidden=true;const n=$(inpId);n.hidden=false;n.value="";n.focus();return}
@@ -476,13 +517,20 @@ function setPick(key,v){const inv=I(),old=inv[key];inv[key]=v;
 wirePick("billto","billto_new","clients","billto");wirePick("site","site_new","sites","site");
 ["invno","issue","due"].forEach(k=>$(k).addEventListener("change",e=>{I()[k]=e.target.value;renderWeek();save()}));
 
-function openWeek(monday){syncSaved();const p=P();
-  const found=(p.saved||[]).filter(e=>e.inv&&weekOf(e.inv)===monday).sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0))[0];
-  if(found){p.inv=clone(found.inv);p.curSaved=found.id}else{p.inv=newInv(monday);p.curSaved=null}
-  migrateInv(p.inv);historyFull=false;renderAll();save()}
-$("prevw").onclick=()=>openWeek(addDays(weekOf(I()),-7));
-$("nextw").onclick=()=>openWeek(addDays(weekOf(I()),7));
-$("thisweek").onclick=()=>openWeek(mondayOf());
+function openPeriod(type,ref){keepCurrent();syncSaved();const p=P(),[a]=periodRange(type,ref);
+  const found=(p.saved||[]).filter(e=>e.inv&&invType(e.inv)===type&&e.inv.start===a).sort((x,y)=>(y.updatedAt||0)-(x.updatedAt||0))[0];
+  if(found){p.inv=clone(found.inv);p.curSaved=found.id}else{p.inv=newInv(type,ref);p.curSaved=null}
+  p.period=type;migrateInv(p.inv);syncMsg="";renderAll();save()}
+function changeType(t){const inv=I(),p=P();if(invType(inv)===t)return;p.period=t;
+  if(!hasHours(inv)&&!curEntry()){openPeriod(t,inv.start);return}
+  const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(t,ref);
+  const lost=inv.rows.filter(r=>r.hours>0&&(r.date<a||r.date>b)).length;
+  if(lost){renderWeek();setSave(`Impossible : ${lost} jour(s) travaillé(s) sortiraient de la période. Choisis une durée plus longue ou une nouvelle facture.`);return}
+  inv.type=t;inv.start=a;inv.end=b;inv.issue=a;inv.due=b;inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg="";renderAll();save()}
+document.querySelectorAll('input[name="ptype"]').forEach(x=>x.onchange=e=>changeType(e.target.value));
+$("prevw").onclick=()=>{const inv=I(),t=invType(inv);openPeriod(t,periodShift(t,inv.start,-1))};
+$("nextw").onclick=()=>{const inv=I(),t=invType(inv);openPeriod(t,periodShift(t,inv.start,1))};
+$("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
 /* sheets */
 let sheetStack=[];
@@ -515,20 +563,24 @@ function renderLists(){[["clients","list_clients","Aucun client."],["sites","lis
     li.querySelector("span").textContent=v;li.querySelector("button").onclick=()=>{state[k].splice(i,1);renderLists();renderWeek();renderDays();save()};ul.appendChild(li)})})}
 
 /* historique */
-function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>weekOf(b.inv)<weekOf(a.inv)?-1:1),ul=$("histlist");ul.innerHTML="";
-  $("histcount").textContent=plan.premium?`${list.length} semaine(s) gardée(s)`:`${list.length} / ${FREE_LIMIT()} semaines gardées en gratuit`;
-  if(!list.length){ul.innerHTML=`<li><span class="muted">Tes semaines apparaîtront ici dès que tu mets des heures.</span></li>`;return}
-  list.forEach(e=>{const li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
-    li.innerHTML=`<button class="hinfo" type="button"><span class="hname"></span><span class="hmeta">${dmy(weekOf(e.inv))} · ${invHours(e.inv)} h · $${fmt(invTotal(e.inv))}</span></button>
-      <button class="ren" type="button">Renommer</button><button class="del" type="button" aria-label="Supprimer">×</button>`;
-    li.querySelector(".hname").textContent=e.name||defaultName(e.inv);
-    li.querySelector(".hinfo").onclick=()=>{syncSaved();p.inv=clone(e.inv);p.curSaved=e.id;migrateInv(p.inv);closeSheet();renderAll();save();flushSave()};
-    li.querySelector(".ren").onclick=ev=>{const b=ev.currentTarget;if(b.dataset.edit){return}b.dataset.edit=1;
-      const n=li.querySelector(".hname"),inp=document.createElement("input");inp.value=e.name||"";inp.maxLength=80;n.replaceWith(inp);inp.focus();b.textContent="OK";
+function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
+  $("histcount").textContent=plan.premium?`${list.length} facture(s)`:`${list.length} / ${FREE_LIMIT()} factures gardées en gratuit`;
+  if(!list.length){ul.innerHTML=`<li><span class="muted">Aucune facture enregistrée. Remplis tes heures puis touche « Enregistrer la facture ».</span></li>`;return}
+  list.forEach(e=>{const inv=e.inv,li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
+    li.innerHTML=`<button class="hopen" type="button"><span class="hrange">${rangeText(inv.start,inv.end)}</span>
+      <span class="hsub">${PT[invType(inv)].n} · n° ${esc(inv.invno||"?")}${inv.billto?" · "+esc(inv.billto):""}</span>
+      <span class="htot"><b>$${fmt(invTotal(inv))}</b> · ${invHours(inv)} h</span>${e.custom?`<span class="hname"></span>`:""}</button>
+      <div class="hact"><button class="ren" type="button">Renommer</button><button class="hdel" type="button">Supprimer</button></div>`;
+    if(e.custom)li.querySelector(".hname").textContent=e.name;
+    li.querySelector(".hopen").onclick=()=>{if(e.id!==p.curSaved)keepCurrent();syncSaved();p.inv=clone(inv);p.curSaved=e.id;p.period=invType(inv);migrateInv(p.inv);closeSheet();syncMsg="";renderAll();save();flushSave()};
+    li.querySelector(".ren").onclick=()=>{const box=li.querySelector(".hact");box.innerHTML=`<input maxlength="80" placeholder="Nom de la facture"><button class="primary" type="button">OK</button>`;
+      const inp=box.querySelector("input");inp.value=e.custom?e.name:"";inp.focus();
       const done=()=>{const v=inp.value.trim();if(v){e.name=v;e.custom=true}else{e.custom=false;e.name=defaultName(e.inv)}save();flushSave();renderHist()};
-      b.onclick=done;inp.addEventListener("keydown",k=>{if(k.key==="Enter")done()})};
-    const del=li.querySelector(".del");del.onclick=()=>{if(!del.classList.contains("warn")){del.classList.add("warn");del.textContent="Supprimer ?";return}
-      p.saved=p.saved.filter(x=>x.id!==e.id);if(p.curSaved===e.id)p.curSaved=null;historyFull=false;syncSaved();renderHist();renderStatus();save();flushSave()};
+      box.querySelector("button").onclick=done;inp.addEventListener("keydown",k=>{if(k.key==="Enter")done()})};
+    const del=li.querySelector(".hdel");del.onclick=()=>{if(!del.classList.contains("warn")){del.classList.add("warn");del.textContent="Confirmer la suppression";return}
+      p.saved=p.saved.filter(x=>x.id!==e.id);
+      if(p.curSaved===e.id){p.curSaved=null;p.inv=newInv(invType(inv),inv.start);renderAll()}
+      save();flushSave();renderHist();renderStatus()};
     ul.appendChild(li)})}
 
 /* menu + premium */
@@ -540,28 +592,30 @@ function renderMenu(){$("acctemail").textContent=session?session.email:"";
 function renderPremium(){const has=!!(PAY_MONTHLY||PAY_YEARLY);$("payrow").hidden=!has;$("paysoon").hidden=has;
   $("paymonthly").hidden=!PAY_MONTHLY;$("payyearly").hidden=!PAY_YEARLY;$("paymonthly").href=payUrl(PAY_MONTHLY);$("payyearly").href=payUrl(PAY_YEARLY)}
 function showPremium(why){$("premwhy").textContent=why||"";openSheet("p_premium")}
-$("m_premium").onclick=()=>showPremium("");$("fullprem").onclick=()=>showPremium("Garde toutes tes semaines, sans limite.");
+$("m_premium").onclick=()=>showPremium("");
 async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_my_profile");
   if(data){plan={premium:!!data.premium,period_end:data.period_end||null,free_limit:data.free_limit||3};renderTop();syncSaved();renderStatus()}}
 
 /* ---------- compte ---------- */
-function migrateInv(inv){if(!inv.site)inv.site=(inv.rows&&inv.rows[0]&&inv.rows[0].loc)||"";
+function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
   inv.rows.forEach(r=>{r.hours=+r.hours||0;r.rate=r.rate==null?0:+r.rate;if(r.desc==null)r.desc="Labour"});
-  const a=weekOf(inv);inv.weekstart=inv.weekstart||a}
+  if(!inv.start){const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();inv.start=ds[0]||mondayOf(inv.weekstart||inv.issue||todayIso());inv.end=ds[ds.length-1]||addDays(inv.start,6)}
+  if(!inv.end)inv.end=periodRange(inv.type,inv.start)[1];
+  if(!inv.site)inv.site=(inv.rows[0]&&inv.rows[0].loc)||"";
+  if(!inv.rows.some(r=>!r.date||r.date<inv.start||r.date>inv.end))inv.rows=buildRows(inv.start,inv.end,inv.site,inv.rows);
+  inv.weekstart=inv.start;return inv}
 function applyProfile(user,res){const data=(res&&res.data)||{};
   plan={premium:!!res.premium,period_end:res.period_end||null,free_limit:res.free_limit||3};
-  const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,desc:data.desc||"Labour"};
+  const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,desc:data.desc||"Labour",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
-  p.saved=Array.isArray(data.saved)?data.saved.filter(e=>e&&e.inv&&Array.isArray(e.inv.rows)):[];
-  p.saved.forEach(e=>migrateInv(e.inv));
   const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null?+data.rate:(wr?wr.rate:40);
   state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
   session={id:user.id,email:user.email};state.me=p;
-  const draft=data.inv&&Array.isArray(data.inv.rows)?data.inv:null;
+  p.saved=(Array.isArray(data.saved)?data.saved:[]).filter(e=>e&&e.inv&&Array.isArray(e.inv.rows));p.saved.forEach(e=>migrateInv(e.inv));
+  const draft=data.inv&&Array.isArray(data.inv.rows)?migrateInv(data.inv):null;
   const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
-  if(draft&&!open&&hasHours(draft)){p.inv=draft;p.curSaved=null;migrateInv(p.inv);renderAll();syncSaved();renderStatus()}
-  else{p.inv=draft?(migrateInv(draft),draft):null;p.curSaved=open?open.id:null;if(!p.inv)p.inv=newInv(mondayOf());openWeek(mondayOf())}
-  setSave("")}
+  p.inv=draft;p.curSaved=open?open.id:null;syncMsg="";
+  if(draft&&!open&&hasHours(draft)){renderAll()}else{openPeriod(p.period,todayIso())}}
 async function loadAccount(user){setSave("Chargement…");const {data,error}=await sb.rpc("get_my_profile");
   if(error){$("autherr").textContent="Impossible de charger ton compte. Recharge la page.";return false}
   applyProfile(user,data);return true}
@@ -644,7 +698,7 @@ function drawInvoice(doc){
   doc.setDrawColor(29,35,33);doc.setLineWidth(.6);doc.line(L,y+2.5,R,y+2.5);y+=9;
   doc.setFont("helvetica","normal");doc.setTextColor(29,35,33);doc.setFontSize(10);doc.setDrawColor(216,221,216);doc.setLineWidth(.2);
   let total=0;
-  inv.rows.forEach(r=>{const amt=(r.hours||0)*(r.rate||0);total+=amt;if(y>265){doc.addPage();y=24}
+  (invType(inv)==="week"?inv.rows:inv.rows.filter(r=>r.hours>0)).forEach(r=>{const amt=(r.hours||0)*(r.rate||0);total+=amt;if(y>265){doc.addPage();y=24}
     doc.text(dm(r.date),L,y);doc.text(doc.splitTextToSize(r.loc||"",48)[0]||"",38,y);doc.text(doc.splitTextToSize(r.desc||"",36)[0]||"",88,y);
     doc.text(String(r.hours||0),135,y,{align:"right"});doc.text(fmt(r.hours?(r.rate||0):0),163,y,{align:"right"});doc.text(fmt(amt),R,y,{align:"right"});
     doc.line(L,y+3,R,y+3);y+=8.5});
@@ -656,9 +710,9 @@ $("pdfbtn").onclick=()=>{const msg=$("pdfmsg");msg.textContent="";
   if(!I().billto){msg.textContent="Choisis d'abord ton client.";$("billto").focus();return}
   if(!hasHours(I())){msg.textContent="Mets au moins une journée de travail.";return}
   if(!window.jspdf){msg.textContent="Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge.";return}
-  const p=P(),inv=I(),a=weekOf(inv),b=addDays(a,6);
+  const p=P(),inv=I(),a=inv.start,b=inv.end;
   const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
-  const name=`Weekly Invoice${who?" "+who:""} ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
+  const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
   try{const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:"mm",format:"a4"});drawInvoice(doc);
     const u=URL.createObjectURL(new Blob([doc.output("arraybuffer")],{type:"application/pdf"}));
     const l=document.createElement("a");l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),15000);
