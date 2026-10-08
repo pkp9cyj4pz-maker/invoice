@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en-AU">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -8,11 +8,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SubbieBill">
 <meta name="theme-color" content="#15201B">
-<title>SubbieBill</title>
-<meta name="description" content="La facture des sous-traitants sous ABN en Australie. Note tes heures, SubbieBill calcule et crée une facture PDF prête à envoyer.">
+<title>SubbieBill · Invoicing for ABN subcontractors</title>
+<meta name="description" content="Invoicing for ABN subcontractors in Australia. Enter your hours and SubbieBill creates a professional PDF invoice with your ABN, BSB and AUD total.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SubbieBill · Tes heures de chantier, ta facture en 30 secondes">
-<meta property="og:description" content="Pour les subbies sous ABN en Australie. Début, fin, et ta facture PDF avec ABN, BSB et total en AUD.">
+<meta property="og:title" content="SubbieBill · Hours in. Invoice out. In 30 seconds.">
+<meta property="og:description" content="Invoicing for ABN subbies in Australia. Start, finish, and a PDF invoice with your ABN, BSB and total in AUD.">
 <meta property="og:image" content="https://pkp9cyj4pz-maker.github.io/invoice/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+">
@@ -257,7 +257,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .hsub{font-size:.86rem;color:var(--muted)}
 .htot{font-family:var(--mono);font-size:.95rem}
 .hname{font-size:.86rem;font-style:italic;color:var(--muted)}
-.hist li.cur .hrange::after{content:" · ouverte";font-family:var(--body);font-size:.8rem;color:var(--accent);font-weight:700}
+.hist li.cur .hrange::after{font-family:var(--body);font-size:.8rem;color:var(--accent);font-weight:700}
 .hact{display:flex;gap:8px;align-items:center}
 .hact input{flex:1}
 .hact button{padding:7px 12px;font-size:.86rem;min-height:40px}
@@ -290,6 +290,46 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .key:active{background:color-mix(in srgb,var(--ink) 26%,transparent)}
 .key.ghost{background:none;font-size:.95rem;font-weight:600}
 @media (prefers-reduced-motion:reduce){.dots.shake{animation:none}*{scroll-behavior:auto!important}}
+
+/* ---- v6: language picker, sticky CTA, small fixes ---- */
+.topl{display:flex;align-items:center;gap:8px}
+.langpick{position:relative}
+.langbtn{display:flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 10px;min-height:40px;font-size:.88rem;font-weight:700;letter-spacing:.04em}
+.langbtn svg{color:var(--muted)}
+.langpop{position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:170px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 30px -12px color-mix(in srgb,var(--ink) 40%,transparent);display:flex;flex-direction:column;gap:2px}
+.langpop button{border:none;background:transparent;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;min-height:44px;font-weight:600}
+.langpop button[aria-checked="true"]{background:var(--field)}
+.langpop b{color:var(--green)}
+.langrow{display:flex;flex-direction:column;gap:6px;padding:4px 0 6px}
+.flabel{font-weight:700;font-size:.84rem;margin-top:8px;color:var(--muted)}
+.menu .item b{font-weight:700}
+.hist li.cur .hrange::after{content:" · " attr(data-open)}
+.lstick{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.lstick button{width:100%;min-height:54px;font-size:1.02rem;border-radius:12px}
+@media (min-width:900px){.lstick{display:none!important}}
+@media (max-width:360px){.langbtn{padding:7px 8px}.langbtn svg{display:none}}
+.mini select,.dinp select{font-family:var(--body);font-variant-numeric:tabular-nums;padding-right:4px}
+@media (max-width:430px){#planbadge{display:none}}
+
+/* ---- v6: language picker, sticky CTA, small fixes ---- */
+.topl{display:flex;align-items:center;gap:8px}
+.langpick{position:relative}
+.langbtn{display:flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 10px;min-height:40px;font-size:.88rem;font-weight:700;letter-spacing:.04em}
+.langbtn svg{color:var(--muted)}
+.langpop{position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:170px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 30px -12px color-mix(in srgb,var(--ink) 40%,transparent);display:flex;flex-direction:column;gap:2px}
+.langpop button{border:none;background:transparent;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;min-height:44px;font-weight:600}
+.langpop button[aria-checked="true"]{background:var(--field)}
+.langpop b{color:var(--green)}
+.langrow{display:flex;flex-direction:column;gap:6px;padding:4px 0 6px}
+.flabel{font-weight:700;font-size:.84rem;margin-top:8px;color:var(--muted)}
+.menu .item b{font-weight:700}
+.hist li.cur .hrange::after{content:" · " attr(data-open)}
+.lstick{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.lstick button{width:100%;min-height:54px;font-size:1.02rem;border-radius:12px}
+@media (min-width:900px){.lstick{display:none!important}}
+@media (max-width:360px){.langbtn{padding:7px 8px}.langbtn svg{display:none}}
+.mini select,.dinp select{font-family:var(--body);font-variant-numeric:tabular-nums;padding-right:4px}
+@media (max-width:430px){#planbadge{display:none}}
 </style>
 </head>
 <body>
@@ -300,272 +340,289 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
     <p id="pinsub" class="pinsub" role="status"></p>
     <div class="dots" id="pindots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="pad" id="pinpad"></div>
-    <button id="pincancel" class="linkbtn" type="button">Annuler</button>
+    <button id="pincancel" class="linkbtn" type="button" data-i18n="pin.cancel">Cancel</button>
   </div>
 </div>
 
 <div id="sheetov" class="ov" hidden>
   <div class="sheetbox" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
-    <div class="sheethead"><h2 id="sheettitle"></h2><button id="sheetclose" type="button">Fermer</button></div>
+    <div class="sheethead"><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
 
-    <section id="p_menu" class="menu" hidden data-title="Menu">
+    <section id="p_menu" class="menu" hidden data-i18n-title="m.title">
       <div class="acctbox">
-        <span class="lbl">Compte</span><strong id="acctemail"></strong>
+        <span class="lbl" data-i18n="m.account">Account</span><strong id="acctemail"></strong>
         <span id="acctplan" class="muted"></span>
-        <button class="primary" id="m_premium" type="button">Passer en Premium</button>
-        <a id="m_manage" class="btnlink" href="#" rel="noopener" hidden>Gérer mon abonnement</a>
+        <button class="primary" id="m_premium" type="button" data-i18n="m.premium">Upgrade to Premium</button>
+        <a id="m_manage" class="btnlink" href="#" rel="noopener" hidden data-i18n="m.manage">Manage my subscription</a>
       </div>
-      <button class="item" type="button" data-open="p_infos">Mes infos <span>nom, ABN, banque</span></button>
-      <button class="item" type="button" data-open="p_settings">Réglages <span>taux, saisie</span></button>
-      <button class="item" type="button" data-open="p_lists">Clients et chantiers <span>gérer les listes</span></button>
-      <button class="item" type="button" data-open="p_import">Importer mon ancien profil <span>code à 4 chiffres</span></button>
-      <button class="item" type="button" id="logout">Se déconnecter</button>
+      <div class="langrow">
+        <span class="lbl" id="langseg_lbl" data-i18n="lang.label">Language</span>
+        <div class="seg" id="langseg" role="radiogroup" aria-labelledby="langseg_lbl"></div>
+      </div>
+      <button class="item" type="button" data-open="p_infos"><b data-i18n="m.infos">My details</b> <span data-i18n="m.infos_sub">name, ABN, bank</span></button>
+      <button class="item" type="button" data-open="p_settings"><b data-i18n="m.settings">Settings</b> <span data-i18n="m.settings_sub">rates, time entry</span></button>
+      <button class="item" type="button" data-open="p_lists"><b data-i18n="m.lists">Clients and sites</b> <span data-i18n="m.lists_sub">manage your lists</span></button>
+      <button class="item" type="button" data-open="p_import"><b data-i18n="m.import">Import my old profile</b> <span data-i18n="m.import_sub">4-digit code</span></button>
+      <button class="item" type="button" id="logout"><b data-i18n="m.logout">Log out</b></button>
     </section>
 
-    <section id="p_infos" class="form" hidden data-title="Mes infos">
-      <p class="muted" style="margin:0">À remplir une seule fois. Elles apparaissent en haut de chaque facture.</p>
-      <label for="me_name">Nom et prénom</label><input id="me_name" autocomplete="name">
-      <label for="me_abn">ABN</label><input id="me_abn" inputmode="numeric" class="mono" placeholder="11 chiffres">
-      <label for="me_email">Email</label><input id="me_email" type="email" autocomplete="email">
-      <label for="me_phone">Téléphone</label><input id="me_phone" type="tel" autocomplete="tel" class="mono">
-      <label for="me_addr">Adresse</label><input id="me_addr" autocomplete="street-address">
-      <label for="me_bsb">BSB</label><input id="me_bsb" inputmode="numeric" class="mono" placeholder="000-000">
-      <label for="me_acc">Account number</label><input id="me_acc" inputmode="numeric" class="mono">
-      <button class="primary" type="button" data-close>C'est bon</button>
+    <section id="p_infos" class="form" hidden data-i18n-title="i.title">
+      <p class="muted" style="margin:0" data-i18n="i.intro">Fill these in once.</p>
+      <label for="me_name" data-i18n="i.name">Full name</label><input id="me_name" autocomplete="name">
+      <label for="me_abn" data-i18n="i.abn">ABN</label><input id="me_abn" inputmode="numeric" class="mono" data-i18n-ph="i.abn_ph">
+      <label for="me_email" data-i18n="i.email">Email</label><input id="me_email" type="email" autocomplete="email">
+      <label for="me_phone" data-i18n="i.phone">Phone</label><input id="me_phone" type="tel" autocomplete="tel" class="mono">
+      <label for="me_addr" data-i18n="i.addr">Address</label><input id="me_addr" autocomplete="street-address">
+      <label for="me_bsb" data-i18n="i.bsb">BSB</label><input id="me_bsb" inputmode="numeric" class="mono" placeholder="000-000">
+      <label for="me_acc" data-i18n="i.acc">Account number</label><input id="me_acc" inputmode="numeric" class="mono">
+      <button class="primary" type="button" data-close data-i18n="i.ok">Done</button>
     </section>
 
-    <section id="p_settings" hidden data-title="Réglages">
+    <section id="p_settings" hidden data-i18n-title="s.title">
       <div class="form">
-        <label>Comment tu saisis tes heures</label>
-        <div class="seg" role="radiogroup">
-          <label><input type="radio" name="mode" id="mode_times" value="times"> Début et fin</label>
-          <label><input type="radio" name="mode" id="mode_hours" value="hours"> Nombre d'heures</label>
+        <span class="flabel" id="mode_lbl" data-i18n="s.mode">How you enter your hours</span>
+        <div class="seg" role="radiogroup" aria-labelledby="mode_lbl">
+          <label><input type="radio" name="mode" id="mode_times" value="times"> <span data-i18n="s.times">Start and finish</span></label>
+          <label><input type="radio" name="mode" id="mode_hours" value="hours"> <span data-i18n="s.hours">Number of hours</span></label>
         </div>
-        <label class="chk" id="unpaidwrap"><input type="checkbox" id="unpaid"> J'ai une pause non payée</label>
-        <label for="defrate">Taux horaire en semaine ($/h)</label><input id="defrate" type="number" inputmode="decimal" min="0" step="0.5" class="mono">
-        <label for="defdesc">Description sur la facture</label><input id="defdesc" placeholder="Labour">
-        <p class="note">Le samedi et le dimanche partent à 0 $/h. Si tu travailles le week-end, mets le taux directement sur le jour.</p>
-        <button class="primary" type="button" data-close>OK</button>
+        <label class="chk" id="unpaidwrap"><input type="checkbox" id="unpaid"> <span data-i18n="s.unpaid">I take an unpaid break</span></label>
+        <label for="defrate" data-i18n="s.rate">Weekday hourly rate ($/h)</label><input id="defrate" type="number" inputmode="decimal" min="0" step="0.5" class="mono">
+        <label for="defdesc" data-i18n="s.desc">Description on the invoice</label><input id="defdesc" placeholder="Labour">
+        <p class="note" data-i18n="s.note">Saturday and Sunday start at $0/h.</p>
+        <button class="primary" type="button" data-close data-i18n="s.ok">OK</button>
       </div>
     </section>
 
-    <section id="p_lists" class="lists" hidden data-title="Clients et chantiers">
-      <h3>Clients</h3><ul id="list_clients"></ul>
-      <h3>Chantiers</h3><ul id="list_sites"></ul>
-      <p class="note">Pour en ajouter, choisis « + Ajouter » dans la liste Client ou Chantier.</p>
+    <section id="p_lists" class="lists" hidden data-i18n-title="l.title">
+      <h3 data-i18n="l.clients">Clients</h3><ul id="list_clients"></ul>
+      <h3 data-i18n="l.sites">Sites</h3><ul id="list_sites"></ul>
+      <p class="note" data-i18n="l.note">To add one, choose “+ Add” in the Client or Site list.</p>
     </section>
 
-    <section id="p_import" class="form" hidden data-title="Ancien profil">
-      <p class="muted" style="margin:0">Récupère les infos et factures de l'ancienne version, celle avec le code à 4 chiffres.</p>
-      <label for="importsel">Ton ancien profil</label>
-      <select id="importsel"><option value="">Chargement…</option></select>
-      <button class="primary" id="importbtn" type="button">Importer</button>
+    <section id="p_import" class="form" hidden data-i18n-title="im.title">
+      <p class="muted" style="margin:0" data-i18n="im.intro">Bring over your old profile.</p>
+      <label for="importsel" data-i18n="im.label">Your old profile</label>
+      <select id="importsel"><option value="" data-i18n="im.loading">Loading…</option></select>
+      <button class="primary" id="importbtn" type="button" data-i18n="im.btn">Import</button>
       <p id="importmsg" class="err" role="status"></p>
     </section>
 
-    <section id="p_hist" hidden data-title="Historique">
+    <section id="p_hist" hidden data-i18n-title="h.title">
       <p id="histcount" class="muted" style="margin:0 0 4px"></p>
       <ul id="histlist" class="hist"></ul>
     </section>
 
-    <section id="p_premium" class="premium" hidden data-title="Premium">
+    <section id="p_premium" class="premium" hidden data-i18n-title="p.title">
       <p id="premwhy" class="why2"></p>
       <ul class="feat" style="margin-bottom:16px">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Toutes tes factures gardées, sans limite</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Les nouvelles fonctions en premier</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Annulable à tout moment, tes factures restent à toi</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1">All your invoices kept, no limit</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2">New features first</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f3">Cancel anytime</span></li>
       </ul>
       <div class="form" id="payrow">
-        <a id="payyearly" class="btnlink primary" href="#" rel="noopener">39 $ par an · 2 mois offerts</a>
-        <a id="paymonthly" class="btnlink" href="#" rel="noopener">4,99 $ par mois</a>
+        <a id="payyearly" class="btnlink primary" href="#" rel="noopener" data-i18n="p.yearly">$39 a year</a>
+        <a id="paymonthly" class="btnlink" href="#" rel="noopener" data-i18n="p.monthly">$4.99 a month</a>
       </div>
-      <p id="paysoon" class="note">Le paiement en ligne arrive très bientôt.</p>
-      <p class="note">Paiement sécurisé par Stripe. Ton compte passe en Premium tout seul juste après.</p>
+      <p id="paysoon" class="note" data-i18n="p.soon">Online payment is coming very soon.</p>
+      <p class="note" data-i18n="p.secure">Secure payment by Stripe.</p>
     </section>
   </div>
 </div>
 
 <header class="top" style="padding-top:12px">
-  <a class="brand" href="#" aria-label="SubbieBill, accueil"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="30" height="30"><span>SubbieBill</span></a>
+  <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="30" height="30"><span>SubbieBill</span></a>
   <div class="topr" id="topr" hidden>
-    <span id="planbadge" class="badge">Gratuit</span>
-    <button id="btn_hist" type="button">Historique</button>
-    <button id="btn_menu" type="button">Menu</button>
+    <span id="planbadge" class="badge"></span>
+    <button id="btn_hist" type="button" data-i18n="top.history">History</button>
+    <button id="btn_menu" type="button" data-i18n="top.menu">Menu</button>
   </div>
-  <button id="btn_login" class="ghostbtn" type="button">Se connecter</button>
+  <div class="topl" id="topl">
+    <div class="langpick">
+      <button id="langbtn" class="langbtn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="langpop">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+        <span id="langbtn_t">EN</span>
+      </button>
+      <div id="langpop" class="langpop" hidden role="menu"></div>
+    </div>
+    <button id="btn_login" class="ghostbtn" type="button" data-i18n="nav.login">Log in</button>
+  </div>
 </header>
 
 <div id="landing" class="landing">
   <section class="hero">
     <div>
-      <h1>Tes heures de chantier. Ta facture. En 30 secondes.</h1>
-      <p class="lede">La facture des subbies sous ABN en Australie. Tu notes ton début et ta fin, SubbieBill calcule tout et crée une facture PDF pro, prête à envoyer à l'entreprise.</p>
-      <button class="primary cta-main" type="button" data-auth="signup">Créer ma première facture</button>
-      <p class="cta-note">Gratuit. Sans carte bancaire.</p>
-      <ul class="proof" aria-label="Fait pour l'Australie">
-        <li><b>ABN</b> sur chaque facture</li>
-        <li><b>BSB</b> et numéro de compte</li>
-        <li><b>AUD</b> calculé au cent près</li>
-        <li>Semaine, quinzaine ou mois</li>
+      <h1 data-i18n="hero.title">Hours in. Invoice out. In 30 seconds.</h1>
+      <p class="lede" data-i18n="hero.lede">Invoicing built for ABN subcontractors in Australia.</p>
+      <button class="primary cta-main" id="herocta" type="button" data-auth="signup" data-i18n="hero.cta">Create my first invoice</button>
+      <p class="cta-note" data-i18n="hero.note">Free. No credit card needed.</p>
+      <ul class="proof" data-i18n-aria="proof.aria" aria-label="Built for Australia">
+        <li><b>ABN</b> <span data-i18n="proof.abn">on every invoice</span></li>
+        <li><b>BSB</b> <span data-i18n="proof.bsb">and account number</span></li>
+        <li><b>AUD</b> <span data-i18n="proof.aud">to the cent</span></li>
+        <li><span data-i18n="proof.periods">Weekly, fortnightly or monthly</span></li>
       </ul>
     </div>
 
     <section class="demo" aria-labelledby="demo_t">
       <div class="tape" aria-hidden="true"></div>
       <div class="demoin">
-        <h2 id="demo_t">Fais le test</h2>
-        <p class="sub">Change tes heures, la facture se remplit toute seule.</p>
-        <ol class="flow" aria-hidden="true"><li class="on">Heures</li><li class="on">Calcul</li><li class="on">Facture</li></ol>
+        <h2 id="demo_t" data-i18n="demo.title">Try it now</h2>
+        <p class="sub" data-i18n="demo.sub">Change the hours and watch the invoice fill itself in.</p>
+        <ol class="flow" aria-hidden="true"><li class="on" data-i18n="demo.s1">Hours</li><li class="on" data-i18n="demo.s2">Maths</li><li class="on" data-i18n="demo.s3">Invoice</li></ol>
         <div class="dinp">
-          <label>Début<select id="demo_start"></select></label>
-          <label>Fin<select id="demo_end"></select></label>
-          <label>Taux $/h<input id="demo_rate" type="number" inputmode="decimal" min="0" step="0.5" value="40"></label>
+          <label><span data-i18n="demo.start">Start</span><select id="demo_start"></select></label>
+          <label><span data-i18n="demo.end">Finish</span><select id="demo_end"></select></label>
+          <label><span data-i18n="demo.rate">Rate $/h</span><input id="demo_rate" type="number" inputmode="decimal" min="0" step="0.5" value="40"></label>
         </div>
         <div class="calc" aria-live="polite"><span id="demo_calc"></span><b id="demo_day"></b></div>
-        <div class="paper" aria-label="Aperçu de facture d'exemple">
-          <span class="sample" aria-hidden="true">EXEMPLE</span>
+        <div class="paper" data-i18n-aria="demo.aria" aria-label="Sample invoice preview">
+          <span class="sample" aria-hidden="true" data-i18n="demo.sample">SAMPLE</span>
           <div class="ph">
-            <div class="who"><b>Ton nom</b><span>ABN 00 000 000 000</span></div>
-            <div class="pmeta"><div class="ttl">INVOICE</div><span>No. 1</span><span id="demo_period"></span></div>
+            <div class="who"><b data-i18n="demo.name">Your name</b><span>ABN 00 000 000 000</span></div>
+            <div class="pmeta"><div class="ttl" data-i18n-inv="pdf.invoice">INVOICE</div><span id="demo_no"></span><span id="demo_period"></span></div>
           </div>
-          <div class="pboxes"><div><small>BILL TO</small>Ton client Pty Ltd</div><div><small>PAYMENT</small>BSB 000-000</div></div>
-          <table class="ptab"><thead><tr><th>Date</th><th class="n">Hours</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead><tbody id="demo_rows"></tbody></table>
-          <div class="ptot"><div><span>TOTAL AUD</span><b id="demo_week"></b></div></div>
-          <p class="pnote">No GST has been charged.</p>
+          <div class="pboxes"><div><small data-i18n-inv="pdf.billto">BILL TO</small><span data-i18n="demo.client">Your client Pty Ltd</span></div><div><small data-i18n-inv="pdf.payment_short">PAYMENT</small>BSB 000-000</div></div>
+          <table class="ptab"><thead><tr><th data-i18n-inv="pdf.date">Date</th><th class="n" data-i18n-inv="pdf.hours">Hours</th><th class="n" data-i18n-inv="pdf.rate">Rate</th><th class="n" data-i18n-inv="pdf.amount">Amount</th></tr></thead><tbody id="demo_rows"></tbody></table>
+          <div class="ptot"><div><span data-i18n-inv="pdf.total_short">TOTAL AUD</span><b id="demo_week"></b></div></div>
+          <p class="pnote" data-i18n-inv="pdf.nogst">No GST has been charged.</p>
         </div>
-        <button class="primary cta-main" type="button" data-auth="signup">Créer ma vraie facture</button>
+        <button class="primary cta-main" type="button" data-auth="signup" data-i18n="demo.cta">Create my real invoice</button>
       </div>
     </section>
   </section>
 
   <section class="sec" aria-labelledby="how_t">
-    <h2 id="how_t">Trois étapes, une seule fois de la paperasse</h2>
+    <h2 id="how_t" data-i18n="how.title">Three steps. Paperwork done once.</h2>
     <ol class="how">
-      <li><b>Tes infos, une seule fois</b><span>Nom, ABN, BSB et numéro de compte. Ils apparaissent sur chaque facture.</span></li>
-      <li><b>Tes heures</b><span>Début et fin chaque jour. Remplis lundi, copie-le sur la semaine.</span></li>
-      <li><b>Ton PDF</b><span>Une facture propre, prête à envoyer à l'entreprise.</span></li>
+      <li><b data-i18n="how.1t">Your details, once</b><span data-i18n="how.1d"></span></li>
+      <li><b data-i18n="how.2t">Your hours</b><span data-i18n="how.2d"></span></li>
+      <li><b data-i18n="how.3t">Your PDF</b><span data-i18n="how.3d"></span></li>
     </ol>
   </section>
 
   <section class="sec" aria-labelledby="why_t">
-    <h2 id="why_t">Fait pour les subbies, pas pour les comptables</h2>
+    <h2 id="why_t" data-i18n="why.title">Built for subbies, not accountants</h2>
     <div class="why">
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b>Payé à l'heure ? C'est pour toi.</b><span>Pas de devis ni de stock. Tes heures, ton taux, ton client.</span></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h2M13 11h2M9 15h2M13 15h2"/></svg><b>Aucune erreur de calcul</b><span>Heures, montants et total se calculent seuls, taux du week-end compris.</span></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><b>Semaine, quinzaine ou mois</b><span>Tu factures au rythme où l'entreprise te paie.</span></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg><b>Rempli au fil des jours</b><span>Ta facture reste enregistrée. Tu la complètes à la pause.</span></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><b>Tout ton historique</b><span>Chaque facture se retrouve en deux touches, pratique pour l'ATO.</span></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><b>Sur ton iPhone, au chantier</b><span>Rien à installer. Ajoute SubbieBill à ton écran d'accueil.</span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><b data-i18n="why.1t"></b><span data-i18n="why.1d"></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7h6M9 11h2M13 11h2M9 15h2M13 15h2"/></svg><b data-i18n="why.2t"></b><span data-i18n="why.2d"></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><b data-i18n="why.3t"></b><span data-i18n="why.3d"></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4 10-10"/></svg><b data-i18n="why.4t"></b><span data-i18n="why.4d"></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><b data-i18n="why.5t"></b><span data-i18n="why.5d"></span></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><b data-i18n="why.6t"></b><span data-i18n="why.6d"></span></div>
     </div>
   </section>
 
   <section class="sec" aria-labelledby="price_t">
-    <h2 id="price_t">Gratuit pour commencer. Premium quand tu factures chaque semaine.</h2>
+    <h2 id="price_t" data-i18n="price.title">Free to start. Premium when you invoice every week.</h2>
     <div class="plans">
       <div class="plan">
-        <h3>Gratuit</h3>
-        <p class="price">0 $</p>
+        <h3 data-i18n="price.free">Free</h3>
+        <p class="price" data-i18n="price.free_amt">$0</p>
         <ul class="feat">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Factures et PDF illimités</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Semaine, quinzaine ou mois</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Clients et chantiers enregistrés</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>3 factures gardées dans l'historique</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.f1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.f2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.f3"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.f4"></span></li>
         </ul>
-        <button type="button" data-auth="signup">Commencer gratuitement</button>
+        <button type="button" data-auth="signup" data-i18n="price.free_cta">Start for free</button>
       </div>
       <div class="plan pro">
-        <h3>Premium <span class="tag">2 mois offerts à l'année</span></h3>
-        <p class="price">39 $<small> / an</small></p>
-        <p class="alt">ou 4,99 $ par mois</p>
+        <h3><span data-i18n="price.pro">Premium</span> <span class="tag" data-i18n="price.pro_tag"></span></h3>
+        <p class="price"><span data-i18n="price.pro_amt">$39</span><small data-i18n="price.pro_per"> / year</small></p>
+        <p class="alt" data-i18n="price.pro_alt">or $4.99 a month</p>
         <ul class="feat">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Tout le gratuit</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Historique illimité, toute l'année pour l'ATO</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Les nouvelles fonctions en premier</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span>Annulable à tout moment</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p1"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p2"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p3"></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p4"></span></li>
         </ul>
-        <button type="button" data-auth="signup">Commencer, puis passer Premium</button>
+        <button type="button" data-auth="signup" data-i18n="price.pro_cta">Start free, upgrade anytime</button>
       </div>
     </div>
-    <p class="fine">Prix en dollars australiens. Si tu arrêtes Premium, tu repasses en gratuit et tu gardes toutes tes factures.</p>
+    <p class="fine" data-i18n="price.fine"></p>
   </section>
 
   <section class="sec faq" aria-labelledby="faq_t">
-    <h2 id="faq_t">Questions fréquentes</h2>
-    <details><summary>Qu'y a-t-il sur la facture ?</summary><p>Ton nom, ton ABN, tes coordonnées, ton BSB et ton numéro de compte, l'entreprise à facturer, le numéro de facture, les dates, le détail des heures jour par jour et le total en AUD.</p></details>
-    <details><summary>Et la GST ?</summary><p>SubbieBill est fait pour les sous-traitants non inscrits à la GST, ce qui est le cas de la plupart de ceux qui facturent moins de 75&nbsp;000&nbsp;$ par an. La facture porte la mention « No GST has been charged ». La gestion de la GST arrive bientôt.</p></details>
-    <details><summary>Qui peut voir mes infos bancaires ?</summary><p>Toi seul. Tes infos sont liées à ton compte et protégées par ton mot de passe. Elles circulent de façon chiffrée et n'apparaissent que sur les factures que tu télécharges.</p></details>
-    <details><summary>Je peux arrêter Premium ?</summary><p>Oui, quand tu veux. Tu repasses en gratuit et toutes tes factures restent sur ton compte.</p></details>
+    <h2 id="faq_t" data-i18n="faq.title">Common questions</h2>
+    <details><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
+    <details><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
+    <details><summary data-i18n="faq.q3"></summary><p data-i18n="faq.a3"></p></details>
+    <details><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
   </section>
 
   <section id="auth" class="card auth">
-    <h2 id="authtitle">Crée ton compte gratuit</h2>
+    <h2 id="authtitle"></h2>
     <div class="tabs" role="tablist">
-      <button id="tab_signup" type="button" role="tab">Créer un compte</button>
-      <button id="tab_login" type="button" role="tab">Se connecter</button>
+      <button id="tab_signup" type="button" role="tab" data-i18n="auth.tab_signup">Sign up</button>
+      <button id="tab_login" type="button" role="tab" data-i18n="auth.tab_login">Log in</button>
     </div>
     <form id="authform" class="form" novalidate>
-      <label for="authemail">Email</label>
-      <input id="authemail" type="email" autocomplete="email" inputmode="email" placeholder="toi@exemple.com">
-      <label for="authpass">Mot de passe</label>
-      <input id="authpass" type="password" autocomplete="current-password" placeholder="8 caractères minimum">
-      <div id="authpass2wrap" class="form" hidden><label for="authpass2">Confirme le mot de passe</label>
+      <label for="authemail" data-i18n="auth.email">Email</label>
+      <input id="authemail" type="email" autocomplete="email" inputmode="email" data-i18n-ph="auth.email_ph">
+      <label for="authpass" data-i18n="auth.pass">Password</label>
+      <input id="authpass" type="password" autocomplete="current-password" data-i18n-ph="auth.pass_ph">
+      <div id="authpass2wrap" class="form" hidden><label for="authpass2" data-i18n="auth.pass2">Confirm password</label>
       <input id="authpass2" type="password" autocomplete="new-password"></div>
-      <button class="primary" id="authsubmit" type="submit">Se connecter</button>
+      <button class="primary" id="authsubmit" type="submit"></button>
       <p id="autherr" class="err" role="alert"></p>
-      <button id="authforgot" class="linkbtn" type="button" style="align-self:flex-start">Mot de passe oublié ?</button>
+      <button id="authforgot" class="linkbtn" type="button" style="align-self:flex-start" data-i18n="auth.forgot">Forgot your password?</button>
     </form>
   </section>
 
   <footer class="foot">
     <div class="footbrand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="22" height="22"><span>SubbieBill</span></div>
-    <p>La facture des sous-traitants sous ABN en Australie.</p>
-    <p>Une question ? <span class="sel">Thomas.spychiger.pro@gmail.com</span></p>
+    <p data-i18n="foot.tag">Invoicing for ABN subcontractors in Australia.</p>
+    <p><span data-i18n="foot.q">Questions?</span> <span class="sel">Thomas.spychiger.pro@gmail.com</span></p>
   </footer>
+</div>
+
+<div class="lstick" id="lstick" hidden>
+  <button class="primary" type="button" data-auth="signup" data-i18n="hero.cta">Create my first invoice</button>
 </div>
 
 <div class="wrap">
   <main id="app" class="wrap" style="padding:0" hidden>
     <section id="onboard" class="card onboard" hidden>
-      <h2>Bienvenue sur SubbieBill</h2>
-      <p class="muted" style="margin:0">Trois étapes et ta première facture est prête.</p>
+      <h2 data-i18n="onb.title">Welcome to SubbieBill</h2>
+      <p class="muted" style="margin:0" data-i18n="onb.sub">Three steps and your first invoice is ready.</p>
       <ol class="steps">
-        <li id="st1"><span class="dot">1</span><span>Tes infos (une seule fois)</span><button type="button" data-open="p_infos">Remplir</button></li>
-        <li id="st2"><span class="dot">2</span><span>Ton client et ton chantier</span></li>
-        <li id="st3"><span class="dot">3</span><span>Tes heures</span></li>
+        <li id="st1"><span class="dot">1</span><span data-i18n="onb.s1">Your details (just once)</span><button type="button" data-open="p_infos" data-i18n="onb.fill">Fill in</button></li>
+        <li id="st2"><span class="dot">2</span><span data-i18n="onb.s2">Your client and site</span></li>
+        <li id="st3"><span class="dot">3</span><span data-i18n="onb.s3">Your hours</span></li>
       </ol>
     </section>
 
     <section class="card ctx">
-      <div class="seg" role="radiogroup" aria-label="Durée de la facture">
-        <label><input type="radio" name="ptype" value="week"> Semaine</label>
-        <label><input type="radio" name="ptype" value="fortnight"> 2 semaines</label>
-        <label><input type="radio" name="ptype" value="month"> Mois</label>
+      <div class="seg" role="radiogroup" data-i18n-aria="per.aria" aria-label="Invoice period">
+        <label><input type="radio" name="ptype" value="week"> <span data-i18n="per.week">Week</span></label>
+        <label><input type="radio" name="ptype" value="fortnight"> <span data-i18n="per.fortnight">Fortnight</span></label>
+        <label><input type="radio" name="ptype" value="month"> <span data-i18n="per.month">Month</span></label>
       </div>
       <div class="weeknav">
-        <button class="arrow" id="prevw" type="button" aria-label="Période précédente">‹</button>
+        <button class="arrow" id="prevw" type="button" data-i18n-aria="nav.prev" aria-label="Previous period">‹</button>
         <div class="wlabel"><span class="lbl" id="plabel"></span><strong id="wtitle"></strong></div>
-        <button class="arrow" id="nextw" type="button" aria-label="Période suivante">›</button>
+        <button class="arrow" id="nextw" type="button" data-i18n-aria="nav.next" aria-label="Next period">›</button>
       </div>
-      <div class="center"><button id="thisweek" class="linkbtn" type="button" hidden>Revenir à aujourd'hui</button></div>
+      <div class="center"><button id="thisweek" class="linkbtn" type="button" hidden data-i18n="nav.today">Back to today</button></div>
       <div class="fields">
-        <div class="field"><label for="billto">Client</label><select id="billto"></select><input id="billto_new" placeholder="Nom de l'entreprise" hidden></div>
-        <div class="field"><label for="site">Chantier</label><select id="site"></select><input id="site_new" placeholder="Adresse du chantier" hidden></div>
+        <div class="field"><label for="billto" data-i18n="ctx.client">Client</label><select id="billto"></select><input id="billto_new" data-i18n-ph="ctx.client_ph" hidden></div>
+        <div class="field"><label for="site" data-i18n="ctx.site">Site</label><select id="site"></select><input id="site_new" data-i18n-ph="ctx.site_ph" hidden></div>
       </div>
       <details class="invmeta">
         <summary id="invsum"></summary>
         <div class="fields">
-          <div class="field"><label for="invno">N° facture</label><input id="invno" type="number" inputmode="numeric" min="1" class="mono"></div>
-          <div class="field"><label for="issue">Émise le</label><input id="issue" type="date"></div>
-          <div class="field"><label for="due">Échéance</label><input id="due" type="date"></div>
+          <div class="field"><label for="invno" data-i18n="meta.no">Invoice no.</label><input id="invno" type="number" inputmode="numeric" min="1" class="mono"></div>
+          <div class="field"><label for="issue" data-i18n="meta.issue">Issued</label><input id="issue" type="date"></div>
+          <div class="field"><label for="due" data-i18n="meta.due">Due</label><input id="due" type="date"></div>
         </div>
       </details>
-      <div class="saverow"><button class="primary" id="savebtn" type="button">Enregistrer la facture</button></div>
+      <div class="saverow"><button class="primary" id="savebtn" type="button"></button></div>
       <p id="savestate" class="savestate" role="status"></p>
     </section>
 
     <div class="dayshead">
-      <h2>Tes heures</h2>
-      <button id="copymon" class="linkbtn" type="button" hidden>Copier lundi sur mar → ven</button>
+      <h2 data-i18n="days.title">Your hours</h2>
+      <button id="copymon" class="linkbtn" type="button" hidden></button>
     </div>
     <div id="daylist" class="daylist"></div>
   </main>
@@ -573,8 +630,8 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 
 <div class="bottombar" id="bottombar" hidden>
   <div class="bbin">
-    <div class="tot"><strong id="total">$0.00</strong><span id="tothours">0 h</span></div>
-    <button class="primary big" id="pdfbtn" type="button">Télécharger le PDF</button>
+    <div class="tot"><strong id="total"></strong><span id="tothours"></span></div>
+    <button class="primary big" id="pdfbtn" type="button" data-i18n="bar.pdf">Download PDF</button>
   </div>
   <p id="pdfmsg" class="pdfmsg" role="status"></p>
 </div>
@@ -582,23 +639,259 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
 <script>
-/* ===== RÉGLAGES ===== */
-const PAY_MONTHLY="";   // lien de paiement Stripe mensuel  (https://buy.stripe.com/...)
-const PAY_YEARLY="";    // lien de paiement Stripe annuel
-const PORTAL="";        // lien du portail client Stripe     (https://billing.stripe.com/p/login/...)
+/* ===== TRANSLATIONS =====
+   Interface text only. The invoice itself (PDF and preview) always uses the English pdf.* keys,
+   because invoices go to Australian businesses.
+   English is the source language. To add a language: copy the "en" block,
+   translate the values, keep the keys. Missing keys fall back to English. */
+const I18N={
+en:{
+  _name:"English",_short:"EN",_locale:"en-AU",
+  days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+  "doc.title":"SubbieBill · Invoicing for ABN subcontractors",
+  "lang.label":"Language",
+  "nav.login":"Log in","nav.home":"SubbieBill, home",
+  "hero.title":"Hours in. Invoice out. In 30 seconds.",
+  "hero.lede":"Invoicing built for ABN subcontractors in Australia. Enter your start and finish times. SubbieBill does the maths and creates a professional PDF invoice, ready to send.",
+  "hero.cta":"Create my first invoice","hero.note":"Free. No credit card needed.",
+  "proof.aria":"Built for Australia","proof.abn":"on every invoice","proof.bsb":"and account number","proof.aud":"to the cent","proof.periods":"Weekly, fortnightly or monthly",
+  "demo.title":"Try it now","demo.sub":"Change the hours and watch the invoice fill itself in.",
+  "demo.s1":"Hours","demo.s2":"Maths","demo.s3":"Invoice","demo.start":"Start","demo.end":"Finish","demo.rate":"Rate $/h",
+  "demo.aria":"Sample invoice preview","demo.sample":"SAMPLE","demo.name":"Your name","demo.client":"Your client Pty Ltd",
+  "demo.perday":"{amount} / day","demo.cta":"Create my real invoice",
+  "how.title":"Three steps. Paperwork done once.",
+  "how.1t":"Your details, once","how.1d":"Name, ABN, BSB and account number. They go on every invoice.",
+  "how.2t":"Your hours","how.2d":"Start and finish each day. Fill in Monday, copy it across the week.",
+  "how.3t":"Your PDF","how.3d":"A clean invoice, ready to send to the business you work for.",
+  "why.title":"Built for subbies, not accountants",
+  "why.1t":"Paid by the hour? This is for you.","why.1d":"No quotes, no stock. Just your hours, your rate and your client.",
+  "why.2t":"No maths mistakes","why.2d":"Hours, amounts and totals add up on their own, weekend rates included.",
+  "why.3t":"Weekly, fortnightly or monthly","why.3d":"Invoice on the same cycle the business pays you.",
+  "why.4t":"Fill it in as you go","why.4d":"Your invoice stays saved. Add to it on your smoko.",
+  "why.5t":"Every invoice, kept","why.5d":"Find any invoice in two taps. Handy at tax time.",
+  "why.6t":"On your phone, on site","why.6d":"Nothing to install. Add SubbieBill to your home screen.",
+  "price.title":"Free to start. Premium when you invoice every week.",
+  "price.free":"Free","price.free_amt":"$0",
+  "price.f1":"Unlimited invoices and PDFs","price.f2":"Weekly, fortnightly or monthly","price.f3":"Saved clients and sites","price.f4":"3 invoices kept in your history",
+  "price.free_cta":"Start for free",
+  "price.pro":"Premium","price.pro_tag":"2 months free yearly","price.pro_amt":"$39","price.pro_per":" / year","price.pro_alt":"or $4.99 a month",
+  "price.p1":"Everything in Free","price.p2":"Unlimited history, the whole year for tax time","price.p3":"New features first","price.p4":"Cancel anytime",
+  "price.pro_cta":"Start free, upgrade anytime",
+  "price.fine":"Prices in Australian dollars. If you cancel Premium, you go back to Free and keep all your invoices.",
+  "faq.title":"Common questions",
+  "faq.q1":"What's on the invoice?","faq.a1":"Your name, ABN, contact details, BSB and account number, the business you're billing, the invoice number, dates, a day-by-day breakdown of your hours and the total in AUD.",
+  "faq.q2":"What about GST?","faq.a2":"SubbieBill is built for subcontractors who aren't registered for GST, which covers most people turning over less than $75,000 a year. Your invoice says “No GST has been charged”. GST support is coming soon.",
+  "faq.q3":"Who can see my bank details?","faq.a3":"Only you. Your details are tied to your account and protected by your password. They travel encrypted and only appear on the invoices you download.",
+  "faq.q4":"Can I cancel Premium?","faq.a4":"Yes, anytime. You go back to Free and all your invoices stay in your account.",
+  "auth.title_signup":"Create your free account","auth.title_login":"Welcome back",
+  "auth.tab_signup":"Sign up","auth.tab_login":"Log in","auth.email":"Email","auth.email_ph":"you@example.com",
+  "auth.pass":"Password","auth.pass_ph":"8 characters minimum","auth.pass2":"Confirm password",
+  "auth.submit_signup":"Create my free account","auth.submit_login":"Log in","auth.wait":"Just a sec…","auth.forgot":"Forgot your password?",
+  "err.email":"Enter a valid email address.","err.pass_len":"Your password needs at least 8 characters.","err.pass_match":"The two passwords don't match.",
+  "err.bad_login":"Wrong email or password.","err.exists":"This account already exists. Log in instead.","err.confirm":"Confirm your email before logging in.",
+  "err.created_confirm":"Account created. Open the confirmation email, then log in.","err.offline":"No connection. Try again.",
+  "err.service":"Can't reach the service. Check your connection and reload.","err.load":"Couldn't load your account. Reload the page.",
+  "err.forgot":"Email {email} from the address on your account.",
+  "foot.tag":"Invoicing for ABN subcontractors in Australia.","foot.q":"Questions?",
+  "top.free":"Free","top.premium":"Premium","top.history":"History","top.menu":"Menu","sheet.close":"Close",
+  "onb.title":"Welcome to SubbieBill","onb.sub":"Three steps and your first invoice is ready.","onb.s1":"Your details (just once)","onb.fill":"Fill in","onb.s2":"Your client and site","onb.s3":"Your hours",
+  "per.aria":"Invoice period","per.week":"Week","per.fortnight":"Fortnight","per.month":"Month",
+  "pn.week":"Weekly","pn.fortnight":"Fortnightly","pn.month":"Monthly",
+  "nav.prev":"Previous period","nav.next":"Next period","nav.today":"Back to today",
+  "ctx.client":"Client","ctx.site":"Site","ctx.choose":"Choose…","ctx.add_client":"+ Add a client","ctx.add_site":"+ Add a site",
+  "ctx.client_ph":"Business name","ctx.site_ph":"Site address",
+  "meta.no":"Invoice no.","meta.issue":"Issued","meta.due":"Due","meta.sum":"Invoice {no} · issued {issue} · due {due}",
+  "save.btn":"Save invoice","save.done":"Saved ✓",
+  "st.saving":"Saving…","st.in_hist":"In your history. Changes save automatically.","st.not_saved":"Not in your history yet.",
+  "st.saved":"Invoice saved to your history.","st.already":"Already saved. Changes save automatically.","st.need_day":"Add at least one day before saving.",
+  "st.expired":"Session expired. Log in again.","st.err":"Not saved: {msg}","st.full":"Free history is full.","st.retry":"Not saved. Try again.",
+  "st.offline":"No connection. Not saved.","st.loading":"Loading…",
+  "st.shrink":"Can't do that: {n} worked day(s) would fall outside this period. Pick a longer period or start a new invoice.",
+  "st.paid_wait":"Payment received. Turning on Premium…","st.paid_ok":"Premium is on. Thanks!","st.paid_later":"Payment received. Premium will switch on in a few minutes.",
+  "days.title":"Your hours","days.copy_week":"Copy Monday to Tue → Fri","days.copy_multi":"Copy Monday to empty days","days.week_of":"Week of {date}",
+  "days.off":"day off","days.add":"Add hours","f.start":"Start","f.end":"Finish","f.pause":"Break","f.hours":"Hours","f.rate":"$/h","f.loc_aria":"Site for this day",
+  "f.min":"{m} min",
+  "bar.sum":"{h} h · {d} · AUD","bar.day":"{n} day","bar.days":"{n} days","bar.pdf":"Download PDF",
+  "pdfm.need_client":"Choose your client first.","pdfm.need_hours":"Add at least one working day.","pdfm.no_lib":"The PDF module didn't load. Check your connection and reload.",
+  "pdfm.ready":"PDF ready.","pdfm.fail":"Couldn't create the PDF. Try again.",
+  "m.title":"Menu","m.account":"Account","m.premium":"Upgrade to Premium","m.manage":"Manage my subscription",
+  "m.infos":"My details","m.infos_sub":"name, ABN, bank","m.settings":"Settings","m.settings_sub":"rates, time entry",
+  "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.import":"Import my old profile","m.import_sub":"4-digit code","m.logout":"Log out",
+  "plan.free":"Free · {n} invoices kept","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
+  "i.title":"My details","i.intro":"Fill these in once. They appear at the top of every invoice.","i.name":"Full name","i.abn":"ABN","i.abn_ph":"11 digits",
+  "i.email":"Email","i.phone":"Phone","i.addr":"Address","i.bsb":"BSB","i.acc":"Account number","i.ok":"Done",
+  "s.title":"Settings","s.mode":"How you enter your hours","s.times":"Start and finish","s.hours":"Number of hours","s.unpaid":"I take an unpaid break",
+  "s.rate":"Weekday hourly rate ($/h)","s.desc":"Description on the invoice","s.note":"Saturday and Sunday start at $0/h. If you work a weekend, set the rate on that day.","s.ok":"OK",
+  "l.title":"Clients and sites","l.clients":"Clients","l.sites":"Sites","l.none_c":"No clients yet.","l.none_s":"No sites yet.",
+  "l.note":"To add one, choose “+ Add” in the Client or Site list.","l.remove":"Remove",
+  "im.title":"Old profile","im.intro":"Bring over your details and invoices from the old version (the one with a 4-digit code).",
+  "im.label":"Your old profile","im.loading":"Loading…","im.choose":"Choose your name…","im.btn":"Import","im.unavail":"Import is no longer available.",
+  "im.pick":"Pick your old profile from the list.","im.done":"Profile imported.","im.cut":"Profile imported. {n} older invoice(s) were left out: the free plan keeps {limit}.",
+  "pin.title":"Code for {name}","pin.del":"Delete","pin.cancel":"Cancel","pin.wrong":"Wrong code ({n} attempt(s) left)","pin.locked":"Too many attempts. Try again in {m} min.",
+  "pin.err":"Something went wrong. Try again.","pin.noname":"No name",
+  "h.title":"History","h.count_pro":"{n} invoice(s)","h.count_free":"{n} / {limit} invoices kept on Free",
+  "h.empty":"No saved invoices yet. Add your hours, then tap “Save invoice”.","h.open":"open","h.inv":"Invoice {no}",
+  "h.rename":"Rename","h.delete":"Delete","h.confirm":"Confirm delete","h.name_ph":"Invoice name","h.ok":"OK",
+  "p.title":"Premium","p.f1":"All your invoices kept, no limit","p.f2":"New features first","p.f3":"Cancel anytime, your invoices stay yours",
+  "p.yearly":"$39 a year · 2 months free","p.monthly":"$4.99 a month","p.soon":"Online payment is coming very soon.",
+  "p.secure":"Secure payment by Stripe. Your account switches to Premium straight after.",
+  "p.why_full":"The free plan keeps {limit} invoices. Delete one from your history or upgrade to Premium.",
+  "p.why_banner":"Keep every invoice, no limit.",
+  "pdf.invoice":"INVOICE","pdf.tax_invoice":"TAX INVOICE","pdf.no":"Invoice no.","pdf.no_short":"No. {no}","pdf.issue":"Issue date","pdf.due":"Due date","pdf.period":"Period",
+  "pdf.billto":"BILL TO","pdf.payment":"PAYMENT DETAILS","pdf.payment_short":"PAYMENT","pdf.bsb":"BSB","pdf.acc":"Account no.","pdf.ref":"Reference","pdf.ref_val":"Invoice {no}",
+  "pdf.site_lbl":"Site: {site}","pdf.date":"Date","pdf.site":"Site","pdf.desc":"Description","pdf.hours":"Hours","pdf.rate":"Rate","pdf.amount":"Amount",
+  "pdf.tot_hours":"Total hours","pdf.subtotal":"Subtotal","pdf.gst":"GST","pdf.total":"TOTAL (AUD)","pdf.total_short":"TOTAL AUD",
+  "pdf.nogst":"No GST has been charged.","pdf.pay":"Please pay by {due}{acct}, using reference “{ref}”.","pdf.pay_acct":" to the account above",
+  "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
+},
+fr:{
+  _name:"Français",_short:"FR",_locale:"fr-FR",
+  days:["dim","lun","mar","mer","jeu","ven","sam"],
+  "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
+  "lang.label":"Langue",
+  "nav.login":"Se connecter","nav.home":"SubbieBill, accueil",
+  "hero.title":"Tes heures de chantier. Ta facture. En 30 secondes.",
+  "hero.lede":"La facture des subbies sous ABN en Australie. Tu notes ton début et ta fin, SubbieBill calcule tout et crée une facture PDF pro, prête à envoyer.",
+  "hero.cta":"Créer ma première facture","hero.note":"Gratuit. Sans carte bancaire.",
+  "proof.aria":"Fait pour l'Australie","proof.abn":"sur chaque facture","proof.bsb":"et numéro de compte","proof.aud":"calculé au cent près","proof.periods":"Semaine, quinzaine ou mois",
+  "demo.title":"Fais le test","demo.sub":"Change tes heures, la facture se remplit toute seule.",
+  "demo.s1":"Heures","demo.s2":"Calcul","demo.s3":"Facture","demo.start":"Début","demo.end":"Fin","demo.rate":"Taux $/h",
+  "demo.aria":"Aperçu d'une facture d'exemple","demo.sample":"EXEMPLE","demo.name":"Ton nom","demo.client":"Ton client Pty Ltd",
+  "demo.perday":"{amount} / jour","demo.cta":"Créer ma vraie facture",
+  "how.title":"Trois étapes, la paperasse une seule fois",
+  "how.1t":"Tes infos, une seule fois","how.1d":"Nom, ABN, BSB et numéro de compte. Ils apparaissent sur chaque facture.",
+  "how.2t":"Tes heures","how.2d":"Début et fin chaque jour. Remplis lundi, copie-le sur la semaine.",
+  "how.3t":"Ton PDF","how.3d":"Une facture propre, prête à envoyer à l'entreprise.",
+  "why.title":"Fait pour les subbies, pas pour les comptables",
+  "why.1t":"Payé à l'heure ? C'est pour toi.","why.1d":"Pas de devis ni de stock. Tes heures, ton taux, ton client.",
+  "why.2t":"Aucune erreur de calcul","why.2d":"Heures, montants et total se calculent seuls, taux du week-end compris.",
+  "why.3t":"Semaine, quinzaine ou mois","why.3d":"Tu factures au rythme où l'entreprise te paie.",
+  "why.4t":"Rempli au fil des jours","why.4d":"Ta facture reste enregistrée. Tu la complètes à la pause.",
+  "why.5t":"Tout ton historique","why.5d":"Chaque facture se retrouve en deux touches, pratique pour les impôts.",
+  "why.6t":"Sur ton téléphone, au chantier","why.6d":"Rien à installer. Ajoute SubbieBill à ton écran d'accueil.",
+  "price.title":"Gratuit pour commencer. Premium quand tu factures chaque semaine.",
+  "price.free":"Gratuit","price.free_amt":"0 $",
+  "price.f1":"Factures et PDF illimités","price.f2":"Semaine, quinzaine ou mois","price.f3":"Clients et chantiers enregistrés","price.f4":"3 factures gardées dans l'historique",
+  "price.free_cta":"Commencer gratuitement",
+  "price.pro":"Premium","price.pro_tag":"2 mois offerts à l'année","price.pro_amt":"39 $","price.pro_per":" / an","price.pro_alt":"ou 4,99 $ par mois",
+  "price.p1":"Tout le gratuit","price.p2":"Historique illimité, toute l'année pour les impôts","price.p3":"Les nouvelles fonctions en premier","price.p4":"Annulable à tout moment",
+  "price.pro_cta":"Commencer, puis passer Premium",
+  "price.fine":"Prix en dollars australiens. Si tu arrêtes Premium, tu repasses en gratuit et tu gardes toutes tes factures.",
+  "faq.title":"Questions fréquentes",
+  "faq.q1":"Qu'y a-t-il sur la facture ?","faq.a1":"Ton nom, ton ABN, tes coordonnées, ton BSB et ton numéro de compte, l'entreprise à facturer, le numéro de facture, les dates, le détail des heures jour par jour et le total en AUD. La facture est toujours en anglais, au format australien, même si tu utilises SubbieBill en français.",
+  "faq.q2":"Et la GST ?","faq.a2":"SubbieBill est fait pour les sous-traitants non inscrits à la GST, ce qui est le cas de la plupart de ceux qui facturent moins de 75 000 $ par an. La facture porte la mention « No GST has been charged ». La gestion de la GST arrive bientôt.",
+  "faq.q3":"Qui peut voir mes infos bancaires ?","faq.a3":"Toi seul. Tes infos sont liées à ton compte et protégées par ton mot de passe. Elles circulent de façon chiffrée et n'apparaissent que sur les factures que tu télécharges.",
+  "faq.q4":"Je peux arrêter Premium ?","faq.a4":"Oui, quand tu veux. Tu repasses en gratuit et toutes tes factures restent sur ton compte.",
+  "auth.title_signup":"Crée ton compte gratuit","auth.title_login":"Content de te revoir",
+  "auth.tab_signup":"Créer un compte","auth.tab_login":"Se connecter","auth.email":"Email","auth.email_ph":"toi@exemple.com",
+  "auth.pass":"Mot de passe","auth.pass_ph":"8 caractères minimum","auth.pass2":"Confirme le mot de passe",
+  "auth.submit_signup":"Créer mon compte gratuit","auth.submit_login":"Se connecter","auth.wait":"Patiente…","auth.forgot":"Mot de passe oublié ?",
+  "err.email":"Entre une adresse email valide.","err.pass_len":"Le mot de passe doit faire au moins 8 caractères.","err.pass_match":"Les deux mots de passe ne sont pas pareils.",
+  "err.bad_login":"Email ou mot de passe incorrect.","err.exists":"Ce compte existe déjà. Connecte-toi.","err.confirm":"Confirme ton email avant de te connecter.",
+  "err.created_confirm":"Compte créé. Ouvre l'email de confirmation puis connecte-toi.","err.offline":"Pas de connexion. Réessaie.",
+  "err.service":"Impossible de joindre le service. Vérifie ta connexion puis recharge.","err.load":"Impossible de charger ton compte. Recharge la page.",
+  "err.forgot":"Écris à {email} avec l'email de ton compte.",
+  "foot.tag":"La facture des sous-traitants sous ABN en Australie.","foot.q":"Une question ?",
+  "top.free":"Gratuit","top.premium":"Premium","top.history":"Historique","top.menu":"Menu","sheet.close":"Fermer",
+  "onb.title":"Bienvenue sur SubbieBill","onb.sub":"Trois étapes et ta première facture est prête.","onb.s1":"Tes infos (une seule fois)","onb.fill":"Remplir","onb.s2":"Ton client et ton chantier","onb.s3":"Tes heures",
+  "per.aria":"Durée de la facture","per.week":"Semaine","per.fortnight":"2 semaines","per.month":"Mois",
+  "pn.week":"1 semaine","pn.fortnight":"2 semaines","pn.month":"1 mois",
+  "nav.prev":"Période précédente","nav.next":"Période suivante","nav.today":"Revenir à aujourd'hui",
+  "ctx.client":"Client","ctx.site":"Chantier","ctx.choose":"Choisir…","ctx.add_client":"+ Ajouter un client","ctx.add_site":"+ Ajouter un chantier",
+  "ctx.client_ph":"Nom de l'entreprise","ctx.site_ph":"Adresse du chantier",
+  "meta.no":"N° facture","meta.issue":"Émise le","meta.due":"Échéance","meta.sum":"Facture n° {no} · émise le {issue} · échéance {due}",
+  "save.btn":"Enregistrer la facture","save.done":"Enregistrée ✓",
+  "st.saving":"Enregistrement…","st.in_hist":"Dans ton historique. Tes changements s'enregistrent tout seuls.","st.not_saved":"Pas encore dans ton historique.",
+  "st.saved":"Facture enregistrée dans ton historique.","st.already":"Déjà enregistrée. Tes changements s'enregistrent tout seuls.","st.need_day":"Mets au moins une journée avant d'enregistrer.",
+  "st.expired":"Session expirée : reconnecte-toi.","st.err":"Pas enregistré : {msg}","st.full":"Historique gratuit plein.","st.retry":"Pas enregistré, réessaie.",
+  "st.offline":"Pas de connexion : pas enregistré.","st.loading":"Chargement…",
+  "st.shrink":"Impossible : {n} jour(s) travaillé(s) sortiraient de la période. Choisis une durée plus longue ou une nouvelle facture.",
+  "st.paid_wait":"Paiement reçu, activation de Premium…","st.paid_ok":"Premium activé. Merci !","st.paid_later":"Paiement reçu. Premium s'activera dans quelques minutes.",
+  "days.title":"Tes heures","days.copy_week":"Copier lundi sur mar → ven","days.copy_multi":"Copier lundi sur les jours vides","days.week_of":"Semaine du {date}",
+  "days.off":"repos","days.add":"Ajouter des heures","f.start":"Début","f.end":"Fin","f.pause":"Pause","f.hours":"Heures","f.rate":"$/h","f.loc_aria":"Chantier ce jour-là",
+  "f.min":"{m} min",
+  "bar.sum":"{h} h · {d} · AUD","bar.day":"{n} jour","bar.days":"{n} jours","bar.pdf":"Télécharger le PDF",
+  "pdfm.need_client":"Choisis d'abord ton client.","pdfm.need_hours":"Mets au moins une journée de travail.","pdfm.no_lib":"Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge.",
+  "pdfm.ready":"PDF prêt.","pdfm.fail":"Le PDF n'a pas pu être créé. Réessaie.",
+  "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
+  "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
+  "m.lists":"Clients et chantiers","m.lists_sub":"gérer les listes","m.import":"Importer mon ancien profil","m.import_sub":"code à 4 chiffres","m.logout":"Se déconnecter",
+  "plan.free":"Gratuit · {n} factures gardées","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
+  "i.title":"Mes infos","i.intro":"À remplir une seule fois. Elles apparaissent en haut de chaque facture.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
+  "i.email":"Email","i.phone":"Téléphone","i.addr":"Adresse","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
+  "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
+  "s.rate":"Taux horaire en semaine ($/h)","s.desc":"Description sur la facture","s.note":"Le samedi et le dimanche partent à 0 $/h. Si tu travailles le week-end, mets le taux directement sur le jour.","s.ok":"OK",
+  "l.title":"Clients et chantiers","l.clients":"Clients","l.sites":"Chantiers","l.none_c":"Aucun client.","l.none_s":"Aucun chantier.",
+  "l.note":"Pour en ajouter, choisis « + Ajouter » dans la liste Client ou Chantier.","l.remove":"Retirer",
+  "im.title":"Ancien profil","im.intro":"Récupère les infos et factures de l'ancienne version, celle avec le code à 4 chiffres.",
+  "im.label":"Ton ancien profil","im.loading":"Chargement…","im.choose":"Choisis ton nom…","im.btn":"Importer","im.unavail":"L'import n'est plus disponible.",
+  "im.pick":"Choisis ton ancien profil dans la liste.","im.done":"Profil importé.","im.cut":"Profil importé. {n} ancienne(s) facture(s) laissée(s) de côté : la version gratuite en garde {limit}.",
+  "pin.title":"Code de {name}","pin.del":"Effacer","pin.cancel":"Annuler","pin.wrong":"Code incorrect ({n} essai(s) restant(s))","pin.locked":"Trop d'essais. Réessaie dans {m} min.",
+  "pin.err":"Erreur, réessaie.","pin.noname":"Sans nom",
+  "h.title":"Historique","h.count_pro":"{n} facture(s)","h.count_free":"{n} / {limit} factures gardées en gratuit",
+  "h.empty":"Aucune facture enregistrée. Remplis tes heures puis touche « Enregistrer la facture ».","h.open":"ouverte","h.inv":"Facture n° {no}",
+  "h.rename":"Renommer","h.delete":"Supprimer","h.confirm":"Confirmer la suppression","h.name_ph":"Nom de la facture","h.ok":"OK",
+  "p.title":"Premium","p.f1":"Toutes tes factures gardées, sans limite","p.f2":"Les nouvelles fonctions en premier","p.f3":"Annulable à tout moment, tes factures restent à toi",
+  "p.yearly":"39 $ par an · 2 mois offerts","p.monthly":"4,99 $ par mois","p.soon":"Le paiement en ligne arrive très bientôt.",
+  "p.secure":"Paiement sécurisé par Stripe. Ton compte passe en Premium tout seul juste après.",
+  "p.why_full":"La version gratuite garde {limit} factures. Supprime-en une dans l'historique ou passe en Premium.",
+  "p.why_banner":"Garde toutes tes factures, sans limite.",
+}};
+
+/* ===== SETTINGS ===== */
+const PAY_MONTHLY="";   // Stripe monthly payment link  (https://buy.stripe.com/...)
+const PAY_YEARLY="";    // Stripe yearly payment link
+const PORTAL="";        // Stripe customer portal link  (https://billing.stripe.com/p/login/...)
 const SUPPORT_EMAIL="Thomas.spychiger.pro@gmail.com";
 const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
 /* ==================== */
 
 const $=id=>document.getElementById(id);
-const ME=["name","abn","email","phone","addr","bsb","acc"];
-const DAYS=["dim","lun","mar","mer","jeu","ven","sam"];
-const MONTHS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
-const fmt=n=>(n||0).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:2});
-const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+
+/* ---------- i18n engine ---------- */
+const LANGS=Object.keys(I18N);
+let lang="en";
+/* Invoices go to Australian businesses: the invoice itself (PDF + preview) is always English, en-AU formats. */
+const INVOICE_LANG="en";
+function withLang(l,fn){const o=lang;lang=l;try{return fn()}finally{lang=o}}
+function t(key,vars){let s=I18N[lang]&&I18N[lang][key];if(s==null)s=I18N.en[key];if(s==null)s=key;
+  if(vars)s=String(s).replace(/\{(\w+)\}/g,(m,k)=>vars[k]!=null?vars[k]:m);return s}
+const loc=()=>I18N[lang]._locale||"en-AU";
+const clean=s=>String(s).replace(/[  ]/g," ");
+const num=(n,d=2)=>clean((+n||0).toLocaleString(loc(),{minimumFractionDigits:d,maximumFractionDigits:d}));
+const fmt=n=>num(n,2);
+const money=n=>clean(new Intl.NumberFormat(loc(),{style:"currency",currency:"AUD",currencyDisplay:"narrowSymbol"}).format(+n||0));
+const hrs=n=>clean((Math.round((+n||0)*100)/100).toLocaleString(loc(),{maximumFractionDigits:2}));
+function storedLang(){try{const v=localStorage.getItem("sb_lang");return I18N[v]?v:null}catch(e){return null}}
+function applyStatic(){
+  document.documentElement.lang=lang==="en"?"en-AU":lang;document.title=t("doc.title");
+  document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.dataset.i18n)});
+  document.querySelectorAll("[data-i18n-ph]").forEach(el=>{el.placeholder=t(el.dataset.i18nPh)});
+  document.querySelectorAll("[data-i18n-inv]").forEach(el=>{el.textContent=withLang(INVOICE_LANG,()=>t(el.dataset.i18nInv))});
+  document.querySelectorAll("[data-i18n-aria]").forEach(el=>{el.setAttribute("aria-label",t(el.dataset.i18nAria))});
+}
+function renderLangUI(){
+  $("langbtn_t").textContent=I18N[lang]._short;$("langbtn").setAttribute("aria-label",`${t("lang.label")}: ${I18N[lang]._name}`);
+  $("langpop").innerHTML=LANGS.map(l=>`<button type="button" role="menuitemradio" aria-checked="${l===lang}" data-lang="${l}"><span>${I18N[l]._name}</span>${l===lang?"<b aria-hidden=\"true\">✓</b>":""}</button>`).join("");
+  $("langseg").innerHTML=LANGS.map(l=>`<label><input type="radio" name="langsel" value="${l}"${l===lang?" checked":""}> <span lang="${l}">${I18N[l]._name}</span></label>`).join("");
+}
+let curSheet=null;
+function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang;lang=l;
+  try{localStorage.setItem("sb_lang",l)}catch(e){}
+  applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);
+  ["autherr","pdfmsg","importmsg"].forEach(id=>{$(id).textContent=""});
+  if(session&&P()){if(opts.toProfile!==false&&P().lang!==l){P().lang=l;save()}renderAll();if(curSheet&&!$("sheetov").hidden)openSheet(curSheet)}
+  return changed}
+$("langbtn").onclick=e=>{e.stopPropagation();const p=$("langpop"),open=p.hidden;p.hidden=!open;$("langbtn").setAttribute("aria-expanded",String(open));if(open){const b=p.querySelector("button");b&&b.focus()}};
+$("langpop").addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if(!b)return;$("langpop").hidden=true;$("langbtn").setAttribute("aria-expanded","false");setLang(b.dataset.lang);$("langbtn").focus()});
+document.addEventListener("click",e=>{if(!e.target.closest(".langpick")){$("langpop").hidden=true;$("langbtn").setAttribute("aria-expanded","false")}});
+$("langseg").addEventListener("change",e=>{if(e.target.name==="langsel")setLang(e.target.value)});
+
+/* ---------- dates & times ---------- */
+const pad2=n=>String(n).padStart(2,"0");
 const uid=()=>Math.random().toString(36).slice(2,10);
 const clone=o=>JSON.parse(JSON.stringify(o));
-const pad2=n=>String(n).padStart(2,"0");
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 const isoLocal=d=>`${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
 const parse=iso=>new Date(iso+"T12:00:00");
 const addDays=(iso,n)=>{const d=parse(iso);d.setDate(d.getDate()+n);return isoLocal(d)};
@@ -606,25 +899,27 @@ const mondayOf=iso=>{const d=iso?parse(iso):new Date();d.setHours(12);d.setDate(
 const isWkd=iso=>{if(!iso)return false;const g=parse(iso).getDay();return g===0||g===6};
 const dmy=iso=>{if(!iso)return"";const[y,m,d]=iso.split("-");return`${d}/${m}/${y}`};
 const dm=iso=>{if(!iso)return"";const[,m,d]=iso.split("-");return`${d}/${m}`};
-const nice=iso=>{const d=parse(iso);return `${d.getDate()} ${MONTHS[d.getMonth()]}`};
+const nice=iso=>clean(parse(iso).toLocaleDateString(loc(),{day:"numeric",month:"short"}));
+const dayName=iso=>((I18N[lang].days)||I18N.en.days)[parse(iso).getDay()];
+const ME=["name","abn","email","phone","addr","bsb","acc"];
 
-/* temps */
 const TIMES=[];for(let i=0;i<96;i++){const m=((i*15)+5*60)%1440;TIMES.push(pad2(Math.floor(m/60))+":"+pad2(m%60))}
-const toMin=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
+const toMin=v=>{const[h,m]=v.split(":").map(Number);return h*60+m};
+const timeLabel=v=>{if(loc()!=="en-AU")return v;const[h,m]=v.split(":").map(Number);return `${h%12||12}:${pad2(m)}${h<12?"am":"pm"}`};
 function calcHours(r){if(!r.start||!r.end)return 0;let d=toMin(r.end)-toMin(r.start);if(d<0)d+=1440;d-=(P().unpaid?(r.pause||0):0);return Math.max(0,Math.round(d/60*100)/100)}
-const timeOpts=v=>`<option value="">–</option>`+TIMES.map(t=>`<option${t===v?" selected":""}>${t}</option>`).join("");
-const hourOpts=v=>{let o=`<option value="0">–</option>`;for(let h=0.25;h<=16;h+=0.25)o+=`<option value="${h}"${Math.abs(h-v)<1e-9?" selected":""}>${h} h</option>`;if(v&&Math.round(v*4)!==v*4)o=`<option value="${v}" selected>${v} h</option>`+o;return o};
-const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" selected":""}>${m} min</option>`).join("");
+const timeOpts=v=>`<option value="">–</option>`+TIMES.map(x=>`<option value="${x}"${x===v?" selected":""}>${timeLabel(x)}</option>`).join("");
+const hourOpts=v=>{let o=`<option value="0">–</option>`;for(let h=0.25;h<=16;h+=0.25)o+=`<option value="${h}"${Math.abs(h-v)<1e-9?" selected":""}>${hrs(h)} h</option>`;if(v&&Math.round(v*4)!==v*4)o=`<option value="${v}" selected>${hrs(v)} h</option>`+o;return o};
+const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" selected":""}>${t("f.min",{m})}</option>`).join("");
 
-/* état */
+/* ---------- state ---------- */
 let session=null,plan={premium:false,period_end:null,free_limit:3};
 let state={me:null,clients:[],sites:[]};
 const P=()=>state.me;const I=()=>state.me.inv;
 const FREE_LIMIT=()=>plan.free_limit||3;
 const hasHours=inv=>(inv&&inv.rows||[]).some(r=>r.hours>0);
-const invTotal=inv=>(inv.rows||[]).reduce((t,r)=>t+(r.hours||0)*(r.rate||0),0);
-const invHours=inv=>(inv.rows||[]).reduce((t,r)=>t+(r.hours||0),0);
-const PT={week:{n:"1 semaine",file:"Weekly"},fortnight:{n:"2 semaines",file:"Fortnightly"},month:{n:"1 mois",file:"Monthly"}};
+const invTotal=inv=>(inv.rows||[]).reduce((s,r)=>s+(r.hours||0)*(r.rate||0),0);
+const invHours=inv=>(inv.rows||[]).reduce((s,r)=>s+(r.hours||0),0);
+const PT={week:{file:"Weekly"},fortnight:{file:"Fortnightly"},month:{file:"Monthly"}};
 function periodRange(type,ref){const d=parse(ref);if(type==="month")return[isoLocal(new Date(d.getFullYear(),d.getMonth(),1,12)),isoLocal(new Date(d.getFullYear(),d.getMonth()+1,0,12))];
   const s=mondayOf(ref);return[s,addDays(s,type==="fortnight"?13:6)]}
 function periodShift(type,start,dir){if(type==="month"){const d=parse(start);return isoLocal(new Date(d.getFullYear(),d.getMonth()+dir,1,12))}return addDays(start,dir*(type==="fortnight"?14:7))}
@@ -632,7 +927,7 @@ function datesBetween(a,b){const out=[];for(let d=a,n=0;d<=b&&n<62;d=addDays(d,1
 const invType=inv=>PT[inv&&inv.type]?inv.type:"week";
 const todayIso=()=>isoLocal(new Date());
 function rangeText(a,b){const y=parse(b).getFullYear()!==new Date().getFullYear()?" "+parse(b).getFullYear():"";return `${nice(a)} → ${nice(b)}${y}`}
-function defaultName(inv){return `${PT[invType(inv)].n} du ${dm(inv.start)} au ${dm(inv.end)}`+(inv.billto?` · ${inv.billto}`:"")}
+function defaultName(inv){return `${PT[invType(inv)].file} ${dm(inv.start)}–${dm(inv.end)}`+(inv.billto?` · ${inv.billto}`:"")}
 function nextInvNo(){let m=0;(P().saved||[]).forEach(e=>{m=Math.max(m,parseInt(e.inv&&e.inv.invno)||0)});return m+1}
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate??40)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
@@ -640,94 +935,94 @@ function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),
   return{type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site)}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
-/* sauvegarde */
+/* ---------- saving ---------- */
 const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}):null;
-let saveTimer=null;
-let syncMsg="";
+let saveTimer=null,syncMsg=null;
 function syncSaved(){if(!session||!P())return;const e=curEntry();if(!e)return;e.inv=clone(I());e.updatedAt=Date.now();if(!e.custom)e.name=defaultName(I())}
 const roomLeft=()=>plan.premium||(P().saved||[]).length<FREE_LIMIT();
 function addToHistory(){const p=P();if(curEntry())return true;if(!roomLeft())return false;
   const e={id:uid(),name:"",createdAt:Date.now()};p.saved=p.saved||[];p.saved.unshift(e);p.curSaved=e.id;syncSaved();return true}
 function keepCurrent(){if(P()&&P().inv&&!curEntry()&&hasHours(I()))addToHistory()}
-function save(){syncSaved();if(!session)return;clearTimeout(saveTimer);syncMsg="Enregistrement…";renderStatus();saveTimer=setTimeout(pushSave,800)}
+function save(){syncSaved();if(!session)return;clearTimeout(saveTimer);syncMsg={k:"st.saving"};renderStatus();saveTimer=setTimeout(pushSave,800)}
 const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushSave()}};
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
-function setSave(t){syncMsg=t||"";renderStatus()}
+function setSave(k,v){syncMsg=k?{k,v}:null;renderStatus()}
 async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();const {id,...rest}=p;
   const data={...rest,clients:state.clients,sites:state.sites};
   try{const {data:r,error}=await sb.rpc("save_my_profile",{p_name:(p.name||"").trim(),p_data:data});
-    if(error){setSave(/JWT|auth/i.test(error.message)?"Session expirée : reconnecte-toi.":"Pas enregistré : "+error.message);return}
-    if(r&&r.ok){setSave("");return}
-    if(r&&r.status==="limit"){setSave("Historique gratuit plein.");return}
-    setSave("Pas enregistré, réessaie.")}
-  catch(e){setSave("Pas de connexion : pas enregistré.")}}
+    if(error){/JWT|auth/i.test(error.message)?setSave("st.expired"):setSave("st.err",{msg:error.message});return}
+    if(r&&r.ok){setSave(null);return}
+    if(r&&r.status==="limit"){setSave("st.full");return}
+    setSave("st.retry")}
+  catch(e){setSave("st.offline")}}
 
-/* ---------- rendu ---------- */
+/* ---------- rendering ---------- */
 function infosDone(){const p=P();return !!(p.name&&p.abn&&p.bsb&&p.acc)}
-function renderAll(){renderTop();renderWeek();renderDays();renderTotals();renderOnboard();renderStatus()}
-function renderTop(){const on=!!session;$("topr").hidden=!on;$("landing").hidden=on;$("btn_login").hidden=on;$("app").hidden=!on;$("bottombar").hidden=!on;
-  if(!on)return;const b=$("planbadge");b.textContent=plan.premium?"Premium":"Gratuit";b.classList.toggle("pro",plan.premium)}
+function renderAll(){renderTop();if(!session)return;renderWeek();renderDays();renderTotals();renderOnboard();renderStatus()}
+function renderTop(){const on=!!session;$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=on;$("app").hidden=!on;$("bottombar").hidden=!on;
+  if(on)$("lstick").hidden=true;
+  if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium)}
 function renderOnboard(){const s1=infosDone(),s2=!!(I().billto&&I().site),s3=hasHours(I());
   $("st1").classList.toggle("done",s1);$("st2").classList.toggle("done",s2);$("st3").classList.toggle("done",s3);
   $("onboard").hidden=(s1&&s2)||(P().saved||[]).length>0&&s1}
-function listOpts(list,cur,addLabel){const l=[...list];if(cur&&!l.includes(cur))l.unshift(cur);
-  return `<option value="">Choisir…</option>`+l.map(c=>`<option${c===cur?" selected":""}>${esc(c)}</option>`).join("")+`<option value="__new">+ ${addLabel}</option>`}
-function renderWeek(){const inv=I(),t=invType(inv);
-  document.querySelectorAll('input[name="ptype"]').forEach(x=>x.checked=x.value===t);
-  $("plabel").textContent=t==="month"?parse(inv.start).toLocaleDateString("fr-FR",{month:"long",year:"numeric"}):(t==="week"?"Semaine":"2 semaines");
+function listOpts(list,cur,addKey){const l=[...list];if(cur&&!l.includes(cur))l.unshift(cur);
+  return `<option value="">${esc(t("ctx.choose"))}</option>`+l.map(c=>`<option${c===cur?" selected":""}>${esc(c)}</option>`).join("")+`<option value="__new">${esc(t(addKey))}</option>`}
+function renderWeek(){const inv=I(),ty=invType(inv);
+  document.querySelectorAll('input[name="ptype"]').forEach(x=>x.checked=x.value===ty);
+  $("plabel").textContent=ty==="month"?clean(parse(inv.start).toLocaleDateString(loc(),{month:"long",year:"numeric"})):t("per."+ty);
   $("wtitle").textContent=rangeText(inv.start,inv.end);
-  $("thisweek").hidden=inv.start===periodRange(t,todayIso())[0];
-  $("billto").innerHTML=listOpts(state.clients,inv.billto,"Ajouter un client");$("billto").hidden=false;$("billto_new").hidden=true;
-  $("site").innerHTML=listOpts(state.sites,inv.site,"Ajouter un chantier");$("site").hidden=false;$("site_new").hidden=true;
+  $("thisweek").hidden=inv.start===periodRange(ty,todayIso())[0];
+  $("billto").innerHTML=listOpts(state.clients,inv.billto,"ctx.add_client");$("billto").hidden=false;$("billto_new").hidden=true;
+  $("site").innerHTML=listOpts(state.sites,inv.site,"ctx.add_site");$("site").hidden=false;$("site_new").hidden=true;
   $("invno").value=inv.invno||"";$("issue").value=inv.issue||"";$("due").value=inv.due||"";
-  $("invsum").textContent=`Facture n° ${inv.invno||"?"} · émise le ${dm(inv.issue)} · échéance ${dm(inv.due)}`}
+  $("invsum").textContent=t("meta.sum",{no:inv.invno||"?",issue:dm(inv.issue),due:dm(inv.due)})}
 function renderStatus(){if(!session||!P())return;const e=curEntry(),b=$("savebtn");
-  b.textContent=e?"Enregistrée ✓":"Enregistrer la facture";b.classList.toggle("primary",!e);b.classList.toggle("saved",!!e);
-  $("savestate").textContent=syncMsg||(e?"Dans ton historique. Tes changements s'enregistrent tout seuls.":hasHours(I())?"Pas encore dans ton historique.":"")}
+  b.textContent=e?t("save.done"):t("save.btn");b.classList.toggle("primary",!e);b.classList.toggle("saved",!!e);
+  $("savestate").textContent=syncMsg?t(syncMsg.k,syncMsg.v):(e?t("st.in_hist"):hasHours(I())?t("st.not_saved"):"")}
 const openRest=new Set();
-function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,d=parse(r.date),on=r.hours>0;
-  if(isWkd(r.date)&&!on&&!r.start&&!r.end&&!openRest.has(r.date))return `<div class="day rest" id="day${i}"><div class="dtop"><span class="dname">${DAYS[d.getDay()]}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div><button type="button" data-rest="${r.date}">Ajouter des heures</button></div>`;
+function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,on=r.hours>0;
+  if(isWkd(r.date)&&!on&&!r.start&&!r.end&&!openRest.has(r.date))return `<div class="day rest" id="day${i}"><div class="dtop"><span class="dname">${dayName(r.date)}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div><button type="button" data-rest="${r.date}">${esc(t("days.add"))}</button></div>`;
   const cols=hm?2:(up?4:3);
-  const inputs=hm?`<label class="mini">Heures<select data-i="${i}" data-f="hours">${hourOpts(r.hours||0)}</select></label>`
-    :`<label class="mini">Début<select data-i="${i}" data-f="start">${timeOpts(r.start||"")}</select></label>
-      <label class="mini">Fin<select data-i="${i}" data-f="end">${timeOpts(r.end||"")}</select></label>`+
-      (up?`<label class="mini">Pause<select data-i="${i}" data-f="pause">${pauseOpts(r.pause)}</select></label>`:"");
-  const loc=state.sites.length>1||(r.loc&&r.loc!==I().site)?`<div class="dloc"><select data-i="${i}" data-f="loc" aria-label="Chantier ce jour-là">${state.sites.map(s=>`<option${s===r.loc?" selected":""}>${esc(s)}</option>`).join("")}${r.loc&&!state.sites.includes(r.loc)?`<option selected>${esc(r.loc)}</option>`:""}</select></div>`:"";
+  const inputs=hm?`<label class="mini">${esc(t("f.hours"))}<select data-i="${i}" data-f="hours">${hourOpts(r.hours||0)}</select></label>`
+    :`<label class="mini">${esc(t("f.start"))}<select data-i="${i}" data-f="start">${timeOpts(r.start||"")}</select></label>
+      <label class="mini">${esc(t("f.end"))}<select data-i="${i}" data-f="end">${timeOpts(r.end||"")}</select></label>`+
+      (up?`<label class="mini">${esc(t("f.pause"))}<select data-i="${i}" data-f="pause">${pauseOpts(r.pause)}</select></label>`:"");
+  const loc2=state.sites.length>1||(r.loc&&r.loc!==I().site)?`<div class="dloc"><select data-i="${i}" data-f="loc" aria-label="${esc(t("f.loc_aria"))}">${state.sites.map(s=>`<option${s===r.loc?" selected":""}>${esc(s)}</option>`).join("")}${r.loc&&!state.sites.includes(r.loc)?`<option selected>${esc(r.loc)}</option>`:""}</select></div>`:"";
   return `<div class="day${isWkd(r.date)?" weekend":""}${on?" on":""}" id="day${i}">
-    <div class="dtop"><span class="dname">${DAYS[d.getDay()]}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div>
+    <div class="dtop"><span class="dname">${dayName(r.date)}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div>
     <div class="dinputs" style="--cols:${cols}">${inputs}
-      <label class="mini">$/h<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate??0}"></label></div>${loc}</div>`}
+      <label class="mini">${esc(t("f.rate"))}<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate??0}"></label></div>${loc2}</div>`}
 function renderDays(){const inv=I(),multi=invType(inv)!=="week";let h="";
-  inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">Semaine du ${nice(mondayOf(r.date))}</div>`;h+=dayHtml(r,i)});
+  inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">${esc(t("days.week_of",{date:nice(mondayOf(r.date))}))}</div>`;h+=dayHtml(r,i)});
   $("daylist").innerHTML=h;inv.rows.forEach((r,i)=>renderAmt(i));renderCopy()}
 function renderAmt(i){const r=I().rows[i],el=$("amt"+i);if(!el)return;
-  el.textContent=r.hours>0?`${r.hours} h · $${fmt(r.hours*(r.rate||0))}`:(isWkd(r.date)?"repos":"–");if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
-function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length;$("total").textContent="$"+fmt(invTotal(inv));
-  $("tothours").textContent=`${invHours(inv)} h · ${d} jour${d>1?"s":""} · AUD`}
+  el.textContent=r.hours>0?`${hrs(r.hours)} h · ${money(r.hours*(r.rate||0))}`:(isWkd(r.date)?t("days.off"):"–");if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
+function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length;$("total").textContent=money(invTotal(inv));
+  $("tothours").textContent=t("bar.sum",{h:hrs(invHours(inv)),d:t(d===1?"bar.day":"bar.days",{n:d})})}
 const isWeekday=r=>{const g=parse(r.date).getDay();return g>=1&&g<=5};
 const mondaySrc=()=>I().rows.find(r=>parse(r.date).getDay()===1&&r.hours>0);
 function renderCopy(){const m=mondaySrc(),b=$("copymon");
   b.hidden=!m||!I().rows.some(r=>r!==m&&isWeekday(r)&&!(r.hours>0));
-  b.textContent=invType(I())==="week"?"Copier lundi sur mar → ven":"Copier lundi sur les jours vides"}
+  b.textContent=invType(I())==="week"?t("days.copy_week"):t("days.copy_multi")}
 
 /* ---------- interactions ---------- */
 $("daylist").addEventListener("click",e=>{const b=e.target.closest("[data-rest]");if(!b)return;openRest.add(b.dataset.rest);renderDays();
   const i=I().rows.findIndex(r=>r.date===b.dataset.rest),el=document.querySelector(`#day${i} select`);if(el)el.focus()});
 $("daylist").addEventListener("change",onDay);$("daylist").addEventListener("input",e=>{if(e.target.dataset.f==="rate")onDay(e)});
-function onDay(e){const t=e.target,i=+t.dataset.i,f=t.dataset.f;if(!f)return;const r=I().rows[i];
-  if(f==="rate")r.rate=parseFloat(t.value)||0;
-  else if(f==="hours")r.hours=parseFloat(t.value)||0;
-  else if(f==="pause"){r.pause=parseInt(t.value)||0;r.hours=calcHours(r)}
-  else if(f==="loc")r.loc=t.value;
-  else{r[f]=t.value;r.hours=calcHours(r)}
+function onDay(e){const el=e.target,i=+el.dataset.i,f=el.dataset.f;if(!f)return;const r=I().rows[i];
+  if(f==="rate")r.rate=parseFloat(el.value)||0;
+  else if(f==="hours")r.hours=parseFloat(el.value)||0;
+  else if(f==="pause"){r.pause=parseInt(el.value)||0;r.hours=calcHours(r)}
+  else if(f==="loc")r.loc=el.value;
+  else{r[f]=el.value;r.hours=calcHours(r)}
   renderAmt(i);renderTotals();renderCopy();renderOnboard();save()}
 $("copymon").onclick=()=>{const m=mondaySrc();if(!m)return;
   I().rows.forEach(r=>{if(r===m||!isWeekday(r)||r.hours>0)return;r.start=m.start;r.end=m.end;r.pause=m.pause;r.hours=P().mode==="hours"?m.hours:calcHours(r);if(!r.rate)r.rate=m.rate});
   renderDays();renderTotals();renderOnboard();renderStatus();save()};
-$("savebtn").onclick=()=>{if(curEntry()){save();flushSave();setSave("Déjà enregistrée. Tes changements s'enregistrent tout seuls.");return}
-  if(!hasHours(I())){setSave("Mets au moins une journée avant d'enregistrer.");return}
-  if(!addToHistory()){showPremium(`La version gratuite garde ${FREE_LIMIT()} factures. Supprime-en une dans l'historique ou passe en Premium.`);return}
-  save();flushSave();setSave("Facture enregistrée dans ton historique.")};
+$("savebtn").onclick=()=>{if(curEntry()){save();flushSave();setSave("st.already");return}
+  if(!hasHours(I())){setSave("st.need_day");return}
+  if(!addToHistory()){showPremium("p.why_full");return}
+  save();flushSave();setSave("st.saved")};
 
 function wirePick(selId,inpId,list,key){
   $(selId).onchange=e=>{if(e.target.value==="__new"){e.target.hidden=true;const n=$(inpId);n.hidden=false;n.value="";n.focus();return}
@@ -745,34 +1040,33 @@ wirePick("billto","billto_new","clients","billto");wirePick("site","site_new","s
 function openPeriod(type,ref){keepCurrent();syncSaved();const p=P(),[a]=periodRange(type,ref);
   const found=(p.saved||[]).filter(e=>e.inv&&invType(e.inv)===type&&e.inv.start===a).sort((x,y)=>(y.updatedAt||0)-(x.updatedAt||0))[0];
   if(found){p.inv=clone(found.inv);p.curSaved=found.id}else{p.inv=newInv(type,ref);p.curSaved=null}
-  p.period=type;migrateInv(p.inv);syncMsg="";renderAll();save()}
-function changeType(t){const inv=I(),p=P();if(invType(inv)===t)return;p.period=t;
-  if(!hasHours(inv)&&!curEntry()){openPeriod(t,inv.start);return}
-  const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(t,ref);
+  p.period=type;migrateInv(p.inv);syncMsg=null;renderAll();save()}
+function changeType(ty){const inv=I(),p=P();if(invType(inv)===ty)return;p.period=ty;
+  if(!hasHours(inv)&&!curEntry()){openPeriod(ty,inv.start);return}
+  const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(ty,ref);
   const lost=inv.rows.filter(r=>r.hours>0&&(r.date<a||r.date>b)).length;
-  if(lost){renderWeek();setSave(`Impossible : ${lost} jour(s) travaillé(s) sortiraient de la période. Choisis une durée plus longue ou une nouvelle facture.`);return}
-  inv.type=t;inv.start=a;inv.end=b;inv.issue=a;inv.due=b;inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg="";renderAll();save()}
+  if(lost){renderWeek();setSave("st.shrink",{n:lost});return}
+  inv.type=ty;inv.start=a;inv.end=b;inv.issue=a;inv.due=b;inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg=null;renderAll();save()}
 document.querySelectorAll('input[name="ptype"]').forEach(x=>x.onchange=e=>changeType(e.target.value));
-$("prevw").onclick=()=>{const inv=I(),t=invType(inv);openPeriod(t,periodShift(t,inv.start,-1))};
-$("nextw").onclick=()=>{const inv=I(),t=invType(inv);openPeriod(t,periodShift(t,inv.start,1))};
+$("prevw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,-1))};
+$("nextw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
 $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
-/* sheets */
-let sheetStack=[];
-function openSheet(id){document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
-  $("sheettitle").textContent=$(id).dataset.title;$("sheetov").hidden=false;document.body.style.overflow="hidden";
+/* ---------- sheets ---------- */
+function openSheet(id){curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
+  $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_menu")renderMenu();if(id==="p_premium")renderPremium();
   if(id==="p_infos")ME.forEach(k=>$("me_"+k).value=P()[k]||"");
   if(id==="p_settings"){$("mode_times").checked=P().mode!=="hours";$("mode_hours").checked=P().mode==="hours";$("unpaid").checked=!!P().unpaid;
     $("unpaidwrap").hidden=P().mode==="hours";$("defrate").value=P().rate??40;$("defdesc").value=P().desc||"Labour"}
   if(id==="p_import")loadImportList()}
-function closeSheet(){$("sheetov").hidden=true;document.body.style.overflow=""}
+function closeSheet(){$("sheetov").hidden=true;curSheet=null;document.body.style.overflow=""}
 $("sheetclose").onclick=closeSheet;$("sheetov").addEventListener("click",e=>{if(e.target.id==="sheetov")closeSheet()});
 document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if(o){openSheet(o.dataset.open);return}if(e.target.closest("[data-close]"))closeSheet()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("sheetov").hidden&&$("pinov").hidden)closeSheet()});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("langpop").hidden){$("langpop").hidden=true;$("langbtn").focus();return}if(!$("sheetov").hidden&&$("pinov").hidden)closeSheet()});
 $("btn_menu").onclick=()=>openSheet("p_menu");$("btn_hist").onclick=()=>openSheet("p_hist");
 
-/* mes infos + réglages */
+/* my details + settings */
 ME.forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;renderOnboard();save()}));
 document.querySelectorAll('input[name="mode"]').forEach(x=>x.onchange=e=>{P().mode=e.target.value;$("unpaidwrap").hidden=P().mode==="hours";
   if(P().mode==="times")I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});renderDays();renderTotals();save()});
@@ -781,47 +1075,51 @@ $("defrate").addEventListener("change",e=>{const v=parseFloat(e.target.value);if
   I().rows.forEach(r=>{if(!isWkd(r.date)&&(r.rate===old||!r.rate))r.rate=v});renderDays();renderTotals();save()});
 $("defdesc").addEventListener("change",e=>{const v=e.target.value.trim()||"Labour",old=P().desc||"Labour";P().desc=v;I().rows.forEach(r=>{if(!r.desc||r.desc===old)r.desc=v});save()});
 
-/* listes */
-function renderLists(){[["clients","list_clients","Aucun client."],["sites","list_sites","Aucun chantier."]].forEach(([k,id,empty])=>{
-  const ul=$(id);ul.innerHTML=state[k].length?"":`<li><span class="muted">${empty}</span></li>`;
-  state[k].forEach((v,i)=>{const li=document.createElement("li");li.innerHTML=`<span></span><button class="del" type="button" aria-label="Retirer">×</button>`;
+/* lists */
+function renderLists(){[["clients","list_clients","l.none_c"],["sites","list_sites","l.none_s"]].forEach(([k,id,empty])=>{
+  const ul=$(id);ul.innerHTML=state[k].length?"":`<li><span class="muted">${esc(t(empty))}</span></li>`;
+  state[k].forEach((v,i)=>{const li=document.createElement("li");li.innerHTML=`<span></span><button class="del" type="button" aria-label="${esc(t("l.remove"))}">×</button>`;
     li.querySelector("span").textContent=v;li.querySelector("button").onclick=()=>{state[k].splice(i,1);renderLists();renderWeek();renderDays();save()};ul.appendChild(li)})})}
 
-/* historique */
+/* history */
 function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
-  $("histcount").textContent=plan.premium?`${list.length} facture(s)`:`${list.length} / ${FREE_LIMIT()} factures gardées en gratuit`;
-  if(!list.length){ul.innerHTML=`<li><span class="muted">Aucune facture enregistrée. Remplis tes heures puis touche « Enregistrer la facture ».</span></li>`;return}
+  $("histcount").textContent=plan.premium?t("h.count_pro",{n:list.length}):t("h.count_free",{n:list.length,limit:FREE_LIMIT()});
+  if(!list.length){ul.innerHTML=`<li><span class="muted">${esc(t("h.empty"))}</span></li>`;return}
   list.forEach(e=>{const inv=e.inv,li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
     li.innerHTML=`<button class="hopen" type="button"><span class="hrange">${rangeText(inv.start,inv.end)}</span>
-      <span class="hsub">${PT[invType(inv)].n} · n° ${esc(inv.invno||"?")}${inv.billto?" · "+esc(inv.billto):""}</span>
-      <span class="htot"><b>$${fmt(invTotal(inv))}</b> · ${invHours(inv)} h</span>${e.custom?`<span class="hname"></span>`:""}</button>
-      <div class="hact"><button class="ren" type="button">Renommer</button><button class="hdel" type="button">Supprimer</button></div>`;
+      <span class="hsub">${esc(t("pn."+invType(inv)))} · ${esc(t("h.inv",{no:inv.invno||"?"}))}${inv.billto?" · "+esc(inv.billto):""}</span>
+      <span class="htot"><b>${money(invTotal(inv))}</b> · ${hrs(invHours(inv))} h</span>${e.custom?`<span class="hname"></span>`:""}</button>
+      <div class="hact"><button class="ren" type="button">${esc(t("h.rename"))}</button><button class="hdel" type="button">${esc(t("h.delete"))}</button></div>`;
     if(e.custom)li.querySelector(".hname").textContent=e.name;
-    li.querySelector(".hopen").onclick=()=>{if(e.id!==p.curSaved)keepCurrent();syncSaved();p.inv=clone(inv);p.curSaved=e.id;p.period=invType(inv);migrateInv(p.inv);closeSheet();syncMsg="";renderAll();save();flushSave()};
-    li.querySelector(".ren").onclick=()=>{const box=li.querySelector(".hact");box.innerHTML=`<input maxlength="80" placeholder="Nom de la facture"><button class="primary" type="button">OK</button>`;
+    if(e.id===p.curSaved)li.querySelector(".hrange").dataset.open=t("h.open");
+    li.querySelector(".hopen").onclick=()=>{if(e.id!==p.curSaved)keepCurrent();syncSaved();p.inv=clone(inv);p.curSaved=e.id;p.period=invType(inv);migrateInv(p.inv);closeSheet();syncMsg=null;renderAll();save();flushSave()};
+    li.querySelector(".ren").onclick=()=>{const box=li.querySelector(".hact");box.innerHTML=`<input maxlength="80" placeholder="${esc(t("h.name_ph"))}"><button class="primary" type="button">${esc(t("h.ok"))}</button>`;
       const inp=box.querySelector("input");inp.value=e.custom?e.name:"";inp.focus();
       const done=()=>{const v=inp.value.trim();if(v){e.name=v;e.custom=true}else{e.custom=false;e.name=defaultName(e.inv)}save();flushSave();renderHist()};
       box.querySelector("button").onclick=done;inp.addEventListener("keydown",k=>{if(k.key==="Enter")done()})};
-    const del=li.querySelector(".hdel");del.onclick=()=>{if(!del.classList.contains("warn")){del.classList.add("warn");del.textContent="Confirmer la suppression";return}
+    const del=li.querySelector(".hdel");del.onclick=()=>{if(!del.classList.contains("warn")){del.classList.add("warn");del.textContent=t("h.confirm");return}
       p.saved=p.saved.filter(x=>x.id!==e.id);
       if(p.curSaved===e.id){p.curSaved=null;p.inv=newInv(invType(inv),inv.start);renderAll()}
       save();flushSave();renderHist();renderStatus()};
     ul.appendChild(li)})}
 
 /* menu + premium */
-function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);return u.toString()}
+function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);
+  u.searchParams.set("locale",lang==="en"?"en":lang);return u.toString()}
 function renderMenu(){$("acctemail").textContent=session?session.email:"";
-  $("acctplan").textContent=plan.premium?`Premium${plan.period_end?" jusqu'au "+new Date(plan.period_end).toLocaleDateString("fr-FR"):""}`:`Gratuit · ${FREE_LIMIT()} factures gardées`;
+  $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:FREE_LIMIT()});
   $("m_premium").hidden=plan.premium;$("m_manage").hidden=!plan.premium||!PORTAL;
   if(PORTAL){const u=new URL(PORTAL);if(session&&session.email)u.searchParams.set("prefilled_email",session.email);$("m_manage").href=u.toString()}}
+let premWhy=null;
 function renderPremium(){const has=!!(PAY_MONTHLY||PAY_YEARLY);$("payrow").hidden=!has;$("paysoon").hidden=has;
+  $("premwhy").textContent=premWhy?t(premWhy,{limit:FREE_LIMIT()}):"";
   $("paymonthly").hidden=!PAY_MONTHLY;$("payyearly").hidden=!PAY_YEARLY;$("paymonthly").href=payUrl(PAY_MONTHLY);$("payyearly").href=payUrl(PAY_YEARLY)}
-function showPremium(why){$("premwhy").textContent=why||"";openSheet("p_premium")}
-$("m_premium").onclick=()=>showPremium("");
+function showPremium(why){premWhy=why||null;openSheet("p_premium")}
+$("m_premium").onclick=()=>showPremium(null);
 async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_my_profile");
   if(data){plan={premium:!!data.premium,period_end:data.period_end||null,free_limit:data.free_limit||3};renderTop();syncSaved();renderStatus()}}
 
-/* ---------- compte ---------- */
+/* ---------- account ---------- */
 function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
   inv.rows.forEach(r=>{r.hours=+r.hours||0;r.rate=r.rate==null?0:+r.rate;if(r.desc==null)r.desc="Labour"});
   if(!inv.start){const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();inv.start=ds[0]||mondayOf(inv.weekstart||inv.issue||todayIso());inv.end=ds[ds.length-1]||addDays(inv.start,6)}
@@ -836,76 +1134,90 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null?+data.rate:(wr?wr.rate:40);
   state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
   session={id:user.id,email:user.email};state.me=p;
+  /* language: the account's saved choice wins; a new account adopts the current choice */
+  if(data.lang&&I18N[data.lang]){p.lang=data.lang;if(data.lang!==lang){lang=data.lang;try{localStorage.setItem("sb_lang",lang)}catch(e){}applyStatic();renderLangUI();renderDemo();setAuthMode(authMode)}}
+  else p.lang=lang;
   p.saved=(Array.isArray(data.saved)?data.saved:[]).filter(e=>e&&e.inv&&Array.isArray(e.inv.rows));p.saved.forEach(e=>migrateInv(e.inv));
   const draft=data.inv&&Array.isArray(data.inv.rows)?migrateInv(data.inv):null;
   const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
-  p.inv=draft;p.curSaved=open?open.id:null;syncMsg="";
+  p.inv=draft;p.curSaved=open?open.id:null;syncMsg=null;
   if(draft&&!open&&hasHours(draft)){renderAll()}else{openPeriod(p.period,todayIso())}}
-async function loadAccount(user){setSave("Chargement…");const {data,error}=await sb.rpc("get_my_profile");
-  if(error){$("autherr").textContent="Impossible de charger ton compte. Recharge la page.";return false}
+async function loadAccount(user){const {data,error}=await sb.rpc("get_my_profile");
+  if(error){$("autherr").textContent=t("err.load");return false}
   applyProfile(user,data);return true}
 
-let authMode="login";
-function setAuthMode(m){authMode=m;$("authtitle").textContent=m==="login"?"Content de te revoir":"Crée ton compte gratuit";$("tab_login").classList.toggle("on",m==="login");$("tab_signup").classList.toggle("on",m==="signup");
-  $("authsubmit").textContent=m==="login"?"Se connecter":"Créer mon compte gratuit";$("authpass").autocomplete=m==="login"?"current-password":"new-password";
-  $("authpass2wrap").hidden=m==="login";$("autherr").textContent=""}
-function goAuth(m){setAuthMode(m);$("auth").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});setTimeout(()=>$("authemail").focus({preventScroll:true}),350)}
+let authMode="signup";
+function setAuthMode(m){authMode=m;$("authtitle").textContent=t(m==="login"?"auth.title_login":"auth.title_signup");
+  $("tab_login").classList.toggle("on",m==="login");$("tab_signup").classList.toggle("on",m==="signup");
+  $("tab_login").setAttribute("aria-selected",String(m==="login"));$("tab_signup").setAttribute("aria-selected",String(m==="signup"));
+  if(!$("authsubmit").disabled)$("authsubmit").textContent=t(m==="login"?"auth.submit_login":"auth.submit_signup");
+  $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass2wrap").hidden=m==="login"}
+function goAuth(m){setAuthMode(m);$("autherr").textContent="";$("auth").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});setTimeout(()=>$("authemail").focus({preventScroll:true}),350)}
 document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>goAuth(b.dataset.auth));
 $("btn_login").onclick=()=>goAuth("login");
 document.querySelector(".brand").addEventListener("click",e=>{e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})});
-/* démo */
-(function(){const s=$("demo_start"),e=$("demo_end"),r=$("demo_rate");
-  s.innerHTML=TIMES.map(t=>`<option${t==="07:00"?" selected":""}>${t}</option>`).join("");e.innerHTML=TIMES.map(t=>`<option${t==="15:30"?" selected":""}>${t}</option>`).join("");
-  const mon=mondayOf(),EN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-  $("demo_period").textContent=`${dmy(mon)} – ${dmy(addDays(mon,6))}`;
-  const up=()=>{let d=toMin(e.value)-toMin(s.value);if(d<0)d+=1440;const h=Math.round(d/60*100)/100,rate=parseFloat(r.value)||0;
-    $("demo_calc").textContent=`${h} h × $${fmt(rate)}`;$("demo_day").textContent=`$${fmt(h*rate)} / jour`;
-    $("demo_rows").innerHTML=[0,1,2,3,4].map(i=>{const dt=addDays(mon,i);return `<tr><td>${EN[parse(dt).getDay()]} ${dm(dt)}</td><td class="n">${h}</td><td class="n">${fmt(rate)}</td><td class="n">${fmt(h*rate)}</td></tr>`}).join("");
-    $("demo_week").textContent=`$${fmt(h*rate*5)}`};
-  [s,e].forEach(x=>x.onchange=up);r.oninput=up;up()})();
-$("tab_login").onclick=()=>setAuthMode("login");$("tab_signup").onclick=()=>setAuthMode("signup");
-$("authforgot").onclick=()=>{$("autherr").textContent=`Écris à ${SUPPORT_EMAIL} avec l'email de ton compte.`};
+$("tab_login").onclick=()=>{setAuthMode("login");$("autherr").textContent=""};$("tab_signup").onclick=()=>{setAuthMode("signup");$("autherr").textContent=""};
+$("authforgot").onclick=()=>{$("autherr").textContent=t("err.forgot",{email:SUPPORT_EMAIL})};
 $("authform").addEventListener("submit",async e=>{e.preventDefault();const err=$("autherr");err.textContent="";
-  if(!sb){err.textContent="Impossible de joindre le service. Vérifie ta connexion puis recharge.";return}
+  if(!sb){err.textContent=t("err.service");return}
   const email=$("authemail").value.trim(),pass=$("authpass").value;
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Entre une adresse email valide.";return}
-  if(pass.length<8){err.textContent="Le mot de passe doit faire au moins 8 caractères.";return}
-  if(authMode==="signup"&&pass!==$("authpass2").value){err.textContent="Les deux mots de passe ne sont pas pareils.";return}
-  const btn=$("authsubmit"),old=btn.textContent;btn.disabled=true;btn.textContent="Patiente…";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent=t("err.email");return}
+  if(pass.length<8){err.textContent=t("err.pass_len");return}
+  if(authMode==="signup"&&pass!==$("authpass2").value){err.textContent=t("err.pass_match");return}
+  const btn=$("authsubmit");btn.disabled=true;btn.textContent=t("auth.wait");
   try{const r=authMode==="login"?await sb.auth.signInWithPassword({email,password:pass}):await sb.auth.signUp({email,password:pass});
-    if(r.error){const m=r.error.message||"";err.textContent=/invalid login/i.test(m)?"Email ou mot de passe incorrect.":/already registered|already exists/i.test(m)?"Ce compte existe déjà. Connecte-toi.":/confirm/i.test(m)?"Confirme ton email avant de te connecter.":m;return}
-    if(!r.data.session){err.textContent="Compte créé. Ouvre l'email de confirmation puis connecte-toi.";setAuthMode("login");return}
+    if(r.error){const m=r.error.message||"";err.textContent=/invalid login/i.test(m)?t("err.bad_login"):/already registered|already exists/i.test(m)?t("err.exists"):/confirm/i.test(m)?t("err.confirm"):m;return}
+    if(!r.data.session){err.textContent=t("err.created_confirm");setAuthMode("login");return}
     $("authpass").value="";$("authpass2").value="";
     if(await loadAccount(r.data.user)&&!infosDone())openSheet("p_infos")}
-  catch(x){err.textContent="Pas de connexion. Réessaie."}
-  finally{btn.disabled=false;btn.textContent=old}});
+  catch(x){err.textContent=t("err.offline")}
+  finally{btn.disabled=false;setAuthMode(authMode)}});
 $("logout").onclick=async()=>{flushSave();closeSheet();if(sb)await sb.auth.signOut();session=null;state={me:null,clients:[],sites:[]};renderTop();setAuthMode("login");window.scrollTo(0,0)};
 
-/* ---------- PIN (import ancien profil) ---------- */
+/* ---------- landing demo ---------- */
+function renderDemo(){const s=$("demo_start"),e=$("demo_end"),r=$("demo_rate");
+  const sv=s.value||"07:00",ev=e.value||"15:30";
+  s.innerHTML=TIMES.map(x=>`<option value="${x}"${x===sv?" selected":""}>${timeLabel(x)}</option>`).join("");
+  e.innerHTML=TIMES.map(x=>`<option value="${x}"${x===ev?" selected":""}>${timeLabel(x)}</option>`).join("");
+  const mon=mondayOf();$("demo_period").textContent=`${dmy(mon)} – ${dmy(addDays(mon,6))}`;$("demo_no").textContent=withLang(INVOICE_LANG,()=>t("pdf.no_short",{no:1}));
+  let d=toMin(e.value)-toMin(s.value);if(d<0)d+=1440;const h=Math.round(d/60*100)/100,rate=parseFloat(r.value)||0;
+  $("demo_calc").textContent=`${hrs(h)} h × ${money(rate)}`;$("demo_day").textContent=t("demo.perday",{amount:money(h*rate)});
+  withLang(INVOICE_LANG,()=>{
+    $("demo_rows").innerHTML=[0,1,2,3,4].map(i=>{const dt=addDays(mon,i);return `<tr><td>${dayName(dt)} ${dm(dt)}</td><td class="n">${hrs(h)}</td><td class="n">${fmt(rate)}</td><td class="n">${fmt(h*rate)}</td></tr>`}).join("");
+    $("demo_week").textContent=money(h*rate*5)})}
+$("demo_start").onchange=renderDemo;$("demo_end").onchange=renderDemo;$("demo_rate").oninput=renderDemo;
+
+/* sticky sign-up button on phones once the hero button scrolls away */
+(function(){if(!("IntersectionObserver" in window))return;let heroVis=true,authVis=false;
+  const upd=()=>{$("lstick").hidden=!!session||heroVis||authVis||matchMedia("(min-width:900px)").matches};
+  new IntersectionObserver(es=>{heroVis=es[0].isIntersecting;upd()}).observe($("herocta"));
+  new IntersectionObserver(es=>{authVis=es[0].isIntersecting;upd()}).observe($("auth"))})();
+
+/* ---------- legacy profile import (4-digit code) ---------- */
 async function rpc(fn,args){const r=await fetch(SB_URL+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
-  const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}if(!r.ok)throw new Error((j&&j.message)||("Erreur "+r.status));return j}
-function statusText(st){st=String(st||"");if(st.startsWith("wrong:")){const n=+st.split(":")[1];return `Code incorrect (${n} essai${n>1?"s":""} restant${n>1?"s":""})`}
-  if(st.startsWith("locked:"))return `Trop d'essais. Réessaie dans ${st.split(":")[1]} min.`;return "Erreur, réessaie."}
+  const x=await r.text();let j=null;try{j=x?JSON.parse(x):null}catch(e){}if(!r.ok)throw new Error((j&&j.message)||("Error "+r.status));return j}
+function statusText(st){st=String(st||"");if(st.startsWith("wrong:"))return t("pin.wrong",{n:+st.split(":")[1]});
+  if(st.startsWith("locked:"))return t("pin.locked",{m:st.split(":")[1]});return t("pin.err")}
 const pinOv=$("pinov"),pinDots=$("pindots");let pinState=null;
-$("pinpad").innerHTML=["1","2","3","4","5","6","7","8","9","","0","del"].map(k=>k===""?`<span></span>`:k==="del"?`<button class="key ghost" type="button" data-k="del">Effacer</button>`:`<button class="key" type="button" data-k="${k}">${k}</button>`).join("");
+function buildPad(){$("pinpad").innerHTML=["1","2","3","4","5","6","7","8","9","","0","del"].map(k=>k===""?`<span></span>`:k==="del"?`<button class="key ghost" type="button" data-k="del">${esc(t("pin.del"))}</button>`:`<button class="key" type="button" data-k="${k}">${k}</button>`).join("")}
 const drawDots=()=>[...pinDots.children].forEach((d,i)=>d.classList.toggle("on",i<(pinState?pinState.val.length:0)));
-function askPin({title,verify}){return new Promise(res=>{pinState={val:"",verify,res};$("pintitle").textContent=title;$("pinsub").textContent="";drawDots();pinOv.hidden=false})}
+function askPin({title,verify}){buildPad();return new Promise(res=>{pinState={val:"",verify,res};$("pintitle").textContent=title;$("pinsub").textContent="";drawDots();pinOv.hidden=false})}
 function closePin(v){const s=pinState;pinState=null;pinOv.hidden=true;s&&s.res(v)}
 async function pinPress(k){if(!pinState||pinState.busy)return;if(k==="del"){pinState.val=pinState.val.slice(0,-1);drawDots();return}
   if(pinState.val.length>=4)return;pinState.val+=k;drawDots();
   if(pinState.val.length===4){pinState.busy=true;const v=pinState.val,r=await pinState.verify(v);if(r===true){setTimeout(()=>closePin(v),120);return}
-    $("pinsub").textContent=typeof r==="string"?r:"Code incorrect";pinDots.classList.remove("shake");void pinDots.offsetWidth;pinDots.classList.add("shake");
+    $("pinsub").textContent=typeof r==="string"?r:t("pin.err");pinDots.classList.remove("shake");void pinDots.offsetWidth;pinDots.classList.add("shake");
     setTimeout(()=>{if(pinState){pinState.val="";pinState.busy=false;drawDots()}},380)}}
 $("pinpad").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)pinPress(b.dataset.k)});
 document.addEventListener("keydown",e=>{if(!pinState)return;if(/^[0-9]$/.test(e.key))pinPress(e.key);else if(e.key==="Backspace")pinPress("del");else if(e.key==="Escape")closePin(null)});
 $("pincancel").onclick=()=>closePin(null);
 async function loadImportList(){try{const l=await rpc("list_people",{})||[];
-  $("importsel").innerHTML=`<option value="">Choisis ton nom…</option>`+l.map(x=>`<option value="${x.id}">${esc(x.name||"Sans nom")}</option>`).join("")}
-  catch(e){$("importsel").innerHTML=`<option value="">L'import n'est plus disponible</option>`}}
+  $("importsel").innerHTML=`<option value="">${esc(t("im.choose"))}</option>`+l.map(x=>`<option value="${esc(x.id)}">${esc(x.name||t("pin.noname"))}</option>`).join("")}
+  catch(e){$("importsel").innerHTML=`<option value="">${esc(t("im.unavail"))}</option>`}}
 $("importbtn").onclick=async()=>{const sel=$("importsel"),msg=$("importmsg");msg.textContent="";const id=sel.value;
-  if(!id){msg.textContent="Choisis ton ancien profil dans la liste.";return}
+  if(!id){msg.textContent=t("im.pick");return}
   let data=null;const name=sel.options[sel.selectedIndex].text;
-  const ok=await askPin({title:`Code de ${name}`,verify:async v=>{try{const r=await rpc("get_person",{p_id:id,p_pin:v});if(r&&r.ok){data=r.data||{};return true}return statusText(r&&r.status)}catch(e){return "Pas de connexion. Réessaie."}}});
+  const ok=await askPin({title:t("pin.title",{name}),verify:async v=>{try{const r=await rpc("get_person",{p_id:id,p_pin:v});if(r&&r.ok){data=r.data||{};return true}return statusText(r&&r.status)}catch(e){return t("err.offline")}}});
   if(!ok||!data)return;const p=P();
   ME.forEach(k=>{if(k!=="name"&&data[k])p[k]=data[k]});if(!p.name)p.name=name;
   if(data.mode)p.mode=data.mode==="hours"?"hours":"times";if("unpaid" in data)p.unpaid=!!data.unpaid;
@@ -918,7 +1230,7 @@ $("importbtn").onclick=async()=>{const sel=$("importsel"),msg=$("importmsg");msg
   if(!I().billto&&data.inv&&data.inv.billto)I().billto=data.inv.billto;
   if(!I().site){const s=data.inv&&data.inv.rows&&data.inv.rows[0]&&data.inv.rows[0].loc;if(s){I().site=s;I().rows.forEach(r=>{if(!r.loc)r.loc=s})}}
   renderAll();save();flushSave();
-  msg.textContent=cut?`Profil importé. ${cut} ancienne(s) facture(s) laissée(s) de côté : la version gratuite en garde ${FREE_LIMIT()}.`:"Profil importé."};
+  msg.textContent=cut?t("im.cut",{n:cut,limit:FREE_LIMIT()}):t("im.done")};
 
 /* ---------- PDF ---------- */
 const fmtAbn=v=>{const d=String(v||"").replace(/\D/g,"");return d.length===11?`${d.slice(0,2)} ${d.slice(2,5)} ${d.slice(5,8)} ${d.slice(8)}`:String(v||"")};
@@ -926,73 +1238,71 @@ function drawInvoice(doc){
   const p=P(),inv=I(),W=210,L=16,R=194;
   const INK=[21,32,27],MUT=[93,105,99],LINE=[221,226,219],ACC=[232,89,12],SOFT=[244,246,242],WHITE=[255,255,255];
   const col=c=>doc.setTextColor(c[0],c[1],c[2]),fill=c=>doc.setFillColor(c[0],c[1],c[2]),font=(w,s)=>{doc.setFont("helvetica",w);doc.setFontSize(s)};
-  const EN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  const fit=(s,w)=>doc.splitTextToSize(String(s||""),w)[0]||"";
   fill(ACC);doc.rect(0,0,W,3.5,"F");
   let y=20;
-  font("bold",17);col(INK);doc.text(doc.splitTextToSize(p.name||"",100)[0]||"",L,y);
+  font("bold",17);col(INK);doc.text(fit(p.name,100),L,y);
   font("normal",9.5);col(MUT);let ly=y+6.5;
-  [p.abn?"ABN "+fmtAbn(p.abn):"",p.addr,p.email,p.phone].filter(Boolean).forEach(t=>{doc.text(doc.splitTextToSize(String(t),100)[0],L,ly);ly+=4.8});
-  font("bold",24);col(INK);doc.text(p.gst?"TAX INVOICE":"INVOICE",R,y+1,{align:"right"});
-  let my=y+9;[["Invoice no.",String(inv.invno||"")],["Issue date",dmy(inv.issue)],["Due date",dmy(inv.due)],["Period",`${dmy(inv.start)} – ${dmy(inv.end)}`]].forEach(([k,v])=>{
+  [p.abn?"ABN "+fmtAbn(p.abn):"",p.addr,p.email,p.phone].filter(Boolean).forEach(s=>{doc.text(fit(s,100),L,ly);ly+=4.8});
+  font("bold",24);col(INK);doc.text(t(p.gst?"pdf.tax_invoice":"pdf.invoice"),R,y+1,{align:"right"});
+  let my=y+9;[[t("pdf.no"),String(inv.invno||"")],[t("pdf.issue"),dmy(inv.issue)],[t("pdf.due"),dmy(inv.due)],[t("pdf.period"),`${dmy(inv.start)} – ${dmy(inv.end)}`]].forEach(([k,v])=>{
     font("normal",9.5);col(MUT);doc.text(k,124,my);font("bold",9.5);col(INK);doc.text(v,R,my,{align:"right"});my+=5.2});
   y=Math.max(ly,my)+5;
   const bh=25;fill(SOFT);doc.roundedRect(L,y,87,bh,2,2,"F");doc.roundedRect(107,y,87,bh,2,2,"F");
-  font("bold",7.5);col(MUT);doc.text("BILL TO",L+5,y+6.5);doc.text("PAYMENT DETAILS",112,y+6.5);
-  font("bold",11.5);col(INK);doc.text(doc.splitTextToSize(inv.billto||"",78)[0]||"",L+5,y+13.5);
-  if(inv.site){font("normal",9);col(MUT);doc.text(doc.splitTextToSize("Site: "+inv.site,78)[0],L+5,y+19.5)}
+  font("bold",7.5);col(MUT);doc.text(t("pdf.billto"),L+5,y+6.5);doc.text(t("pdf.payment"),112,y+6.5);
+  font("bold",11.5);col(INK);doc.text(fit(inv.billto,78),L+5,y+13.5);
+  if(inv.site){font("normal",9);col(MUT);doc.text(fit(t("pdf.site_lbl",{site:inv.site}),78),L+5,y+19.5)}
   font("normal",9.5);let py=y+13;
-  [["BSB",p.bsb],["Account no.",p.acc],["Reference",`Invoice ${inv.invno||""}`]].forEach(([k,v])=>{if(!v)return;col(MUT);doc.text(k,112,py);font("bold",9.5);col(INK);doc.text(String(v),189,py,{align:"right"});font("normal",9.5);py+=5});
+  [[t("pdf.bsb"),p.bsb],[t("pdf.acc"),p.acc],[t("pdf.ref"),t("pdf.ref_val",{no:inv.invno||""})]].forEach(([k,v])=>{if(!v)return;col(MUT);doc.text(k,112,py);font("bold",9.5);col(INK);doc.text(String(v),189,py,{align:"right"});font("normal",9.5);py+=5});
   y+=bh+9;
   const C={date:L+3,site:L+30,desc:L+86,hrs:140,rate:164,amt:R-3};
   const head=()=>{fill(INK);doc.rect(L,y-5.2,R-L,8,"F");font("bold",8.5);col(WHITE);
-    doc.text("Date",C.date,y);doc.text("Site",C.site,y);doc.text("Description",C.desc,y);doc.text("Hours",C.hrs,y,{align:"right"});doc.text("Rate",C.rate,y,{align:"right"});doc.text("Amount",C.amt,y,{align:"right"});y+=8};
+    doc.text(t("pdf.date"),C.date,y);doc.text(t("pdf.site"),C.site,y);doc.text(t("pdf.desc"),C.desc,y);doc.text(t("pdf.hours"),C.hrs,y,{align:"right"});doc.text(t("pdf.rate"),C.rate,y,{align:"right"});doc.text(t("pdf.amount"),C.amt,y,{align:"right"});y+=8};
   head();
-  const rows=invType(inv)==="week"?inv.rows:inv.rows.filter(r=>r.hours>0);let total=0,hrs=0;
+  const rows=invType(inv)==="week"?inv.rows:inv.rows.filter(r=>r.hours>0);let total=0,hsum=0;
   rows.forEach((r,k)=>{if(y>262){doc.addPage();fill(ACC);doc.rect(0,0,W,3.5,"F");y=20;head()}
-    const amt=(r.hours||0)*(r.rate||0),on=r.hours>0;total+=amt;hrs+=r.hours||0;
+    const amt=(r.hours||0)*(r.rate||0),on=r.hours>0;total+=amt;hsum+=r.hours||0;
     if(k%2===1){fill(SOFT);doc.rect(L,y-5,R-L,7.6,"F")}
     font("normal",9.5);col(on?INK:MUT);
-    doc.text(`${EN[parse(r.date).getDay()]} ${dm(r.date)}`,C.date,y);
-    doc.text(doc.splitTextToSize(r.loc||"",52)[0]||"",C.site,y);doc.text(doc.splitTextToSize(r.desc||"",34)[0]||"",C.desc,y);
-    doc.text(on?String(r.hours):"–",C.hrs,y,{align:"right"});doc.text(on?fmt(r.rate||0):"–",C.rate,y,{align:"right"});
+    doc.text(`${dayName(r.date)} ${dm(r.date)}`,C.date,y);
+    doc.text(fit(r.loc,52),C.site,y);doc.text(fit(r.desc,34),C.desc,y);
+    doc.text(on?hrs(r.hours):"–",C.hrs,y,{align:"right"});doc.text(on?fmt(r.rate||0):"–",C.rate,y,{align:"right"});
     if(on)font("bold",9.5);doc.text(on?fmt(amt):"–",C.amt,y,{align:"right"});y+=7.6});
   doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.setLineWidth(.3);doc.line(L,y-4,R,y-4);
   if(y>238){doc.addPage();fill(ACC);doc.rect(0,0,W,3.5,"F");y=24}
   y+=4;const tx=118;
-  [["Total hours",String(Math.round(hrs*100)/100)],["Subtotal","$"+fmt(total)],["GST","$0.00"]].forEach(([k,v])=>{font("normal",9.5);col(MUT);doc.text(k,tx,y);col(INK);doc.text(v,C.amt,y,{align:"right"});y+=5.6});
-  y+=1.5;fill(INK);doc.roundedRect(tx-4,y-1,R-tx+4,12,2,2,"F");font("bold",10);col(WHITE);doc.text("TOTAL (AUD)",tx,y+7);
-  font("bold",14);col([255,138,69]);doc.text("$"+fmt(total),C.amt,y+7.3,{align:"right"});y+=18;
-  font("normal",8.5);col(MUT);if(!p.gst)doc.text("No GST has been charged.",R,y-3,{align:"right"});
+  [[t("pdf.tot_hours"),hrs(hsum)],[t("pdf.subtotal"),money(total)],[t("pdf.gst"),money(0)]].forEach(([k,v])=>{font("normal",9.5);col(MUT);doc.text(k,tx,y);col(INK);doc.text(v,C.amt,y,{align:"right"});y+=5.6});
+  y+=1.5;fill(INK);doc.roundedRect(tx-4,y-1,R-tx+4,12,2,2,"F");font("bold",10);col(WHITE);doc.text(t("pdf.total"),tx,y+7);
+  font("bold",14);col([255,138,69]);doc.text(money(total),C.amt,y+7.3,{align:"right"});y+=18;
+  font("normal",8.5);col(MUT);if(!p.gst)doc.text(t("pdf.nogst"),R,y-3,{align:"right"});
   y+=6;font("normal",9.5);col(INK);
-  const pay=`Please pay by ${dmy(inv.due)}${p.bsb||p.acc?" to the account above":""}, using reference "Invoice ${inv.invno||""}".`;
-  doc.text(doc.splitTextToSize(pay,R-L),L,y);
-  doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.line(L,286,R,286);font("normal",8);col(MUT);doc.text("Thank you.",L,290.5);
-  const n=doc.getNumberOfPages();if(n>1)for(let i=1;i<=n;i++){doc.setPage(i);font("normal",8);col(MUT);doc.text(`Page ${i} / ${n}`,R,290.5,{align:"right"})}
+  doc.text(doc.splitTextToSize(t("pdf.pay",{due:dmy(inv.due),acct:(p.bsb||p.acc)?t("pdf.pay_acct"):"",ref:t("pdf.ref_val",{no:inv.invno||""})}),R-L),L,y);
+  doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.line(L,286,R,286);font("normal",8);col(MUT);doc.text(t("pdf.thanks"),L,290.5);
+  const n=doc.getNumberOfPages();if(n>1)for(let i=1;i<=n;i++){doc.setPage(i);font("normal",8);col(MUT);doc.text(t("pdf.page",{i,n}),R,290.5,{align:"right"})}
 }
 $("pdfbtn").onclick=()=>{const msg=$("pdfmsg");msg.textContent="";
   if(!infosDone()){openSheet("p_infos");return}
-  if(!I().billto){msg.textContent="Choisis d'abord ton client.";$("billto").focus();return}
-  if(!hasHours(I())){msg.textContent="Mets au moins une journée de travail.";return}
-  if(!window.jspdf){msg.textContent="Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge.";return}
+  if(!I().billto){msg.textContent=t("pdfm.need_client");$("billto").focus();return}
+  if(!hasHours(I())){msg.textContent=t("pdfm.need_hours");return}
+  if(!window.jspdf){msg.textContent=t("pdfm.no_lib");return}
   const p=P(),inv=I(),a=inv.start,b=inv.end;
   const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
   const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
-  try{const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:"mm",format:"a4"});drawInvoice(doc);
+  try{const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:"mm",format:"a4"});doc.setLanguage&&doc.setLanguage("en-AU");withLang(INVOICE_LANG,()=>drawInvoice(doc));
     const u=URL.createObjectURL(new Blob([doc.output("arraybuffer")],{type:"application/pdf"}));
     const l=document.createElement("a");l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),15000);
-    msg.textContent="PDF prêt."}
-  catch(e){msg.textContent="Le PDF n'a pas pu être créé. Réessaie."}};
+    msg.textContent=t("pdfm.ready")}
+  catch(e){msg.textContent=t("pdfm.fail")}};
 
-/* ---------- démarrage ---------- */
-(async()=>{setAuthMode("signup");renderTop();
-  if(!sb){$("autherr").textContent="Impossible de joindre le service. Vérifie ta connexion puis recharge.";return}
+/* ---------- start ---------- */
+(async()=>{lang=storedLang()||"en";applyStatic();renderLangUI();renderDemo();setAuthMode("signup");renderTop();
+  if(!sb){$("autherr").textContent=t("err.service");return}
   const {data:{session:s}}=await sb.auth.getSession();
   if(s&&s.user)await loadAccount(s.user);
-  if(new URLSearchParams(location.search).has("paid")&&session){history.replaceState(null,"",location.pathname);setSave("Paiement reçu, activation de Premium…");
+  if(new URLSearchParams(location.search).has("paid")&&session){history.replaceState(null,"",location.pathname);setSave("st.paid_wait");
     for(let i=0;i<15&&!plan.premium;i++){await new Promise(r=>setTimeout(r,2000));await refreshPlan()}
-    setSave(plan.premium?"Premium activé. Merci !":"Paiement reçu. Premium s'activera dans quelques minutes.");if(plan.premium)save()}
+    setSave(plan.premium?"st.paid_ok":"st.paid_later");if(plan.premium)save()}
 })();
-
 </script>
 </body>
 </html>
