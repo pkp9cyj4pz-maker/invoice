@@ -125,6 +125,34 @@ summary{cursor:pointer;font-weight:600}
 .welcome p{margin:0;line-height:1.5;color:var(--muted)}
 .welcome .wtitle{font-weight:800;font-size:1.15rem;color:var(--ink);margin-bottom:6px}
 #sync{margin-left:auto}
+.acct{display:flex;flex-direction:column;min-width:0;flex:1 1 160px}
+.acct .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.acct strong{overflow-wrap:anywhere}
+.badge{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:4px 10px;border-radius:999px;background:var(--field);border:1px solid var(--line);color:var(--muted)}
+.badge.pro{background:var(--accent);border-color:var(--accent);color:#fff}
+.btnlink{display:inline-block;text-decoration:none;border-radius:4px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:6px 12px;font-weight:600}
+.btnlink.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btnlink:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.premium{display:flex;flex-direction:column;gap:10px;background:var(--paper);border:2px solid var(--accent);border-radius:6px;padding:16px 18px}
+.premium .ptitle{margin:0;font-weight:800;font-size:1.2rem}
+.premium .pwhy{margin:0;font-weight:600;color:var(--accent)}
+.premium .pwhy:empty{display:none}
+.premium .perks{margin:0;padding-left:1.2em;line-height:1.7}
+.premium .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.premium .between{justify-content:space-between}
+.premium .btnlink{padding:10px 16px;font-size:1rem}
+.premium p.hours{margin:0}
+.tabs{display:flex;gap:4px;margin:16px 0 4px;background:var(--field);border-radius:999px;padding:3px;width:max-content;max-width:100%}
+.tabs button{border:none;background:none;border-radius:999px;font-weight:600;padding:7px 14px}
+.tabs button.on{background:var(--accent);color:#fff}
+.authform{display:flex;flex-direction:column;gap:6px;max-width:360px;margin-top:8px}
+.authform label{font-weight:600;font-size:.85rem;margin-top:6px}
+.authform input{width:100%;font-size:16px;padding:10px 12px}
+.authform .primary{margin-top:12px;padding:12px;font-size:1rem}
+.authform .pinlink{align-self:flex-start;padding:0}
+.autherr{margin:4px 0 0;color:var(--accent);font-weight:600;min-height:1.2em}
+.importrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.importrow select{flex:1 1 200px}
 .invbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:24px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--field)}
 .invname{display:flex;flex-direction:column;min-width:0;flex:1 1 200px}
 .invname .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
@@ -158,18 +186,49 @@ summary{cursor:pointer;font-weight:600}
       <button id="pincancel" class="pinlink" type="button">Annuler</button>
     </div>
   </div>
-  <div class="who">
-    <label for="person">Qui fait la facture ?</label>
-    <select id="person"></select>
-    <button id="addperson" type="button">+ Nouvelle personne</button>
-    <button id="delperson" type="button">Supprimer</button>
-    <button id="setpin" type="button" hidden>Changer le code</button>
+  <div class="who" hidden>
+    <div class="acct"><span class="lbl">Compte</span><strong id="acctemail"></strong></div>
+    <span id="planbadge" class="badge">Gratuit</span><span id="planuntil" class="hours"></span>
+    <button class="primary" id="gopremium" type="button">Passer en Premium</button>
+    <a id="manage" class="btnlink" href="#" hidden>Gérer mon abonnement</a>
+    <button id="logout" type="button">Se déconnecter</button>
     <span id="sync" class="hours" role="status"></span>
   </div>
 
-  <div id="welcome" class="welcome">
-    <p class="wtitle">Choisis ton nom dans la liste</p>
-    <p>Tu n'es pas dans la liste ? Touche « + Nouvelle personne » pour créer ton profil avec un code à 4 chiffres.</p>
+  <div id="premiumpanel" class="premium" hidden>
+    <div class="row between"><p class="ptitle">Easy Invoice Premium</p><button id="premiumclose" type="button" aria-label="Fermer">Fermer</button></div>
+    <p id="premiumwhy" class="pwhy"></p>
+    <ul class="perks">
+      <li>Historique de factures illimité</li>
+      <li>Toutes les nouvelles fonctions en priorité</li>
+      <li>Annulable à tout moment, tes données restent à toi</li>
+    </ul>
+    <div class="row" id="payrow">
+      <a id="paymonthly" class="btnlink primary" href="#">4,99 $ / mois</a>
+      <a id="payyearly" class="btnlink" href="#">39 $ / an · 2 mois offerts</a>
+    </div>
+    <p id="paysoon" class="hours">Le paiement en ligne arrive très bientôt.</p>
+    <p class="hours">Paiement sécurisé par Stripe. Ton compte passe en Premium automatiquement après le paiement.</p>
+  </div>
+
+  <div id="auth" class="welcome">
+    <p class="wtitle">Easy Invoice</p>
+    <p>Ta facture de la semaine en 30 secondes. Connecte-toi ou crée ton compte gratuit.</p>
+    <div class="tabs" role="tablist">
+      <button id="tab_login" type="button" role="tab">Se connecter</button>
+      <button id="tab_signup" type="button" role="tab">Créer un compte</button>
+    </div>
+    <form id="authform" class="authform" novalidate>
+      <label for="authemail">Email</label>
+      <input id="authemail" type="email" autocomplete="email" inputmode="email" placeholder="toi@exemple.com" required>
+      <label for="authpass">Mot de passe</label>
+      <input id="authpass" type="password" autocomplete="current-password" placeholder="8 caractères minimum" required>
+      <div id="authpass2wrap" hidden><label for="authpass2">Confirme le mot de passe</label>
+      <input id="authpass2" type="password" autocomplete="new-password"></div>
+      <button class="primary" id="authsubmit" type="submit">Se connecter</button>
+      <p id="autherr" class="autherr" role="alert"></p>
+      <button id="authforgot" class="pinlink" type="button">Mot de passe oublié ?</button>
+    </form>
   </div>
 
   <div class="sheet" hidden>
@@ -213,7 +272,7 @@ summary{cursor:pointer;font-weight:600}
         </div>
       </div>
       <div id="histpanel" class="panel" hidden>
-        <div class="row between"><strong>Factures enregistrées</strong><button id="histclose" type="button">Fermer</button></div>
+        <div class="row between"><strong>Factures enregistrées <span id="histcount" class="hours"></span></strong><button id="histclose" type="button">Fermer</button></div>
         <ul id="histlist" class="histlist"></ul>
       </div>
       <p id="invmsg" class="hours" role="status"></p>
@@ -264,17 +323,26 @@ summary{cursor:pointer;font-weight:600}
     </div>
   </div>
 
-  <details>
+  <details id="listsbox" hidden>
     <summary>Gérer les entreprises et les chantiers</summary>
     <div class="lists">
       <div><h3>Entreprises</h3><ul id="list_clients"></ul></div>
       <div><h3>Adresses de chantier</h3><ul id="list_sites"></ul></div>
     </div>
   </details>
-  <p class="note">Tes infos sont enregistrées en ligne et protégées par ton code à 4 chiffres.</p>
+  <details id="importbox" hidden>
+    <summary>Importer mon ancien profil (code à 4 chiffres)</summary>
+    <div class="importrow">
+      <select id="importsel" aria-label="Ancien profil"><option value="">Chargement…</option></select>
+      <button id="importbtn" type="button">Importer</button>
+    </div>
+    <p id="importmsg" class="hours" role="status"></p>
+  </details>
+  <p class="note">Tes infos sont enregistrées en ligne et protégées par ton compte.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 const PRESET={"people": [{"name": "", "abn": "", "email": "", "phone": "", "addr": "", "bsb": "", "acc": "", "inv": {"billto": "", "invno": 1, "issue": "2026-10-05", "due": "2026-10-11", "weekstart": "2026-10-05", "rows": [{"date": "2026-10-05", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-06", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-07", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-08", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-09", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-10", "loc": "", "desc": "Labour", "hours": 0, "rate": 40}, {"date": "2026-10-11", "loc": "", "desc": "Labour", "hours": 0, "rate": 40}]}}], "clients": [], "sites": []};
 const KEY="facture-v2";
@@ -294,6 +362,12 @@ function blankInv(site){const s=mondayOf();return{billto:"",invno:1,issue:s,due:
   rows:[0,1,2,3,4,5,6].map(i=>({date:addDays(s,i),loc:site||"",desc:"Labour",hours:i<5?8:0,rate:40}))}}
 function blankPerson(){const p={id:uid(),inv:blankInv(state&&state.sites[0])};ME.forEach(k=>p[k]="");return p}
 
+/* ===== RÉGLAGES ===== */
+const PAY_MONTHLY="";   // lien de paiement Stripe mensuel  (https://buy.stripe.com/...)
+const PAY_YEARLY="";    // lien de paiement Stripe annuel
+const PORTAL="";        // lien du portail client Stripe     (https://billing.stripe.com/p/login/...)
+const SUPPORT_EMAIL="Thomas.spychiger.pro@gmail.com";
+/* ==================== */
 const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
 async function rpc(fn,args){
   const r=await fetch(SB_URL+"/rest/v1/rpc/"+fn,{method:"POST",keepalive:fn==="save_person",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
@@ -315,32 +389,11 @@ let saveTimer=null;
 const save=()=>{syncSaved();if(!session)return;clearTimeout(saveTimer);setSync("Enregistrement…");saveTimer=setTimeout(pushSave,900)};
 const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushSave()}};
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
-async function pushSave(){saveTimer=null;if(!session)return;const p=P();const {id,name,pinHash,fails,lockUntil,...rest}=p;
-  const data={...rest,clients:state.clients,sites:state.sites};const nm=(name||"").trim()||"Sans nom";
-  try{const r=await rpc("save_person",{p_id:session.id,p_pin:session.pin,p_name:nm,p_data:data});
-    if(r&&r.ok){setSync("Enregistré");const e=remote.find(x=>x.id===session.id);if(e&&e.name!==nm){e.name=nm;renderPeople()}}
-    else setSync(statusText(r&&r.status))}
-  catch(e){setSync("Pas de connexion : pas enregistré")}}
 const P=()=>state.people.find(p=>p.id===state.cur)||state.people[0];
 const I=()=>P().inv;
 const addTo=(list,v)=>{v=v.trim();if(v&&!state[list].includes(v))state[list].push(v);return v};
 
-/* ---- people ---- */
-function renderPeople(){
-  const opts=remote.map(p=>`<option value="${p.id}"${session&&p.id===session.id?" selected":""}>${esc(p.name||"Sans nom")}</option>`).join("");
-  $("person").innerHTML=(session?"":`<option value="" selected>Choisis ton nom…</option>`)+opts;
-  $("delperson").textContent="Supprimer";$("delperson").className="";$("delperson").hidden=!session;
-  const sp=document.getElementById("setpin");if(sp)sp.hidden=!session;
-  document.querySelector(".sheet").hidden=!session;const w=document.getElementById("welcome");if(w)w.hidden=!!session;
-}
-$("person").onchange=e=>{state.cur=e.target.value;save();renderAll()};
-$("addperson").onclick=()=>{const p=blankPerson();state.people.push(p);state.cur=p.id;save();renderAll();$("me_name").focus()};
-$("delperson").onclick=e=>{
-  const b=e.currentTarget;
-  if(!b.classList.contains("warn")){b.classList.add("warn");b.textContent=`Supprimer ${P().name||"cette personne"} ?`;return}
-  state.people=state.people.filter(p=>p.id!==state.cur);state.cur=state.people[0].id;save();renderAll();
-};
-ME.forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;save();if(k==="name")renderPeople()}));
+ME.forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;save()}));
 
 /* ---- bill to ---- */
 function renderBillto(){
@@ -461,68 +514,115 @@ $("pinpad").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if
 document.addEventListener("keydown",e=>{if(!pinState)return;if(/^[0-9]$/.test(e.key))pinPress(e.key);else if(e.key==="Backspace")pinPress("del");else if(e.key==="Escape")closePin(null)});
 pinCancel.onclick=()=>closePin(null);
 
-async function unlock(p){
-  if(!p.pinHash)return true;
-  return !!(await askPin({title:`Code de ${p.name||"cette personne"}`,verify:async v=>{
-    const now=Date.now();if(p.lockUntil&&p.lockUntil>now)return `Trop d'essais. Réessaie dans ${Math.ceil((p.lockUntil-now)/60000)} min.`;
-    if((await hashPin(v,p.id))===p.pinHash){p.fails=0;p.lockUntil=0;save();return true}
-    p.fails=(p.fails||0)+1;if(p.fails>=5){p.fails=0;p.lockUntil=now+15*60000;save();return "Trop d'essais. Réessaie dans 15 min."}
-    save();return `Code incorrect (${5-p.fails} essai${5-p.fails>1?"s":""} restant${5-p.fails>1?"s":""})`}}));
+/* ---- comptes + Premium ---- */
+const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}):null;
+let plan={premium:false,period_end:null,free_limit:3};
+const FREE_LIMIT=()=>plan.free_limit||3;
+function payUrl(base){if(!base||!session)return"";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);return u.toString()}
+function renderPeople(){
+  const on=!!session;
+  document.querySelector(".who").hidden=!on;document.querySelector(".sheet").hidden=!on;
+  $("auth").hidden=on;$("importbox").hidden=!on;$("listsbox").hidden=!on;
+  if(!on){$("premiumpanel").hidden=true;return}
+  $("acctemail").textContent=session.email||"";
+  const b=$("planbadge");b.textContent=plan.premium?"Premium":"Gratuit";b.classList.toggle("pro",plan.premium);
+  $("planuntil").textContent=plan.premium&&plan.period_end?`jusqu'au ${new Date(plan.period_end).toLocaleDateString("fr-FR")}`:"";
+  $("gopremium").hidden=plan.premium;$("manage").hidden=!plan.premium||!PORTAL;
+  const has=!!(PAY_MONTHLY||PAY_YEARLY);
+  $("paymonthly").hidden=!PAY_MONTHLY;$("payyearly").hidden=!PAY_YEARLY;$("paysoon").hidden=has;$("payrow").hidden=!has;
+  if(PAY_MONTHLY)$("paymonthly").href=payUrl(PAY_MONTHLY);if(PAY_YEARLY)$("payyearly").href=payUrl(PAY_YEARLY);
+  if(PORTAL){const u=new URL(PORTAL);if(session.email)u.searchParams.set("prefilled_email",session.email);$("manage").href=u.toString()}
+  if(plan.premium)$("premiumpanel").hidden=true;
 }
-async function choosePin(p){
-  const a=await askPin({title:"Choisis un code à 4 chiffres",sub:`Il protège les infos de ${p.name||"cette personne"}.`,verify:()=>true});
-  if(!a)return false;
-  const b=await askPin({title:"Confirme ton code",verify:v=>v===a?true:"Les deux codes ne sont pas pareils"});
-  if(!b)return false;
-  p.pinHash=await hashPin(a,p.id);p.fails=0;p.lockUntil=0;save();renderPeople();return true;
-}
-$("setpin").textContent="Changer le code";
-function loadPerson(id,name,pin,data){
-  data=data||{};const p={id,name:name||"",inv:data.inv||blankInv(),unpaid:!!data.unpaid,sameStart:!!data.sameStart,mode:data.mode==="hours"?"hours":"times"};
+function showPremium(reason){if(plan.premium)return;$("premiumwhy").textContent=reason||"";$("premiumpanel").hidden=false;$("premiumpanel").scrollIntoView({behavior:"smooth",block:"center"})}
+$("gopremium").onclick=()=>{const p=$("premiumpanel");if(!p.hidden){p.hidden=true;return}showPremium("")};
+$("premiumclose").onclick=()=>{$("premiumpanel").hidden=true};
+
+function applyProfile(uidv,email,res){
+  const data=(res&&res.data)||{};plan={premium:!!res.premium,period_end:res.period_end||null,free_limit:res.free_limit||3};
+  const p={id:uidv,name:res.name||data.name||"",inv:data.inv||blankInv(),unpaid:!!data.unpaid,sameStart:!!data.sameStart,mode:data.mode==="hours"?"hours":"times"};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
   p.saved=Array.isArray(data.saved)?data.saved:[];
   const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
   if(open){p.inv=JSON.parse(JSON.stringify(open.inv));p.curSaved=open.id}else{p.curSaved=null;resetHours(p)}
-  state.people=[p];state.cur=id;state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
-  session={id,pin};try{localStorage.setItem("easyinv-last",id)}catch(e){}
-  renderAll();setSync("");
+  state.people=[p];state.cur=uidv;state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
+  session={id:uidv,email};renderAll();setSync("");
 }
-async function openPerson(id){
-  const e=remote.find(x=>x.id===id);let data=null;
-  const pin=await askPin({title:`Code de ${e?e.name:"cette personne"}`,verify:async v=>{
-    try{const r=await rpc("get_person",{p_id:id,p_pin:v});if(r&&r.ok){data=r.data||{};return true}return statusText(r&&r.status)}
-    catch(err){return "Pas de connexion. Réessaie."}}});
-  if(!pin)return false;loadPerson(id,e?e.name:"",pin,data);return true;
+async function loadAccount(user){
+  setSync("Chargement…");
+  const {data,error}=await sb.rpc("get_my_profile");
+  if(error){setSync("Impossible de charger ton compte. Recharge la page.");return false}
+  applyProfile(user.id,user.email,data);return true;
 }
-$("person").onchange=async e=>{const id=e.target.value;if(!id||(session&&id===session.id)){renderPeople();return}
-  if(!(await openPerson(id)))renderPeople()};
-$("addperson").onclick=async()=>{
-  const a=await askPin({title:"Choisis un code à 4 chiffres",sub:"Il protégera tes infos. Retiens-le bien.",verify:()=>true});if(!a)return;
-  const b=await askPin({title:"Confirme ton code",verify:v=>v===a?true:"Les deux codes ne sont pas pareils"});if(!b)return;
-  const inv=blankInv();setSync("Création…");
-  try{const id=await rpc("create_person",{p_name:"Nouvelle personne",p_pin:a,p_data:{inv,clients:[],sites:[]}});
-    remote.push({id,name:"Nouvelle personne"});loadPerson(id,"",a,{inv});setSync("Profil créé. Remplis tes infos.");$("me_name").focus()}
-  catch(err){setSync("Création impossible : "+err.message)}};
-$("delperson").onclick=async e=>{const b=e.currentTarget;if(!session)return;
-  if(!b.classList.contains("warn")){b.classList.add("warn");b.textContent=`Supprimer ${P().name||"cette personne"} ?`;return}
-  const ok=await askPin({title:"Code pour supprimer",sub:"La personne et ses infos seront effacées.",verify:v=>v===session.pin?true:"Code incorrect"});
-  if(!ok){renderPeople();return}
-  try{const r=await rpc("delete_person",{p_id:session.id,p_pin:session.pin});
-    if(r&&r.ok){remote=remote.filter(x=>x.id!==session.id);session=null;try{localStorage.removeItem("easyinv-last")}catch(e){}renderPeople();setSync("Personne supprimée")}
-    else{renderPeople();setSync(statusText(r&&r.status))}}
-  catch(err){renderPeople();setSync("Pas de connexion")}};
-$("setpin").onclick=async()=>{if(!session)return;
-  const o=await askPin({title:"Code actuel",verify:v=>v===session.pin?true:"Code incorrect"});if(!o)return;
-  const a=await askPin({title:"Nouveau code",verify:()=>true});if(!a)return;
-  const b=await askPin({title:"Confirme le nouveau code",verify:v=>v===a?true:"Les deux codes ne sont pas pareils"});if(!b)return;
-  try{const r=await rpc("change_pin",{p_id:session.id,p_pin:session.pin,p_new:a});
-    if(r&&r.ok){session.pin=a;setSync("Code changé")}else setSync(statusText(r&&r.status))}
-  catch(err){setSync("Pas de connexion")}};
-(async()=>{renderPeople();setSync("Connexion…");
-  try{remote=await rpc("list_people",{})||[]}catch(e){setSync("Impossible de joindre la base. Vérifie ta connexion puis recharge.");return}
-  renderPeople();setSync("");
-  let last=null;try{last=localStorage.getItem("easyinv-last")}catch(e){}
-  if(last&&remote.some(x=>x.id===last))await openPerson(last);
+async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_my_profile");
+  if(data){plan={premium:!!data.premium,period_end:data.period_end||null,free_limit:data.free_limit||3};renderPeople()}}
+
+async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();const {id,name,pinHash,fails,lockUntil,...rest}=p;
+  const data={...rest,name:name||"",clients:state.clients,sites:state.sites};
+  try{const {data:r,error}=await sb.rpc("save_my_profile",{p_name:(name||"").trim(),p_data:data});
+    if(error){setSync(/JWT|auth/i.test(error.message)?"Session expirée : reconnecte-toi":"Pas enregistré : "+error.message);return}
+    if(r&&r.ok){setSync("Enregistré");return}
+    if(r&&r.status==="limit"){setSync("Limite gratuite atteinte");showPremium(`La version gratuite garde ${FREE_LIMIT()} factures. Passe en Premium pour un historique illimité.`);return}
+    setSync(statusText(r&&r.status))}
+  catch(e){setSync("Pas de connexion : pas enregistré")}}
+
+/* écran de connexion */
+let authMode="login";
+function setAuthMode(m){authMode=m;$("tab_login").classList.toggle("on",m==="login");$("tab_signup").classList.toggle("on",m==="signup");
+  $("authsubmit").textContent=m==="login"?"Se connecter":"Créer mon compte";$("authpass").autocomplete=m==="login"?"current-password":"new-password";
+  $("authpass2wrap").hidden=m==="login";$("autherr").textContent=""}
+$("tab_login").onclick=()=>setAuthMode("login");$("tab_signup").onclick=()=>setAuthMode("signup");
+$("authforgot").onclick=()=>{$("autherr").textContent=`Mot de passe oublié ? Écris à ${SUPPORT_EMAIL} avec l'email de ton compte.`};
+$("authform").addEventListener("submit",async e=>{e.preventDefault();const err=$("autherr");err.textContent="";
+  if(!sb){err.textContent="Impossible de joindre le service. Vérifie ta connexion puis recharge.";return}
+  const email=$("authemail").value.trim(),pass=$("authpass").value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent="Entre une adresse email valide.";return}
+  if(pass.length<8){err.textContent="Le mot de passe doit faire au moins 8 caractères.";return}
+  if(authMode==="signup"&&pass!==$("authpass2").value){err.textContent="Les deux mots de passe ne sont pas pareils.";return}
+  const btn=$("authsubmit");btn.disabled=true;const old=btn.textContent;btn.textContent="Patiente…";
+  try{
+    const r=authMode==="login"?await sb.auth.signInWithPassword({email,password:pass}):await sb.auth.signUp({email,password:pass});
+    if(r.error){const m=r.error.message||"";
+      err.textContent=/invalid login/i.test(m)?"Email ou mot de passe incorrect.":/already registered|already exists/i.test(m)?"Ce compte existe déjà. Connecte-toi.":/confirm/i.test(m)?"Confirme ton email avant de te connecter.":m;return}
+    if(!r.data.session){err.textContent="Compte créé. Ouvre l'email de confirmation puis connecte-toi.";setAuthMode("login");return}
+    $("authpass").value="";$("authpass2").value="";
+    await loadAccount(r.data.user);
+  }catch(x){err.textContent="Pas de connexion. Réessaie."}
+  finally{btn.disabled=false;btn.textContent=old}});
+$("logout").onclick=async()=>{flushSave();if(sb)await sb.auth.signOut();session=null;plan={premium:false,period_end:null,free_limit:3};
+  state.people=[blankPerson()];state.cur=state.people[0].id;state.clients=[];state.sites=[];renderPeople();setAuthMode("login")};
+
+/* import d'un ancien profil (code à 4 chiffres) */
+$("importbtn").onclick=async()=>{const sel=$("importsel"),msg=$("importmsg");msg.textContent="";
+  const id=sel.value;if(!id){msg.textContent="Choisis ton ancien profil dans la liste.";return}
+  let data=null;const name=sel.options[sel.selectedIndex].text;
+  const ok=await askPin({title:`Code de ${name}`,verify:async v=>{try{const r=await rpc("get_person",{p_id:id,p_pin:v});if(r&&r.ok){data=r.data||{};return true}return statusText(r&&r.status)}catch(e){return "Pas de connexion. Réessaie."}}});
+  if(!ok||!data)return;
+  const p=P();ME.forEach(k=>{if(k!=="name"&&data[k])p[k]=data[k]});if(!p.name)p.name=name;
+  ["unpaid","sameStart"].forEach(k=>{if(k in data)p[k]=!!data[k]});if(data.mode)p.mode=data.mode;
+  let saved=Array.isArray(data.saved)?data.saved:[];
+  const room=plan.premium?Infinity:Math.max(0,FREE_LIMIT()-(p.saved||[]).length);let cut=0;
+  if(saved.length>room){cut=saved.length-room;saved=saved.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).slice(0,room)}
+  p.saved=[...saved,...(p.saved||[])];
+  (data.clients||[]).forEach(c=>addTo("clients",c));(data.sites||[]).forEach(s=>addTo("sites",s));
+  if(data.inv&&!(p.inv.rows||[]).some(r=>r.hours)){p.inv=data.inv;resetHours(p)}
+  renderAll();save();flushSave();
+  msg.textContent=cut?`Profil importé. ${cut} ancienne(s) facture(s) non importée(s) : la version gratuite en garde ${FREE_LIMIT()}.`:"Profil importé.";};
+async function loadImportList(){try{const l=await rpc("list_people",{})||[];
+  $("importsel").innerHTML=`<option value="">Choisis ton ancien profil…</option>`+l.map(x=>`<option value="${x.id}">${esc(x.name||"Sans nom")}</option>`).join("");
+  $("importbox").classList.toggle("empty",!l.length)}catch(e){}}
+
+/* démarrage */
+(async()=>{setAuthMode("login");renderPeople();
+  if(!sb){$("autherr").textContent="Impossible de joindre le service. Vérifie ta connexion puis recharge.";return}
+  const {data:{session:s}}=await sb.auth.getSession();
+  if(s&&s.user)await loadAccount(s.user);
+  loadImportList();
+  if(new URLSearchParams(location.search).has("paid")&&session){
+    history.replaceState(null,"",location.pathname);setSync("Paiement reçu, activation de Premium…");
+    for(let i=0;i<15&&!plan.premium;i++){await new Promise(r=>setTimeout(r,2000));await refreshPlan()}
+    setSync(plan.premium?"Premium activé. Merci !":"Paiement reçu. Premium s'activera dans quelques minutes.");
+  }
 })();
 
 /* ---- saved invoices ---- */
@@ -543,13 +643,15 @@ $("savebtn").onclick=()=>{if(!session)return;const e=curEntry();const was=!$("sa
 $("savecancel").onclick=closePanels;
 function doSave(asNew){const p=P();p.saved=p.saved||[];const nm=$("savename").value.trim()||defaultName(I());const e=curEntry();
   if(e&&!asNew){e.name=nm;e.inv=clone(I());e.updatedAt=Date.now();flash("Facture renommée.")}
-  else{if(p.saved.length>=60){flash("Tu as déjà 60 factures. Supprimes-en dans l'historique.");return}
+  else{if(!plan.premium&&p.saved.length>=FREE_LIMIT()){closePanels();showPremium(`La version gratuite garde ${FREE_LIMIT()} factures. Supprime-en une dans l'historique ou passe en Premium.`);return}
+    if(p.saved.length>=500){flash("Tu as déjà 500 factures. Supprimes-en dans l'historique.");return}
     const n={id:uid(),name:nm,inv:clone(I()),createdAt:Date.now(),updatedAt:Date.now()};p.saved.unshift(n);p.curSaved=n.id;
     flash("Facture enregistrée. Tes changements s'enregistrent maintenant tout seuls dedans.")}
   closePanels();renderInvBar();save();flushSave()}
 $("saveok").onclick=()=>doSave(false);$("saveasnew").onclick=()=>doSave(true);
 $("savename").addEventListener("keydown",e=>{if(e.key==="Enter")doSave(false);if(e.key==="Escape")closePanels()});
 function renderHist(){const p=P(),list=p.saved||[],ul=$("histlist");ul.innerHTML="";
+  $("histcount").textContent=plan.premium?`(${list.length})`:`(${list.length}/${FREE_LIMIT()} en gratuit)`;
   if(!list.length){ul.innerHTML=`<li><span class="hours">Aucune facture enregistrée. Remplis ta semaine puis touche « Enregistrer la facture ».</span></li>`;return}
   list.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).forEach(e=>{const [a,b]=invRange(e.inv);const li=document.createElement("li");
     if(e.id===p.curSaved)li.className="cur";
