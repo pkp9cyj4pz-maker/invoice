@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src https://snfcqaubjscxgxjyugas.supabase.co wss://snfcqaubjscxgxjyugas.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src https://snfcqaubjscxgxjyugas.supabase.co wss://snfcqaubjscxgxjyugas.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SubbieBill">
@@ -330,19 +330,48 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 @media (max-width:360px){.langbtn{padding:7px 8px}.langbtn svg{display:none}}
 .mini select,.dinp select{font-family:var(--body);font-variant-numeric:tabular-nums;padding-right:4px}
 @media (max-width:430px){#planbadge{display:none}}
+
+/* ---- v6: language picker, sticky CTA, small fixes ---- */
+.topl{display:flex;align-items:center;gap:8px}
+.langpick{position:relative}
+.langbtn{display:flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 10px;min-height:40px;font-size:.88rem;font-weight:700;letter-spacing:.04em}
+.langbtn svg{color:var(--muted)}
+.langpop{position:absolute;right:0;top:calc(100% + 6px);z-index:30;min-width:170px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 12px 30px -12px color-mix(in srgb,var(--ink) 40%,transparent);display:flex;flex-direction:column;gap:2px}
+.langpop button{border:none;background:transparent;text-align:left;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;min-height:44px;font-weight:600}
+.langpop button[aria-checked="true"]{background:var(--field)}
+.langpop b{color:var(--green)}
+.langrow{display:flex;flex-direction:column;gap:6px;padding:4px 0 6px}
+.flabel{font-weight:700;font-size:.84rem;margin-top:8px;color:var(--muted)}
+.menu .item b{font-weight:700}
+.hist li.cur .hrange::after{content:" · " attr(data-open)}
+.lstick{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
+.lstick button{width:100%;min-height:54px;font-size:1.02rem;border-radius:12px}
+@media (min-width:900px){.lstick{display:none!important}}
+@media (max-width:360px){.langbtn{padding:7px 8px}.langbtn svg{display:none}}
+.mini select,.dinp select{font-family:var(--body);font-variant-numeric:tabular-nums;padding-right:4px}
+@media (max-width:430px){#planbadge{display:none}}
+.saverow button.locked{background:transparent;border:1.5px dashed var(--line);color:var(--muted)}
+.lockbar{background:var(--green-soft);border:1px solid color-mix(in srgb,var(--green) 40%,var(--line));border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.lockbar p{margin:0;font-weight:600;color:var(--green)}
+.lockbtns{display:flex;flex-wrap:wrap;gap:8px}.lockbtns button{flex:1 1 160px}
+.seg label.dim{opacity:.55}
+select:disabled,input:disabled{opacity:.7}
+.day.rest.lk{opacity:.6}
+.big.confirm{background:var(--hivis);border-color:var(--hivis);color:#15201B}
+.astats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:8px}
+.atile{background:var(--field);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.atile b{font-family:var(--head);font-weight:900;font-size:1.7rem;line-height:1;overflow-wrap:anywhere}
+.atile span{font-size:.78rem;color:var(--muted)}
+.alist{list-style:none;margin:8px 0;padding:0}
+.alist li{display:flex;flex-wrap:wrap;gap:8px 12px;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}
+.aumain{display:flex;flex-direction:column;min-width:0;flex:1 1 200px}
+.auemail{overflow-wrap:anywhere}.auname{color:var(--muted);font-size:.9rem}
+.aumeta{font-size:.8rem;color:var(--muted)}
+.auact{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.auact button{min-height:40px;padding:7px 12px;font-size:.88rem}
 </style>
 </head>
 <body>
-
-<div id="pinov" class="pinov" hidden role="dialog" aria-modal="true" aria-labelledby="pintitle">
-  <div class="pinbox">
-    <p id="pintitle" class="pintitle"></p>
-    <p id="pinsub" class="pinsub" role="status"></p>
-    <div class="dots" id="pindots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-    <div class="pad" id="pinpad"></div>
-    <button id="pincancel" class="linkbtn" type="button" data-i18n="pin.cancel">Cancel</button>
-  </div>
-</div>
 
 <div id="sheetov" class="ov" hidden>
   <div class="sheetbox" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
@@ -362,7 +391,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
       <button class="item" type="button" data-open="p_infos"><b data-i18n="m.infos">My details</b> <span data-i18n="m.infos_sub">name, ABN, bank</span></button>
       <button class="item" type="button" data-open="p_settings"><b data-i18n="m.settings">Settings</b> <span data-i18n="m.settings_sub">rates, time entry</span></button>
       <button class="item" type="button" data-open="p_lists"><b data-i18n="m.lists">Clients and sites</b> <span data-i18n="m.lists_sub">manage your lists</span></button>
-      <button class="item" type="button" data-open="p_import"><b data-i18n="m.import">Import my old profile</b> <span data-i18n="m.import_sub">4-digit code</span></button>
+      <button class="item" type="button" data-open="p_admin" id="m_admin" hidden><b data-i18n="m.admin">Admin</b> <span data-i18n="m.admin_sub">stats and members</span></button>
       <button class="item" type="button" id="logout"><b data-i18n="m.logout">Log out</b></button>
     </section>
 
@@ -399,12 +428,13 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
       <p class="note" data-i18n="l.note">To add one, choose “+ Add” in the Client or Site list.</p>
     </section>
 
-    <section id="p_import" class="form" hidden data-i18n-title="im.title">
-      <p class="muted" style="margin:0" data-i18n="im.intro">Bring over your old profile.</p>
-      <label for="importsel" data-i18n="im.label">Your old profile</label>
-      <select id="importsel"><option value="" data-i18n="im.loading">Loading…</option></select>
-      <button class="primary" id="importbtn" type="button" data-i18n="im.btn">Import</button>
-      <p id="importmsg" class="err" role="status"></p>
+    <section id="p_admin" hidden data-i18n-title="a.title">
+      <div id="adm_stats" class="astats"></div>
+      <label for="adm_q" class="flabel" data-i18n="a.search_lbl">Members</label>
+      <input id="adm_q" type="search" data-i18n-ph="a.search" autocomplete="off">
+      <p id="adm_msg" class="err" role="status"></p>
+      <ul id="adm_list" class="alist"></ul>
+      <button id="adm_more" type="button" hidden data-i18n="a.more">Load more</button>
     </section>
 
     <section id="p_hist" hidden data-i18n-title="h.title">
@@ -616,6 +646,10 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
           <div class="field"><label for="due" data-i18n="meta.due">Due</label><input id="due" type="date"></div>
         </div>
       </details>
+      <div id="lockbar" class="lockbar" hidden>
+        <p id="locktxt"></p>
+        <div class="lockbtns"><button class="primary" id="lock_next" type="button" data-i18n="fin.next">Start the next invoice</button><button id="lock_edit" type="button" hidden data-i18n="fin.edit">Edit as a new invoice</button></div>
+      </div>
       <div class="saverow"><button class="primary" id="savebtn" type="button"></button></div>
       <p id="savestate" class="savestate" role="status"></p>
     </section>
@@ -631,12 +665,11 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 <div class="bottombar" id="bottombar" hidden>
   <div class="bbin">
     <div class="tot"><strong id="total"></strong><span id="tothours"></span></div>
-    <button class="primary big" id="pdfbtn" type="button" data-i18n="bar.pdf">Download PDF</button>
+    <button class="primary big" id="pdfbtn" type="button"></button>
   </div>
   <p id="pdfmsg" class="pdfmsg" role="status"></p>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
 <script>
 /* ===== TRANSLATIONS =====
@@ -647,13 +680,14 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "auth.pass_ph_login":"Your password","save.locked":"Save to history · Premium","p.why_save":"Saving invoices and your history are Premium features.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap again to finish ({n} free left)","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of 3 free invoices left","quota.none":"No free invoices left","fin.locked":"Finished on {date}. This invoice is locked.","fin.next":"Start the next invoice","fin.edit":"Edit as a new invoice","fin.done":"Invoice finished and downloaded.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Fill in your name, ABN, BSB and account number first.","fin.server":"The server didn't respond. Try again in a moment.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
   days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
   "doc.title":"SubbieBill · Invoicing for ABN subcontractors",
   "lang.label":"Language",
   "nav.login":"Log in","nav.home":"SubbieBill, home",
   "hero.title":"Hours in. Invoice out. In 30 seconds.",
   "hero.lede":"Invoicing built for ABN subcontractors in Australia. Enter your start and finish times. SubbieBill does the maths and creates a professional PDF invoice, ready to send.",
-  "hero.cta":"Create my first invoice","hero.note":"Free. No credit card needed.",
+  "hero.cta":"Create my first invoice","hero.note":"Your first 3 invoices are free. No card needed.",
   "proof.aria":"Built for Australia","proof.abn":"on every invoice","proof.bsb":"and account number","proof.aud":"to the cent","proof.periods":"Weekly, fortnightly or monthly",
   "demo.title":"Try it now","demo.sub":"Change the hours and watch the invoice fill itself in.",
   "demo.s1":"Hours","demo.s2":"Maths","demo.s3":"Invoice","demo.start":"Start","demo.end":"Finish","demo.rate":"Rate $/h",
@@ -668,21 +702,21 @@ en:{
   "why.2t":"No maths mistakes","why.2d":"Hours, amounts and totals add up on their own, weekend rates included.",
   "why.3t":"Weekly, fortnightly or monthly","why.3d":"Invoice on the same cycle the business pays you.",
   "why.4t":"Fill it in as you go","why.4d":"Your invoice stays saved. Add to it on your smoko.",
-  "why.5t":"Every invoice, kept","why.5d":"Find any invoice in two taps. Handy at tax time.",
+  "why.5t":"Every invoice, kept","why.5d":"With Premium, every invoice is saved and one tap away. Handy at tax time.",
   "why.6t":"On your phone, on site","why.6d":"Nothing to install. Add SubbieBill to your home screen.",
-  "price.title":"Free to start. Premium when you invoice every week.",
+  "price.title":"Try it free. Go Premium when you invoice every week.",
   "price.free":"Free","price.free_amt":"$0",
-  "price.f1":"Unlimited invoices and PDFs","price.f2":"Weekly, fortnightly or monthly","price.f3":"Saved clients and sites","price.f4":"3 invoices kept in your history",
+  "price.f1":"3 finished invoices (PDF)","price.f2":"Weekly, fortnightly or monthly","price.f3":"Saved clients and sites","price.f4":"Every tool to build your invoice",
   "price.free_cta":"Start for free",
   "price.pro":"Premium","price.pro_tag":"2 months free yearly","price.pro_amt":"$39","price.pro_per":" / year","price.pro_alt":"or $4.99 a month",
-  "price.p1":"Everything in Free","price.p2":"Unlimited history, the whole year for tax time","price.p3":"New features first","price.p4":"Cancel anytime",
+  "price.p1":"Unlimited invoices","price.p2":"Save invoices and keep your full history","price.p3":"Re-download any invoice, anytime","price.p4":"Cancel anytime",
   "price.pro_cta":"Start free, upgrade anytime",
-  "price.fine":"Prices in Australian dollars. If you cancel Premium, you go back to Free and keep all your invoices.",
+  "price.fine":"Prices in Australian dollars. One free allowance per ABN. If you cancel Premium, you go back to Free and keep your history.",
   "faq.title":"Common questions",
   "faq.q1":"What's on the invoice?","faq.a1":"Your name, ABN, contact details, BSB and account number, the business you're billing, the invoice number, dates, a day-by-day breakdown of your hours and the total in AUD.",
   "faq.q2":"What about GST?","faq.a2":"SubbieBill is built for subcontractors who aren't registered for GST, which covers most people turning over less than $75,000 a year. Your invoice says “No GST has been charged”. GST support is coming soon.",
   "faq.q3":"Who can see my bank details?","faq.a3":"Only you. Your details are tied to your account and protected by your password. They travel encrypted and only appear on the invoices you download.",
-  "faq.q4":"Can I cancel Premium?","faq.a4":"Yes, anytime. You go back to Free and all your invoices stay in your account.",
+  "faq.q4":"Can I cancel Premium?","faq.a4":"Yes, anytime. You go back to Free and your saved invoices stay in your account.",
   "auth.title_signup":"Create your free account","auth.title_login":"Welcome back",
   "auth.tab_signup":"Sign up","auth.tab_login":"Log in","auth.email":"Email","auth.email_ph":"you@example.com",
   "auth.pass":"Password","auth.pass_ph":"8 characters minimum","auth.pass2":"Confirm password",
@@ -716,19 +750,14 @@ en:{
   "pdfm.ready":"PDF ready.","pdfm.fail":"Couldn't create the PDF. Try again.",
   "m.title":"Menu","m.account":"Account","m.premium":"Upgrade to Premium","m.manage":"Manage my subscription",
   "m.infos":"My details","m.infos_sub":"name, ABN, bank","m.settings":"Settings","m.settings_sub":"rates, time entry",
-  "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.import":"Import my old profile","m.import_sub":"4-digit code","m.logout":"Log out",
-  "plan.free":"Free · {n} invoices kept","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
+  "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.logout":"Log out",
+  "plan.free":"Free · {n} of 3 free invoices left","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
   "i.title":"My details","i.intro":"Fill these in once. They appear at the top of every invoice.","i.name":"Full name","i.abn":"ABN","i.abn_ph":"11 digits",
   "i.email":"Email","i.phone":"Phone","i.addr":"Address","i.bsb":"BSB","i.acc":"Account number","i.ok":"Done",
   "s.title":"Settings","s.mode":"How you enter your hours","s.times":"Start and finish","s.hours":"Number of hours","s.unpaid":"I take an unpaid break",
   "s.rate":"Weekday hourly rate ($/h)","s.desc":"Description on the invoice","s.note":"Saturday and Sunday start at $0/h. If you work a weekend, set the rate on that day.","s.ok":"OK",
   "l.title":"Clients and sites","l.clients":"Clients","l.sites":"Sites","l.none_c":"No clients yet.","l.none_s":"No sites yet.",
   "l.note":"To add one, choose “+ Add” in the Client or Site list.","l.remove":"Remove",
-  "im.title":"Old profile","im.intro":"Bring over your details and invoices from the old version (the one with a 4-digit code).",
-  "im.label":"Your old profile","im.loading":"Loading…","im.choose":"Choose your name…","im.btn":"Import","im.unavail":"Import is no longer available.",
-  "im.pick":"Pick your old profile from the list.","im.done":"Profile imported.","im.cut":"Profile imported. {n} older invoice(s) were left out: the free plan keeps {limit}.",
-  "pin.title":"Code for {name}","pin.del":"Delete","pin.cancel":"Cancel","pin.wrong":"Wrong code ({n} attempt(s) left)","pin.locked":"Too many attempts. Try again in {m} min.",
-  "pin.err":"Something went wrong. Try again.","pin.noname":"No name",
   "h.title":"History","h.count_pro":"{n} invoice(s)","h.count_free":"{n} / {limit} invoices kept on Free",
   "h.empty":"No saved invoices yet. Add your hours, then tap “Save invoice”.","h.open":"open","h.inv":"Invoice {no}",
   "h.rename":"Rename","h.delete":"Delete","h.confirm":"Confirm delete","h.name_ph":"Invoice name","h.ok":"OK",
@@ -746,13 +775,14 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Enregistrer · Premium","p.why_save":"L'enregistrement des factures et l'historique sont réservés au Premium.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Touche encore pour terminer ({n} gratuite(s) restante(s))","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur 3","quota.none":"Plus de facture gratuite","fin.locked":"Terminée le {date}. Cette facture est verrouillée.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier en nouvelle facture","fin.done":"Facture terminée et téléchargée.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Remplis d'abord ton nom, ton ABN, ton BSB et ton numéro de compte.","fin.server":"Le serveur n'a pas répondu. Réessaie dans un instant.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
   "nav.login":"Se connecter","nav.home":"SubbieBill, accueil",
   "hero.title":"Tes heures de chantier. Ta facture. En 30 secondes.",
   "hero.lede":"La facture des subbies sous ABN en Australie. Tu notes ton début et ta fin, SubbieBill calcule tout et crée une facture PDF pro, prête à envoyer.",
-  "hero.cta":"Créer ma première facture","hero.note":"Gratuit. Sans carte bancaire.",
+  "hero.cta":"Créer ma première facture","hero.note":"Tes 3 premières factures sont gratuites. Sans carte.",
   "proof.aria":"Fait pour l'Australie","proof.abn":"sur chaque facture","proof.bsb":"et numéro de compte","proof.aud":"calculé au cent près","proof.periods":"Semaine, quinzaine ou mois",
   "demo.title":"Fais le test","demo.sub":"Change tes heures, la facture se remplit toute seule.",
   "demo.s1":"Heures","demo.s2":"Calcul","demo.s3":"Facture","demo.start":"Début","demo.end":"Fin","demo.rate":"Taux $/h",
@@ -767,21 +797,21 @@ fr:{
   "why.2t":"Aucune erreur de calcul","why.2d":"Heures, montants et total se calculent seuls, taux du week-end compris.",
   "why.3t":"Semaine, quinzaine ou mois","why.3d":"Tu factures au rythme où l'entreprise te paie.",
   "why.4t":"Rempli au fil des jours","why.4d":"Ta facture reste enregistrée. Tu la complètes à la pause.",
-  "why.5t":"Tout ton historique","why.5d":"Chaque facture se retrouve en deux touches, pratique pour les impôts.",
+  "why.5t":"Tout ton historique","why.5d":"Avec Premium, chaque facture est enregistrée et retrouvée en une touche. Pratique pour les impôts.",
   "why.6t":"Sur ton téléphone, au chantier","why.6d":"Rien à installer. Ajoute SubbieBill à ton écran d'accueil.",
-  "price.title":"Gratuit pour commencer. Premium quand tu factures chaque semaine.",
+  "price.title":"Essaie gratuitement. Premium quand tu factures chaque semaine.",
   "price.free":"Gratuit","price.free_amt":"0 $",
-  "price.f1":"Factures et PDF illimités","price.f2":"Semaine, quinzaine ou mois","price.f3":"Clients et chantiers enregistrés","price.f4":"3 factures gardées dans l'historique",
+  "price.f1":"3 factures terminées (PDF)","price.f2":"Semaine, quinzaine ou mois","price.f3":"Clients et chantiers enregistrés","price.f4":"Tous les outils pour créer ta facture",
   "price.free_cta":"Commencer gratuitement",
   "price.pro":"Premium","price.pro_tag":"2 mois offerts à l'année","price.pro_amt":"39 $","price.pro_per":" / an","price.pro_alt":"ou 4,99 $ par mois",
-  "price.p1":"Tout le gratuit","price.p2":"Historique illimité, toute l'année pour les impôts","price.p3":"Les nouvelles fonctions en premier","price.p4":"Annulable à tout moment",
+  "price.p1":"Factures illimitées","price.p2":"Factures enregistrées et historique complet","price.p3":"Retélécharge n'importe quelle facture","price.p4":"Annulable à tout moment",
   "price.pro_cta":"Commencer, puis passer Premium",
-  "price.fine":"Prix en dollars australiens. Si tu arrêtes Premium, tu repasses en gratuit et tu gardes toutes tes factures.",
+  "price.fine":"Prix en dollars australiens. Une offre gratuite par ABN. Si tu arrêtes Premium, tu repasses en gratuit et tu gardes ton historique.",
   "faq.title":"Questions fréquentes",
   "faq.q1":"Qu'y a-t-il sur la facture ?","faq.a1":"Ton nom, ton ABN, tes coordonnées, ton BSB et ton numéro de compte, l'entreprise à facturer, le numéro de facture, les dates, le détail des heures jour par jour et le total en AUD. La facture est toujours en anglais, au format australien, même si tu utilises SubbieBill en français.",
   "faq.q2":"Et la GST ?","faq.a2":"SubbieBill est fait pour les sous-traitants non inscrits à la GST, ce qui est le cas de la plupart de ceux qui facturent moins de 75 000 $ par an. La facture porte la mention « No GST has been charged ». La gestion de la GST arrive bientôt.",
   "faq.q3":"Qui peut voir mes infos bancaires ?","faq.a3":"Toi seul. Tes infos sont liées à ton compte et protégées par ton mot de passe. Elles circulent de façon chiffrée et n'apparaissent que sur les factures que tu télécharges.",
-  "faq.q4":"Je peux arrêter Premium ?","faq.a4":"Oui, quand tu veux. Tu repasses en gratuit et toutes tes factures restent sur ton compte.",
+  "faq.q4":"Je peux arrêter Premium ?","faq.a4":"Oui, quand tu veux. Tu repasses en gratuit et tes factures enregistrées restent sur ton compte.",
   "auth.title_signup":"Crée ton compte gratuit","auth.title_login":"Content de te revoir",
   "auth.tab_signup":"Créer un compte","auth.tab_login":"Se connecter","auth.email":"Email","auth.email_ph":"toi@exemple.com",
   "auth.pass":"Mot de passe","auth.pass_ph":"8 caractères minimum","auth.pass2":"Confirme le mot de passe",
@@ -815,19 +845,14 @@ fr:{
   "pdfm.ready":"PDF prêt.","pdfm.fail":"Le PDF n'a pas pu être créé. Réessaie.",
   "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
-  "m.lists":"Clients et chantiers","m.lists_sub":"gérer les listes","m.import":"Importer mon ancien profil","m.import_sub":"code à 4 chiffres","m.logout":"Se déconnecter",
-  "plan.free":"Gratuit · {n} factures gardées","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
+  "m.lists":"Clients et chantiers","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter",
+  "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur 3","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
   "i.title":"Mes infos","i.intro":"À remplir une seule fois. Elles apparaissent en haut de chaque facture.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email","i.phone":"Téléphone","i.addr":"Adresse","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
   "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
   "s.rate":"Taux horaire en semaine ($/h)","s.desc":"Description sur la facture","s.note":"Le samedi et le dimanche partent à 0 $/h. Si tu travailles le week-end, mets le taux directement sur le jour.","s.ok":"OK",
   "l.title":"Clients et chantiers","l.clients":"Clients","l.sites":"Chantiers","l.none_c":"Aucun client.","l.none_s":"Aucun chantier.",
   "l.note":"Pour en ajouter, choisis « + Ajouter » dans la liste Client ou Chantier.","l.remove":"Retirer",
-  "im.title":"Ancien profil","im.intro":"Récupère les infos et factures de l'ancienne version, celle avec le code à 4 chiffres.",
-  "im.label":"Ton ancien profil","im.loading":"Chargement…","im.choose":"Choisis ton nom…","im.btn":"Importer","im.unavail":"L'import n'est plus disponible.",
-  "im.pick":"Choisis ton ancien profil dans la liste.","im.done":"Profil importé.","im.cut":"Profil importé. {n} ancienne(s) facture(s) laissée(s) de côté : la version gratuite en garde {limit}.",
-  "pin.title":"Code de {name}","pin.del":"Effacer","pin.cancel":"Annuler","pin.wrong":"Code incorrect ({n} essai(s) restant(s))","pin.locked":"Trop d'essais. Réessaie dans {m} min.",
-  "pin.err":"Erreur, réessaie.","pin.noname":"Sans nom",
   "h.title":"Historique","h.count_pro":"{n} facture(s)","h.count_free":"{n} / {limit} factures gardées en gratuit",
   "h.empty":"Aucune facture enregistrée. Remplis tes heures puis touche « Enregistrer la facture ».","h.open":"ouverte","h.inv":"Facture n° {no}",
   "h.rename":"Renommer","h.delete":"Supprimer","h.confirm":"Confirmer la suppression","h.name_ph":"Nom de la facture","h.ok":"OK",
@@ -844,6 +869,7 @@ const PAY_YEARLY="";    // Stripe yearly payment link
 const PORTAL="";        // Stripe customer portal link  (https://billing.stripe.com/p/login/...)
 const SUPPORT_EMAIL="Thomas.spychiger.pro@gmail.com";
 const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
+const FN_URL=SB_URL+"/functions/v1/invoice-pdf";   // server-side PDF (counts free invoices)
 /* ==================== */
 
 const $=id=>document.getElementById(id);
@@ -879,7 +905,7 @@ let curSheet=null;
 function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang;lang=l;
   try{localStorage.setItem("sb_lang",l)}catch(e){}
   applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);
-  ["autherr","pdfmsg","importmsg"].forEach(id=>{$(id).textContent=""});
+  ["autherr","pdfmsg"].forEach(id=>{const el=$(id);if(el){el.textContent="";delete el.dataset.keep}});
   if(session&&P()){if(opts.toProfile!==false&&P().lang!==l){P().lang=l;save()}renderAll();if(curSheet&&!$("sheetov").hidden)openSheet(curSheet)}
   return changed}
 $("langbtn").onclick=e=>{e.stopPropagation();const p=$("langpop"),open=p.hidden;p.hidden=!open;$("langbtn").setAttribute("aria-expanded",String(open));if(open){const b=p.querySelector("button");b&&b.focus()}};
@@ -912,7 +938,11 @@ const hourOpts=v=>{let o=`<option value="0">–</option>`;for(let h=0.25;h<=16;h
 const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" selected":""}>${t("f.min",{m})}</option>`).join("");
 
 /* ---------- state ---------- */
-let session=null,plan={premium:false,period_end:null,free_limit:3};
+let session=null,plan={premium:false,period_end:null,free_limit:3,free_used:0,is_admin:false};
+const freeLeft=()=>Math.max(0,3-(plan.free_used||0));
+const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit||3,free_used:+d.free_used||0,is_admin:!!d.is_admin}};
+const locked=()=>!!(P()&&P().inv&&P().inv.finished);
+const newId=()=>uid()+uid();
 let state={me:null,clients:[],sites:[]};
 const P=()=>state.me;const I=()=>state.me.inv;
 const FREE_LIMIT=()=>plan.free_limit||3;
@@ -932,14 +962,14 @@ function nextInvNo(){let m=0;(P().saved||[]).forEach(e=>{m=Math.max(m,parseInt(e
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate??40)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site)}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site)}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
 const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}):null;
 let saveTimer=null,syncMsg=null;
 function syncSaved(){if(!session||!P())return;const e=curEntry();if(!e)return;e.inv=clone(I());e.updatedAt=Date.now();if(!e.custom)e.name=defaultName(I())}
-const roomLeft=()=>plan.premium||(P().saved||[]).length<FREE_LIMIT();
+const roomLeft=()=>plan.premium;
 function addToHistory(){const p=P();if(curEntry())return true;if(!roomLeft())return false;
   const e={id:uid(),name:"",createdAt:Date.now()};p.saved=p.saved||[];p.saved.unshift(e);p.curSaved=e.id;syncSaved();return true}
 function keepCurrent(){if(P()&&P().inv&&!curEntry()&&hasHours(I()))addToHistory()}
@@ -953,12 +983,13 @@ async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();con
     if(error){/JWT|auth/i.test(error.message)?setSave("st.expired"):setSave("st.err",{msg:error.message});return}
     if(r&&r.ok){setSave(null);return}
     if(r&&r.status==="limit"){setSave("st.full");return}
+    if(r&&r.status==="abn_taken"){setSave("st.abn_taken");return}
     setSave("st.retry")}
   catch(e){setSave("st.offline")}}
 
 /* ---------- rendering ---------- */
 function infosDone(){const p=P();return !!(p.name&&p.abn&&p.bsb&&p.acc)}
-function renderAll(){renderTop();if(!session)return;renderWeek();renderDays();renderTotals();renderOnboard();renderStatus()}
+function renderAll(){renderTop();if(!session)return;renderWeek();renderDays();renderTotals();renderOnboard();renderStatus();renderFinish()}
 function renderTop(){const on=!!session;$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=on;$("app").hidden=!on;$("bottombar").hidden=!on;
   if(on)$("lstick").hidden=true;
   if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium)}
@@ -975,23 +1006,25 @@ function renderWeek(){const inv=I(),ty=invType(inv);
   $("billto").innerHTML=listOpts(state.clients,inv.billto,"ctx.add_client");$("billto").hidden=false;$("billto_new").hidden=true;
   $("site").innerHTML=listOpts(state.sites,inv.site,"ctx.add_site");$("site").hidden=false;$("site_new").hidden=true;
   $("invno").value=inv.invno||"";$("issue").value=inv.issue||"";$("due").value=inv.due||"";
-  $("invsum").textContent=t("meta.sum",{no:inv.invno||"?",issue:dm(inv.issue),due:dm(inv.due)})}
+  $("invsum").textContent=t("meta.sum",{no:inv.invno||"?",issue:dm(inv.issue),due:dm(inv.due)});
+  const lk=locked();["billto","site","invno","issue","due"].forEach(id=>{$(id).disabled=lk});}
 function renderStatus(){if(!session||!P())return;const e=curEntry(),b=$("savebtn");
-  b.textContent=e?t("save.done"):t("save.btn");b.classList.toggle("primary",!e);b.classList.toggle("saved",!!e);
+  b.textContent=!plan.premium?t("save.locked"):e?t("save.done"):t("save.btn");b.classList.toggle("primary",plan.premium&&!e);b.classList.toggle("saved",plan.premium&&!!e);b.classList.toggle("locked",!plan.premium);
   $("savestate").textContent=syncMsg?t(syncMsg.k,syncMsg.v):(e?t("st.in_hist"):hasHours(I())?t("st.not_saved"):"")}
 const openRest=new Set();
-function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,on=r.hours>0;
-  if(isWkd(r.date)&&!on&&!r.start&&!r.end&&!openRest.has(r.date))return `<div class="day rest" id="day${i}"><div class="dtop"><span class="dname">${dayName(r.date)}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div><button type="button" data-rest="${r.date}">${esc(t("days.add"))}</button></div>`;
+function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,on=r.hours>0,lk=locked();
+  if(isWkd(r.date)&&!on&&!r.start&&!r.end&&(lk||!openRest.has(r.date)))return `<div class="day rest${lk?" lk":""}" id="day${i}"><div class="dtop"><span class="dname">${dayName(r.date)}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div>${lk?"":`<button type="button" data-rest="${r.date}">${esc(t("days.add"))}</button>`}</div>`;
   const cols=hm?2:(up?4:3);
   const inputs=hm?`<label class="mini">${esc(t("f.hours"))}<select data-i="${i}" data-f="hours">${hourOpts(r.hours||0)}</select></label>`
     :`<label class="mini">${esc(t("f.start"))}<select data-i="${i}" data-f="start">${timeOpts(r.start||"")}</select></label>
       <label class="mini">${esc(t("f.end"))}<select data-i="${i}" data-f="end">${timeOpts(r.end||"")}</select></label>`+
       (up?`<label class="mini">${esc(t("f.pause"))}<select data-i="${i}" data-f="pause">${pauseOpts(r.pause)}</select></label>`:"");
   const loc2=state.sites.length>1||(r.loc&&r.loc!==I().site)?`<div class="dloc"><select data-i="${i}" data-f="loc" aria-label="${esc(t("f.loc_aria"))}">${state.sites.map(s=>`<option${s===r.loc?" selected":""}>${esc(s)}</option>`).join("")}${r.loc&&!state.sites.includes(r.loc)?`<option selected>${esc(r.loc)}</option>`:""}</select></div>`:"";
-  return `<div class="day${isWkd(r.date)?" weekend":""}${on?" on":""}" id="day${i}">
+  const dayOut=`<div class="day${isWkd(r.date)?" weekend":""}${on?" on":""}" id="day${i}">
     <div class="dtop"><span class="dname">${dayName(r.date)}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div>
     <div class="dinputs" style="--cols:${cols}">${inputs}
-      <label class="mini">${esc(t("f.rate"))}<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate??0}"></label></div>${loc2}</div>`}
+      <label class="mini">${esc(t("f.rate"))}<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate??0}"></label></div>${loc2}</div>`;
+  return lk?dayOut.replace(/<(select|input) /g,"<$1 disabled "):dayOut}
 function renderDays(){const inv=I(),multi=invType(inv)!=="week";let h="";
   inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">${esc(t("days.week_of",{date:nice(mondayOf(r.date))}))}</div>`;h+=dayHtml(r,i)});
   $("daylist").innerHTML=h;inv.rows.forEach((r,i)=>renderAmt(i));renderCopy()}
@@ -1006,20 +1039,20 @@ function renderCopy(){const m=mondaySrc(),b=$("copymon");
   b.textContent=invType(I())==="week"?t("days.copy_week"):t("days.copy_multi")}
 
 /* ---------- interactions ---------- */
-$("daylist").addEventListener("click",e=>{const b=e.target.closest("[data-rest]");if(!b)return;openRest.add(b.dataset.rest);renderDays();
+$("daylist").addEventListener("click",e=>{const b=e.target.closest("[data-rest]");if(!b||locked())return;openRest.add(b.dataset.rest);renderDays();
   const i=I().rows.findIndex(r=>r.date===b.dataset.rest),el=document.querySelector(`#day${i} select`);if(el)el.focus()});
 $("daylist").addEventListener("change",onDay);$("daylist").addEventListener("input",e=>{if(e.target.dataset.f==="rate")onDay(e)});
-function onDay(e){const el=e.target,i=+el.dataset.i,f=el.dataset.f;if(!f)return;const r=I().rows[i];
+function onDay(e){const el=e.target,i=+el.dataset.i,f=el.dataset.f;if(!f||locked())return;const r=I().rows[i];
   if(f==="rate")r.rate=parseFloat(el.value)||0;
   else if(f==="hours")r.hours=parseFloat(el.value)||0;
   else if(f==="pause"){r.pause=parseInt(el.value)||0;r.hours=calcHours(r)}
   else if(f==="loc")r.loc=el.value;
   else{r[f]=el.value;r.hours=calcHours(r)}
   renderAmt(i);renderTotals();renderCopy();renderOnboard();save()}
-$("copymon").onclick=()=>{const m=mondaySrc();if(!m)return;
+$("copymon").onclick=()=>{const m=mondaySrc();if(!m||locked())return;
   I().rows.forEach(r=>{if(r===m||!isWeekday(r)||r.hours>0)return;r.start=m.start;r.end=m.end;r.pause=m.pause;r.hours=P().mode==="hours"?m.hours:calcHours(r);if(!r.rate)r.rate=m.rate});
   renderDays();renderTotals();renderOnboard();renderStatus();save()};
-$("savebtn").onclick=()=>{if(curEntry()){save();flushSave();setSave("st.already");return}
+$("savebtn").onclick=()=>{if(!plan.premium){showPremium("p.why_save");return}if(curEntry()){save();flushSave();setSave("st.already");return}
   if(!hasHours(I())){setSave("st.need_day");return}
   if(!addToHistory()){showPremium("p.why_full");return}
   save();flushSave();setSave("st.saved")};
@@ -1031,17 +1064,17 @@ function wirePick(selId,inpId,list,key){
     if(v){if(!state[list].includes(v))state[list].push(v);setPick(key,v)}else renderWeek()};
   $(inpId).addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();commit()}if(e.key==="Escape"){$(inpId).value="";commit()}});
   $(inpId).addEventListener("blur",commit)}
-function setPick(key,v){const inv=I(),old=inv[key];inv[key]=v;
+function setPick(key,v){if(locked()){renderWeek();return}const inv=I(),old=inv[key];inv[key]=v;
   if(key==="site")inv.rows.forEach(r=>{if(!r.loc||r.loc===old)r.loc=v});
   renderWeek();renderDays();renderOnboard();save()}
 wirePick("billto","billto_new","clients","billto");wirePick("site","site_new","sites","site");
-["invno","issue","due"].forEach(k=>$(k).addEventListener("change",e=>{I()[k]=e.target.value;renderWeek();save()}));
+["invno","issue","due"].forEach(k=>$(k).addEventListener("change",e=>{if(locked()){renderWeek();return}I()[k]=e.target.value;renderWeek();save()}));
 
 function openPeriod(type,ref){keepCurrent();syncSaved();const p=P(),[a]=periodRange(type,ref);
   const found=(p.saved||[]).filter(e=>e.inv&&invType(e.inv)===type&&e.inv.start===a).sort((x,y)=>(y.updatedAt||0)-(x.updatedAt||0))[0];
   if(found){p.inv=clone(found.inv);p.curSaved=found.id}else{p.inv=newInv(type,ref);p.curSaved=null}
   p.period=type;migrateInv(p.inv);syncMsg=null;renderAll();save()}
-function changeType(ty){const inv=I(),p=P();if(invType(inv)===ty)return;p.period=ty;
+function changeType(ty){const inv=I(),p=P();if(invType(inv)===ty)return;if(locked()){p.period=ty;openPeriod(ty,inv.start);return}p.period=ty;
   if(!hasHours(inv)&&!curEntry()){openPeriod(ty,inv.start);return}
   const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(ty,ref);
   const lost=inv.rows.filter(r=>r.hours>0&&(r.date<a||r.date>b)).length;
@@ -1059,12 +1092,12 @@ function openSheet(id){curSheet=id;document.querySelectorAll("#sheetov section")
   if(id==="p_infos")ME.forEach(k=>$("me_"+k).value=P()[k]||"");
   if(id==="p_settings"){$("mode_times").checked=P().mode!=="hours";$("mode_hours").checked=P().mode==="hours";$("unpaid").checked=!!P().unpaid;
     $("unpaidwrap").hidden=P().mode==="hours";$("defrate").value=P().rate??40;$("defdesc").value=P().desc||"Labour"}
-  if(id==="p_import")loadImportList()}
+  if(id==="p_admin")loadAdmin(true)}
 function closeSheet(){$("sheetov").hidden=true;curSheet=null;document.body.style.overflow=""}
 $("sheetclose").onclick=closeSheet;$("sheetov").addEventListener("click",e=>{if(e.target.id==="sheetov")closeSheet()});
 document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if(o){openSheet(o.dataset.open);return}if(e.target.closest("[data-close]"))closeSheet()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("langpop").hidden){$("langpop").hidden=true;$("langbtn").focus();return}if(!$("sheetov").hidden&&$("pinov").hidden)closeSheet()});
-$("btn_menu").onclick=()=>openSheet("p_menu");$("btn_hist").onclick=()=>openSheet("p_hist");
+$("btn_menu").onclick=()=>openSheet("p_menu");$("btn_hist").onclick=()=>{if(!plan.premium){showPremium("p.why_save");return}openSheet("p_hist")};
 
 /* my details + settings */
 ME.forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;renderOnboard();save()}));
@@ -1106,8 +1139,8 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
 /* menu + premium */
 function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);
   u.searchParams.set("locale",lang==="en"?"en":lang);return u.toString()}
-function renderMenu(){$("acctemail").textContent=session?session.email:"";
-  $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:FREE_LIMIT()});
+function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_admin").hidden=!plan.is_admin;
+  $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:freeLeft()});
   $("m_premium").hidden=plan.premium;$("m_manage").hidden=!plan.premium||!PORTAL;
   if(PORTAL){const u=new URL(PORTAL);if(session&&session.email)u.searchParams.set("prefilled_email",session.email);$("m_manage").href=u.toString()}}
 let premWhy=null;
@@ -1117,7 +1150,7 @@ function renderPremium(){const has=!!(PAY_MONTHLY||PAY_YEARLY);$("payrow").hidde
 function showPremium(why){premWhy=why||null;openSheet("p_premium")}
 $("m_premium").onclick=()=>showPremium(null);
 async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_my_profile");
-  if(data){plan={premium:!!data.premium,period_end:data.period_end||null,free_limit:data.free_limit||3};renderTop();syncSaved();renderStatus()}}
+  if(data){setPlan(data);renderTop();syncSaved();renderStatus();renderFinish()}}
 
 /* ---------- account ---------- */
 function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
@@ -1126,9 +1159,9 @@ function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=i
   if(!inv.end)inv.end=periodRange(inv.type,inv.start)[1];
   if(!inv.site)inv.site=(inv.rows[0]&&inv.rows[0].loc)||"";
   if(!inv.rows.some(r=>!r.date||r.date<inv.start||r.date>inv.end))inv.rows=buildRows(inv.start,inv.end,inv.site,inv.rows);
-  inv.weekstart=inv.start;return inv}
+  if(!/^[A-Za-z0-9_-]{6,64}$/.test(inv.id||""))inv.id=newId();inv.weekstart=inv.start;return inv}
 function applyProfile(user,res){const data=(res&&res.data)||{};
-  plan={premium:!!res.premium,period_end:res.period_end||null,free_limit:res.free_limit||3};
+  setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,desc:data.desc||"Labour",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
   const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null?+data.rate:(wr?wr.rate:40);
@@ -1151,7 +1184,7 @@ function setAuthMode(m){authMode=m;$("authtitle").textContent=t(m==="login"?"aut
   $("tab_login").classList.toggle("on",m==="login");$("tab_signup").classList.toggle("on",m==="signup");
   $("tab_login").setAttribute("aria-selected",String(m==="login"));$("tab_signup").setAttribute("aria-selected",String(m==="signup"));
   if(!$("authsubmit").disabled)$("authsubmit").textContent=t(m==="login"?"auth.submit_login":"auth.submit_signup");
-  $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass2wrap").hidden=m==="login"}
+  $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass").placeholder=t(m==="login"?"auth.pass_ph_login":"auth.pass_ph");$("authpass2wrap").hidden=m==="login"}
 function goAuth(m){setAuthMode(m);$("autherr").textContent="";$("auth").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});setTimeout(()=>$("authemail").focus({preventScroll:true}),350)}
 document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>goAuth(b.dataset.auth));
 $("btn_login").onclick=()=>goAuth("login");
@@ -1193,106 +1226,84 @@ $("demo_start").onchange=renderDemo;$("demo_end").onchange=renderDemo;$("demo_ra
   new IntersectionObserver(es=>{heroVis=es[0].isIntersecting;upd()}).observe($("herocta"));
   new IntersectionObserver(es=>{authVis=es[0].isIntersecting;upd()}).observe($("auth"))})();
 
-/* ---------- legacy profile import (4-digit code) ---------- */
-async function rpc(fn,args){const r=await fetch(SB_URL+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
-  const x=await r.text();let j=null;try{j=x?JSON.parse(x):null}catch(e){}if(!r.ok)throw new Error((j&&j.message)||("Error "+r.status));return j}
-function statusText(st){st=String(st||"");if(st.startsWith("wrong:"))return t("pin.wrong",{n:+st.split(":")[1]});
-  if(st.startsWith("locked:"))return t("pin.locked",{m:st.split(":")[1]});return t("pin.err")}
-const pinOv=$("pinov"),pinDots=$("pindots");let pinState=null;
-function buildPad(){$("pinpad").innerHTML=["1","2","3","4","5","6","7","8","9","","0","del"].map(k=>k===""?`<span></span>`:k==="del"?`<button class="key ghost" type="button" data-k="del">${esc(t("pin.del"))}</button>`:`<button class="key" type="button" data-k="${k}">${k}</button>`).join("")}
-const drawDots=()=>[...pinDots.children].forEach((d,i)=>d.classList.toggle("on",i<(pinState?pinState.val.length:0)));
-function askPin({title,verify}){buildPad();return new Promise(res=>{pinState={val:"",verify,res};$("pintitle").textContent=title;$("pinsub").textContent="";drawDots();pinOv.hidden=false})}
-function closePin(v){const s=pinState;pinState=null;pinOv.hidden=true;s&&s.res(v)}
-async function pinPress(k){if(!pinState||pinState.busy)return;if(k==="del"){pinState.val=pinState.val.slice(0,-1);drawDots();return}
-  if(pinState.val.length>=4)return;pinState.val+=k;drawDots();
-  if(pinState.val.length===4){pinState.busy=true;const v=pinState.val,r=await pinState.verify(v);if(r===true){setTimeout(()=>closePin(v),120);return}
-    $("pinsub").textContent=typeof r==="string"?r:t("pin.err");pinDots.classList.remove("shake");void pinDots.offsetWidth;pinDots.classList.add("shake");
-    setTimeout(()=>{if(pinState){pinState.val="";pinState.busy=false;drawDots()}},380)}}
-$("pinpad").addEventListener("click",e=>{const b=e.target.closest("[data-k]");if(b)pinPress(b.dataset.k)});
-document.addEventListener("keydown",e=>{if(!pinState)return;if(/^[0-9]$/.test(e.key))pinPress(e.key);else if(e.key==="Backspace")pinPress("del");else if(e.key==="Escape")closePin(null)});
-$("pincancel").onclick=()=>closePin(null);
-async function loadImportList(){try{const l=await rpc("list_people",{})||[];
-  $("importsel").innerHTML=`<option value="">${esc(t("im.choose"))}</option>`+l.map(x=>`<option value="${esc(x.id)}">${esc(x.name||t("pin.noname"))}</option>`).join("")}
-  catch(e){$("importsel").innerHTML=`<option value="">${esc(t("im.unavail"))}</option>`}}
-$("importbtn").onclick=async()=>{const sel=$("importsel"),msg=$("importmsg");msg.textContent="";const id=sel.value;
-  if(!id){msg.textContent=t("im.pick");return}
-  let data=null;const name=sel.options[sel.selectedIndex].text;
-  const ok=await askPin({title:t("pin.title",{name}),verify:async v=>{try{const r=await rpc("get_person",{p_id:id,p_pin:v});if(r&&r.ok){data=r.data||{};return true}return statusText(r&&r.status)}catch(e){return t("err.offline")}}});
-  if(!ok||!data)return;const p=P();
-  ME.forEach(k=>{if(k!=="name"&&data[k])p[k]=data[k]});if(!p.name)p.name=name;
-  if(data.mode)p.mode=data.mode==="hours"?"hours":"times";if("unpaid" in data)p.unpaid=!!data.unpaid;
-  (data.clients||[]).forEach(c=>{if(c&&!state.clients.includes(c))state.clients.push(c)});(data.sites||[]).forEach(s=>{if(s&&!state.sites.includes(s))state.sites.push(s)});
-  let saved=(Array.isArray(data.saved)?data.saved:[]).filter(e=>e&&e.inv&&Array.isArray(e.inv.rows));saved.forEach(e=>migrateInv(e.inv));
-  const room=plan.premium?Infinity:Math.max(0,FREE_LIMIT()-(p.saved||[]).length);let cut=0;
-  if(saved.length>room){cut=saved.length-room;saved=saved.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).slice(0,room)}
-  p.saved=[...saved,...(p.saved||[])];
-  const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);if(wr)p.rate=wr.rate;
-  if(!I().billto&&data.inv&&data.inv.billto)I().billto=data.inv.billto;
-  if(!I().site){const s=data.inv&&data.inv.rows&&data.inv.rows[0]&&data.inv.rows[0].loc;if(s){I().site=s;I().rows.forEach(r=>{if(!r.loc)r.loc=s})}}
-  renderAll();save();flushSave();
-  msg.textContent=cut?t("im.cut",{n:cut,limit:FREE_LIMIT()}):t("im.done")};
+/* ---------- finish invoice (PDF made and counted by the server) ---------- */
+const abnOk=v=>{const d=String(v||"").replace(/\D/g,"");if(d.length!==11)return false;const w=[10,1,3,5,7,9,11,13,15,17,19];let s=0;for(let i=0;i<11;i++)s+=(+d[i]-(i===0?1:0))*w[i];return s%89===0};
+let confirmUntil=0,finishing=false;
+function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=locked();
+  if(!finishing)b.textContent=lk?t("bar.redownload"):(Date.now()<confirmUntil?t("bar.confirm",{n:freeLeft()}):t("bar.finish"));
+  b.classList.toggle("confirm",Date.now()<confirmUntil);
+  $("lockbar").hidden=!lk;$("lock_edit").hidden=!plan.premium;
+  if(lk)$("locktxt").textContent=t("fin.locked",{date:clean(new Date(inv.finished.at).toLocaleDateString(loc()))});
+  document.querySelectorAll('input[name="ptype"]').forEach(x=>{x.closest("label").classList.toggle("dim",lk)});
+  if(!$("pdfmsg").dataset.keep)$("pdfmsg").textContent=plan.premium||lk?"":(freeLeft()>0?t("quota.left",{n:freeLeft()}):t("quota.none"))}
+function pdfMsg(text){const m=$("pdfmsg");m.textContent=text;m.dataset.keep="1";clearTimeout(pdfMsg.t);pdfMsg.t=setTimeout(()=>{delete m.dataset.keep;renderFinish()},6000)}
+$("lock_next").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
+$("lock_edit").onclick=()=>{if(!plan.premium)return;const inv=I();inv.finished=null;inv.id=newId();inv.invno=nextInvNo();if(curEntry())P().curSaved=null;renderAll();save()};
+$("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked();
+  if(!lk){
+    if(!infosDone()){pdfMsg(t("fin.details"));openSheet("p_infos");return}
+    if(!abnOk(p.abn)){pdfMsg(t("fin.abn_invalid"));openSheet("p_infos");return}
+    if(!inv.billto){pdfMsg(t("pdfm.need_client"));$("billto").focus();return}
+    if(!hasHours(inv)){pdfMsg(t("pdfm.need_hours"));return}
+    if(!plan.premium){if(freeLeft()<=0){showPremium("p.why_limit");return}
+      if(Date.now()>confirmUntil){confirmUntil=Date.now()+6000;renderFinish();setTimeout(renderFinish,6100);return}}}
+  confirmUntil=0;finishing=true;const b=$("pdfbtn");b.disabled=true;b.textContent=t("bar.working");
+  try{flushSave();
+    const {data:{session:s}}=await sb.auth.getSession();if(!s){pdfMsg(t("fin.auth"));return}
+    const r=await fetch(FN_URL,{method:"POST",headers:{Authorization:"Bearer "+s.access_token,apikey:SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({draft_id:inv.id,inv:clone(inv)})});
+    const ct=r.headers.get("content-type")||"";
+    if(r.ok&&ct.includes("application/pdf")){
+      const blob=await r.blob(),fl=r.headers.get("x-free-left");if(fl!==null&&fl!=="")plan.free_used=3-(+fl);
+      const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
+      const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(inv.start).replace(/\//g,"-")} - ${dmy(inv.end).replace(/\//g,"-")}.pdf`;
+      const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),15000);
+      const again=lk;if(!inv.finished)inv.finished={at:new Date().toISOString()};
+      if(plan.premium&&!curEntry())addToHistory();
+      save();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
+    const j=await r.json().catch(()=>({}));const st=j.status;
+    if(st==="limit"){plan.free_used=3;showPremium("p.why_limit")}
+    else if(st==="abn_taken")pdfMsg(t("fin.abn_taken"));
+    else if(st==="abn_invalid"){pdfMsg(t("fin.abn_invalid"));openSheet("p_infos")}
+    else if(st==="details"){pdfMsg(t("fin.details"));openSheet("p_infos")}
+    else if(st==="no_client")pdfMsg(t("pdfm.need_client"));
+    else if(st==="no_hours")pdfMsg(t("pdfm.need_hours"));
+    else if(st==="auth"||r.status===401)pdfMsg(t("fin.auth"));
+    else if(st==="bad")pdfMsg(t("fin.bad"));
+    else pdfMsg(t("fin.server"))}
+  catch(e){pdfMsg(t("fin.server"))}
+  finally{finishing=false;b.disabled=false;renderFinish()}};
 
-/* ---------- PDF ---------- */
-const fmtAbn=v=>{const d=String(v||"").replace(/\D/g,"");return d.length===11?`${d.slice(0,2)} ${d.slice(2,5)} ${d.slice(5,8)} ${d.slice(8)}`:String(v||"")};
-function drawInvoice(doc){
-  const p=P(),inv=I(),W=210,L=16,R=194;
-  const INK=[21,32,27],MUT=[93,105,99],LINE=[221,226,219],ACC=[232,89,12],SOFT=[244,246,242],WHITE=[255,255,255];
-  const col=c=>doc.setTextColor(c[0],c[1],c[2]),fill=c=>doc.setFillColor(c[0],c[1],c[2]),font=(w,s)=>{doc.setFont("helvetica",w);doc.setFontSize(s)};
-  const fit=(s,w)=>doc.splitTextToSize(String(s||""),w)[0]||"";
-  fill(ACC);doc.rect(0,0,W,3.5,"F");
-  let y=20;
-  font("bold",17);col(INK);doc.text(fit(p.name,100),L,y);
-  font("normal",9.5);col(MUT);let ly=y+6.5;
-  [p.abn?"ABN "+fmtAbn(p.abn):"",p.addr,p.email,p.phone].filter(Boolean).forEach(s=>{doc.text(fit(s,100),L,ly);ly+=4.8});
-  font("bold",24);col(INK);doc.text(t(p.gst?"pdf.tax_invoice":"pdf.invoice"),R,y+1,{align:"right"});
-  let my=y+9;[[t("pdf.no"),String(inv.invno||"")],[t("pdf.issue"),dmy(inv.issue)],[t("pdf.due"),dmy(inv.due)],[t("pdf.period"),`${dmy(inv.start)} – ${dmy(inv.end)}`]].forEach(([k,v])=>{
-    font("normal",9.5);col(MUT);doc.text(k,124,my);font("bold",9.5);col(INK);doc.text(v,R,my,{align:"right"});my+=5.2});
-  y=Math.max(ly,my)+5;
-  const bh=25;fill(SOFT);doc.roundedRect(L,y,87,bh,2,2,"F");doc.roundedRect(107,y,87,bh,2,2,"F");
-  font("bold",7.5);col(MUT);doc.text(t("pdf.billto"),L+5,y+6.5);doc.text(t("pdf.payment"),112,y+6.5);
-  font("bold",11.5);col(INK);doc.text(fit(inv.billto,78),L+5,y+13.5);
-  if(inv.site){font("normal",9);col(MUT);doc.text(fit(t("pdf.site_lbl",{site:inv.site}),78),L+5,y+19.5)}
-  font("normal",9.5);let py=y+13;
-  [[t("pdf.bsb"),p.bsb],[t("pdf.acc"),p.acc],[t("pdf.ref"),t("pdf.ref_val",{no:inv.invno||""})]].forEach(([k,v])=>{if(!v)return;col(MUT);doc.text(k,112,py);font("bold",9.5);col(INK);doc.text(String(v),189,py,{align:"right"});font("normal",9.5);py+=5});
-  y+=bh+9;
-  const C={date:L+3,site:L+30,desc:L+86,hrs:140,rate:164,amt:R-3};
-  const head=()=>{fill(INK);doc.rect(L,y-5.2,R-L,8,"F");font("bold",8.5);col(WHITE);
-    doc.text(t("pdf.date"),C.date,y);doc.text(t("pdf.site"),C.site,y);doc.text(t("pdf.desc"),C.desc,y);doc.text(t("pdf.hours"),C.hrs,y,{align:"right"});doc.text(t("pdf.rate"),C.rate,y,{align:"right"});doc.text(t("pdf.amount"),C.amt,y,{align:"right"});y+=8};
-  head();
-  const rows=invType(inv)==="week"?inv.rows:inv.rows.filter(r=>r.hours>0);let total=0,hsum=0;
-  rows.forEach((r,k)=>{if(y>262){doc.addPage();fill(ACC);doc.rect(0,0,W,3.5,"F");y=20;head()}
-    const amt=(r.hours||0)*(r.rate||0),on=r.hours>0;total+=amt;hsum+=r.hours||0;
-    if(k%2===1){fill(SOFT);doc.rect(L,y-5,R-L,7.6,"F")}
-    font("normal",9.5);col(on?INK:MUT);
-    doc.text(`${dayName(r.date)} ${dm(r.date)}`,C.date,y);
-    doc.text(fit(r.loc,52),C.site,y);doc.text(fit(r.desc,34),C.desc,y);
-    doc.text(on?hrs(r.hours):"–",C.hrs,y,{align:"right"});doc.text(on?fmt(r.rate||0):"–",C.rate,y,{align:"right"});
-    if(on)font("bold",9.5);doc.text(on?fmt(amt):"–",C.amt,y,{align:"right"});y+=7.6});
-  doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.setLineWidth(.3);doc.line(L,y-4,R,y-4);
-  if(y>238){doc.addPage();fill(ACC);doc.rect(0,0,W,3.5,"F");y=24}
-  y+=4;const tx=118;
-  [[t("pdf.tot_hours"),hrs(hsum)],[t("pdf.subtotal"),money(total)],[t("pdf.gst"),money(0)]].forEach(([k,v])=>{font("normal",9.5);col(MUT);doc.text(k,tx,y);col(INK);doc.text(v,C.amt,y,{align:"right"});y+=5.6});
-  y+=1.5;fill(INK);doc.roundedRect(tx-4,y-1,R-tx+4,12,2,2,"F");font("bold",10);col(WHITE);doc.text(t("pdf.total"),tx,y+7);
-  font("bold",14);col([255,138,69]);doc.text(money(total),C.amt,y+7.3,{align:"right"});y+=18;
-  font("normal",8.5);col(MUT);if(!p.gst)doc.text(t("pdf.nogst"),R,y-3,{align:"right"});
-  y+=6;font("normal",9.5);col(INK);
-  doc.text(doc.splitTextToSize(t("pdf.pay",{due:dmy(inv.due),acct:(p.bsb||p.acc)?t("pdf.pay_acct"):"",ref:t("pdf.ref_val",{no:inv.invno||""})}),R-L),L,y);
-  doc.setDrawColor(LINE[0],LINE[1],LINE[2]);doc.line(L,286,R,286);font("normal",8);col(MUT);doc.text(t("pdf.thanks"),L,290.5);
-  const n=doc.getNumberOfPages();if(n>1)for(let i=1;i<=n;i++){doc.setPage(i);font("normal",8);col(MUT);doc.text(t("pdf.page",{i,n}),R,290.5,{align:"right"})}
-}
-$("pdfbtn").onclick=()=>{const msg=$("pdfmsg");msg.textContent="";
-  if(!infosDone()){openSheet("p_infos");return}
-  if(!I().billto){msg.textContent=t("pdfm.need_client");$("billto").focus();return}
-  if(!hasHours(I())){msg.textContent=t("pdfm.need_hours");return}
-  if(!window.jspdf){msg.textContent=t("pdfm.no_lib");return}
-  const p=P(),inv=I(),a=inv.start,b=inv.end;
-  const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
-  const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
-  try{const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:"mm",format:"a4"});doc.setLanguage&&doc.setLanguage("en-AU");withLang(INVOICE_LANG,()=>drawInvoice(doc));
-    const u=URL.createObjectURL(new Blob([doc.output("arraybuffer")],{type:"application/pdf"}));
-    const l=document.createElement("a");l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),15000);
-    msg.textContent=t("pdfm.ready")}
-  catch(e){msg.textContent=t("pdfm.fail")}};
+/* ---------- admin (every call is checked by the server) ---------- */
+let admOffset=0,admTimer=null;
+async function loadAdmin(reset,clearList){const msg=$("adm_msg");msg.textContent="";
+  if(reset||clearList){admOffset=0;$("adm_list").innerHTML=""}
+  if(reset){
+    const {data,error}=await sb.rpc("admin_stats");
+    if(error){msg.textContent=t("a.err");$("adm_stats").innerHTML="";return}
+    const tile=(k,v)=>`<div class="atile"><b>${esc(String(v))}</b><span>${esc(t(k))}</span></div>`;
+    $("adm_stats").innerHTML=tile("a.users",data.users)+tile("a.new7",data.users_7d)+tile("a.active7",data.active_7d)+tile("a.premium",data.premium)+
+      tile("a.paid",data.premium_paid)+tile("a.invoices",data.invoices)+tile("a.inv30",data.invoices_30d)+tile("a.total",money(data.invoiced_total))+tile("a.atlimit",data.free_at_limit)}
+  const {data:rows,error}=await sb.rpc("admin_list_users",{p_search:$("adm_q").value.trim(),p_limit:50,p_offset:admOffset});
+  if(error){msg.textContent=t("a.err");return}
+  if(!admOffset&&!rows.length)$("adm_list").innerHTML=`<li class="muted">${esc(t("a.none"))}</li>`;
+  rows.forEach(u=>$("adm_list").appendChild(admRow(u)));admOffset+=rows.length;$("adm_more").hidden=rows.length<50}
+function admRow(u){const li=document.createElement("li");
+  const src=u.source==="stripe"?"a.src_stripe":u.source==="manual"?"a.src_manual":"a.src_free";
+  li.innerHTML=`<div class="aumain"><strong class="auemail"></strong><span class="auname"></span>
+    <span class="aumeta">${esc(t("a.joined",{date:clean(new Date(u.created_at).toLocaleDateString(loc()))}))} · ${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></div>
+    <div class="auact"><span class="badge${u.premium?" pro":""}">${esc(t(src))}${u.admin?" · "+esc(t("a.admin_tag")):""}</span>
+    <button type="button" class="${u.premium&&u.source==="manual"?"":"primary"}">${esc(t(u.premium&&u.source==="manual"?"a.remove":"a.give"))}</button></div>`;
+  li.querySelector(".auemail").textContent=u.email||"";li.querySelector(".auname").textContent=u.name||"";
+  const btn=li.querySelector("button");
+  if(u.source==="stripe"){btn.hidden=true;const n=document.createElement("span");n.className="aumeta";n.textContent=t("a.stripe_note");li.querySelector(".aumain").appendChild(n)}
+  btn.onclick=async()=>{btn.disabled=true;const on=!(u.premium&&u.source==="manual");
+    const {error}=await sb.rpc("admin_set_premium",{p_user:u.user_id,p_on:on,p_days:null});
+    if(error){$("adm_msg").textContent=t("a.err");btn.disabled=false;return}
+    u.premium=on;u.source=on?"manual":"free";li.replaceWith(admRow(u));$("adm_msg").textContent=t("a.done");
+    if(session&&u.user_id===session.id)refreshPlan()};
+  return li}
+$("adm_q").addEventListener("input",()=>{clearTimeout(admTimer);admTimer=setTimeout(()=>loadAdmin(false,true),300)});
+$("adm_more").onclick=()=>loadAdmin(false,false);
 
 /* ---------- start ---------- */
 (async()=>{lang=storedLang()||"en";applyStatic();renderLangUI();renderDemo();setAuthMode("signup");renderTop();
