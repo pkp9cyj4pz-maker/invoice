@@ -401,6 +401,7 @@ select:disabled,input:disabled{opacity:.7}
 .abnreset{min-height:40px;padding:7px 12px;font-size:.88rem}
 #authabn{margin:4px 0 0}
 #btn_app{white-space:nowrap}
+.namegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:400px){.topr #btn_menu span{display:none}.topr #btn_menu{padding-left:11px;padding-right:11px}}
 @media (max-width:360px){.top:has(#topr:not([hidden])) .brand span{display:none}}
 </style>
@@ -414,7 +415,10 @@ select:disabled,input:disabled{opacity:.7}
 
     <section id="p_infos" class="form" hidden data-i18n-title="i.title">
       <p class="muted" style="margin:0" data-i18n="i.intro">Fill these in once.</p>
-      <label for="me_name" data-i18n="i.name">Full name</label><input id="me_name" autocomplete="name">
+      <div class="namegrid">
+        <div class="form"><label for="me_first" data-i18n="i.first">First name</label><input id="me_first" autocomplete="given-name" autocapitalize="words"></div>
+        <div class="form"><label for="me_last" data-i18n="i.last">Last name</label><input id="me_last" autocomplete="family-name" autocapitalize="words"></div>
+      </div>
       <label for="me_abn" data-i18n="i.abn">ABN</label>
       <div class="abnbox" id="abnbox">
         <input id="me_abn" inputmode="numeric" class="mono" autocomplete="off" data-i18n-ph="i.abn_ph" aria-describedby="abn_note">
@@ -730,6 +734,7 @@ select:disabled,input:disabled{opacity:.7}
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "i.first":"First name","i.last":"Last name",
   "nav.app":"My invoices",
   "a.reset_confirm":"Tap again to reset {abn}",
   "a.reset_abn":"Reset ABN",
@@ -747,7 +752,7 @@ en:{
   "days.mode_times":"Start – finish",
   "days.mode_aria":"How you enter your hours",
   "save.auto_pro":"Saved automatically to your history ✓",
-  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap again to finish ({n} free left)","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of 3 free invoices left","quota.none":"No free invoices left","fin.locked":"Finished on {date}. This invoice is locked.","fin.next":"Start the next invoice","fin.edit":"Edit as a new invoice","fin.done":"Invoice finished and downloaded.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Fill in your name, ABN, BSB and account number first.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
+  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap again to finish ({n} free left)","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of 3 free invoices left","quota.none":"No free invoices left","fin.locked":"Finished on {date}. This invoice is locked.","fin.next":"Start the next invoice","fin.edit":"Edit as a new invoice","fin.done":"Invoice finished and downloaded.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Fill in your first name, last name, ABN, BSB and account number first.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
   days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
   "doc.title":"SubbieBill · Invoicing for ABN subcontractors",
   "lang.label":"Language",
@@ -842,6 +847,7 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "i.first":"Prénom","i.last":"Nom",
   "nav.app":"Mes factures",
   "a.reset_confirm":"Touche encore pour effacer {abn}",
   "a.reset_abn":"Réinitialiser l'ABN",
@@ -859,7 +865,7 @@ fr:{
   "days.mode_times":"Début – fin",
   "days.mode_aria":"Comment tu saisis tes heures",
   "save.auto_pro":"Enregistrée automatiquement dans ton historique ✓",
-  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Touche encore pour terminer ({n} gratuite(s) restante(s))","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur 3","quota.none":"Plus de facture gratuite","fin.locked":"Terminée le {date}. Cette facture est verrouillée.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier en nouvelle facture","fin.done":"Facture terminée et téléchargée.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Remplis d'abord ton nom, ton ABN, ton BSB et ton numéro de compte.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Touche encore pour terminer ({n} gratuite(s) restante(s))","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur 3","quota.none":"Plus de facture gratuite","fin.locked":"Terminée le {date}. Cette facture est verrouillée.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier en nouvelle facture","fin.done":"Facture terminée et téléchargée.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Remplis d'abord ton prénom, ton nom, ton ABN, ton BSB et ton numéro de compte.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
@@ -1058,7 +1064,7 @@ function addToHistory(){const p=P();if(curEntry())return true;if(!roomLeft())ret
   const e={id:uid(),name:"",createdAt:Date.now()};p.saved=p.saved||[];p.saved.unshift(e);p.curSaved=e.id;syncSaved();return true}
 function keepCurrent(){if(P()&&P().inv&&!curEntry()&&hasHours(I()))addToHistory()}
 function save(){if(session&&plan.premium&&P()&&P().inv&&!curEntry()&&hasHours(I()))addToHistory();syncSaved();if(!session)return;clearTimeout(saveTimer);syncMsg={k:"st.saving"};renderStatus();saveTimer=setTimeout(pushSave,800)}
-const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushSave()}};
+const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;return pushSave()}return Promise.resolve()};
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
 function setSave(k,v){syncMsg=k?{k,v}:null;renderStatus()}
 async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();const {id,...rest}=p;
@@ -1072,7 +1078,7 @@ async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();con
   catch(e){setSave("st.offline")}}
 
 /* ---------- rendering ---------- */
-function infosDone(){const p=P();return !!(p.name&&p.abn&&p.abnLocked&&p.bsb&&p.acc)}
+function infosDone(){const p=P();return !!(p.first&&p.last&&p.name&&p.abn&&p.abnLocked&&p.bsb&&p.acc)}
 function renderAll(){renderTop();if(!session)return;loadJsPDF().catch(()=>{});renderWeek();renderDays();renderTotals();renderOnboard();renderStatus();renderFinish()}
 let view="app";   /* once logged in: "app" (the invoice) or "home" (the home page, opened with the logo) */
 function renderTop(){const on=!!session,home=!on||view==="home";$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=!home;$("app").hidden=home;$("bottombar").hidden=home;
@@ -1181,7 +1187,7 @@ $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 function openSheet(id){closeMenu();curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_premium")renderPremium();
-  if(id==="p_infos"){ME.forEach(k=>$("me_"+k).value=P()[k]||"");$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";renderAbn()}
+  if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";renderAbn()}
   if(id==="p_settings"){$("mode_times").checked=P().mode!=="hours";$("mode_hours").checked=P().mode==="hours";$("unpaid").checked=!!P().unpaid;
     $("unpaidwrap").hidden=P().mode==="hours";$("defrate").value=P().rate??40;$("defdesc").value=P().desc||"Labour"}
   if(id==="p_admin")loadAdmin(true)}
@@ -1197,7 +1203,10 @@ $("btn_menu").onclick=e=>{e.stopPropagation();$("menupop").hidden?openMenu():clo
 document.addEventListener("click",e=>{if(!$("menupop").hidden&&!e.target.closest(".menuwrap"))closeMenu()});$("btn_hist").onclick=()=>{if(!plan.premium){showPremium("p.why_save");return}openSheet("p_hist")};
 
 /* my details + settings */
-ME.filter(k=>k!=="abn").forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;renderOnboard();save()}));
+ME.filter(k=>k!=="abn"&&k!=="name").forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;renderOnboard();save()}));
+/* first + last name: the invoice shows "First Last" */
+const fullName=p=>[p.first,p.last].map(x=>String(x||"").trim()).filter(Boolean).join(" ");
+["first","last"].forEach(k=>$("me_"+k).addEventListener("input",e=>{const p=P();p[k]=e.target.value;p.name=fullName(p);renderOnboard();save()}));
 document.querySelectorAll('input[name="mode"]').forEach(x=>x.onchange=e=>setMode(e.target.value));
 
 /* ABN: confirmed once, then locked by the server (only the admin can reset it) */
@@ -1281,6 +1290,8 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,desc:data.desc||"Labour",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
+  p.first=data.first||"";p.last=data.last||"";
+  if(!p.first&&!p.last&&p.name){const w=p.name.trim().split(/\s+/);p.last=w.pop()||"";p.first=w.join(" ")}   /* older accounts: one "name" field */
   if(res&&"abn_locked" in res){p.abn=res.abn||"";p.abnLocked=!!res.abn_locked}else p.abnLocked=false;
   const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null?+data.rate:(wr?wr.rate:40);
   state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
@@ -1462,19 +1473,20 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
     if(!plan.premium){if(freeLeft()<=0){showPremium("p.why_limit");return}
       if(Date.now()>confirmUntil){confirmUntil=Date.now()+6000;renderFinish();setTimeout(renderFinish,6100);return}}}
   confirmUntil=0;finishing=true;const b=$("pdfbtn");b.disabled=true;b.textContent=t("bar.working");
-  try{flushSave();
+  try{await flushSave();   /* the server reads your latest details */
     let JsPDF;try{JsPDF=await loadJsPDF()}catch(e){pdfMsg(t("pdfm.no_lib"));return}   /* library first: a failed load never uses up a free invoice */
     const {data:out,error}=await sb.rpc("finish_invoice",{p_draft_id:inv.id,p_inv:clone(inv)});
     if(error){pdfMsg(/JWT|auth|401/i.test(error.message||"")?t("fin.auth"):t("fin.server"));return}
     if(out&&out.ok){
-      const bytes=renderInvoice(JsPDF,out.me||{},out.inv||{});
+      const me={...(out.me||{})};["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);
+      const bytes=renderInvoice(JsPDF,me,out.inv||{});
       if(out.free_left!=null)plan.free_used=3-(+out.free_left);
       const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim(),src=out.inv||inv;
       const name=`${PT[invType(src)].file} Invoice${who?" "+who:""} ${dmy(src.start||inv.start).replace(/\//g,"-")} - ${dmy(src.end||inv.end).replace(/\//g,"-")}.pdf`;
       const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
       const again=lk;if(!inv.finished)inv.finished={at:new Date().toISOString()};
       if(plan.premium&&!curEntry())addToHistory();
-      save();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
+      save();flushSave();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
     const st=out&&out.status;
     if(st==="limit"){plan.free_used=3;showPremium("p.why_limit")}
     else if(st==="abn_taken")pdfMsg(t("fin.abn_taken"));
