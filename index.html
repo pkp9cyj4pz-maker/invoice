@@ -402,6 +402,14 @@ select:disabled,input:disabled{opacity:.7}
 #authabn{margin:4px 0 0}
 #btn_app{white-space:nowrap}
 .namegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pvbtn{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--on-panel);border:1.5px solid color-mix(in srgb,var(--on-panel) 35%,transparent);min-height:52px;padding:8px 12px;margin-left:auto;flex:none}
+.bbin .pvbtn + .big{margin-left:0}
+@media (max-width:400px){.pvbtn span{display:none}.pvbtn{padding:8px 13px}}
+.pvpages{display:flex;flex-direction:column;gap:12px;margin-top:8px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.pvpage{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 20px -12px rgba(0,0,0,.4);pointer-events:none}
+.pvnote{margin:0}
+.admdur{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.admdur select{min-height:40px;padding:6px 8px;width:auto;font-size:.88rem}
 @media (max-width:400px){.topr #btn_menu span{display:none}.topr #btn_menu{padding-left:11px;padding-right:11px}}
 @media (max-width:360px){.top:has(#topr:not([hidden])) .brand span{display:none}}
 </style>
@@ -467,6 +475,11 @@ select:disabled,input:disabled{opacity:.7}
     <section id="p_hist" hidden data-i18n-title="h.title">
       <p id="histcount" class="muted" style="margin:0 0 4px"></p>
       <ul id="histlist" class="hist"></ul>
+    </section>
+
+    <section id="p_preview" hidden data-i18n-title="pv.title">
+      <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice.</p>
+      <div id="pv_pages" class="pvpages"></div>
     </section>
 
     <section id="p_premium" class="premium" hidden data-i18n-title="p.title">
@@ -719,6 +732,7 @@ select:disabled,input:disabled{opacity:.7}
 <div class="bottombar" id="bottombar" hidden>
   <div class="bbin">
     <div class="tot"><strong id="total"></strong><span id="tothours"></span></div>
+    <button class="pvbtn" id="pvbtn" type="button" data-i18n-aria="bar.preview" aria-label="Preview"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span data-i18n="bar.preview">Preview</span></button>
     <button class="primary big" id="pdfbtn" type="button"></button>
   </div>
   <p id="pdfmsg" class="pdfmsg" role="status"></p>
@@ -734,6 +748,21 @@ select:disabled,input:disabled{opacity:.7}
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "a.expired":"expired",
+  "a.update":"Change duration",
+  "a.perm":"permanent",
+  "a.until":"until {date}",
+  "a.dperm":"Permanent",
+  "a.d365":"1 year",
+  "a.d180":"6 months",
+  "a.d90":"3 months",
+  "a.d30":"1 month",
+  "a.d7":"1 week",
+  "a.dur_lbl":"Duration",
+  "pv.note":"This is a preview, not a valid invoice. Finish the invoice to get the real PDF.",
+  "pv.mark":"PREVIEW",
+  "pv.title":"Invoice preview",
+  "bar.preview":"Preview",
   "i.first":"First name","i.last":"Last name",
   "nav.app":"My invoices",
   "a.reset_confirm":"Tap again to reset {abn}",
@@ -847,6 +876,21 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "a.expired":"expiré",
+  "a.update":"Changer la durée",
+  "a.perm":"permanent",
+  "a.until":"jusqu'au {date}",
+  "a.dperm":"Permanent",
+  "a.d365":"1 an",
+  "a.d180":"6 mois",
+  "a.d90":"3 mois",
+  "a.d30":"1 mois",
+  "a.d7":"1 semaine",
+  "a.dur_lbl":"Durée",
+  "pv.note":"Ceci est un aperçu, il n'est pas valable comme facture. Termine la facture pour obtenir le vrai PDF.",
+  "pv.mark":"APERÇU",
+  "pv.title":"Aperçu de la facture",
+  "bar.preview":"Aperçu",
   "i.first":"Prénom","i.last":"Nom",
   "nav.app":"Mes factures",
   "a.reset_confirm":"Touche encore pour effacer {abn}",
@@ -870,7 +914,7 @@ fr:{
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
   "nav.login":"Se connecter","nav.home":"SubbieBill, accueil",
-  "hero.title":"Tes heures de chantier. Ta facture. En 30 secondes.",
+  "hero.title":"Tes heures. Ta facture. En 30 secondes.",
   "hero.lede":"La facture des subbies sous ABN en Australie. Tu notes ton début et ta fin, SubbieBill calcule tout et crée une facture PDF pro, prête à envoyer.",
   "hero.cta":"Créer ma première facture","hero.note":"Tes 3 premières factures sont gratuites. Sans carte.",
   "proof.aria":"Fait pour l'Australie","proof.abn":"sur chaque facture","proof.bsb":"et numéro de compte","proof.aud":"calculé au cent près","proof.periods":"Semaine, quinzaine ou mois",
@@ -888,10 +932,10 @@ fr:{
   "why.3t":"Semaine, quinzaine ou mois","why.3d":"Tu factures au rythme où l'entreprise te paie.",
   "why.4t":"Rempli au fil des jours","why.4d":"Ta facture reste enregistrée. Tu la complètes à la pause.",
   "why.5t":"Tout ton historique","why.5d":"Avec Premium, chaque facture est enregistrée et retrouvée en une touche. Pratique pour les impôts.",
-  "why.6t":"Sur ton téléphone, au chantier","why.6d":"Rien à installer. Ajoute SubbieBill à ton écran d'accueil.",
+  "why.6t":"Sur ton téléphone, où que tu sois","why.6d":"Rien à installer. Ajoute SubbieBill à ton écran d'accueil.",
   "price.title":"Essaie gratuitement. Premium quand tu factures chaque semaine.",
   "price.free":"Gratuit","price.free_amt":"0 $",
-  "price.f1":"3 factures terminées (PDF)","price.f2":"Semaine, quinzaine ou mois","price.f3":"Clients et chantiers enregistrés","price.f4":"Tous les outils pour créer ta facture",
+  "price.f1":"3 factures terminées (PDF)","price.f2":"Semaine, quinzaine ou mois","price.f3":"Clients et lieux enregistrés","price.f4":"Tous les outils pour créer ta facture",
   "price.free_cta":"Commencer gratuitement",
   "price.pro":"Premium","price.pro_tag":"2 mois offerts à l'année","price.pro_amt":"39 $","price.pro_per":" / an","price.pro_alt":"ou 4,99 $ par mois",
   "price.p1":"Factures illimitées","price.p2":"Chaque facture enregistrée automatiquement dans l'historique","price.p3":"Retélécharge n'importe quelle facture","price.p4":"Annulable à tout moment",
@@ -913,12 +957,12 @@ fr:{
   "err.forgot":"Écris à {email} avec l'email de ton compte.",
   "foot.tag":"La facture des sous-traitants sous ABN en Australie.","foot.q":"Une question ?",
   "top.free":"Gratuit","top.premium":"Premium","top.history":"Historique","top.menu":"Menu","sheet.close":"Fermer",
-  "onb.title":"Bienvenue sur SubbieBill","onb.sub":"Trois étapes et ta première facture est prête.","onb.s1":"Tes infos (une seule fois)","onb.fill":"Remplir","onb.s2":"Ton client et ton chantier","onb.s3":"Tes heures",
+  "onb.title":"Bienvenue sur SubbieBill","onb.sub":"Trois étapes et ta première facture est prête.","onb.s1":"Tes infos (une seule fois)","onb.fill":"Remplir","onb.s2":"Ton client et ton lieu de travail","onb.s3":"Tes heures",
   "per.aria":"Durée de la facture","per.week":"Semaine","per.fortnight":"2 semaines","per.month":"Mois",
   "pn.week":"1 semaine","pn.fortnight":"2 semaines","pn.month":"1 mois",
   "nav.prev":"Période précédente","nav.next":"Période suivante","nav.today":"Revenir à aujourd'hui",
-  "ctx.client":"Client","ctx.site":"Chantier","ctx.choose":"Choisir…","ctx.add_client":"+ Ajouter un client","ctx.add_site":"+ Ajouter un chantier",
-  "ctx.client_ph":"Nom de l'entreprise","ctx.site_ph":"Adresse du chantier",
+  "ctx.client":"Client","ctx.site":"Lieu de travail","ctx.choose":"Choisir…","ctx.add_client":"+ Ajouter un client","ctx.add_site":"+ Ajouter un lieu",
+  "ctx.client_ph":"Nom de l'entreprise","ctx.site_ph":"Adresse du lieu de travail",
   "meta.no":"N° facture","meta.issue":"Émise le","meta.due":"Échéance","meta.sum":"Facture n° {no} · émise le {issue} · échéance {due}",
   "save.btn":"Enregistrer la facture","save.done":"Enregistrée ✓",
   "st.saving":"Enregistrement…","st.in_hist":"Dans ton historique. Tes changements s'enregistrent tout seuls.","st.not_saved":"Pas encore dans ton historique.",
@@ -928,21 +972,21 @@ fr:{
   "st.shrink":"Impossible : {n} jour(s) travaillé(s) sortiraient de la période. Choisis une durée plus longue ou une nouvelle facture.",
   "st.paid_wait":"Paiement reçu, activation de Premium…","st.paid_ok":"Premium activé. Merci !","st.paid_later":"Paiement reçu. Premium s'activera dans quelques minutes.",
   "days.title":"Tes heures","days.copy_week":"Copier lundi sur mar → ven","days.copy_multi":"Copier lundi sur les jours vides","days.week_of":"Semaine du {date}",
-  "days.off":"repos","days.add":"Ajouter des heures","f.start":"Début","f.end":"Fin","f.pause":"Pause","f.hours":"Heures","f.rate":"$/h","f.loc_aria":"Chantier ce jour-là",
+  "days.off":"repos","days.add":"Ajouter des heures","f.start":"Début","f.end":"Fin","f.pause":"Pause","f.hours":"Heures","f.rate":"$/h","f.loc_aria":"Lieu de travail ce jour-là",
   "f.min":"{m} min",
   "bar.sum":"{h} h · {d} · AUD","bar.day":"{n} jour","bar.days":"{n} jours","bar.pdf":"Télécharger le PDF",
   "pdfm.need_client":"Choisis d'abord ton client.","pdfm.need_hours":"Mets au moins une journée de travail.","pdfm.no_lib":"Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge.",
   "pdfm.ready":"PDF prêt.","pdfm.fail":"Le PDF n'a pas pu être créé. Réessaie.",
   "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
-  "m.lists":"Clients et chantiers","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter",
+  "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter",
   "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur 3","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
   "i.title":"Mes infos","i.intro":"À remplir une seule fois. Elles apparaissent en haut de chaque facture.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email","i.phone":"Téléphone","i.addr":"Adresse","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
   "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
   "s.rate":"Taux horaire en semaine ($/h)","s.desc":"Description sur la facture","s.note":"Le samedi et le dimanche partent à 0 $/h. Si tu travailles le week-end, mets le taux directement sur le jour.","s.ok":"OK",
-  "l.title":"Clients et chantiers","l.clients":"Clients","l.sites":"Chantiers","l.none_c":"Aucun client.","l.none_s":"Aucun chantier.",
-  "l.note":"Pour en ajouter, choisis « + Ajouter » dans la liste Client ou Chantier.","l.remove":"Retirer",
+  "l.title":"Clients et lieux","l.clients":"Clients","l.sites":"Lieux de travail","l.none_c":"Aucun client.","l.none_s":"Aucun lieu.",
+  "l.note":"Pour en ajouter, choisis « + Ajouter » dans la liste Client ou Lieu de travail.","l.remove":"Retirer",
   "h.title":"Historique","h.count_pro":"{n} facture(s)","h.count_free":"{n} / {limit} factures gardées en gratuit",
   "h.empty":"Aucune facture pour l'instant. Dès que tu mets des heures, la facture apparaît ici toute seule.","h.open":"ouverte","h.inv":"Facture n° {no}",
   "h.rename":"Renommer","h.delete":"Supprimer","h.confirm":"Confirmer la suppression","h.name_ph":"Nom de la facture","h.ok":"OK",
@@ -1056,7 +1100,8 @@ function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
-const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}}):null;
+/* the login is kept on this device (localStorage) and refreshed automatically: you stay logged in until you tap Log out */
+const sb=window.supabase&&window.supabase.createClient?window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false,storage:window.localStorage}}):null;
 let saveTimer=null,syncMsg=null;
 function syncSaved(){if(!session||!P())return;const e=curEntry();if(!e)return;e.inv=clone(I());e.updatedAt=Date.now();if(!e.custom)e.name=defaultName(I())}
 const roomLeft=()=>plan.premium;
@@ -1304,7 +1349,8 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
   p.inv=draft;p.curSaved=open?open.id:null;syncMsg=null;
   if(draft&&!open&&hasHours(draft)){renderAll()}else{openPeriod(p.period,todayIso())}}
-async function loadAccount(user){view="app";const {data,error}=await sb.rpc("get_my_profile");
+async function loadAccount(user){view="app";let {data,error}=await sb.rpc("get_my_profile");
+  if(error&&sb.auth.refreshSession){try{await sb.auth.refreshSession()}catch(e){}({data,error}=await sb.rpc("get_my_profile"))}   /* expired access token: refresh once, stay logged in */
   if(error){$("autherr").textContent=t("err.load");return false}
   applyProfile(user,data);return true}
 
@@ -1375,10 +1421,15 @@ const pfmtAbn = (v) => { const d = String(v || "").replace(/\D/g, ""); return d.
 const ptxt = (v) => String(v ?? "").replace(/[^\x20-\x7E -ÿ–—‘’“”•€]/g, "").slice(0, 200);
 
 function renderInvoice(JsPDF, me, inv) {
-  /* Simple, classic layout (based on Thomas's own invoice): orange INVOICE title, details left, invoice info right, plain table, total. */
   const doc = new JsPDF({ unit: "mm", format: "a4" });
   doc.setProperties({ title: `Invoice ${ptxt(inv.invno)}`, creator: "SubbieBill" });
   if (doc.setLanguage) doc.setLanguage("en-AU");
+  drawInvoice(doc, me, inv);
+  return new Uint8Array(doc.output("arraybuffer"));
+}
+function drawInvoice(doc, me, inv) {
+  /* Simple, classic layout (based on Thomas's own invoice): orange INVOICE title, details left, invoice info right, plain table, total.
+     Draws on a jsPDF document, or on the canvas look-alike used for the preview. */
   const L = 18, R = 192, INK = [29, 35, 33], MUT = [102, 112, 107], LINE = [217, 222, 217], ORANGE = [210, 105, 30];
   const col = (c) => doc.setTextColor(c[0], c[1], c[2]);
   const font = (w, s) => { doc.setFont("helvetica", w); doc.setFontSize(s); };
@@ -1442,7 +1493,48 @@ function renderInvoice(JsPDF, me, inv) {
 
   const pages = doc.getNumberOfPages();
   if (pages > 1) for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 7.5); col(MUT); doc.text(`Page ${i} of ${pages}`, R, 288, { align: "right" }); }
-  return new Uint8Array(doc.output("arraybuffer"));
+}
+
+/* ---------- preview: same drawing on canvases (one per A4 page), never a downloadable PDF, with a watermark ---------- */
+class CanvasDoc {
+  constructor(pxPerMm) { this.k = pxPerMm; this.pages = []; this.size = 10; this.weight = "normal"; this.fill = "#000"; this.stroke = "#000"; this.lw = 0.2; this.addPage(); }
+  addPage() { const c = document.createElement("canvas"); c.width = Math.round(210 * this.k); c.height = Math.round(297 * this.k);
+    const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); this.pages.push(c); this.cur = x; return this; }
+  getNumberOfPages() { return this.pages.length; }
+  setPage(i) { this.cur = this.pages[i - 1].getContext("2d"); }
+  setProperties() {} setLanguage() {}
+  setFont(f, w) { this.weight = w === "bold" ? "bold" : "normal"; }
+  setFontSize(s) { this.size = s; }
+  _font(ctx) { ctx.font = `${this.weight} ${this.size * 0.3528 * this.k}px Helvetica, Arial, sans-serif`; }
+  setTextColor(r, g, b) { this.fill = `rgb(${r},${g},${b})`; }
+  setDrawColor(r, g, b) { this.stroke = `rgb(${r},${g},${b})`; }
+  setLineWidth(w) { this.lw = w; }
+  line(x1, y1, x2, y2) { const c = this.cur; c.strokeStyle = this.stroke; c.lineWidth = this.lw * this.k; c.beginPath(); c.moveTo(x1 * this.k, y1 * this.k); c.lineTo(x2 * this.k, y2 * this.k); c.stroke(); }
+  text(t, x, y, o) { const c = this.cur; this._font(c); c.fillStyle = this.fill; c.textBaseline = "alphabetic"; c.textAlign = o && o.align === "right" ? "right" : "left"; c.fillText(String(t), x * this.k, y * this.k); }
+  splitTextToSize(t, w) { const c = this.cur; this._font(c); const max = w * this.k, out = []; let line = "";
+    String(t).split(/\s+/).filter(Boolean).forEach((word) => { const tryL = line ? line + " " + word : word;
+      if (c.measureText(tryL).width <= max || !line) line = tryL; else { out.push(line); line = word; } });
+    if (line) out.push(line);
+    return out.map((l) => { if (c.measureText(l).width <= max) return l; let s = l; while (s.length > 1 && c.measureText(s).width > max) s = s.slice(0, -1); return s; }); }
+}
+function watermark(canvas, label) {
+  const c = canvas.getContext("2d"), W = canvas.width, H = canvas.height, step = W / 3.2;
+  c.save(); c.translate(W / 2, H / 2); c.rotate(-Math.PI / 6);
+  c.font = `bold ${Math.round(W / 15)}px Helvetica, Arial, sans-serif`; c.textAlign = "center"; c.textBaseline = "middle";
+  c.fillStyle = "rgba(210,105,30,0.24)";
+  for (let yy = -H; yy <= H; yy += step * 0.75) for (let xx = -W; xx <= W; xx += step * 1.9) c.fillText(label, xx + (Math.round(yy / step) % 2 ? step * 0.95 : 0), yy);
+  c.font = `${Math.round(W / 70)}px Helvetica, Arial, sans-serif`; c.fillStyle = "rgba(102,112,107,0.35)";
+  for (let yy = -H; yy <= H; yy += step * 0.75) for (let xx = -W; xx <= W; xx += step * 1.9) c.fillText("SubbieBill · " + label, xx + (Math.round(yy / step) % 2 ? 0 : step * 0.95), yy + step * 0.2);
+  c.restore();
+}
+function previewInvoice() {
+  const p = P(), inv = I(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: false };
+  const doc = new CanvasDoc(Math.min(6, Math.max(3.5, (window.devicePixelRatio || 1) * 2.4)));
+  drawInvoice(doc, ME2, clone(inv));
+  const label = t("pv.mark"), box = $("pv_pages"); box.innerHTML = "";
+  doc.pages.forEach((cv, i) => { watermark(cv, label); cv.className = "pvpage"; cv.setAttribute("role", "img"); cv.setAttribute("aria-label", `${t("pv.title")} ${i + 1}/${doc.pages.length}`);
+    cv.addEventListener("contextmenu", (e) => e.preventDefault()); box.appendChild(cv); });
+  openSheet("p_preview");
 }
 
 let jspdfP=null;
@@ -1463,6 +1555,7 @@ function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=
   document.querySelectorAll('input[name="ptype"]').forEach(x=>{x.closest("label").classList.toggle("dim",lk)});
   if(!$("pdfmsg").dataset.keep)$("pdfmsg").textContent=plan.premium||lk?"":(freeLeft()>0?t("quota.left",{n:freeLeft()}):t("quota.none"))}
 function pdfMsg(text){const m=$("pdfmsg");m.textContent=text;m.dataset.keep="1";clearTimeout(pdfMsg.t);pdfMsg.t=setTimeout(()=>{delete m.dataset.keep;renderFinish()},6000)}
+$("pvbtn").onclick=()=>{if(!session||!P())return;previewInvoice()};
 $("lock_next").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
 $("lock_edit").onclick=()=>{if(!plan.premium)return;const inv=I();inv.finished=null;inv.id=newId();inv.invno=nextInvNo();if(curEntry())P().curSaved=null;renderAll();save()};
 $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked();
@@ -1518,24 +1611,33 @@ async function loadAdmin(reset,clearList){const msg=$("adm_msg");msg.textContent
   if(!admOffset&&!rows.length)$("adm_list").innerHTML=`<li class="muted">${esc(t("a.none"))}</li>`;
   rows.forEach(u=>$("adm_list").appendChild(admRow(u)));admOffset+=rows.length;$("adm_more").hidden=rows.length<50}
 function admRow(u){const li=document.createElement("li");
-  const src=u.source==="stripe"?"a.src_stripe":u.source==="manual"?"a.src_manual":"a.src_free";
+  const manual=u.source==="manual",expired=manual&&!u.premium,stripe=u.source==="stripe";
+  const d8=v=>clean(new Date(v).toLocaleDateString(loc()));
+  let badge=t(stripe?"a.src_stripe":manual&&!expired?"a.src_manual":"a.src_free");
+  if(manual&&!expired)badge+=" · "+(u.until?t("a.until",{date:d8(u.until)}):t("a.perm"));
+  if(expired)badge+=" · "+t("a.expired");
   li.innerHTML=`<div class="aumain"><strong class="auemail"></strong><span class="auname"></span>
-    <span class="aumeta">${esc(t("a.joined",{date:clean(new Date(u.created_at).toLocaleDateString(loc()))}))} · ${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></div>
-    <div class="auact"><span class="badge${u.premium?" pro":""}">${esc(t(src))}${u.admin?" · "+esc(t("a.admin_tag")):""}</span>
-    <button type="button" class="${u.premium&&u.source==="manual"?"":"primary"}">${esc(t(u.premium&&u.source==="manual"?"a.remove":"a.give"))}</button></div>`;
+    <span class="aumeta">${esc(t("a.joined",{date:d8(u.created_at)}))} · ${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></div>
+    <div class="auact"><span class="badge${u.premium?" pro":""}">${esc(badge)}${u.admin?" · "+esc(t("a.admin_tag")):""}</span></div>`;
   li.querySelector(".auemail").textContent=u.email||"";li.querySelector(".auname").textContent=u.name||"";
-  const btn=li.querySelector("button");
-  if(u.source==="stripe"){btn.hidden=true;const n=document.createElement("span");n.className="aumeta";n.textContent=t("a.stripe_note");li.querySelector(".aumain").appendChild(n)}
-  if(u.abn){const rb=document.createElement("button");rb.type="button";rb.className="abnreset";rb.textContent=t("a.reset_abn");li.querySelector(".auact").appendChild(rb);
+  const act=li.querySelector(".auact");
+  if(stripe){const n=document.createElement("span");n.className="aumeta";n.textContent=t("a.stripe_note");li.querySelector(".aumain").appendChild(n)}
+  else{const box=document.createElement("div");box.className="admdur";const on=manual&&!expired;
+    box.innerHTML=`<select aria-label="${esc(t("a.dur_lbl"))}">${[["7","a.d7"],["30","a.d30"],["90","a.d90"],["180","a.d180"],["365","a.d365"],["","a.dperm"]].map(([v,k])=>`<option value="${v}"${v==="30"?" selected":""}>${esc(t(k))}</option>`).join("")}</select>
+      <button type="button" class="primary give">${esc(t(on?"a.update":"a.give"))}</button>${on?`<button type="button" class="rem">${esc(t("a.remove"))}</button>`:""}`;
+    act.appendChild(box);
+    const run=async(btn,turnOn)=>{btn.disabled=true;const days=turnOn?(box.querySelector("select").value?+box.querySelector("select").value:null):null;
+      const {error}=await sb.rpc("admin_set_premium",{p_user:u.user_id,p_on:turnOn,p_days:days});
+      if(error){$("adm_msg").textContent=t("a.err");btn.disabled=false;return}
+      u.premium=turnOn;u.source=turnOn?"manual":"free";u.until=turnOn&&days?new Date(Date.now()+days*864e5).toISOString():null;
+      li.replaceWith(admRow(u));$("adm_msg").textContent=t("a.done");if(session&&u.user_id===session.id)refreshPlan()};
+    box.querySelector(".give").onclick=e=>run(e.currentTarget,true);
+    const rem=box.querySelector(".rem");if(rem)rem.onclick=e=>run(e.currentTarget,false)}
+  if(u.abn){const rb=document.createElement("button");rb.type="button";rb.className="abnreset";rb.textContent=t("a.reset_abn");act.appendChild(rb);
     rb.onclick=async()=>{if(!rb.classList.contains("warn")){rb.classList.add("warn");rb.textContent=t("a.reset_confirm",{abn:fmtAbn(u.abn)});return}
       rb.disabled=true;const {error}=await sb.rpc("admin_reset_abn",{p_user:u.user_id});
       if(error){$("adm_msg").textContent=t("a.err");rb.disabled=false;return}
       u.abn="";li.replaceWith(admRow(u));$("adm_msg").textContent=t("a.done");if(session&&u.user_id===session.id)refreshPlan()}}
-  btn.onclick=async()=>{btn.disabled=true;const on=!(u.premium&&u.source==="manual");
-    const {error}=await sb.rpc("admin_set_premium",{p_user:u.user_id,p_on:on,p_days:null});
-    if(error){$("adm_msg").textContent=t("a.err");btn.disabled=false;return}
-    u.premium=on;u.source=on?"manual":"free";li.replaceWith(admRow(u));$("adm_msg").textContent=t("a.done");
-    if(session&&u.user_id===session.id)refreshPlan()};
   return li}
 $("adm_q").addEventListener("input",()=>{clearTimeout(admTimer);admTimer=setTimeout(()=>loadAdmin(false,true),300)});
 $("adm_more").onclick=()=>loadAdmin(false,false);
