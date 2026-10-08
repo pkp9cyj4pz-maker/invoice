@@ -1375,74 +1375,75 @@ const pfmtAbn = (v) => { const d = String(v || "").replace(/\D/g, ""); return d.
 const ptxt = (v) => String(v ?? "").replace(/[^\x20-\x7E -ÿ–—‘’“”•€]/g, "").slice(0, 200);
 
 function renderInvoice(JsPDF, me, inv) {
+  /* Simple, classic layout (based on Thomas's own invoice): orange INVOICE title, details left, invoice info right, plain table, total. */
   const doc = new JsPDF({ unit: "mm", format: "a4" });
   doc.setProperties({ title: `Invoice ${ptxt(inv.invno)}`, creator: "SubbieBill" });
   if (doc.setLanguage) doc.setLanguage("en-AU");
-  const W = 210, L = 16, R = 194;
-  const INK = [21, 32, 27], MUT = [93, 105, 99], LINE = [221, 226, 219], ACC = [232, 89, 12], SOFT = [244, 246, 242], WHITE = [255, 255, 255];
-  const col = (c) => doc.setTextColor(c[0], c[1], c[2]), fill = (c) => doc.setFillColor(c[0], c[1], c[2]);
+  const L = 18, R = 192, INK = [29, 35, 33], MUT = [102, 112, 107], LINE = [217, 222, 217], ORANGE = [210, 105, 30];
+  const col = (c) => doc.setTextColor(c[0], c[1], c[2]);
   const font = (w, s) => { doc.setFont("helvetica", w); doc.setFontSize(s); };
   const fit = (s, w) => doc.splitTextToSize(ptxt(s), w)[0] || "";
+  const hline = (y, c, w) => { doc.setDrawColor(c[0], c[1], c[2]); doc.setLineWidth(w); doc.line(L, y, R, y); };
   const rowsAll = Array.isArray(inv.rows) ? inv.rows.slice(0, 62) : [];
   const type = ["week", "fortnight", "month"].includes(inv.type) ? inv.type : "week";
+  const STEP = 5.5;
 
-  fill(ACC); doc.rect(0, 0, W, 3.5, "F");
-  let y = 20;
-  font("bold", 17); col(INK); doc.text(fit(me.name, 100), L, y);
-  font("normal", 9.5); col(MUT); let ly = y + 6.5;
-  [me.abn ? "ABN " + pfmtAbn(me.abn) : "", me.addr, me.email, me.phone].filter(Boolean).forEach((s) => { doc.text(fit(s, 100), L, ly); ly += 4.8; });
-  font("bold", 24); col(INK); doc.text(me.gst ? "TAX INVOICE" : "INVOICE", R, y + 1, { align: "right" });
-  let my = y + 9;
-  [["Invoice no.", ptxt(inv.invno)], ["Issue date", pdmy(inv.issue)], ["Due date", pdmy(inv.due)], ["Period", `${pdmy(inv.start)} – ${pdmy(inv.end)}`]].forEach(([k, v]) => {
-    font("normal", 9.5); col(MUT); doc.text(k, 124, my); font("bold", 9.5); col(INK); doc.text(v, R, my, { align: "right" }); my += 5.2;
+  // title
+  font("bold", 22); col(ORANGE); doc.text("INVOICE", L, 24.7);
+  if (me.gst) { font("normal", 7.5); col(MUT); doc.text("TAX INVOICE", L, 30); }
+
+  // your details (left)
+  let ly = 40.2;
+  font("bold", 9); col(INK); doc.text(fit(me.name, 95), L, ly); ly += STEP;
+  font("normal", 9);
+  [me.abn ? "ABN number: " + String(me.abn).replace(/\D/g, "") : "", me.email, me.phone, me.addr,
+   me.bsb ? "BSB: " + me.bsb : "", me.acc ? "Account number: " + me.acc : ""]
+    .filter(Boolean).forEach((s) => { doc.text(fit(s, 95), L, ly); ly += STEP; });
+
+  // invoice info (right): labels right-aligned, values right-aligned
+  let ry = 40.2;
+  [["Bill to:", inv.billto], ["Invoice No:", inv.invno], ["Issue date:", pdmy(inv.issue)], ["Due date:", pdmy(inv.due)]].forEach(([k, v]) => {
+    font("bold", 9); const lines = doc.splitTextToSize(ptxt(v), 40).slice(0, 3);
+    font("normal", 9); col(MUT); doc.text(k, 150, ry, { align: "right" });
+    font("bold", 9); col(INK); lines.forEach((t, i) => doc.text(t, R, ry + i * 4.4, { align: "right" }));
+    ry += STEP + (lines.length - 1) * 4.4;
   });
-  y = Math.max(ly, my) + 5;
-  const bh = 25; fill(SOFT); doc.roundedRect(L, y, 87, bh, 2, 2, "F"); doc.roundedRect(107, y, 87, bh, 2, 2, "F");
-  font("bold", 7.5); col(MUT); doc.text("BILL TO", L + 5, y + 6.5); doc.text("PAYMENT DETAILS", 112, y + 6.5);
-  font("bold", 11.5); col(INK); doc.text(fit(inv.billto, 78), L + 5, y + 13.5);
-  if (inv.site) { font("normal", 9); col(MUT); doc.text(fit("Site: " + ptxt(inv.site), 78), L + 5, y + 19.5); }
-  font("normal", 9.5); let py = y + 13;
-  [["BSB", me.bsb], ["Account no.", me.acc], ["Reference", `Invoice ${ptxt(inv.invno)}`]].forEach(([k, v]) => {
-    if (!v) return; col(MUT); doc.text(k, 112, py); font("bold", 9.5); col(INK); doc.text(fit(v, 50), 189, py, { align: "right" }); font("normal", 9.5); py += 5;
-  });
-  y += bh + 9;
-  const C = { date: L + 3, site: L + 30, desc: L + 86, hrs: 140, rate: 164, amt: R - 3 };
+
+  // table
+  let y = Math.max(ly, ry) + 9;
+  const C = { date: L, loc: 38, desc: 88, qty: 135, rate: 163, amt: R };
   const head = () => {
-    fill(INK); doc.rect(L, y - 5.2, R - L, 8, "F"); font("bold", 8.5); col(WHITE);
-    doc.text("Date", C.date, y); doc.text("Site", C.site, y); doc.text("Description", C.desc, y);
-    doc.text("Hours", C.hrs, y, { align: "right" }); doc.text("Rate", C.rate, y, { align: "right" }); doc.text("Amount", C.amt, y, { align: "right" }); y += 8;
+    font("bold", 7.5); col(MUT);
+    doc.text("Date", C.date, y); doc.text("Location", C.loc, y); doc.text("Description", C.desc, y);
+    doc.text("Quantity", C.qty, y, { align: "right" }); doc.text("Unit price ($)", C.rate, y, { align: "right" }); doc.text("Amount ($)", C.amt, y, { align: "right" });
+    hline(y + 2.6, INK, 0.5); y += 9.4;
   };
   head();
   const rows = type === "week" ? rowsAll : rowsAll.filter((r) => pn(r.hours) > 0);
-  let total = 0, hsum = 0;
-  rows.forEach((r, k) => {
-    if (y > 262) { doc.addPage(); fill(ACC); doc.rect(0, 0, W, 3.5, "F"); y = 20; head(); }
-    const h = pn(r.hours), rt = pn(r.rate), amt = h * rt, on = h > 0; total += amt; hsum += h;
-    if (k % 2 === 1) { fill(SOFT); doc.rect(L, y - 5, R - L, 7.6, "F"); }
-    font("normal", 9.5); col(on ? INK : MUT);
-    doc.text(`${pdayName(r.date)} ${pdm(r.date)}`, C.date, y);
-    doc.text(fit(r.loc, 52), C.site, y); doc.text(fit(r.desc, 34), C.desc, y);
-    doc.text(on ? phrs(h) : "–", C.hrs, y, { align: "right" }); doc.text(on ? pfmt(rt) : "–", C.rate, y, { align: "right" });
-    if (on) font("bold", 9.5); doc.text(on ? pfmt(amt) : "–", C.amt, y, { align: "right" }); y += 7.6;
+  let total = 0;
+  rows.forEach((r) => {
+    if (y > 268) { doc.addPage(); y = 24; head(); }
+    const h = pn(r.hours), rt = pn(r.rate), amt = h * rt; total += amt;
+    font("normal", 9); col(INK);
+    doc.text(pdm(r.date), C.date, y);
+    doc.text(fit(r.loc || inv.site, 47), C.loc, y);
+    doc.text(fit(r.desc, 32), C.desc, y);
+    doc.text(phrs(h), C.qty, y, { align: "right" });
+    doc.text(pfmt(rt), C.rate, y, { align: "right" });
+    doc.text(pfmt(amt), C.amt, y, { align: "right" });
+    hline(y + 3.4, LINE, 0.25); y += 8.5;
   });
-  doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.3); doc.line(L, y - 4, R, y - 4);
-  if (y > 238) { doc.addPage(); fill(ACC); doc.rect(0, 0, W, 3.5, "F"); y = 24; }
-  y += 4; const tx = 118;
-  [["Total hours", phrs(hsum)], ["Subtotal", pmoney(total)], ["GST", pmoney(0)]].forEach(([k, v]) => {
-    font("normal", 9.5); col(MUT); doc.text(k, tx, y); col(INK); doc.text(v, C.amt, y, { align: "right" }); y += 5.6;
-  });
-  y += 1.5; fill(INK); doc.roundedRect(tx - 4, y - 1, R - tx + 4, 12, 2, 2, "F"); font("bold", 10); col(WHITE); doc.text("TOTAL (AUD)", tx, y + 7);
-  font("bold", 14); col([255, 138, 69]); doc.text(pmoney(total), C.amt, y + 7.3, { align: "right" }); y += 18;
-  font("normal", 8.5); col(MUT); if (!me.gst) doc.text("No GST has been charged.", R, y - 3, { align: "right" });
-  y += 6; font("normal", 9.5); col(INK);
-  const pay = `Please pay by ${pdmy(inv.due)}${me.bsb || me.acc ? " to the account above" : ""}, using reference “Invoice ${ptxt(inv.invno)}”.`;
-  doc.text(doc.splitTextToSize(pay, R - L), L, y);
-  doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.line(L, 286, R, 286); font("normal", 8); col(MUT); doc.text("Thank you.", L, 290.5);
+
+  // total
+  if (y > 262) { doc.addPage(); y = 24; }
+  y += 3; doc.setDrawColor(INK[0], INK[1], INK[2]); doc.setLineWidth(0.6); doc.line(133, y, R, y);
+  y += 7; font("bold", 10.5); col(INK); doc.text("TOTAL", 133, y); doc.text(pmoney(total), R, y, { align: "right" });
+  if (!me.gst) { y += 6; font("normal", 7.5); col(MUT); doc.text("No GST has been charged.", R, y, { align: "right" }); }
+
   const pages = doc.getNumberOfPages();
-  if (pages > 1) for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 8); col(MUT); doc.text(`Page ${i} of ${pages}`, R, 290.5, { align: "right" }); }
+  if (pages > 1) for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 7.5); col(MUT); doc.text(`Page ${i} of ${pages}`, R, 288, { align: "right" }); }
   return new Uint8Array(doc.output("arraybuffer"));
 }
-
 
 let jspdfP=null;
 function loadJsPDF(){if(window.jspdf&&window.jspdf.jsPDF)return Promise.resolve(window.jspdf.jsPDF);
