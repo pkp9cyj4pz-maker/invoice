@@ -400,6 +400,9 @@ select:disabled,input:disabled{opacity:.7}
 #abn_ok.confirm{background:var(--hivis);border-color:var(--hivis);color:#15201B}
 .abnreset{min-height:40px;padding:7px 12px;font-size:.88rem}
 #authabn{margin:4px 0 0}
+#btn_app{white-space:nowrap}
+@media (max-width:400px){.topr #btn_menu span{display:none}.topr #btn_menu{padding-left:11px;padding-right:11px}}
+@media (max-width:360px){.top:has(#topr:not([hidden])) .brand span{display:none}}
 </style>
 </head>
 <body>
@@ -483,9 +486,10 @@ select:disabled,input:disabled{opacity:.7}
   <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="30" height="30"><span>SubbieBill</span></a>
   <div class="topr" id="topr" hidden>
     <span id="planbadge" class="badge"></span>
+    <button id="btn_app" class="primary" type="button" hidden data-i18n="nav.app">My invoices</button>
     <button id="btn_hist" type="button" data-i18n="top.history">History</button>
     <div class="menuwrap">
-      <button id="btn_menu" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span data-i18n="top.menu">Menu</span></button>
+      <button id="btn_menu" type="button" data-i18n-aria="top.menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span data-i18n="top.menu">Menu</span></button>
       <div id="menupop" class="menupop" hidden>
         <div class="acctbox">
           <span class="lbl" data-i18n="m.account">Account</span><strong id="acctemail"></strong>
@@ -726,6 +730,7 @@ select:disabled,input:disabled{opacity:.7}
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "nav.app":"My invoices",
   "a.reset_confirm":"Tap again to reset {abn}",
   "a.reset_abn":"Reset ABN",
   "fin.missing":"The invoice service isn't set up yet. Try again later.",
@@ -837,6 +842,7 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "nav.app":"Mes factures",
   "a.reset_confirm":"Touche encore pour effacer {abn}",
   "a.reset_abn":"Réinitialiser l'ABN",
   "fin.missing":"Le service de factures n'est pas encore installé. Réessaie plus tard.",
@@ -947,7 +953,7 @@ const PAY_YEARLY="";    // Stripe yearly payment link
 const PORTAL="";        // Stripe customer portal link  (https://billing.stripe.com/p/login/...)
 const SUPPORT_EMAIL="Thomas.spychiger.pro@gmail.com";
 const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
-const FN_URL=SB_URL+"/functions/v1/invoice-pdf";   // server-side PDF (counts free invoices)
+const JSPDF_URL="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js";
 /* ==================== */
 
 const $=id=>document.getElementById(id);
@@ -1067,8 +1073,11 @@ async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();con
 
 /* ---------- rendering ---------- */
 function infosDone(){const p=P();return !!(p.name&&p.abn&&p.abnLocked&&p.bsb&&p.acc)}
-function renderAll(){renderTop();if(!session)return;renderWeek();renderDays();renderTotals();renderOnboard();renderStatus();renderFinish()}
-function renderTop(){const on=!!session;$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=on;$("app").hidden=!on;$("bottombar").hidden=!on;
+function renderAll(){renderTop();if(!session)return;loadJsPDF().catch(()=>{});renderWeek();renderDays();renderTotals();renderOnboard();renderStatus();renderFinish()}
+let view="app";   /* once logged in: "app" (the invoice) or "home" (the home page, opened with the logo) */
+function renderTop(){const on=!!session,home=!on||view==="home";$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=!home;$("app").hidden=home;$("bottombar").hidden=home;
+  $("auth").hidden=on;$("btn_app").hidden=!(on&&home);$("btn_hist").hidden=on&&home;
+  document.querySelectorAll("[data-auth]").forEach(el=>{el.textContent=on?t("nav.app"):t(el.dataset.i18n)});
   if(on)$("lstick").hidden=true;
   if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium)}
 function renderOnboard(){const s1=infosDone(),s2=!!(I().billto&&I().site),s3=hasHours(I());
@@ -1233,7 +1242,7 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
       <div class="hact"><button class="ren" type="button">${esc(t("h.rename"))}</button><button class="hdel" type="button">${esc(t("h.delete"))}</button></div>`;
     if(e.custom)li.querySelector(".hname").textContent=e.name;
     if(e.id===p.curSaved)li.querySelector(".hrange").dataset.open=t("h.open");
-    li.querySelector(".hopen").onclick=()=>{if(e.id!==p.curSaved)keepCurrent();syncSaved();p.inv=clone(inv);p.curSaved=e.id;p.period=invType(inv);migrateInv(p.inv);closeSheet();syncMsg=null;renderAll();save();flushSave()};
+    li.querySelector(".hopen").onclick=()=>{if(e.id!==p.curSaved)keepCurrent();syncSaved();p.inv=clone(inv);p.curSaved=e.id;p.period=invType(inv);migrateInv(p.inv);closeSheet();syncMsg=null;view="app";renderAll();save();flushSave()};
     li.querySelector(".ren").onclick=()=>{const box=li.querySelector(".hact");box.innerHTML=`<input maxlength="80" placeholder="${esc(t("h.name_ph"))}"><button class="primary" type="button">${esc(t("h.ok"))}</button>`;
       const inp=box.querySelector("input");inp.value=e.custom?e.name:"";inp.focus();
       const done=()=>{const v=inp.value.trim();if(v){e.name=v;e.custom=true}else{e.custom=false;e.name=defaultName(e.inv)}save();flushSave();renderHist()};
@@ -1284,7 +1293,7 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
   p.inv=draft;p.curSaved=open?open.id:null;syncMsg=null;
   if(draft&&!open&&hasHours(draft)){renderAll()}else{openPeriod(p.period,todayIso())}}
-async function loadAccount(user){const {data,error}=await sb.rpc("get_my_profile");
+async function loadAccount(user){view="app";const {data,error}=await sb.rpc("get_my_profile");
   if(error){$("autherr").textContent=t("err.load");return false}
   applyProfile(user,data);return true}
 
@@ -1295,10 +1304,13 @@ function setAuthMode(m){authMode=m;$("authtitle").textContent=t(m==="login"?"aut
   if(!$("authsubmit").disabled)$("authsubmit").textContent=t(m==="login"?"auth.submit_login":"auth.submit_signup");
   $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass").placeholder=t(m==="login"?"auth.pass_ph_login":"auth.pass_ph");$("authpass2wrap").hidden=m==="login";$("authabn").hidden=m==="login"}
 function goAuth(m){setAuthMode(m);$("autherr").textContent="";$("auth").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});setTimeout(()=>$("authemail").focus({preventScroll:true}),350)}
-document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>goAuth(b.dataset.auth));
+function goApp(){view="app";closeMenu();renderAll();window.scrollTo(0,0)}
+document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>{if(session){goApp();return}goAuth(b.dataset.auth)});
+$("btn_app").onclick=goApp;
 $("btn_login").onclick=()=>goAuth("login");
 /* logo = home: closes whatever is open and goes back to the top of the page (the invoice, once logged in) */
 document.querySelector(".brand").addEventListener("click",e=>{e.preventDefault();closeMenu();if(!$("sheetov").hidden)closeSheet();$("langpop").hidden=true;
+  if(session){flushSave();view="home";renderTop();window.scrollTo(0,0);return}
   window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
 $("tab_login").onclick=()=>{setAuthMode("login");$("autherr").textContent=""};$("tab_signup").onclick=()=>{setAuthMode("signup");$("autherr").textContent=""};
 $("authforgot").onclick=()=>{$("autherr").textContent=t("err.forgot",{email:SUPPORT_EMAIL})};
@@ -1337,7 +1349,98 @@ $("demo_start").onchange=renderDemo;$("demo_end").onchange=renderDemo;$("demo_ra
   new IntersectionObserver(es=>{heroVis=es[0].isIntersecting;upd()}).observe($("herocta"));
   new IntersectionObserver(es=>{authVis=es[0].isIntersecting;upd()}).observe($("auth"))})();
 
-/* ---------- finish invoice (PDF made and counted by the server) ---------- */
+/* ---------- the invoice PDF (always Australian English), drawn from the copy the server returns ---------- */
+/* ---------- formatting (invoices are always Australian English) ---------- */
+const P_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const P_ISO = /^\d{4}-\d{2}-\d{2}$/;
+const pn = (v) => { const x = Number(v); return Number.isFinite(x) ? x : 0; };
+const pfmt = (v) => pn(v).toLocaleString("en-AU", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const pmoney = (v) => "$" + pfmt(v);
+const phrs = (v) => (Math.round(pn(v) * 100) / 100).toLocaleString("en-AU", { maximumFractionDigits: 2 });
+const pdmy = (iso) => (P_ISO.test(String(iso || "")) ? `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}` : "");
+const pdm = (iso) => (P_ISO.test(String(iso || "")) ? `${iso.slice(8, 10)}/${iso.slice(5, 7)}` : "");
+const pdayName = (iso) => (P_ISO.test(String(iso || "")) ? P_DAYS[new Date(iso + "T12:00:00Z").getUTCDay()] : "");
+const pfmtAbn = (v) => { const d = String(v || "").replace(/\D/g, ""); return d.length === 11 ? `${d.slice(0, 2)} ${d.slice(2, 5)} ${d.slice(5, 8)} ${d.slice(8)}` : String(v || ""); };
+const ptxt = (v) => String(v ?? "").replace(/[^\x20-\x7E -ÿ–—‘’“”•€]/g, "").slice(0, 200);
+
+function renderInvoice(JsPDF, me, inv) {
+  const doc = new JsPDF({ unit: "mm", format: "a4" });
+  doc.setProperties({ title: `Invoice ${ptxt(inv.invno)}`, creator: "SubbieBill" });
+  if (doc.setLanguage) doc.setLanguage("en-AU");
+  const W = 210, L = 16, R = 194;
+  const INK = [21, 32, 27], MUT = [93, 105, 99], LINE = [221, 226, 219], ACC = [232, 89, 12], SOFT = [244, 246, 242], WHITE = [255, 255, 255];
+  const col = (c) => doc.setTextColor(c[0], c[1], c[2]), fill = (c) => doc.setFillColor(c[0], c[1], c[2]);
+  const font = (w, s) => { doc.setFont("helvetica", w); doc.setFontSize(s); };
+  const fit = (s, w) => doc.splitTextToSize(ptxt(s), w)[0] || "";
+  const rowsAll = Array.isArray(inv.rows) ? inv.rows.slice(0, 62) : [];
+  const type = ["week", "fortnight", "month"].includes(inv.type) ? inv.type : "week";
+
+  fill(ACC); doc.rect(0, 0, W, 3.5, "F");
+  let y = 20;
+  font("bold", 17); col(INK); doc.text(fit(me.name, 100), L, y);
+  font("normal", 9.5); col(MUT); let ly = y + 6.5;
+  [me.abn ? "ABN " + pfmtAbn(me.abn) : "", me.addr, me.email, me.phone].filter(Boolean).forEach((s) => { doc.text(fit(s, 100), L, ly); ly += 4.8; });
+  font("bold", 24); col(INK); doc.text(me.gst ? "TAX INVOICE" : "INVOICE", R, y + 1, { align: "right" });
+  let my = y + 9;
+  [["Invoice no.", ptxt(inv.invno)], ["Issue date", pdmy(inv.issue)], ["Due date", pdmy(inv.due)], ["Period", `${pdmy(inv.start)} – ${pdmy(inv.end)}`]].forEach(([k, v]) => {
+    font("normal", 9.5); col(MUT); doc.text(k, 124, my); font("bold", 9.5); col(INK); doc.text(v, R, my, { align: "right" }); my += 5.2;
+  });
+  y = Math.max(ly, my) + 5;
+  const bh = 25; fill(SOFT); doc.roundedRect(L, y, 87, bh, 2, 2, "F"); doc.roundedRect(107, y, 87, bh, 2, 2, "F");
+  font("bold", 7.5); col(MUT); doc.text("BILL TO", L + 5, y + 6.5); doc.text("PAYMENT DETAILS", 112, y + 6.5);
+  font("bold", 11.5); col(INK); doc.text(fit(inv.billto, 78), L + 5, y + 13.5);
+  if (inv.site) { font("normal", 9); col(MUT); doc.text(fit("Site: " + ptxt(inv.site), 78), L + 5, y + 19.5); }
+  font("normal", 9.5); let py = y + 13;
+  [["BSB", me.bsb], ["Account no.", me.acc], ["Reference", `Invoice ${ptxt(inv.invno)}`]].forEach(([k, v]) => {
+    if (!v) return; col(MUT); doc.text(k, 112, py); font("bold", 9.5); col(INK); doc.text(fit(v, 50), 189, py, { align: "right" }); font("normal", 9.5); py += 5;
+  });
+  y += bh + 9;
+  const C = { date: L + 3, site: L + 30, desc: L + 86, hrs: 140, rate: 164, amt: R - 3 };
+  const head = () => {
+    fill(INK); doc.rect(L, y - 5.2, R - L, 8, "F"); font("bold", 8.5); col(WHITE);
+    doc.text("Date", C.date, y); doc.text("Site", C.site, y); doc.text("Description", C.desc, y);
+    doc.text("Hours", C.hrs, y, { align: "right" }); doc.text("Rate", C.rate, y, { align: "right" }); doc.text("Amount", C.amt, y, { align: "right" }); y += 8;
+  };
+  head();
+  const rows = type === "week" ? rowsAll : rowsAll.filter((r) => pn(r.hours) > 0);
+  let total = 0, hsum = 0;
+  rows.forEach((r, k) => {
+    if (y > 262) { doc.addPage(); fill(ACC); doc.rect(0, 0, W, 3.5, "F"); y = 20; head(); }
+    const h = pn(r.hours), rt = pn(r.rate), amt = h * rt, on = h > 0; total += amt; hsum += h;
+    if (k % 2 === 1) { fill(SOFT); doc.rect(L, y - 5, R - L, 7.6, "F"); }
+    font("normal", 9.5); col(on ? INK : MUT);
+    doc.text(`${pdayName(r.date)} ${pdm(r.date)}`, C.date, y);
+    doc.text(fit(r.loc, 52), C.site, y); doc.text(fit(r.desc, 34), C.desc, y);
+    doc.text(on ? phrs(h) : "–", C.hrs, y, { align: "right" }); doc.text(on ? pfmt(rt) : "–", C.rate, y, { align: "right" });
+    if (on) font("bold", 9.5); doc.text(on ? pfmt(amt) : "–", C.amt, y, { align: "right" }); y += 7.6;
+  });
+  doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.setLineWidth(0.3); doc.line(L, y - 4, R, y - 4);
+  if (y > 238) { doc.addPage(); fill(ACC); doc.rect(0, 0, W, 3.5, "F"); y = 24; }
+  y += 4; const tx = 118;
+  [["Total hours", phrs(hsum)], ["Subtotal", pmoney(total)], ["GST", pmoney(0)]].forEach(([k, v]) => {
+    font("normal", 9.5); col(MUT); doc.text(k, tx, y); col(INK); doc.text(v, C.amt, y, { align: "right" }); y += 5.6;
+  });
+  y += 1.5; fill(INK); doc.roundedRect(tx - 4, y - 1, R - tx + 4, 12, 2, 2, "F"); font("bold", 10); col(WHITE); doc.text("TOTAL (AUD)", tx, y + 7);
+  font("bold", 14); col([255, 138, 69]); doc.text(pmoney(total), C.amt, y + 7.3, { align: "right" }); y += 18;
+  font("normal", 8.5); col(MUT); if (!me.gst) doc.text("No GST has been charged.", R, y - 3, { align: "right" });
+  y += 6; font("normal", 9.5); col(INK);
+  const pay = `Please pay by ${pdmy(inv.due)}${me.bsb || me.acc ? " to the account above" : ""}, using reference “Invoice ${ptxt(inv.invno)}”.`;
+  doc.text(doc.splitTextToSize(pay, R - L), L, y);
+  doc.setDrawColor(LINE[0], LINE[1], LINE[2]); doc.line(L, 286, R, 286); font("normal", 8); col(MUT); doc.text("Thank you.", L, 290.5);
+  const pages = doc.getNumberOfPages();
+  if (pages > 1) for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 8); col(MUT); doc.text(`Page ${i} of ${pages}`, R, 290.5, { align: "right" }); }
+  return new Uint8Array(doc.output("arraybuffer"));
+}
+
+
+let jspdfP=null;
+function loadJsPDF(){if(window.jspdf&&window.jspdf.jsPDF)return Promise.resolve(window.jspdf.jsPDF);
+  if(!jspdfP)jspdfP=new Promise((res,rej)=>{const sc=document.createElement("script");sc.src=JSPDF_URL;sc.async=true;
+    sc.onload=()=>window.jspdf&&window.jspdf.jsPDF?res(window.jspdf.jsPDF):(jspdfP=null,rej(new Error("jspdf")));
+    sc.onerror=()=>{jspdfP=null;sc.remove();rej(new Error("jspdf"))};document.head.appendChild(sc)});
+  return jspdfP}
+
+/* ---------- finish invoice: the server checks and counts it (finish_invoice), then sends back the frozen copy to draw ---------- */
 const abnOk=v=>{const d=String(v||"").replace(/\D/g,"");if(d.length!==11)return false;const w=[10,1,3,5,7,9,11,13,15,17,19];let s=0;for(let i=0;i<11;i++)s+=(+d[i]-(i===0?1:0))*w[i];return s%89===0};
 let confirmUntil=0,finishing=false;
 function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=locked();
@@ -1360,18 +1463,19 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
       if(Date.now()>confirmUntil){confirmUntil=Date.now()+6000;renderFinish();setTimeout(renderFinish,6100);return}}}
   confirmUntil=0;finishing=true;const b=$("pdfbtn");b.disabled=true;b.textContent=t("bar.working");
   try{flushSave();
-    const {data:{session:s}}=await sb.auth.getSession();if(!s){pdfMsg(t("fin.auth"));return}
-    const r=await fetch(FN_URL,{method:"POST",headers:{Authorization:"Bearer "+s.access_token,apikey:SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({draft_id:inv.id,inv:clone(inv)})});
-    const ct=r.headers.get("content-type")||"";
-    if(r.ok&&ct.includes("application/pdf")){
-      const blob=await r.blob(),fl=r.headers.get("x-free-left");if(fl!==null&&fl!=="")plan.free_used=3-(+fl);
-      const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
-      const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(inv.start).replace(/\//g,"-")} - ${dmy(inv.end).replace(/\//g,"-")}.pdf`;
-      const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),15000);
+    let JsPDF;try{JsPDF=await loadJsPDF()}catch(e){pdfMsg(t("pdfm.no_lib"));return}   /* library first: a failed load never uses up a free invoice */
+    const {data:out,error}=await sb.rpc("finish_invoice",{p_draft_id:inv.id,p_inv:clone(inv)});
+    if(error){pdfMsg(/JWT|auth|401/i.test(error.message||"")?t("fin.auth"):t("fin.server"));return}
+    if(out&&out.ok){
+      const bytes=renderInvoice(JsPDF,out.me||{},out.inv||{});
+      if(out.free_left!=null)plan.free_used=3-(+out.free_left);
+      const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim(),src=out.inv||inv;
+      const name=`${PT[invType(src)].file} Invoice${who?" "+who:""} ${dmy(src.start||inv.start).replace(/\//g,"-")} - ${dmy(src.end||inv.end).replace(/\//g,"-")}.pdf`;
+      const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
       const again=lk;if(!inv.finished)inv.finished={at:new Date().toISOString()};
       if(plan.premium&&!curEntry())addToHistory();
       save();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
-    const j=await r.json().catch(()=>({}));const st=j.status;
+    const st=out&&out.status;
     if(st==="limit"){plan.free_used=3;showPremium("p.why_limit")}
     else if(st==="abn_taken")pdfMsg(t("fin.abn_taken"));
     else if(st==="abn_invalid"){pdfMsg(t("fin.abn_invalid"));openSheet("p_infos")}
@@ -1379,11 +1483,10 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
     else if(st==="details"){pdfMsg(t("fin.details"));openSheet("p_infos")}
     else if(st==="no_client")pdfMsg(t("pdfm.need_client"));
     else if(st==="no_hours")pdfMsg(t("pdfm.need_hours"));
-    else if(st==="auth"||r.status===401)pdfMsg(t("fin.auth"));
+    else if(st==="auth")pdfMsg(t("fin.auth"));
     else if(st==="bad")pdfMsg(t("fin.bad"));
-    else if(r.status===404)pdfMsg(t("fin.missing"));
     else pdfMsg(t("fin.server"))}
-  catch(e){pdfMsg(t("fin.server"))}
+  catch(e){console.error(e);pdfMsg(t("fin.server"))}
   finally{finishing=false;b.disabled=false;renderFinish()}};
 
 /* ---------- admin (every call is checked by the server) ---------- */
