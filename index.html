@@ -57,6 +57,15 @@ td select.tm,td input.rate{font-family:var(--mono)}
 td input.rate{text-align:right}
 td select.tm{min-width:5.6rem}
 table.nopause .pausecol{display:none}
+table.hoursmode .timecol{display:none}
+body.hoursmode .timeonly{display:none}
+.seg{display:flex;align-items:center;gap:4px;flex-wrap:wrap;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg>span{font-weight:600;padding:0 6px 0 8px}
+.seg label{position:relative;display:block;cursor:pointer;border-radius:999px;padding:5px 12px;font-weight:600}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){background:var(--accent);color:#fff}
+.seg label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:1px}
+td.hrsout .hsel{min-width:5.6rem;text-align:right}
 .footleft{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .chk{display:flex;align-items:center;gap:6px;cursor:pointer}
 .chk input{width:1.1rem;height:1.1rem;accent-color:var(--accent)}
@@ -116,6 +125,26 @@ summary{cursor:pointer;font-weight:600}
 .welcome p{margin:0;line-height:1.5;color:var(--muted)}
 .welcome .wtitle{font-weight:800;font-size:1.15rem;color:var(--ink);margin-bottom:6px}
 #sync{margin-left:auto}
+.invbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-top:24px;padding:12px 14px;border:1px solid var(--line);border-radius:6px;background:var(--field)}
+.invname{display:flex;flex-direction:column;min-width:0;flex:1 1 200px}
+.invname .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.invname strong{overflow-wrap:anywhere}
+.invbtns{display:flex;flex-wrap:wrap;gap:8px}
+.invbar #invmsg{flex-basis:100%;margin:0}
+.invbar #invmsg:empty{display:none}
+.panel{flex-basis:100%;display:flex;flex-direction:column;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px}
+.panel label{font-weight:600;font-size:.85rem}
+.panel input{width:100%}
+.panel .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.panel .between{justify-content:space-between}
+.histlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.histlist li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)}
+.histlist li:last-child{border-bottom:none}
+.histlist .hinfo{display:flex;flex-direction:column;min-width:0;flex:1 1 180px}
+.histlist .hname{font-weight:600;overflow-wrap:anywhere}
+.histlist .hmeta{font-size:.8rem;color:var(--muted);font-family:var(--mono);font-variant-numeric:tabular-nums}
+.histlist li.cur .hname::after{content:" · ouverte";color:var(--accent);font-weight:600}
+.histlist .hbtns{display:flex;gap:6px}
 .note{font-size:.75rem;color:var(--muted);margin:0}
 </style>
 
@@ -167,6 +196,29 @@ summary{cursor:pointer;font-weight:600}
       </div>
     </div>
 
+    <div class="invbar">
+      <div class="invname"><span class="lbl">Facture</span><strong id="invtitle">Nouvelle facture (pas encore enregistrée)</strong></div>
+      <div class="invbtns">
+        <button class="primary" id="savebtn" type="button">Enregistrer la facture</button>
+        <button id="histbtn" type="button">Historique</button>
+        <button id="newbtn" type="button">Nouvelle facture</button>
+      </div>
+      <div id="savepanel" class="panel" hidden>
+        <label for="savename">Nom de la facture</label>
+        <input id="savename" maxlength="80" placeholder="Semaine du 28/09 au 04/10">
+        <div class="row">
+          <button class="primary" id="saveok" type="button">Enregistrer</button>
+          <button id="saveasnew" type="button" hidden>Enregistrer comme nouvelle</button>
+          <button id="savecancel" type="button">Annuler</button>
+        </div>
+      </div>
+      <div id="histpanel" class="panel" hidden>
+        <div class="row between"><strong>Factures enregistrées</strong><button id="histclose" type="button">Fermer</button></div>
+        <ul id="histlist" class="histlist"></ul>
+      </div>
+      <p id="invmsg" class="hours" role="status"></p>
+    </div>
+
     <div class="tools">
       <label for="weekstart">Semaine qui commence le</label>
       <input id="weekstart" type="date">
@@ -174,19 +226,24 @@ summary{cursor:pointer;font-weight:600}
       <label for="allrate">Taux pour tous</label>
       <input id="allrate" class="mono" type="number" step="1" value="40" style="width:5rem">
       <button id="applyrate" type="button">Appliquer</button>
-      <label class="chk"><input type="checkbox" id="unpaid"> Pause non payée</label>
+      <div class="seg" role="radiogroup" aria-label="Façon de saisir">
+        <span>Saisir :</span>
+        <label><input type="radio" name="mode" id="mode_times" value="times"> Horaires</label>
+        <label><input type="radio" name="mode" id="mode_hours" value="hours"> Nombre d'heures</label>
+      </div>
+      <label class="chk timeonly"><input type="checkbox" id="unpaid"> Pause non payée</label>
     </div>
 
     <div class="scroll">
       <table>
-        <thead><tr><th>Date</th><th>Location</th><th>Description</th><th>Start</th><th>End</th><th class="pausecol">Pause</th><th class="num">Hours</th><th class="num">Rate ($)</th><th class="num">Amount ($)</th><th></th></tr></thead>
+        <thead><tr><th>Date</th><th>Location</th><th>Description</th><th class="timecol">Start</th><th class="timecol">End</th><th class="pausecol">Pause</th><th class="num">Hours</th><th class="num">Rate ($)</th><th class="num">Amount ($)</th><th></th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
 
     <div class="foot">
       <div class="footleft">
-        <label class="chk"><input type="checkbox" id="samestart"> Même heure de start pour tous les jours (sauf samedi et dimanche)</label>
+        <label class="chk timeonly"><input type="checkbox" id="samestart"> Même heure de start pour tous les jours (sauf samedi et dimanche)</label>
         <button id="addrow" type="button">+ Ajouter un jour</button>
         <div class="hours" id="hourstotal"></div>
       </div>
@@ -222,6 +279,8 @@ summary{cursor:pointer;font-weight:600}
 const PRESET={"people": [{"name": "", "abn": "", "email": "", "phone": "", "addr": "", "bsb": "", "acc": "", "inv": {"billto": "", "invno": 1, "issue": "2026-10-05", "due": "2026-10-11", "weekstart": "2026-10-05", "rows": [{"date": "2026-10-05", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-06", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-07", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-08", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-09", "loc": "", "desc": "Labour", "hours": 8, "rate": 40}, {"date": "2026-10-10", "loc": "", "desc": "Labour", "hours": 0, "rate": 40}, {"date": "2026-10-11", "loc": "", "desc": "Labour", "hours": 0, "rate": 40}]}}], "clients": [], "sites": []};
 const KEY="facture-v2";
 const TIMES=[];for(let m=0;m<24*60;m+=15)TIMES.push(String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0"));
+const hoursMode=()=>P().mode==="hours";
+const HOPTS=v=>{let o="";for(let h=0;h<=16;h+=0.25)o+=`<option value="${h}"${Math.abs(h-v)<1e-9?" selected":""}>${h} h</option>`;if(v&&Math.round(v*4)!==v*4)o=`<option value="${v}" selected>${v} h</option>`+o;return o};
 const toMin=t=>{const[h,m]=t.split(":").map(Number);return h*60+m};
 function calcHours(r){if(!r.start||!r.end)return r.start||r.end?0:(r.hours||0);let d=toMin(r.end)-toMin(r.start);if(d<0)d+=1440;d-=(P().unpaid?(r.pause||0):0);return Math.max(0,Math.round(d/60*100)/100)}
 const ME=["name","abn","email","phone","addr","bsb","acc"];
@@ -237,7 +296,7 @@ function blankPerson(){const p={id:uid(),inv:blankInv(state&&state.sites[0])};ME
 
 const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
 async function rpc(fn,args){
-  const r=await fetch(SB_URL+"/rest/v1/rpc/"+fn,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
+  const r=await fetch(SB_URL+"/rest/v1/rpc/"+fn,{method:"POST",keepalive:fn==="save_person",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify(args||{})});
   const t=await r.text();let j=null;try{j=t?JSON.parse(t):null}catch(e){}
   if(!r.ok)throw new Error((j&&(j.message||j.hint))||("Erreur "+r.status));return j}
 function statusText(st){st=String(st||"");
@@ -253,8 +312,10 @@ state.people=[blankPerson()];state.cur=state.people[0].id;
 const isWkd=iso=>{if(!iso)return false;const d=new Date(iso+"T12:00:00").getDay();return d===0||d===6};
 function resetHours(p){(p.inv&&p.inv.rows||[]).forEach(r=>{r.start="";r.end="";r.hours=0;if(isWkd(r.date))r.rate=0})}
 let saveTimer=null;
-const save=()=>{if(!session)return;clearTimeout(saveTimer);setSync("Enregistrement…");saveTimer=setTimeout(pushSave,900)};
-async function pushSave(){if(!session)return;const p=P();const {id,name,pinHash,fails,lockUntil,...rest}=p;
+const save=()=>{syncSaved();if(!session)return;clearTimeout(saveTimer);setSync("Enregistrement…");saveTimer=setTimeout(pushSave,900)};
+const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;pushSave()}};
+document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
+async function pushSave(){saveTimer=null;if(!session)return;const p=P();const {id,name,pinHash,fails,lockUntil,...rest}=p;
   const data={...rest,clients:state.clients,sites:state.sites};const nm=(name||"").trim()||"Sans nom";
   try{const r=await rpc("save_person",{p_id:session.id,p_pin:session.pin,p_name:nm,p_data:data});
     if(r&&r.ok){setSync("Enregistré");const e=remote.find(x=>x.id===session.id);if(e&&e.name!==nm){e.name=nm;renderPeople()}}
@@ -304,7 +365,9 @@ function siteOptions(cur){const opts=[...state.sites];if(cur&&!opts.includes(cur
   return `<option value="">Choisir…</option>`+opts.map(s=>`<option${s===cur?" selected":""}>${esc(s)}</option>`).join("")+`<option value="__new">＋ Nouveau chantier…</option>`}
 function renderRows(){
   const rows=I().rows;tbody.innerHTML="";
-  $("unpaid").checked=!!P().unpaid;$("samestart").checked=!!P().sameStart;tbody.closest("table").classList.toggle("nopause",!P().unpaid);
+  $("unpaid").checked=!!P().unpaid;$("samestart").checked=!!P().sameStart;tbody.closest("table").classList.toggle("nopause",!P().unpaid||hoursMode());
+  tbody.closest("table").classList.toggle("hoursmode",hoursMode());document.body.classList.toggle("hoursmode",hoursMode());
+  $("mode_times").checked=!hoursMode();$("mode_hours").checked=hoursMode();
   rows.forEach((r,i)=>{
     const tr=document.createElement("tr");
     const topts=v=>`<option value="">–</option>`+TIMES.map(t=>`<option${t===v?" selected":""}>${t}</option>`).join("");
@@ -313,10 +376,10 @@ function renderRows(){
       <td><div class="datecell"><span class="dow" id="dw${i}">${dayName(r.date)}</span><input class="date" type="date" id="d${i}" value="${r.date||""}"></div></td>
       <td class="loc"><select id="l${i}">${siteOptions(r.loc)}</select><input id="ln${i}" placeholder="Adresse du chantier" hidden></td>
       <td><input id="s${i}" value="${esc(r.desc)}"></td>
-      <td><select class="tm" id="st${i}" aria-label="Début">${topts(r.start||"")}</select></td>
-      <td><select class="tm" id="en${i}" aria-label="Fin">${topts(r.end||"")}</select></td>
+      <td class="timecol"><select class="tm" id="st${i}" aria-label="Début">${topts(r.start||"")}</select></td>
+      <td class="timecol"><select class="tm" id="en${i}" aria-label="Fin">${topts(r.end||"")}</select></td>
       <td class="pausecol"><select class="tm" id="pa${i}" aria-label="Pause non payée">${popts}</select></td>
-      <td class="num hrsout" id="h${i}">${r.hours||0} h</td>
+      <td class="num hrsout" id="h${i}">${hoursMode()?`<select class="tm hsel" id="hs${i}" aria-label="Heures travaillées">${HOPTS(r.hours||0)}</select>`:`${r.hours||0} h`}</td>
       <td class="num"><input class="rate" id="r${i}" type="number" step="1" min="0" value="${r.rate}"></td>
       <td class="num amt" id="a${i}"></td>
       <td><button class="del" type="button" aria-label="Supprimer ce jour">×</button></td>`;
@@ -328,6 +391,7 @@ function renderRows(){
     inp.addEventListener("blur",commit);
     tr.querySelector(`#s${i}`).oninput=e=>{r.desc=e.target.value;update()};
     const recalc=()=>{r.hours=calcHours(r);tr.querySelector(`#h${i}`).textContent=`${r.hours} h`;update()};
+    const hs=tr.querySelector(`#hs${i}`);if(hs)hs.onchange=e=>{r.hours=parseFloat(e.target.value)||0;update()};
     tr.querySelector(`#st${i}`).onchange=e=>{r.start=e.target.value;if(P().sameStart){applySameStart(r.start);return}recalc()};
     tr.querySelector(`#en${i}`).onchange=e=>{r.end=e.target.value;recalc()};
     tr.querySelector(`#pa${i}`).onchange=e=>{r.pause=parseInt(e.target.value)||0;recalc()};
@@ -353,6 +417,8 @@ const DAYS=["dim","lun","mar","mer","jeu","ven","sam"];
 const dayName=iso=>iso?DAYS[new Date(iso+"T12:00:00").getDay()]:"";
 function applySameStart(v){I().rows.forEach(x=>{if(isWeekend(x))return;x.start=v;if(x.end)x.hours=calcHours(x)});renderRows()}
 $("samestart").onchange=e=>{P().sameStart=e.target.checked;if(e.target.checked){const src=I().rows.find(x=>x.start);if(src)applySameStart(src.start);else save()}else save()};
+document.querySelectorAll('input[name="mode"]').forEach(x=>x.onchange=e=>{P().mode=e.target.value;
+  if(P().mode==="times")I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});renderRows()});
 $("unpaid").onchange=e=>{P().unpaid=e.target.checked;I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});renderRows()};
 $("applyrate").onclick=()=>{const v=parseFloat($("allrate").value)||0;I().rows.forEach(r=>{if(!isWkd(r.date))r.rate=v});renderRows()};
 $("addrow").onclick=()=>{const rows=I().rows,last=rows[rows.length-1];
@@ -368,7 +434,7 @@ function renderLists(){
 }
 
 function renderInv(){const inv=I();["invno","issue","due","weekstart"].forEach(k=>$(k).value=inv[k]??"");renderBillto();renderRows()}
-function renderAll(){renderPeople();const p=P();ME.forEach(k=>$("me_"+k).value=p[k]||"");renderInv();renderLists()}
+function renderAll(){renderInvBar();renderPeople();const p=P();ME.forEach(k=>$("me_"+k).value=p[k]||"");renderInv();renderLists()}
 renderAll();
 
 /* ---- PIN lock ---- */
@@ -412,8 +478,11 @@ async function choosePin(p){
 }
 $("setpin").textContent="Changer le code";
 function loadPerson(id,name,pin,data){
-  data=data||{};const p={id,name:name||"",inv:data.inv||blankInv(),unpaid:!!data.unpaid,sameStart:!!data.sameStart};
-  ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});resetHours(p);
+  data=data||{};const p={id,name:name||"",inv:data.inv||blankInv(),unpaid:!!data.unpaid,sameStart:!!data.sameStart,mode:data.mode==="hours"?"hours":"times"};
+  ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
+  p.saved=Array.isArray(data.saved)?data.saved:[];
+  const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
+  if(open){p.inv=JSON.parse(JSON.stringify(open.inv));p.curSaved=open.id}else{p.curSaved=null;resetHours(p)}
   state.people=[p];state.cur=id;state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
   session={id,pin};try{localStorage.setItem("easyinv-last",id)}catch(e){}
   renderAll();setSync("");
@@ -455,6 +524,52 @@ $("setpin").onclick=async()=>{if(!session)return;
   let last=null;try{last=localStorage.getItem("easyinv-last")}catch(e){}
   if(last&&remote.some(x=>x.id===last))await openPerson(last);
 })();
+
+/* ---- saved invoices ---- */
+const clone=o=>JSON.parse(JSON.stringify(o));
+const invTotal=inv=>(inv.rows||[]).reduce((t,r)=>t+(r.hours||0)*(r.rate||0),0);
+function invRange(inv){const ds=(inv.rows||[]).map(r=>r.date).filter(Boolean).sort();return ds.length?[ds[0],ds[ds.length-1]]:[inv.issue,inv.due]}
+function defaultName(inv){const [a,b]=invRange(inv);const f=x=>x?x.slice(8,10)+"/"+x.slice(5,7):"";return `Semaine du ${f(a)} au ${f(b)}`+(inv.billto?` · ${inv.billto}`:"")}
+function curEntry(){const p=P();return p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
+function syncSaved(){const e=session&&curEntry();if(e){e.inv=clone(I());e.updatedAt=Date.now()}}
+function flash(t){$("invmsg").textContent=t;clearTimeout(flash.t);flash.t=setTimeout(()=>{$("invmsg").textContent=""},4000)}
+function renderInvBar(){const e=curEntry();
+  $("invtitle").textContent=e?e.name:"Nouvelle facture (pas encore enregistrée)";
+  $("savebtn").textContent=e?"Renommer":"Enregistrer la facture";}
+function closePanels(){$("savepanel").hidden=true;$("histpanel").hidden=true}
+$("savebtn").onclick=()=>{if(!session)return;const e=curEntry();const was=!$("savepanel").hidden;closePanels();if(was)return;
+  $("savename").value=e?e.name:defaultName(I());$("saveasnew").hidden=!e;$("saveok").textContent=e?"Renommer":"Enregistrer";
+  $("savepanel").hidden=false;$("savename").focus();$("savename").select()};
+$("savecancel").onclick=closePanels;
+function doSave(asNew){const p=P();p.saved=p.saved||[];const nm=$("savename").value.trim()||defaultName(I());const e=curEntry();
+  if(e&&!asNew){e.name=nm;e.inv=clone(I());e.updatedAt=Date.now();flash("Facture renommée.")}
+  else{if(p.saved.length>=60){flash("Tu as déjà 60 factures. Supprimes-en dans l'historique.");return}
+    const n={id:uid(),name:nm,inv:clone(I()),createdAt:Date.now(),updatedAt:Date.now()};p.saved.unshift(n);p.curSaved=n.id;
+    flash("Facture enregistrée. Tes changements s'enregistrent maintenant tout seuls dedans.")}
+  closePanels();renderInvBar();save();flushSave()}
+$("saveok").onclick=()=>doSave(false);$("saveasnew").onclick=()=>doSave(true);
+$("savename").addEventListener("keydown",e=>{if(e.key==="Enter")doSave(false);if(e.key==="Escape")closePanels()});
+function renderHist(){const p=P(),list=p.saved||[],ul=$("histlist");ul.innerHTML="";
+  if(!list.length){ul.innerHTML=`<li><span class="hours">Aucune facture enregistrée. Remplis ta semaine puis touche « Enregistrer la facture ».</span></li>`;return}
+  list.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).forEach(e=>{const [a,b]=invRange(e.inv);const li=document.createElement("li");
+    if(e.id===p.curSaved)li.className="cur";
+    const d=new Date(e.updatedAt||e.createdAt||Date.now());
+    li.innerHTML=`<div class="hinfo"><span class="hname"></span><span class="hmeta">${dmy(a)} → ${dmy(b)} · $${fmt(invTotal(e.inv))} · modifiée le ${d.toLocaleDateString("fr-FR")}</span></div>
+      <div class="hbtns"><button type="button" class="primary hopen">Ouvrir</button><button type="button" class="hdel">Supprimer</button></div>`;
+    li.querySelector(".hname").textContent=e.name;
+    li.querySelector(".hopen").onclick=()=>{syncSaved();p.inv=clone(e.inv);p.curSaved=e.id;closePanels();renderAll();save();flushSave();flash(`« ${e.name} » ouverte.`)};
+    const del=li.querySelector(".hdel");del.onclick=()=>{if(!del.classList.contains("warn")){del.classList.add("warn");del.textContent="Confirmer ?";return}
+      p.saved=p.saved.filter(x=>x.id!==e.id);if(p.curSaved===e.id)p.curSaved=null;renderInvBar();renderHist();save();flushSave();flash("Facture supprimée.")};
+    ul.appendChild(li)})}
+$("histbtn").onclick=()=>{if(!session)return;const was=!$("histpanel").hidden;closePanels();if(was)return;renderHist();$("histpanel").hidden=false};
+$("histclose").onclick=closePanels;
+$("newbtn").onclick=()=>{if(!session)return;const b=$("newbtn");
+  if(!curEntry()&&!b.classList.contains("warn")&&I().rows.some(r=>r.hours)){b.classList.add("warn");b.textContent="Effacer cette facture non enregistrée ?";return}
+  b.classList.remove("warn");b.textContent="Nouvelle facture";
+  const old=I(),p=P();syncSaved();const inv=blankInv(state.sites[0]);
+  inv.billto=old.billto||"";inv.invno=(parseInt(old.invno)||0)+1;
+  const wd=(old.rows||[]).find(r=>!isWkd(r.date)&&r.rate);inv.rows.forEach(r=>{r.hours=0;r.rate=isWkd(r.date)?0:(wd?wd.rate:40);r.loc=(old.rows[0]&&old.rows[0].loc)||r.loc});
+  p.inv=inv;p.curSaved=null;closePanels();renderAll();save();flushSave();flash("Nouvelle facture prête.")};
 
 /* ---- PDF ---- */
 document.getElementById("imgpdf").onclick=()=>{const b=document.getElementById("pdfbtn"),m=document.getElementById("imgpdfmsg");
@@ -518,7 +633,8 @@ function drawInvoice(doc){
   btn.onclick=async()=>{msg.textContent="";const inv=I(),p=P();
     const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();
     const a=ds[0]||inv.weekstart||inv.issue,b=ds[ds.length-1]||(a?addDays(a,6):"");
-    const name=`Weekly Invoice ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
+    const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim();
+    const name=`Weekly Invoice${who?" "+who:""} ${dmy(a).replace(/\//g,"-")} - ${dmy(b).replace(/\//g,"-")}.pdf`;
     try{await downloads.save({filename:name,data:buildPdf()});msg.textContent="PDF créé."}
     catch(e){msg.textContent=e&&e.code==="declined"?"Téléchargement annulé.":e&&e.code==="rate_limited"?"Une demande est déjà ouverte, réessaie dans un instant.":"Le PDF n'a pas pu être enregistré."}};
 })();
