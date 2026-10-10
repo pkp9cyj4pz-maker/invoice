@@ -17,6 +17,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Big+Shoulders+Display:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: phone-first single column; landing = hero + live invoice demo + proof + pricing; app = context card → day cards → dark sticky total/PDF bar */
@@ -402,6 +405,84 @@ select:disabled,input:disabled{opacity:.7}
 #authabn{margin:4px 0 0}
 #btn_app{white-space:nowrap}
 .namegrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hoursopts{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:10px;margin:2px 0 0}
+.hoursopts .field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.hoursopts label{font-size:.8rem;font-weight:700;color:var(--muted)}
+#unpaidwrap{margin:2px 0 0}
+.optnote{margin:-2px 0 4px;font-size:.8rem}
+.otbox{background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:-4px 0 4px}
+.otl{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-weight:600;font-size:.95rem}
+.otl select{width:auto;min-height:44px;padding:8px 10px}
+.otbox .note{margin:6px 0 0;font-size:.82rem}
+.damt .otx{display:block;font-family:var(--body);font-size:.74rem;font-weight:700;color:var(--accent-strong);text-align:right;margin-top:2px}
+@media (prefers-color-scheme: dark){.damt .otx{color:var(--accent)}}
+.dayshead{flex-wrap:wrap;row-gap:4px}
+.dph{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.phchip{min-height:36px;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:700;background:transparent;border:1.5px dashed var(--line);color:var(--muted)}
+.phchip.on{border-style:solid;border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
+@media (prefers-color-scheme: dark){.phchip.on{color:var(--accent)}}
+.phname{font-size:.82rem;font-weight:600;color:var(--muted)}
+.annbar{position:relative;display:flex;align-items:flex-start;gap:10px;margin:8px auto 0;max-width:1080px;background:var(--accent-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:12px;padding:10px 10px 10px 14px}
+.annbar p{margin:0;flex:1;font-weight:600;font-size:.92rem;line-height:1.4;padding-top:4px}
+.annbar button{flex:none;min-height:36px;min-width:36px;padding:0;border:none;background:transparent;font-size:1.3rem;line-height:1;color:var(--muted)}
+textarea{font:inherit;color:inherit;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:12px;width:100%;font-size:16px;resize:vertical}
+.atabs{margin-bottom:10px;overflow-x:auto}
+.atabs label{font-size:.82rem;padding:9px 4px;white-space:nowrap}
+.apane{display:flex;flex-direction:column;gap:8px}
+.apane[hidden]{display:none!important}
+.acharts{display:grid;gap:12px}
+@media (min-width:520px){.acharts{grid-template-columns:1fr 1fr}}
+.achart{margin:0;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.achart figcaption{display:flex;justify-content:space-between;gap:8px;font-size:.85rem;margin-bottom:4px}
+.achart figcaption span{color:var(--muted)}
+.achart svg{width:100%;height:auto;display:block;overflow:visible}
+.achart .grid{stroke:var(--line);stroke-width:1;stroke-dasharray:3 3}
+.achart .axis{stroke:var(--muted);stroke-width:1}
+.achart .tick{font-size:9px;fill:var(--muted);font-family:var(--body)}
+.achart .mk{fill:var(--accent)}
+.achart .hit{fill:transparent}
+.achart .bar:hover .mk,.achart .bar.on .mk,.achart .bar:focus .mk{fill:var(--accent-strong)}
+.achart .bar:focus{outline:none}.achart .bar:focus .hit{stroke:var(--accent);stroke-width:1}
+.atip{margin:4px 0 0;min-height:1.2em;font-size:.82rem;font-weight:600;color:var(--ink)}
+.aexp{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}.aexp button{flex:1 1 180px}
+.arow{padding:0!important}
+.aopen{display:flex;flex-wrap:wrap;gap:8px 12px;justify-content:space-between;align-items:center;width:100%;text-align:left;background:transparent;border:none;border-radius:0;padding:12px 2px;min-height:0}
+.chev{font-size:1.4rem;color:var(--muted);line-height:1}
+.badge.blk{background:#B42318;border-color:#B42318;color:#fff}
+.ahead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px}
+.ahead .auemail{font-size:1.05rem;overflow-wrap:anywhere;flex:1 1 100%}
+.adl{margin:0;display:grid;grid-template-columns:1fr;gap:6px;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.adl div{display:flex;justify-content:space-between;gap:12px;font-size:.88rem}
+.adl dt{color:var(--muted)}.adl dd{margin:0;text-align:right;font-weight:600;overflow-wrap:anywhere}
+#adm_detail h4{margin:14px 0 2px;font-size:.95rem}
+.abtns{display:flex;flex-wrap:wrap;gap:8px}.abtns button{min-height:42px;padding:8px 14px}
+button.danger{border-color:#B42318;color:#B42318;background:transparent}
+button.danger.armed{background:#B42318;color:#fff}
+@media (prefers-color-scheme: dark){button.danger{border-color:#F97066;color:#F97066}button.danger.armed{background:#D92D20;color:#fff;border-color:#D92D20}}
+button.armed:not(.danger){background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.ainvrow{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.ainvrow strong{font-family:var(--mono)}
+.adl-btn{min-height:40px;padding:6px 12px;font-size:.86rem;flex:none}
+.codeform{margin-top:12px}
+.codeintro{margin:0 0 4px;line-height:1.5}
+.codeinput{font-size:1.6rem;letter-spacing:.35em;text-align:center;min-height:58px}
+.coderow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.instip{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:10px 8px 10px 12px}
+.instip svg{flex:none;color:var(--accent)}
+.instip p{margin:0;flex:1;font-size:.9rem;font-weight:600;line-height:1.35}
+.instip .primary{flex:none;min-height:40px;padding:8px 14px}
+.instip_x{flex:none;border:none;background:transparent;font-size:1.3rem;color:var(--muted);min-height:40px;min-width:36px;padding:0}
+.insteps{margin:0 0 14px;padding-left:1.3em;display:flex;flex-direction:column;gap:10px;line-height:1.5}
+.insteps li::marker{font-weight:800;color:var(--accent)}
+/* every panel (history, details, admin…) drops down from the top like the menu */
+.ov{align-items:flex-start;padding:calc(env(safe-area-inset-top,0px) + 8px) 8px 8px}
+.sheetbox{border-radius:18px;max-height:calc(100dvh - 16px - env(safe-area-inset-top,0px));padding-bottom:18px;
+  box-shadow:0 24px 60px -24px color-mix(in srgb,var(--ink) 55%,transparent);animation:sbDrop .22s cubic-bezier(.2,.7,.2,1);transform-origin:top center}
+@keyframes sbDrop{from{opacity:0;transform:translateY(-14px) scale(.985)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.sheetbox{animation:none}}
+.tot strong{white-space:nowrap;font-size:clamp(1.55rem,7.4vw,2.15rem)}
+.bbin .tot{min-width:0}
+.bbin .big{white-space:normal;line-height:1.15;text-align:center}
 .pvbtn{display:inline-flex;align-items:center;gap:6px;background:transparent;color:var(--on-panel);border:1.5px solid color-mix(in srgb,var(--on-panel) 35%,transparent);min-height:52px;padding:8px 12px;margin-left:auto;flex:none}
 .bbin .pvbtn + .big{margin-left:0}
 @media (max-width:400px){.pvbtn span{display:none}.pvbtn{padding:8px 13px}}
@@ -416,6 +497,7 @@ select:disabled,input:disabled{opacity:.7}
 </head>
 <body>
 
+<div id="annbar" class="annbar" hidden role="status"><p id="anntext"></p><button id="annx" type="button" data-i18n-aria="a.ann_close" aria-label="Close">×</button></div>
 <div id="sheetov" class="ov" hidden>
   <div class="sheetbox" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
     <div class="sheethead"><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
@@ -442,21 +524,6 @@ select:disabled,input:disabled{opacity:.7}
       <button class="primary" type="button" data-close data-i18n="i.ok">Done</button>
     </section>
 
-    <section id="p_settings" hidden data-i18n-title="s.title">
-      <div class="form">
-        <span class="flabel" id="mode_lbl" data-i18n="s.mode">How you enter your hours</span>
-        <div class="seg" role="radiogroup" aria-labelledby="mode_lbl">
-          <label><input type="radio" name="mode" id="mode_times" value="times"> <span data-i18n="s.times">Start and finish</span></label>
-          <label><input type="radio" name="mode" id="mode_hours" value="hours"> <span data-i18n="s.hours">Number of hours</span></label>
-        </div>
-        <label class="chk" id="unpaidwrap"><input type="checkbox" id="unpaid"> <span data-i18n="s.unpaid">I take an unpaid break</span></label>
-        <label for="defrate" data-i18n="s.rate">Weekday hourly rate ($/h)</label><input id="defrate" type="number" inputmode="decimal" min="0" step="0.5" class="mono">
-        <label for="defdesc" data-i18n="s.desc">Description on the invoice</label><input id="defdesc" placeholder="Labour">
-        <p class="note" data-i18n="s.note">Saturday and Sunday start at $0/h.</p>
-        <button class="primary" type="button" data-close data-i18n="s.ok">OK</button>
-      </div>
-    </section>
-
     <section id="p_lists" class="lists" hidden data-i18n-title="l.title">
       <h3 data-i18n="l.clients">Clients</h3><ul id="list_clients"></ul>
       <h3 data-i18n="l.sites">Sites</h3><ul id="list_sites"></ul>
@@ -464,12 +531,36 @@ select:disabled,input:disabled{opacity:.7}
     </section>
 
     <section id="p_admin" hidden data-i18n-title="a.title">
-      <div id="adm_stats" class="astats"></div>
-      <label for="adm_q" class="flabel" data-i18n="a.search_lbl">Members</label>
-      <input id="adm_q" type="search" data-i18n-ph="a.search" autocomplete="off">
+      <div class="seg atabs" role="radiogroup" data-i18n-aria="a.tabs" aria-label="Admin">
+        <label><input type="radio" name="atab" value="ov" checked> <span data-i18n="a.t_ov">Overview</span></label>
+        <label><input type="radio" name="atab" value="users"> <span data-i18n="a.t_users">Members</span></label>
+        <label><input type="radio" name="atab" value="inv"> <span data-i18n="a.t_inv">Invoices</span></label>
+        <label><input type="radio" name="atab" value="ann"> <span data-i18n="a.t_ann">Message</span></label>
+      </div>
       <p id="adm_msg" class="err" role="status"></p>
-      <ul id="adm_list" class="alist"></ul>
-      <button id="adm_more" type="button" hidden data-i18n="a.more">Load more</button>
+      <div id="adm_ov" class="apane">
+        <div id="adm_stats" class="astats"></div>
+        <div id="adm_charts" class="acharts"></div>
+        <div class="aexp"><button id="adm_csv_users" type="button" data-i18n="a.csv_users">Export members (CSV)</button><button id="adm_csv_inv" type="button" data-i18n="a.csv_inv">Export invoices (CSV)</button></div>
+      </div>
+      <div id="adm_users" class="apane" hidden>
+        <label for="adm_q" class="flabel" data-i18n="a.search_lbl">Members</label>
+        <input id="adm_q" type="search" data-i18n-ph="a.search" autocomplete="off">
+        <ul id="adm_list" class="alist"></ul>
+        <button id="adm_more" type="button" hidden data-i18n="a.more">Load more</button>
+      </div>
+      <div id="adm_detail" class="apane" hidden></div>
+      <div id="adm_inv" class="apane" hidden>
+        <ul id="adm_invlist" class="alist"></ul>
+        <button id="adm_invmore" type="button" hidden data-i18n="a.more">Load more</button>
+      </div>
+      <div id="adm_ann" class="apane form" hidden>
+        <p class="note" style="margin:0" data-i18n="a.ann_intro">A banner shown at the top of the site for everyone.</p>
+        <label class="chk"><input type="checkbox" id="ann_on"> <span data-i18n="a.ann_on">Show the message</span></label>
+        <label for="ann_en" data-i18n="a.ann_en">Message in English</label><textarea id="ann_en" rows="2" maxlength="300"></textarea>
+        <label for="ann_fr" data-i18n="a.ann_fr">Message in French</label><textarea id="ann_fr" rows="2" maxlength="300"></textarea>
+        <button class="primary" id="ann_save" type="button" data-i18n="a.ann_save">Save the message</button>
+      </div>
     </section>
 
     <section id="p_hist" hidden data-i18n-title="h.title">
@@ -480,6 +571,12 @@ select:disabled,input:disabled{opacity:.7}
     <section id="p_preview" hidden data-i18n-title="pv.title">
       <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice.</p>
       <div id="pv_pages" class="pvpages"></div>
+    </section>
+
+    <section id="p_install" hidden data-i18n-title="ins.title">
+      <p class="muted" style="margin:0 0 8px" data-i18n="ins.intro">SubbieBill opens full screen, like an app. No App Store needed.</p>
+      <ol id="ins_steps" class="insteps"></ol>
+      <button class="primary" type="button" data-close data-i18n="ins.ok">Got it</button>
     </section>
 
     <section id="p_premium" class="premium" hidden data-i18n-title="p.title">
@@ -516,8 +613,8 @@ select:disabled,input:disabled{opacity:.7}
         </div>
         <nav class="mlist" data-i18n-aria="m.title" aria-label="Menu">
           <button class="mitem" type="button" data-open="p_infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b data-i18n="m.infos">My details</b><small data-i18n="m.infos_sub">name, ABN, bank</small></span></button>
-          <button class="mitem" type="button" data-open="p_settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg><span><b data-i18n="m.settings">Settings</b><small data-i18n="m.settings_sub">rates, time entry</small></span></button>
           <button class="mitem" type="button" data-open="p_lists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg><span><b data-i18n="m.lists">Clients and sites</b><small data-i18n="m.lists_sub">manage your lists</small></span></button>
+          <button class="mitem" type="button" id="m_install" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg><span><b data-i18n="ins.menu">Add to home screen</b><small data-i18n="ins.menu_sub">open SubbieBill like an app</small></span></button>
           <button class="mitem" type="button" data-open="p_admin" id="m_admin" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span><b data-i18n="m.admin">Admin</b><small data-i18n="m.admin_sub">stats and members</small></span></button>
         </nav>
         <div class="langrow">
@@ -660,6 +757,15 @@ select:disabled,input:disabled{opacity:.7}
       <p id="autherr" class="err" role="alert"></p>
       <button id="authforgot" class="linkbtn" type="button" style="align-self:flex-start" data-i18n="auth.forgot">Forgot your password?</button>
     </form>
+    <form id="codeform" class="form codeform" novalidate hidden>
+      <p class="codeintro" id="codeintro"></p>
+      <label for="authcode" data-i18n="code.label">Confirmation code</label>
+      <input id="authcode" class="mono codeinput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="••••••">
+      <button class="primary" id="codesubmit" type="submit" data-i18n="code.verify">Confirm my email</button>
+      <p id="codeerr" class="err" role="alert"></p>
+      <div class="coderow"><button id="coderesend" class="linkbtn" type="button" data-i18n="code.resend">Send a new code</button><button id="codeback" class="linkbtn" type="button" data-i18n="code.back">Change email</button></div>
+      <p class="note" data-i18n="code.spam">Can't find it? Check your spam folder.</p>
+    </form>
   </section>
 
   <footer class="foot">
@@ -675,6 +781,12 @@ select:disabled,input:disabled{opacity:.7}
 
 <div class="wrap">
   <main id="app" class="wrap" style="padding:0" hidden>
+    <div id="instip" class="instip" hidden>
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg>
+      <p data-i18n="ins.tip">Put SubbieBill on your home screen to open it in one tap.</p>
+      <button class="primary" id="instip_go" type="button" data-i18n="ins.add">Add</button>
+      <button class="instip_x" id="instip_x" type="button" data-i18n-aria="ins.later" aria-label="Not now">×</button>
+    </div>
     <section id="onboard" class="card onboard" hidden>
       <h2 data-i18n="onb.title">Welcome to SubbieBill</h2>
       <p class="muted" style="margin:0" data-i18n="onb.sub">Three steps and your first invoice is ready.</p>
@@ -725,6 +837,22 @@ select:disabled,input:disabled{opacity:.7}
       <label><input type="radio" name="mode2" value="times"> <span data-i18n="days.mode_times">Start – finish</span></label>
       <label><input type="radio" name="mode2" value="hours"> <span data-i18n="days.mode_hours">Hours worked</span></label>
     </div>
+    <div class="hoursopts">
+      <div class="field"><label for="defrate" data-i18n="o.rate">Hourly rate ($/h)</label><input id="defrate" type="number" inputmode="decimal" min="0" step="0.5" class="mono" data-i18n-ph="o.rate_ph"></div>
+      <div class="field"><label for="defdesc" data-i18n="o.desc">Description</label><input id="defdesc" autocapitalize="sentences" data-i18n-ph="o.desc_ph"></div>
+    </div>
+    <label class="chk" id="unpaidwrap"><input type="checkbox" id="unpaid"> <span data-i18n="s.unpaid">I take an unpaid break</span></label>
+    <label class="chk"><input type="checkbox" id="ot_on"> <span data-i18n="ot.on">Paid overtime</span></label>
+    <div id="otbox" class="otbox" hidden>
+      <label class="otl"><span data-i18n="ot.after">After</span><select id="ot_after" class="mono"></select><span data-i18n="ot.per_day">a day, paid</span><select id="ot_mult" class="mono"></select></label>
+      <p id="ot_hint" class="note"></p>
+    </div>
+    <label class="chk"><input type="checkbox" id="ph_on"> <span data-i18n="ph.on">Public holidays at a higher rate</span></label>
+    <div id="phbox" class="otbox" hidden>
+      <label class="otl"><span data-i18n="ph.paid">Public holidays paid</span><select id="ph_mult" class="mono"></select></label>
+      <p class="note" data-i18n="ph.hint">Tap “Public holiday” on the day. National holidays are already marked.</p>
+    </div>
+    <p class="note optnote" data-i18n="o.wkd">Weekends start at $0/h. If you work one, set the rate on that day.</p>
     <div id="daylist" class="daylist"></div>
   </main>
 </div>
@@ -748,6 +876,112 @@ select:disabled,input:disabled{opacity:.7}
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "ins.desk2":"On your phone, open this site and use “Add to home screen”.",
+  "ins.desk1":"On a computer, click the install icon at the right of the address bar (Chrome or Edge).",
+  "ins.sam2":"Tap “Add page to”, then “Home screen”.",
+  "ins.sam1":"Tap the menu ≡ at the bottom right.",
+  "ins.and2":"Tap “Add to home screen” or “Install app”, then confirm.",
+  "ins.and1":"In Chrome, tap the menu ⋮ at the top right.",
+  "ins.ios3":"Tap “Add”. The SubbieBill icon appears on your home screen.",
+  "ins.ios2":"Scroll down and tap “Add to Home Screen”.",
+  "ins.ios_other1":"Tap the Share button (the square with an arrow pointing up), next to the address bar.",
+  "ins.ios1":"In Safari, tap the Share button: the square with an arrow pointing up. On iOS 26 it's inside the “•••” menu at the bottom.",
+  "ins.later":"Not now",
+  "ins.add":"Add",
+  "ins.tip":"Put SubbieBill on your home screen to open it in one tap.",
+  "ins.ok":"Got it",
+  "ins.intro":"SubbieBill then opens full screen, like an app. No App Store needed.",
+  "ins.title":"Add to home screen",
+  "ins.menu_sub":"open SubbieBill like an app",
+  "ins.menu":"Add to home screen",
+  "code.expired":"This code has expired. Send a new one.",
+  "code.bad":"That code is wrong or has expired. Check it, or send a new one.",
+  "code.short":"Enter the full code from the email.",
+  "code.too_many":"Too many codes sent. Wait a few minutes, then try again.",
+  "code.sent":"A new code is on its way.",
+  "code.spam":"Can't find it? Check your spam or promotions folder.",
+  "code.back":"Change email",
+  "code.wait":"New code in {s} s",
+  "code.resend":"Send a new code",
+  "code.verify":"Confirm my email",
+  "code.label":"Confirmation code",
+  "code.intro":"We sent a confirmation code to {email}. Enter it below to activate your account.",
+  "code.title":"Check your email",
+  "a.ann_close":"Close the message",
+  "a.ann_save":"Save the message",
+  "a.ann_fr":"Message in French",
+  "a.ann_en":"Message in English",
+  "a.ann_on":"Show the message",
+  "a.ann_intro":"A banner shown at the top of the site, for everyone (logged in or not).",
+  "a.finished_on":"finished {date}",
+  "a.download":"Download",
+  "a.no_inv":"No finished invoices yet.",
+  "a.s_invoices":"Finished invoices ({n})",
+  "a.reason_is":"Reason: {r}",
+  "a.deleted":"{email} has been deleted.",
+  "a.delete_confirm":"Tap again: delete {email} for good",
+  "a.delete":"Delete account",
+  "a.unblock":"Reactivate account",
+  "a.block":"Suspend account",
+  "a.reason_ph":"Reason (optional, shown to you only)",
+  "a.self_note":"This is your own account: it can't be suspended or deleted.",
+  "a.s_account":"Account",
+  "a.reset_count":"Reset counter",
+  "a.s_free":"Free invoices",
+  "a.s_premium":"Premium",
+  "a.f_saved":"In history",
+  "a.free_val":"{used} used of {limit}",
+  "a.f_free":"Free invoices",
+  "a.never":"never",
+  "a.f_last":"Last login",
+  "a.f_joined":"Joined",
+  "a.f_acc":"Account",
+  "a.f_addr":"Address",
+  "a.f_email":"Invoice email",
+  "a.f_phone":"Phone",
+  "a.f_name":"Name",
+  "a.back":"Back to members",
+  "a.blocked_tag":"Suspended",
+  "a.week_of":"Week of {date}",
+  "a.ch_total":"{n} in 12 weeks",
+  "a.ch_invoices":"Invoices finished per week",
+  "a.ch_signups":"Sign-ups per week",
+  "a.blocked_n":"Suspended accounts",
+  "a.exported":"{n} line(s) exported.",
+  "a.exporting":"Preparing the file…",
+  "a.csv_inv":"Export invoices (CSV)",
+  "a.csv_users":"Export members (CSV)",
+  "a.t_ann":"Message",
+  "a.t_inv":"Invoices",
+  "a.t_users":"Members",
+  "a.t_ov":"Overview",
+  "a.tabs":"Admin sections",
+  "fin.blocked":"This account is suspended. Contact {email}.",
+  "ph.em":"Easter Monday",
+  "ph.gf":"Good Friday",
+  "ph.boxing":"Boxing Day",
+  "ph.xmas":"Christmas Day",
+  "ph.anzac":"Anzac Day",
+  "ph.aus":"Australia Day",
+  "ph.ny":"New Year's Day",
+  "days.ph_incl":"public holiday × {m}",
+  "ph.chip":"Public holiday",
+  "ph.hint":"Tap “Public holiday” on the day you worked. National holidays (Christmas, Anzac Day, Good Friday…) are already marked.",
+  "ph.paid":"Public holidays paid",
+  "ph.on":"Public holidays at a higher rate",
+  "days.ot_incl":"incl. {x} h overtime",
+  "days.ot_short":"{x} h OT",
+  "ot.hint0":"Enter your hourly rate to see your overtime rate.",
+  "ot.hint":"{rate}/h becomes {ot}/h after {after} h in a day.",
+  "ot.per_day":"a day, paid",
+  "ot.after":"After",
+  "ot.on":"Paid overtime (higher rate)",
+  "pdfm.need_rate":"A worked day has no hourly rate. Enter your rate above, or on that day.",
+  "o.wkd":"Weekends start at $0/h. If you work one, set the rate on that day.",
+  "o.desc_ph":"e.g. Labour",
+  "o.desc":"Description on the invoice",
+  "o.rate_ph":"e.g. 40",
+  "o.rate":"Hourly rate ($/h)",
   "a.expired":"expired",
   "a.update":"Change duration",
   "a.perm":"permanent",
@@ -781,7 +1015,7 @@ en:{
   "days.mode_times":"Start – finish",
   "days.mode_aria":"How you enter your hours",
   "save.auto_pro":"Saved automatically to your history ✓",
-  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap again to finish ({n} free left)","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of 3 free invoices left","quota.none":"No free invoices left","fin.locked":"Finished on {date}. This invoice is locked.","fin.next":"Start the next invoice","fin.edit":"Edit as a new invoice","fin.done":"Invoice finished and downloaded.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Fill in your first name, last name, ABN, BSB and account number first.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
+  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap to confirm","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of {limit} free invoices left","quota.none":"No free invoices left","fin.locked":"Finished on {date}. This invoice is locked.","fin.next":"Start the next invoice","fin.edit":"Edit as a new invoice","fin.done":"Invoice finished and downloaded.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Fill in your first name, last name, ABN, BSB and account number first.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
   days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
   "doc.title":"SubbieBill · Invoicing for ABN subcontractors",
   "lang.label":"Language",
@@ -852,7 +1086,7 @@ en:{
   "m.title":"Menu","m.account":"Account","m.premium":"Upgrade to Premium","m.manage":"Manage my subscription",
   "m.infos":"My details","m.infos_sub":"name, ABN, bank","m.settings":"Settings","m.settings_sub":"rates, time entry",
   "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.logout":"Log out",
-  "plan.free":"Free · {n} of 3 free invoices left","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
+  "plan.free":"Free · {n} of {limit} free invoices left","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
   "i.title":"My details","i.intro":"Fill these in once. They appear at the top of every invoice.","i.name":"Full name","i.abn":"ABN","i.abn_ph":"11 digits",
   "i.email":"Email","i.phone":"Phone","i.addr":"Address","i.bsb":"BSB","i.acc":"Account number","i.ok":"Done",
   "s.title":"Settings","s.mode":"How you enter your hours","s.times":"Start and finish","s.hours":"Number of hours","s.unpaid":"I take an unpaid break",
@@ -876,6 +1110,112 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "ins.desk2":"Sur ton téléphone, ouvre ce site et utilise « Ajouter à l'écran d'accueil ».",
+  "ins.desk1":"Sur ordinateur, clique sur l'icône d'installation à droite de la barre d'adresse (Chrome ou Edge).",
+  "ins.sam2":"Touche « Ajouter la page à », puis « Écran d'accueil ».",
+  "ins.sam1":"Touche le menu ≡ en bas à droite.",
+  "ins.and2":"Touche « Ajouter à l'écran d'accueil » ou « Installer l'application », puis confirme.",
+  "ins.and1":"Dans Chrome, touche le menu ⋮ en haut à droite.",
+  "ins.ios3":"Touche « Ajouter ». L'icône SubbieBill apparaît sur ton écran d'accueil.",
+  "ins.ios2":"Descends et touche « Sur l'écran d'accueil ».",
+  "ins.ios_other1":"Touche le bouton Partager (le carré avec une flèche vers le haut), à côté de la barre d'adresse.",
+  "ins.ios1":"Dans Safari, touche le bouton Partager : le carré avec une flèche vers le haut. Sur iOS 26, il est dans le menu « ••• » en bas.",
+  "ins.later":"Plus tard",
+  "ins.add":"Ajouter",
+  "ins.tip":"Mets SubbieBill sur ton écran d'accueil pour l'ouvrir en une touche.",
+  "ins.ok":"C'est compris",
+  "ins.intro":"SubbieBill s'ouvre alors en plein écran, comme une appli. Pas besoin de l'App Store.",
+  "ins.title":"Écran d'accueil",
+  "ins.menu_sub":"ouvrir SubbieBill comme une appli",
+  "ins.menu":"Ajouter à l'écran d'accueil",
+  "code.expired":"Ce code a expiré. Demande-en un nouveau.",
+  "code.bad":"Ce code n'est pas bon ou a expiré. Vérifie-le ou demande-en un nouveau.",
+  "code.short":"Entre le code complet reçu par email.",
+  "code.too_many":"Trop de codes envoyés. Attends quelques minutes puis réessaie.",
+  "code.sent":"Un nouveau code arrive.",
+  "code.spam":"Tu ne le trouves pas ? Regarde dans les spams ou les promotions.",
+  "code.back":"Changer d'email",
+  "code.wait":"Nouveau code dans {s} s",
+  "code.resend":"Recevoir un nouveau code",
+  "code.verify":"Confirmer mon email",
+  "code.label":"Code de confirmation",
+  "code.intro":"On t'a envoyé un code de confirmation à {email}. Entre-le ci-dessous pour activer ton compte.",
+  "code.title":"Vérifie tes emails",
+  "a.ann_close":"Fermer le message",
+  "a.ann_save":"Enregistrer le message",
+  "a.ann_fr":"Message en français",
+  "a.ann_en":"Message en anglais",
+  "a.ann_on":"Afficher le message",
+  "a.ann_intro":"Un bandeau affiché en haut du site, pour tout le monde (connecté ou non).",
+  "a.finished_on":"terminée le {date}",
+  "a.download":"Télécharger",
+  "a.no_inv":"Aucune facture terminée.",
+  "a.s_invoices":"Factures terminées ({n})",
+  "a.reason_is":"Raison : {r}",
+  "a.deleted":"{email} a été supprimé.",
+  "a.delete_confirm":"Touche encore : supprimer {email} définitivement",
+  "a.delete":"Supprimer le compte",
+  "a.unblock":"Réactiver le compte",
+  "a.block":"Suspendre le compte",
+  "a.reason_ph":"Raison (facultatif, visible par toi seul)",
+  "a.self_note":"C'est ton propre compte : il ne peut pas être suspendu ni supprimé.",
+  "a.s_account":"Compte",
+  "a.reset_count":"Remettre à zéro",
+  "a.s_free":"Factures gratuites",
+  "a.s_premium":"Premium",
+  "a.f_saved":"Dans l'historique",
+  "a.free_val":"{used} utilisée(s) sur {limit}",
+  "a.f_free":"Factures gratuites",
+  "a.never":"jamais",
+  "a.f_last":"Dernière connexion",
+  "a.f_joined":"Inscrit le",
+  "a.f_acc":"Compte",
+  "a.f_addr":"Adresse",
+  "a.f_email":"Email facture",
+  "a.f_phone":"Téléphone",
+  "a.f_name":"Nom",
+  "a.back":"Retour aux membres",
+  "a.blocked_tag":"Suspendu",
+  "a.week_of":"Semaine du {date}",
+  "a.ch_total":"{n} sur 12 semaines",
+  "a.ch_invoices":"Factures terminées par semaine",
+  "a.ch_signups":"Inscriptions par semaine",
+  "a.blocked_n":"Comptes suspendus",
+  "a.exported":"{n} ligne(s) exportée(s).",
+  "a.exporting":"Préparation du fichier…",
+  "a.csv_inv":"Exporter les factures (CSV)",
+  "a.csv_users":"Exporter les membres (CSV)",
+  "a.t_ann":"Message",
+  "a.t_inv":"Factures",
+  "a.t_users":"Membres",
+  "a.t_ov":"Vue d'ensemble",
+  "a.tabs":"Sections admin",
+  "fin.blocked":"Ce compte est suspendu. Contacte {email}.",
+  "ph.em":"Lundi de Pâques",
+  "ph.gf":"Vendredi saint",
+  "ph.boxing":"Boxing Day",
+  "ph.xmas":"Noël",
+  "ph.anzac":"Anzac Day",
+  "ph.aus":"Australia Day",
+  "ph.ny":"Jour de l'An",
+  "days.ph_incl":"férié × {m}",
+  "ph.chip":"Férié",
+  "ph.hint":"Touche « Férié » sur le jour travaillé. Les fériés nationaux (Noël, Anzac Day, Vendredi saint…) sont déjà repérés.",
+  "ph.paid":"Jours fériés payés",
+  "ph.on":"Jours fériés majorés",
+  "days.ot_incl":"dont {x} h sup",
+  "days.ot_short":"{x} h sup",
+  "ot.hint0":"Mets ton taux horaire pour voir le taux des heures sup.",
+  "ot.hint":"{rate}/h devient {ot}/h au-delà de {after} h dans la journée.",
+  "ot.per_day":"par jour, payées",
+  "ot.after":"Au-delà de",
+  "ot.on":"Heures sup majorées",
+  "pdfm.need_rate":"Un jour travaillé n'a pas de taux horaire. Mets ton taux juste au-dessus ou sur le jour.",
+  "o.wkd":"Le week-end part à 0 $/h. Si tu travailles, mets le taux directement sur le jour.",
+  "o.desc_ph":"ex. Labour",
+  "o.desc":"Description sur la facture",
+  "o.rate_ph":"ex. 40",
+  "o.rate":"Taux horaire ($/h)",
   "a.expired":"expiré",
   "a.update":"Changer la durée",
   "a.perm":"permanent",
@@ -909,7 +1249,7 @@ fr:{
   "days.mode_times":"Début – fin",
   "days.mode_aria":"Comment tu saisis tes heures",
   "save.auto_pro":"Enregistrée automatiquement dans ton historique ✓",
-  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Touche encore pour terminer ({n} gratuite(s) restante(s))","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur 3","quota.none":"Plus de facture gratuite","fin.locked":"Terminée le {date}. Cette facture est verrouillée.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier en nouvelle facture","fin.done":"Facture terminée et téléchargée.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Remplis d'abord ton prénom, ton nom, ton ABN, ton BSB et ton numéro de compte.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Terminée le {date}. Cette facture est verrouillée.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier en nouvelle facture","fin.done":"Facture terminée et téléchargée.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Remplis d'abord ton prénom, ton nom, ton ABN, ton BSB et ton numéro de compte.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
@@ -980,7 +1320,7 @@ fr:{
   "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
   "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter",
-  "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur 3","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
+  "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur {limit}","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
   "i.title":"Mes infos","i.intro":"À remplir une seule fois. Elles apparaissent en haut de chaque facture.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email","i.phone":"Téléphone","i.addr":"Adresse","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
   "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
@@ -1038,7 +1378,7 @@ function renderLangUI(){
 let curSheet=null;
 function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang;lang=l;
   try{localStorage.setItem("sb_lang",l)}catch(e){}
-  applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);
+  applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);renderAnn();
   ["autherr","pdfmsg"].forEach(id=>{const el=$(id);if(el){el.textContent="";delete el.dataset.keep}});
   if(session&&P()){if(opts.toProfile!==false&&P().lang!==l){P().lang=l;save()}renderAll();if(!$("menupop").hidden)renderMenu();if(curSheet&&!$("sheetov").hidden)openSheet(curSheet)}
   return changed}
@@ -1073,15 +1413,28 @@ const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" sel
 
 /* ---------- state ---------- */
 let session=null,plan={premium:false,period_end:null,free_limit:3,free_used:0,is_admin:false};
-const freeLeft=()=>Math.max(0,3-(plan.free_used||0));
-const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit||3,free_used:+d.free_used||0,is_admin:!!d.is_admin}};
+const freeLeft=()=>Math.max(0,(plan.free_limit||3)-(plan.free_used||0));
+const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit||3,free_used:+d.free_used||0,is_admin:!!d.is_admin,blocked:!!d.blocked}};
 const locked=()=>!!(P()&&P().inv&&P().inv.finished);
 const newId=()=>uid()+uid();
 let state={me:null,clients:[],sites:[]};
 const P=()=>state.me;const I=()=>state.me.inv;
 const FREE_LIMIT=()=>plan.free_limit||3;
 const hasHours=inv=>(inv&&inv.rows||[]).some(r=>r.hours>0);
-const invTotal=inv=>(inv.rows||[]).reduce((s,r)=>s+(r.hours||0)*(r.rate||0),0);
+/* overtime: hours above "after" in a day are paid at rate × mult (settings saved on each invoice) */
+const OT_DEF={on:false,after:8,mult:1.5};
+function otSplit(r,ot){const h=+r.hours||0;if(!ot||!ot.on||!(+ot.after>0))return{n:h,x:0};const a=+ot.after;return{n:Math.min(h,a),x:Math.max(0,Math.round((h-a)*100)/100)}}
+/* public holidays: a day marked "holiday" is paid at rate × ph.mult (all its hours). National holidays are spotted automatically. */
+const PH_DEF={on:false,mult:2.5};
+function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,
+  i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return isoLocal(new Date(y,mo-1,da,12))}
+function natHoliday(iso){if(!iso)return null;const md=iso.slice(5),y=+iso.slice(0,4);
+  const fixed={"01-01":"ph.ny","01-26":"ph.aus","04-25":"ph.anzac","12-25":"ph.xmas","12-26":"ph.boxing"};if(fixed[md])return fixed[md];
+  const e=easter(y);if(iso===addDays(e,-2))return "ph.gf";if(iso===addDays(e,1))return "ph.em";return null}
+const isPh=(r,inv)=>!!(inv&&inv.ph&&inv.ph.on)&&(r.ph===true||(r.ph==null&&!!natHoliday(r.date)));
+function rowAmt(r,ot,inv){const rt=+r.rate||0;if(isPh(r,inv))return (+r.hours||0)*rt*(+inv.ph.mult||1);
+  const sp=otSplit(r,ot);return sp.n*rt+sp.x*rt*((ot&&ot.on&&+ot.mult)||1)}
+const invTotal=inv=>(inv.rows||[]).reduce((s,r)=>s+rowAmt(r,inv.ot,inv),0);
 const invHours=inv=>(inv.rows||[]).reduce((s,r)=>s+(r.hours||0),0);
 const PT={week:{file:"Weekly"},fortnight:{file:"Fortnightly"},month:{file:"Monthly"}};
 function periodRange(type,ref){const d=parse(ref);if(type==="month")return[isoLocal(new Date(d.getFullYear(),d.getMonth(),1,12)),isoLocal(new Date(d.getFullYear(),d.getMonth()+1,0,12))];
@@ -1093,10 +1446,10 @@ const todayIso=()=>isoLocal(new Date());
 function rangeText(a,b){const y=parse(b).getFullYear()!==new Date().getFullYear()?" "+parse(b).getFullYear():"";return `${nice(a)} → ${nice(b)}${y}`}
 function defaultName(inv){return `${PT[invType(inv)].file} ${dm(inv.start)}–${dm(inv.end)}`+(inv.billto?` · ${inv.billto}`:"")}
 function nextInvNo(){let m=0;(P().saved||[]).forEach(e=>{m=Math.max(m,parseInt(e.inv&&e.inv.invno)||0)});return m+1}
-function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate??40)}}
+function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate||0)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site)}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF)}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
@@ -1129,7 +1482,7 @@ let view="app";   /* once logged in: "app" (the invoice) or "home" (the home pag
 function renderTop(){const on=!!session,home=!on||view==="home";$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=!home;$("app").hidden=home;$("bottombar").hidden=home;
   $("auth").hidden=on;$("btn_app").hidden=!(on&&home);$("btn_hist").hidden=on&&home;
   document.querySelectorAll("[data-auth]").forEach(el=>{el.textContent=on?t("nav.app"):t(el.dataset.i18n)});
-  if(on)$("lstick").hidden=true;
+  if(on)$("lstick").hidden=true;renderInstall();
   if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium)}
 function renderOnboard(){const s1=infosDone(),s2=!!(I().billto&&I().site),s3=hasHours(I());
   $("st1").classList.toggle("done",s1);$("st2").classList.toggle("done",s2);$("st3").classList.toggle("done",s3);
@@ -1162,19 +1515,37 @@ function dayHtml(r,i){const hm=P().mode==="hours",up=P().unpaid&&!hm,on=r.hours>
   const dayOut=`<div class="day${isWkd(r.date)?" weekend":""}${on?" on":""}" id="day${i}">
     <div class="dtop"><span class="dname">${dayName(r.date)}</span><span class="ddate">${nice(r.date)}</span><span class="damt" id="amt${i}"></span></div>
     <div class="dinputs" style="--cols:${cols}">${inputs}
-      <label class="mini">${esc(t("f.rate"))}<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate??0}"></label></div>${loc2}</div>`;
+      <label class="mini">${esc(t("f.rate"))}<input data-i="${i}" data-f="rate" type="number" inputmode="decimal" min="0" step="0.5" value="${r.rate?r.rate:""}" placeholder="0"></label></div>${loc2}${phRow(r,i)}</div>`;
   return lk?dayOut.replace(/<(select|input) /g,"<$1 disabled "):dayOut}
+function phRow(r,i){const inv=I();if(!inv.ph||!inv.ph.on)return "";const nh=natHoliday(r.date),on=isPh(r,inv);
+  return `<div class="dph"><button type="button" class="phchip${on?" on":""}" data-ph="${i}" aria-pressed="${on}"><span aria-hidden="true">${on?"✓":"+"}</span> ${esc(t("ph.chip"))}</button>${nh?`<span class="phname">${esc(t(nh))}</span>`:""}</div>`}
 function renderMode(){const m=P().mode==="hours"?"hours":"times",lk=locked();
-  document.querySelectorAll('input[name="mode2"]').forEach(x=>{x.checked=x.value===m;x.disabled=lk});$("modeseg").classList.toggle("dimseg",lk)}
+  document.querySelectorAll('input[name="mode2"]').forEach(x=>{x.checked=x.value===m;x.disabled=lk});$("modeseg").classList.toggle("dimseg",lk);
+  const p=P(),fr=$("defrate"),fd=$("defdesc");
+  if(document.activeElement!==fr)fr.value=p.rate?p.rate:"";if(document.activeElement!==fd)fd.value=p.desc||"";
+  $("unpaid").checked=!!p.unpaid;$("unpaidwrap").hidden=m==="hours";[fr,fd,$("unpaid")].forEach(x=>x.disabled=lk);
+  const ot=I().ot||OT_DEF;$("ot_on").checked=!!ot.on;
+  $("ot_after").innerHTML=[6,7,7.6,8,9,10,11,12].map(v=>`<option value="${v}">${hrs(v)} h</option>`).join("");
+  $("ot_mult").innerHTML=[1.25,1.5,2].map(v=>`<option value="${v}">× ${num(v,v===2?0:(v===1.5?1:2))}</option>`).join("");$("otbox").hidden=!ot.on;$("ot_after").value=String(ot.after);$("ot_mult").value=String(ot.mult);
+  [$("ot_on"),$("ot_after"),$("ot_mult")].forEach(x=>x.disabled=lk);renderOtHint();
+  const ph=I().ph||PH_DEF;$("ph_on").checked=!!ph.on;$("phbox").hidden=!ph.on;
+  $("ph_mult").innerHTML=[1.5,2,2.25,2.5].map(v=>`<option value="${v}">× ${num(v,v%1?(v===2.25?2:1):0)}</option>`).join("");$("ph_mult").value=String(ph.mult);
+  [$("ph_on"),$("ph_mult")].forEach(x=>x.disabled=lk)}
+function renderOtHint(){const ot=I().ot||OT_DEF,rt=P().rate||0;
+  $("ot_hint").textContent=rt>0?t("ot.hint",{rate:money(rt),ot:money(rt*ot.mult),after:hrs(ot.after)}):t("ot.hint0",{after:hrs(ot.after)})}
+function setOt(k,v){if(locked())return;const inv=I();inv.ot=Object.assign(clone(OT_DEF),inv.ot||{},{[k]:v});P().ot=clone(inv.ot);
+  $("otbox").hidden=!inv.ot.on;renderOtHint();inv.rows.forEach((r,i)=>renderAmt(i));renderTotals();save()}
 function setMode(m){if(m!=="hours")m="times";if(P().mode===m)return;P().mode=m;
   if(!locked()&&m==="times")I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});
-  if($("mode_times")){$("mode_times").checked=m==="times";$("mode_hours").checked=m==="hours";$("unpaidwrap").hidden=m==="hours"}
   renderDays();renderTotals();save()}
 function renderDays(){renderMode();const inv=I(),multi=invType(inv)!=="week";let h="";
   inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">${esc(t("days.week_of",{date:nice(mondayOf(r.date))}))}</div>`;h+=dayHtml(r,i)});
   $("daylist").innerHTML=h;inv.rows.forEach((r,i)=>renderAmt(i));renderCopy()}
 function renderAmt(i){const r=I().rows[i],el=$("amt"+i);if(!el)return;
-  el.textContent=r.hours>0?`${hrs(r.hours)} h · ${money(r.hours*(r.rate||0))}`:(isWkd(r.date)?t("days.off"):"–");if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
+  const inv=I(),ph=isPh(r,inv),sp=ph?{n:+r.hours||0,x:0}:otSplit(r,inv.ot);el.textContent=r.hours>0?`${hrs(r.hours)} h · ${money(rowAmt(r,inv.ot,inv))}`:(isWkd(r.date)?t("days.off"):"–");
+  if(r.hours>0&&ph){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ph_incl",{m:num(inv.ph.mult,inv.ph.mult%1?1:0)});el.appendChild(sm)}
+  const chip=document.querySelector(`#day${i} .phchip`);if(chip){chip.setAttribute("aria-pressed",String(ph));chip.classList.toggle("on",ph)}
+  if(r.hours>0&&sp.x>0){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ot_incl",{x:hrs(sp.x)});el.appendChild(sm)}if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
 function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length;$("total").textContent=money(invTotal(inv));
   $("tothours").textContent=t("bar.sum",{h:hrs(invHours(inv)),d:t(d===1?"bar.day":"bar.days",{n:d})})}
 const isWeekday=r=>{const g=parse(r.date).getDay();return g>=1&&g<=5};
@@ -1184,7 +1555,9 @@ function renderCopy(){const m=mondaySrc(),b=$("copymon");
   b.textContent=invType(I())==="week"?t("days.copy_week"):t("days.copy_multi")}
 
 /* ---------- interactions ---------- */
-$("daylist").addEventListener("click",e=>{const b=e.target.closest("[data-rest]");if(!b||locked())return;openRest.add(b.dataset.rest);renderDays();
+$("daylist").addEventListener("click",e=>{const c=e.target.closest("[data-ph]");if(c){if(locked())return;const i=+c.dataset.ph,r=I().rows[i];
+    r.ph=!isPh(r,I());renderDays();renderTotals();save();const nb=document.querySelector(`#day${i} .phchip`);if(nb)nb.focus();return}
+  const b=e.target.closest("[data-rest]");if(!b||locked())return;openRest.add(b.dataset.rest);renderDays();
   const i=I().rows.findIndex(r=>r.date===b.dataset.rest),el=document.querySelector(`#day${i} select`);if(el)el.focus()});
 $("daylist").addEventListener("change",onDay);$("daylist").addEventListener("input",e=>{if(e.target.dataset.f==="rate")onDay(e)});
 function onDay(e){const el=e.target,i=+el.dataset.i,f=el.dataset.f;if(!f||locked())return;const r=I().rows[i];
@@ -1233,8 +1606,6 @@ function openSheet(id){closeMenu();curSheet=id;document.querySelectorAll("#sheet
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_premium")renderPremium();
   if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";renderAbn()}
-  if(id==="p_settings"){$("mode_times").checked=P().mode!=="hours";$("mode_hours").checked=P().mode==="hours";$("unpaid").checked=!!P().unpaid;
-    $("unpaidwrap").hidden=P().mode==="hours";$("defrate").value=P().rate??40;$("defdesc").value=P().desc||"Labour"}
   if(id==="p_admin")loadAdmin(true)}
 function closeSheet(){$("sheetov").hidden=true;curSheet=null;document.body.style.overflow=""}
 $("sheetclose").onclick=closeSheet;$("sheetov").addEventListener("click",e=>{if(e.target.id==="sheetov")closeSheet()});
@@ -1252,7 +1623,7 @@ ME.filter(k=>k!=="abn"&&k!=="name").forEach(k=>$("me_"+k).addEventListener("inpu
 /* first + last name: the invoice shows "First Last" */
 const fullName=p=>[p.first,p.last].map(x=>String(x||"").trim()).filter(Boolean).join(" ");
 ["first","last"].forEach(k=>$("me_"+k).addEventListener("input",e=>{const p=P();p[k]=e.target.value;p.name=fullName(p);renderOnboard();save()}));
-document.querySelectorAll('input[name="mode"]').forEach(x=>x.onchange=e=>setMode(e.target.value));
+
 
 /* ABN: confirmed once, then locked by the server (only the admin can reset it) */
 const fmtAbn=v=>{const d=String(v||"").replace(/\D/g,"");return d.length===11?`${d.slice(0,2)} ${d.slice(2,5)} ${d.slice(5,8)} ${d.slice(8)}`:String(v||"")};
@@ -1274,10 +1645,19 @@ $("abn_ok").onclick=async()=>{const p=P();if(p.abnLocked||abnBusy)return;const v
     msg.textContent=t(data.status==="abn_taken"?"i.abn_taken":data.status==="abn_invalid"?"i.abn_bad":"i.abn_err")}
   catch(e){msg.textContent=t("i.abn_err")}
   finally{abnBusy=false;b.disabled=false;renderAbn()}};
-$("unpaid").onchange=e=>{P().unpaid=e.target.checked;I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});renderDays();renderTotals();save()};
-$("defrate").addEventListener("change",e=>{const v=parseFloat(e.target.value);if(isNaN(v))return;const old=P().rate??40;P().rate=v;
-  I().rows.forEach(r=>{if(!isWkd(r.date)&&(r.rate===old||!r.rate))r.rate=v});renderDays();renderTotals();save()});
-$("defdesc").addEventListener("change",e=>{const v=e.target.value.trim()||"Labour",old=P().desc||"Labour";P().desc=v;I().rows.forEach(r=>{if(!r.desc||r.desc===old)r.desc=v});save()});
+$("unpaid").onchange=e=>{if(locked())return;P().unpaid=e.target.checked;I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});renderDays();renderTotals();save()};
+/* hourly rate + description: typed once here, applied to every weekday (weekends keep their own rate) */
+$("defrate").addEventListener("input",e=>{if(locked())return;const v=parseFloat(e.target.value),nv=isNaN(v)||v<0?0:v,old=P().rate||0;P().rate=nv||null;
+  I().rows.forEach(r=>{if(!isWkd(r.date)&&(r.rate===old||!r.rate))r.rate=nv});
+  I().rows.forEach((r,i)=>{const el=document.querySelector(`#day${i} [data-f="rate"]`);if(el&&document.activeElement!==el)el.value=r.rate?r.rate:"";renderAmt(i)});renderTotals();renderOtHint();save()});
+$("ot_on").onchange=e=>setOt("on",e.target.checked);
+function setPh(k,v){if(locked())return;const inv=I();inv.ph=Object.assign(clone(PH_DEF),inv.ph||{},{[k]:v});P().ph=clone(inv.ph);renderDays();renderTotals();save()}
+$("ph_on").onchange=e=>setPh("on",e.target.checked);
+$("ph_mult").onchange=e=>setPh("mult",parseFloat(e.target.value)||2.5);
+$("ot_after").onchange=e=>setOt("after",parseFloat(e.target.value)||8);
+$("ot_mult").onchange=e=>setOt("mult",parseFloat(e.target.value)||1.5);
+$("defdesc").addEventListener("input",e=>{if(locked())return;const v=e.target.value.trim(),old=P().desc||"Labour",nv=v||"Labour";P().desc=v;
+  I().rows.forEach(r=>{if(!r.desc||r.desc===old)r.desc=nv});save()});
 
 /* lists */
 function renderLists(){[["clients","list_clients","l.none_c"],["sites","list_sites","l.none_s"]].forEach(([k,id,empty])=>{
@@ -1311,7 +1691,7 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
 function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);
   u.searchParams.set("locale",lang==="en"?"en":lang);return u.toString()}
 function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_admin").hidden=!plan.is_admin;
-  $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:freeLeft()});
+  $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:freeLeft(),limit:FREE_LIMIT()});
   $("m_premium").hidden=plan.premium;$("m_manage").hidden=!plan.premium||!PORTAL;
   if(PORTAL){const u=new URL(PORTAL);if(session&&session.email)u.searchParams.set("prefilled_email",session.email);$("m_manage").href=u.toString()}}
 let premWhy=null;
@@ -1325,6 +1705,8 @@ async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_m
 
 /* ---------- account ---------- */
 function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
+  if(!inv.ot||typeof inv.ot!=="object")inv.ot=clone(OT_DEF);
+  if(!inv.ph||typeof inv.ph!=="object")inv.ph=clone(PH_DEF);
   inv.rows.forEach(r=>{r.hours=+r.hours||0;r.rate=r.rate==null?0:+r.rate;if(r.desc==null)r.desc="Labour"});
   if(!inv.start){const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();inv.start=ds[0]||mondayOf(inv.weekstart||inv.issue||todayIso());inv.end=ds[ds.length-1]||addDays(inv.start,6)}
   if(!inv.end)inv.end=periodRange(inv.type,inv.start)[1];
@@ -1333,12 +1715,12 @@ function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=i
   if(!/^[A-Za-z0-9_-]{6,64}$/.test(inv.id||""))inv.id=newId();inv.weekstart=inv.start;return inv}
 function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
-  const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,desc:data.desc||"Labour",period:PT[data.period]?data.period:"week",inv:null};
+  const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
   p.first=data.first||"";p.last=data.last||"";
   if(!p.first&&!p.last&&p.name){const w=p.name.trim().split(/\s+/);p.last=w.pop()||"";p.first=w.join(" ")}   /* older accounts: one "name" field */
   if(res&&"abn_locked" in res){p.abn=res.abn||"";p.abnLocked=!!res.abn_locked}else p.abnLocked=false;
-  const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null?+data.rate:(wr?wr.rate:40);
+  const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null&&+data.rate>0?+data.rate:(wr?wr.rate:null);
   state.clients=Array.isArray(data.clients)?data.clients:[];state.sites=Array.isArray(data.sites)?data.sites:[];
   session={id:user.id,email:user.email};state.me=p;
   /* language: the account's saved choice wins; a new account adopts the current choice */
@@ -1355,7 +1737,8 @@ async function loadAccount(user){view="app";let {data,error}=await sb.rpc("get_m
   applyProfile(user,data);return true}
 
 let authMode="signup";
-function setAuthMode(m){authMode=m;$("authtitle").textContent=t(m==="login"?"auth.title_login":"auth.title_signup");
+function setAuthMode(m){authMode=m;$("authtitle").textContent=!$("codeform").hidden?t("code.title"):t(m==="login"?"auth.title_login":"auth.title_signup");
+  if(!$("codeform").hidden&&codeEmail)$("codeintro").textContent=t("code.intro",{email:codeEmail});
   $("tab_login").classList.toggle("on",m==="login");$("tab_signup").classList.toggle("on",m==="signup");
   $("tab_login").setAttribute("aria-selected",String(m==="login"));$("tab_signup").setAttribute("aria-selected",String(m==="signup"));
   if(!$("authsubmit").disabled)$("authsubmit").textContent=t(m==="login"?"auth.submit_login":"auth.submit_signup");
@@ -1379,12 +1762,60 @@ $("authform").addEventListener("submit",async e=>{e.preventDefault();const err=$
   if(authMode==="signup"&&pass!==$("authpass2").value){err.textContent=t("err.pass_match");return}
   const btn=$("authsubmit");btn.disabled=true;btn.textContent=t("auth.wait");
   try{const r=authMode==="login"?await sb.auth.signInWithPassword({email,password:pass}):await sb.auth.signUp({email,password:pass});
-    if(r.error){const m=r.error.message||"";err.textContent=/invalid login/i.test(m)?t("err.bad_login"):/already registered|already exists/i.test(m)?t("err.exists"):/confirm/i.test(m)?t("err.confirm"):m;return}
-    if(!r.data.session){err.textContent=t("err.created_confirm");setAuthMode("login");return}
+    if(r.error){const m=r.error.message||"";
+      if(/not confirmed|confirm/i.test(m)){showCode(email,true);return}   /* account exists but email not confirmed yet: send a fresh code */
+      err.textContent=/invalid login/i.test(m)?t("err.bad_login"):/already registered|already exists/i.test(m)?t("err.exists"):m;return}
+    if(!r.data.session){
+      if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){err.textContent=t("err.exists");return}
+      showCode(email,false);return}   /* email confirmation is on: a 6-digit code was emailed */
     $("authpass").value="";$("authpass2").value="";
     if(await loadAccount(r.data.user)&&!infosDone())openSheet("p_infos")}
   catch(x){err.textContent=t("err.offline")}
   finally{btn.disabled=false;setAuthMode(authMode)}});
+/* email confirmation by code (Supabase "Confirm signup" template shows the code) */
+let codeEmail="",resendAt=0;
+function showCode(email,resend){codeEmail=email;$("authform").hidden=true;$("codeform").hidden=false;$("codeerr").textContent="";$("authcode").value="";
+  document.querySelector("#auth .tabs").hidden=true;$("authtitle").textContent=t("code.title");
+  $("codeintro").textContent=t("code.intro",{email});setTimeout(()=>$("authcode").focus(),100);
+  if(resend){resendAt=0;resendCode(true)}else{resendAt=Date.now()+60000;tickResend()}}
+function hideCode(){$("codeform").hidden=true;$("authform").hidden=false;document.querySelector("#auth .tabs").hidden=false;setAuthMode(authMode)}
+function tickResend(){const b=$("coderesend"),left=Math.ceil((resendAt-Date.now())/1000);
+  if(left>0){b.disabled=true;b.textContent=t("code.wait",{s:left});setTimeout(tickResend,1000)}else{b.disabled=false;b.textContent=t("code.resend")}}
+async function resendCode(silent){if(Date.now()<resendAt)return;resendAt=Date.now()+60000;tickResend();
+  try{const {error}=await sb.auth.resend({type:"signup",email:codeEmail});
+    if(error){$("codeerr").textContent=/rate|seconds|limit/i.test(error.message||"")?t("code.too_many"):error.message;return}
+    if(!silent)$("codeerr").textContent=t("code.sent")}catch(e){$("codeerr").textContent=t("err.offline")}}
+$("coderesend").onclick=()=>resendCode(false);
+$("codeback").onclick=()=>{hideCode();$("authemail").focus()};
+$("authcode").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,"");if(v!==e.target.value)e.target.value=v});
+$("codeform").addEventListener("submit",async e=>{e.preventDefault();const code=$("authcode").value.replace(/\D/g,""),err=$("codeerr");err.textContent="";
+  if(code.length<6){err.textContent=t("code.short");return}
+  const btn=$("codesubmit");btn.disabled=true;btn.textContent=t("auth.wait");
+  try{let r=await sb.auth.verifyOtp({email:codeEmail,token:code,type:"email"});
+    if(r.error)r=await sb.auth.verifyOtp({email:codeEmail,token:code,type:"signup"});
+    if(r.error||!r.data||!r.data.session){err.textContent=t("code.bad");return}
+    $("authpass").value="";$("authpass2").value="";hideCode();
+    if(await loadAccount(r.data.user||r.data.session.user)&&!infosDone())openSheet("p_infos")}
+  catch(x){err.textContent=t("err.offline")}
+  finally{btn.disabled=false;btn.textContent=t("code.verify")}});
+
+/* add to home screen: Android/desktop Chrome get the real install prompt; iPhone gets a short guide */
+let installEvt=null;
+const standalone=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const ua=navigator.userAgent||"",isIOS=/iPhone|iPad|iPod/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1),isAndroid=/Android/.test(ua),isMobile=isIOS||isAndroid;
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installEvt=e;renderInstall()});
+window.addEventListener("appinstalled",()=>{installEvt=null;try{localStorage.setItem("sb_ins_x","done")}catch(e){}renderInstall()});
+function renderInstall(){const can=!standalone()&&(isMobile||!!installEvt);$("m_install").hidden=!can;
+  let x=null;try{x=localStorage.getItem("sb_ins_x")}catch(e){}
+  $("instip").hidden=!can||!isMobile||!!x||!session||view!=="app"}
+async function doInstall(){closeMenu();
+  if(installEvt){const e=installEvt;installEvt=null;e.prompt();try{const c=await e.userChoice;if(c&&c.outcome==="accepted"){try{localStorage.setItem("sb_ins_x","done")}catch(x){}}}catch(x){}renderInstall();return}
+  const steps=isIOS?(/CriOS|FxiOS|EdgiOS/.test(ua)?["ins.ios_other1","ins.ios2","ins.ios3"]:["ins.ios1","ins.ios2","ins.ios3"])
+    :isAndroid?(/SamsungBrowser/.test(ua)?["ins.sam1","ins.sam2"]:["ins.and1","ins.and2"]):["ins.desk1","ins.desk2"];
+  $("ins_steps").innerHTML=steps.map(k=>`<li>${t(k)}</li>`).join("");openSheet("p_install")}
+$("m_install").onclick=doInstall;$("instip_go").onclick=doInstall;
+$("instip_x").onclick=()=>{try{localStorage.setItem("sb_ins_x","later")}catch(e){}renderInstall()};
+
 $("logout").onclick=async()=>{flushSave();closeMenu();closeSheet();if(sb)await sb.auth.signOut();session=null;state={me:null,clients:[],sites:[]};renderTop();setAuthMode("login");window.scrollTo(0,0)};
 
 /* ---------- landing demo ---------- */
@@ -1474,15 +1905,28 @@ function drawInvoice(doc, me, inv) {
   let total = 0;
   rows.forEach((r) => {
     if (y > 268) { doc.addPage(); y = 24; head(); }
-    const h = pn(r.hours), rt = pn(r.rate), amt = h * rt; total += amt;
+    const hol = isPh(r, inv), hm = pn(inv.ph && inv.ph.mult) || 1;
+    const sp = hol ? { n: pn(r.hours), x: 0 } : otSplit(r, inv.ot), rt = pn(r.rate), mult = pn(inv.ot && inv.ot.mult) || 1, urt = hol ? rt * hm : rt, amt = sp.n * urt; total += amt;
     font("normal", 9); col(INK);
     doc.text(pdm(r.date), C.date, y);
     doc.text(fit(r.loc || inv.site, 47), C.loc, y);
-    doc.text(fit(r.desc, 32), C.desc, y);
-    doc.text(phrs(h), C.qty, y, { align: "right" });
-    doc.text(pfmt(rt), C.rate, y, { align: "right" });
+    doc.text(fit(hol && sp.n > 0 ? `Public holiday (×${String(hm)})` : r.desc, 32), C.desc, y);
+    doc.text(phrs(sp.n), C.qty, y, { align: "right" });
+    doc.text(pfmt(urt), C.rate, y, { align: "right" });
     doc.text(pfmt(amt), C.amt, y, { align: "right" });
     hline(y + 3.4, LINE, 0.25); y += 8.5;
+    if (sp.x > 0) {   // overtime on its own line, right under the day
+      if (y > 268) { doc.addPage(); y = 24; head(); }
+      const oamt = sp.x * rt * mult; total += oamt;
+      font("normal", 9); col(INK);
+      doc.text(pdm(r.date), C.date, y);
+      doc.text(fit(r.loc || inv.site, 47), C.loc, y);
+      doc.text(fit(`Overtime (×${String(mult)})`, 32), C.desc, y);
+      doc.text(phrs(sp.x), C.qty, y, { align: "right" });
+      doc.text(pfmt(rt * mult), C.rate, y, { align: "right" });
+      doc.text(pfmt(oamt), C.amt, y, { align: "right" });
+      hline(y + 3.4, LINE, 0.25); y += 8.5;
+    }
   });
 
   // total
@@ -1553,7 +1997,7 @@ function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=
   $("lockbar").hidden=!lk;$("lock_edit").hidden=!plan.premium;
   if(lk)$("locktxt").textContent=t("fin.locked",{date:clean(new Date(inv.finished.at).toLocaleDateString(loc()))});
   document.querySelectorAll('input[name="ptype"]').forEach(x=>{x.closest("label").classList.toggle("dim",lk)});
-  if(!$("pdfmsg").dataset.keep)$("pdfmsg").textContent=plan.premium||lk?"":(freeLeft()>0?t("quota.left",{n:freeLeft()}):t("quota.none"))}
+  if(!$("pdfmsg").dataset.keep)$("pdfmsg").textContent=plan.premium||lk?"":(freeLeft()>0?t("quota.left",{n:freeLeft(),limit:FREE_LIMIT()}):t("quota.none"))}
 function pdfMsg(text){const m=$("pdfmsg");m.textContent=text;m.dataset.keep="1";clearTimeout(pdfMsg.t);pdfMsg.t=setTimeout(()=>{delete m.dataset.keep;renderFinish()},6000)}
 $("pvbtn").onclick=()=>{if(!session||!P())return;previewInvoice()};
 $("lock_next").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
@@ -1564,6 +2008,8 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
     if(!infosDone()){pdfMsg(t("fin.details"));openSheet("p_infos");return}
     if(!inv.billto){pdfMsg(t("pdfm.need_client"));$("billto").focus();return}
     if(!hasHours(inv)){pdfMsg(t("pdfm.need_hours"));return}
+    if(inv.rows.some(r=>r.hours>0&&!(r.rate>0))){pdfMsg(t("pdfm.need_rate"));$("defrate").focus();return}
+    if(plan.blocked){pdfMsg(t("fin.blocked",{email:SUPPORT_EMAIL}));return}
     if(!plan.premium){if(freeLeft()<=0){showPremium("p.why_limit");return}
       if(Date.now()>confirmUntil){confirmUntil=Date.now()+6000;renderFinish();setTimeout(renderFinish,6100);return}}}
   confirmUntil=0;finishing=true;const b=$("pdfbtn");b.disabled=true;b.textContent=t("bar.working");
@@ -1574,7 +2020,7 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
     if(out&&out.ok){
       const me={...(out.me||{})};["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);
       const bytes=renderInvoice(JsPDF,me,out.inv||{});
-      if(out.free_left!=null)plan.free_used=3-(+out.free_left);
+      if(out.free_left!=null)plan.free_used=(plan.free_limit||3)-(+out.free_left);
       const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim(),src=out.inv||inv;
       const name=`${PT[invType(src)].file} Invoice${who?" "+who:""} ${dmy(src.start||inv.start).replace(/\//g,"-")} - ${dmy(src.end||inv.end).replace(/\//g,"-")}.pdf`;
       const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
@@ -1582,7 +2028,8 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
       if(plan.premium&&!curEntry())addToHistory();
       save();flushSave();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
     const st=out&&out.status;
-    if(st==="limit"){plan.free_used=3;showPremium("p.why_limit")}
+    if(st==="limit"){plan.free_used=plan.free_limit||3;showPremium("p.why_limit")}
+    else if(st==="blocked"){plan.blocked=true;pdfMsg(t("fin.blocked",{email:SUPPORT_EMAIL}))}
     else if(st==="abn_taken")pdfMsg(t("fin.abn_taken"));
     else if(st==="abn_invalid"){pdfMsg(t("fin.abn_invalid"));openSheet("p_infos")}
     else if(st==="abn_missing"){p.abnLocked=false;pdfMsg(t("fin.abn_missing"));openSheet("p_infos")}
@@ -1596,54 +2043,153 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
   finally{finishing=false;b.disabled=false;renderFinish()}};
 
 /* ---------- admin (every call is checked by the server) ---------- */
-let admOffset=0,admTimer=null,admReq=0;
-async function loadAdmin(reset,clearList){const msg=$("adm_msg");msg.textContent="";const my=++admReq;
-  if(reset||clearList){admOffset=0;$("adm_list").innerHTML=""}
-  if(reset){
-    const {data,error}=await sb.rpc("admin_stats");
-    if(error){msg.textContent=t("a.err");$("adm_stats").innerHTML="";return}
-    const tile=(k,v)=>`<div class="atile"><b>${esc(String(v))}</b><span>${esc(t(k))}</span></div>`;
-    $("adm_stats").innerHTML=tile("a.users",data.users)+tile("a.new7",data.users_7d)+tile("a.active7",data.active_7d)+tile("a.premium",data.premium)+
-      tile("a.paid",data.premium_paid)+tile("a.invoices",data.invoices)+tile("a.inv30",data.invoices_30d)+tile("a.total",money(data.invoiced_total))+tile("a.atlimit",data.free_at_limit)}
+let admOffset=0,admTimer=null,admReq=0,admTab="ov",invOffset=0,admCur=null;
+const d8=v=>v?clean(new Date(v).toLocaleDateString(loc())):"–";
+const admErr=()=>{$("adm_msg").textContent=t("a.err")};
+function admShow(tab){admTab=tab;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=k!==tab);$("adm_detail").hidden=true;$("adm_msg").textContent="";
+  document.querySelectorAll('input[name="atab"]').forEach(x=>x.checked=x.value===tab);
+  if(tab==="ov")loadOverview();if(tab==="users")loadAdmin(false,true);if(tab==="inv")loadRecent(true);if(tab==="ann")loadAnnForm()}
+document.querySelectorAll('input[name="atab"]').forEach(x=>x.onchange=e=>admShow(e.target.value));
+async function loadAdmin(reset,clearList){if(reset){admShow("ov");return}
+  const msg=$("adm_msg");msg.textContent="";const my=++admReq;
+  if(clearList){admOffset=0;$("adm_list").innerHTML=""}
   const {data:rows,error}=await sb.rpc("admin_list_users",{p_search:$("adm_q").value.trim(),p_limit:50,p_offset:admOffset});
-  if(my!==admReq)return; /* a newer search started: ignore this answer */
-  if(error){msg.textContent=t("a.err");return}
+  if(my!==admReq)return;
+  if(error){admErr();return}
   if(!admOffset&&!rows.length)$("adm_list").innerHTML=`<li class="muted">${esc(t("a.none"))}</li>`;
   rows.forEach(u=>$("adm_list").appendChild(admRow(u)));admOffset+=rows.length;$("adm_more").hidden=rows.length<50}
-function admRow(u){const li=document.createElement("li");
-  const manual=u.source==="manual",expired=manual&&!u.premium,stripe=u.source==="stripe";
-  const d8=v=>clean(new Date(v).toLocaleDateString(loc()));
-  let badge=t(stripe?"a.src_stripe":manual&&!expired?"a.src_manual":"a.src_free");
-  if(manual&&!expired)badge+=" · "+(u.until?t("a.until",{date:d8(u.until)}):t("a.perm"));
-  if(expired)badge+=" · "+t("a.expired");
-  li.innerHTML=`<div class="aumain"><strong class="auemail"></strong><span class="auname"></span>
-    <span class="aumeta">${esc(t("a.joined",{date:d8(u.created_at)}))} · ${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></div>
-    <div class="auact"><span class="badge${u.premium?" pro":""}">${esc(badge)}${u.admin?" · "+esc(t("a.admin_tag")):""}</span></div>`;
+async function loadOverview(){
+  const {data,error}=await sb.rpc("admin_stats");
+  if(error){admErr();$("adm_stats").innerHTML="";return}
+  const tile=(k,v)=>`<div class="atile"><b>${esc(String(v))}</b><span>${esc(t(k))}</span></div>`;
+  $("adm_stats").innerHTML=tile("a.users",data.users)+tile("a.new7",data.users_7d)+tile("a.active7",data.active_7d)+tile("a.premium",data.premium)+
+    tile("a.paid",data.premium_paid)+tile("a.invoices",data.invoices)+tile("a.inv30",data.invoices_30d)+tile("a.total",money(data.invoiced_total))+
+    tile("a.atlimit",data.free_at_limit)+(data.blocked!=null?tile("a.blocked_n",data.blocked):"");
+  const {data:ser,error:e2}=await sb.rpc("admin_series",{p_weeks:12});
+  if(e2||!Array.isArray(ser)){$("adm_charts").innerHTML="";return}
+  $("adm_charts").innerHTML=barChart(t("a.ch_signups"),ser.map(r=>({k:r.week,v:+r.signups})),v=>String(v))+
+    barChart(t("a.ch_invoices"),ser.map(r=>({k:r.week,v:+r.invoices,x:+r.invoiced})),v=>String(v),true)}
+/* one series per chart (no double axis): thin bars, rounded tops, recessive grid, value on hover/tap */
+function barChart(title,pts,fmtv,withMoney){const W=320,H=120,pl=24,pb=18,pt=8,n=pts.length||1,max=Math.max(1,...pts.map(p=>p.v));
+  const step=(W-pl)/n,bw=Math.max(4,step-4),sc=v=>(H-pb-pt)*v/max,top=Math.ceil(max);
+  const bars=pts.map((p,i)=>{const h=sc(p.v),x=pl+i*step+2,y=H-pb-h,lab=`${t("a.week_of",{date:d8(p.k)})} : ${fmtv(p.v)}${withMoney&&p.x?` · ${money(p.x)}`:""}`;
+    return `<g class="bar" tabindex="0" data-tip="${esc(lab)}"><rect class="hit" x="${pl+i*step}" y="${pt}" width="${step}" height="${H-pb-pt}"/>${p.v>0?`<path d="M${x},${H-pb} V${y+Math.min(4,h)} q0,-4 4,-4 h${bw-8} q4,0 4,4 V${H-pb} Z" class="mk"/>`:""}<title>${esc(lab)}</title></g>`}).join("");
+  const first=pts[0]?d8(pts[0].k):"",last=pts.length?d8(pts[pts.length-1].k):"",tot=pts.reduce((s,p)=>s+p.v,0);
+  return `<figure class="achart"><figcaption><b>${esc(title)}</b><span>${esc(t("a.ch_total",{n:tot}))}</span></figcaption>
+    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(title)}"><line class="grid" x1="${pl}" x2="${W}" y1="${pt}" y2="${pt}"/><line class="axis" x1="${pl}" x2="${W}" y1="${H-pb}" y2="${H-pb}"/>
+    <text class="tick" x="${pl-4}" y="${pt+4}" text-anchor="end">${top}</text><text class="tick" x="${pl-4}" y="${H-pb}" text-anchor="end">0</text>${bars}
+    <text class="tick" x="${pl}" y="${H-4}">${esc(first)}</text><text class="tick" x="${W}" y="${H-4}" text-anchor="end">${esc(last)}</text></svg>
+    <p class="atip" aria-live="polite"></p></figure>`}
+$("adm_charts").addEventListener("click",e=>{const g=e.target.closest(".bar");if(!g)return;const f=g.closest("figure");f.querySelectorAll(".bar.on").forEach(x=>x.classList.remove("on"));g.classList.add("on");f.querySelector(".atip").textContent=g.dataset.tip});
+$("adm_charts").addEventListener("mouseover",e=>{const g=e.target.closest(".bar");if(g)g.closest("figure").querySelector(".atip").textContent=g.dataset.tip});
+$("adm_charts").addEventListener("focusin",e=>{const g=e.target.closest(".bar");if(g)g.closest("figure").querySelector(".atip").textContent=g.dataset.tip});
+function badgeOf(u){const manual=u.source==="manual",expired=manual&&!u.premium,stripe=u.source==="stripe";
+  let b=t(stripe?"a.src_stripe":manual&&!expired?"a.src_manual":"a.src_free");
+  if(manual&&!expired)b+=" · "+(u.until?t("a.until",{date:d8(u.until)}):t("a.perm"));if(expired)b+=" · "+t("a.expired");return b}
+function admRow(u){const li=document.createElement("li");li.className="arow";
+  li.innerHTML=`<button type="button" class="aopen"><span class="aumain"><strong class="auemail"></strong><span class="auname"></span>
+    <span class="aumeta">${esc(t("a.joined",{date:d8(u.created_at)}))} · ${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></span>
+    <span class="auact"><span class="badge${u.premium?" pro":""}">${esc(badgeOf(u))}${u.admin?" · "+esc(t("a.admin_tag")):""}</span>${u.blocked?`<span class="badge blk">${esc(t("a.blocked_tag"))}</span>`:""}<span class="chev" aria-hidden="true">›</span></span></button>`;
   li.querySelector(".auemail").textContent=u.email||"";li.querySelector(".auname").textContent=u.name||"";
-  const act=li.querySelector(".auact");
-  if(stripe){const n=document.createElement("span");n.className="aumeta";n.textContent=t("a.stripe_note");li.querySelector(".aumain").appendChild(n)}
-  else{const box=document.createElement("div");box.className="admdur";const on=manual&&!expired;
-    box.innerHTML=`<select aria-label="${esc(t("a.dur_lbl"))}">${[["7","a.d7"],["30","a.d30"],["90","a.d90"],["180","a.d180"],["365","a.d365"],["","a.dperm"]].map(([v,k])=>`<option value="${v}"${v==="30"?" selected":""}>${esc(t(k))}</option>`).join("")}</select>
-      <button type="button" class="primary give">${esc(t(on?"a.update":"a.give"))}</button>${on?`<button type="button" class="rem">${esc(t("a.remove"))}</button>`:""}`;
-    act.appendChild(box);
-    const run=async(btn,turnOn)=>{btn.disabled=true;const days=turnOn?(box.querySelector("select").value?+box.querySelector("select").value:null):null;
-      const {error}=await sb.rpc("admin_set_premium",{p_user:u.user_id,p_on:turnOn,p_days:days});
-      if(error){$("adm_msg").textContent=t("a.err");btn.disabled=false;return}
-      u.premium=turnOn;u.source=turnOn?"manual":"free";u.until=turnOn&&days?new Date(Date.now()+days*864e5).toISOString():null;
-      li.replaceWith(admRow(u));$("adm_msg").textContent=t("a.done");if(session&&u.user_id===session.id)refreshPlan()};
-    box.querySelector(".give").onclick=e=>run(e.currentTarget,true);
-    const rem=box.querySelector(".rem");if(rem)rem.onclick=e=>run(e.currentTarget,false)}
-  if(u.abn){const rb=document.createElement("button");rb.type="button";rb.className="abnreset";rb.textContent=t("a.reset_abn");act.appendChild(rb);
-    rb.onclick=async()=>{if(!rb.classList.contains("warn")){rb.classList.add("warn");rb.textContent=t("a.reset_confirm",{abn:fmtAbn(u.abn)});return}
-      rb.disabled=true;const {error}=await sb.rpc("admin_reset_abn",{p_user:u.user_id});
-      if(error){$("adm_msg").textContent=t("a.err");rb.disabled=false;return}
-      u.abn="";li.replaceWith(admRow(u));$("adm_msg").textContent=t("a.done");if(session&&u.user_id===session.id)refreshPlan()}}
-  return li}
+  li.querySelector(".aopen").onclick=()=>openMember(u.user_id);return li}
 $("adm_q").addEventListener("input",()=>{clearTimeout(admTimer);admTimer=setTimeout(()=>loadAdmin(false,true),300)});
 $("adm_more").onclick=()=>loadAdmin(false,false);
 
+/* member card */
+async function openMember(id){const {data:d,error}=await sb.rpc("admin_user_detail",{p_user:id});
+  if(error||!d||!d.ok){admErr();return}admCur=d;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=true);$("adm_detail").hidden=false;renderMember();$("adm_detail").scrollIntoView({block:"start"})}
+function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="stripe",on=d.source==="manual"&&d.premium,me=session&&d.user_id===session.id;
+  const row=(k,v)=>v?`<div><dt>${esc(t(k))}</dt><dd></dd></div>`:"";
+  box.innerHTML=`<button type="button" class="linkbtn aback">‹ ${esc(t("a.back"))}</button>
+    <div class="ahead"><strong class="auemail"></strong><span class="badge${d.premium?" pro":""}">${esc(badgeOf(d))}</span>${d.blocked?`<span class="badge blk">${esc(t("a.blocked_tag"))}</span>`:""}</div>
+    <dl class="adl">
+      <div><dt>${esc(t("a.f_name"))}</dt><dd data-v="name"></dd></div>
+      <div><dt>ABN</dt><dd data-v="abn"></dd></div>
+      <div><dt>${esc(t("a.f_phone"))}</dt><dd data-v="phone"></dd></div>
+      <div><dt>${esc(t("a.f_email"))}</dt><dd data-v="contact_email"></dd></div>
+      <div><dt>${esc(t("a.f_addr"))}</dt><dd data-v="addr"></dd></div>
+      <div><dt>BSB / ${esc(t("a.f_acc"))}</dt><dd data-v="bank"></dd></div>
+      <div><dt>${esc(t("a.f_joined"))}</dt><dd>${esc(d8(d.created_at))}</dd></div>
+      <div><dt>${esc(t("a.f_last"))}</dt><dd>${esc(d.last_sign_in_at?d8(d.last_sign_in_at):t("a.never"))}</dd></div>
+      <div><dt>${esc(t("a.f_free"))}</dt><dd>${esc(t("a.free_val",{used:d.free_used,limit:d.free_limit}))}</dd></div>
+      <div><dt>${esc(t("a.f_saved"))}</dt><dd>${esc(String(d.saved))}</dd></div>
+    </dl>
+    <h4>${esc(t("a.s_premium"))}</h4>
+    ${stripe?`<p class="note">${esc(t("a.stripe_note"))}</p>`:`<div class="admdur"><select id="md_dur" aria-label="${esc(t("a.dur_lbl"))}">${[["7","a.d7"],["30","a.d30"],["90","a.d90"],["180","a.d180"],["365","a.d365"],["","a.dperm"]].map(([v,k])=>`<option value="${v}"${v==="30"?" selected":""}>${esc(t(k))}</option>`).join("")}</select>
+      <button type="button" class="primary" id="md_give">${esc(t(on?"a.update":"a.give"))}</button>${on?`<button type="button" id="md_rem">${esc(t("a.remove"))}</button>`:""}</div>`}
+    <h4>${esc(t("a.s_free"))}</h4>
+    <div class="abtns"><button type="button" data-bonus="1">+1</button><button type="button" data-bonus="3">+3</button><button type="button" data-bonus="5">+5</button><button type="button" id="md_reset">${esc(t("a.reset_count"))}</button></div>
+    <h4>${esc(t("a.s_account"))}</h4>
+    ${me?`<p class="note">${esc(t("a.self_note"))}</p>`:`<div class="form"><input id="md_reason" maxlength="200" placeholder="${esc(t("a.reason_ph"))}"${d.blocked?" hidden":""}>
+      <div class="abtns"><button type="button" id="md_block" class="${d.blocked?"":"warn"}">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="danger">${esc(t("a.delete"))}</button></div>
+      ${d.blocked&&d.blocked_reason?`<p class="note">${esc(t("a.reason_is",{r:d.blocked_reason}))}</p>`:""}</div>`}
+    <h4>${esc(t("a.s_invoices",{n:d.invoices.length}))}</h4>
+    <ul class="alist ainv">${d.invoices.length?d.invoices.map(v=>invLi(v,false)).join(""):`<li class="muted">${esc(t("a.no_inv"))}</li>`}</ul>`;
+  box.querySelector(".auemail").textContent=d.email||"";
+  const set=(k,v)=>{const el=box.querySelector(`[data-v="${k}"]`);if(el)el.textContent=v||"–"};
+  set("name",d.name);set("abn",d.abn?fmtAbn(d.abn):"");set("phone",d.phone);set("contact_email",d.contact_email);set("addr",d.addr);set("bank",[d.bsb,d.acc].filter(Boolean).join(" · "));
+  box.querySelector(".aback").onclick=()=>admShow("users");
+  const act=async(fn,args,btn)=>{if(btn)btn.disabled=true;const {data:r,error}=await sb.rpc(fn,args);if(error||(r&&r.ok===false)){admErr();if(btn)btn.disabled=false;return false}
+    $("adm_msg").textContent=t("a.done");if(session&&d.user_id===session.id)refreshPlan();await openMember(d.user_id);return true};
+  const give=box.querySelector("#md_give");if(give)give.onclick=()=>{const v=box.querySelector("#md_dur").value;act("admin_set_premium",{p_user:d.user_id,p_on:true,p_days:v?+v:null},give)};
+  const rem=box.querySelector("#md_rem");if(rem)rem.onclick=()=>act("admin_set_premium",{p_user:d.user_id,p_on:false,p_days:null},rem);
+  box.querySelectorAll("[data-bonus]").forEach(b=>b.onclick=()=>act("admin_set_bonus",{p_user:d.user_id,p_add:+b.dataset.bonus,p_reset:false},b));
+  box.querySelector("#md_reset").onclick=e=>act("admin_set_bonus",{p_user:d.user_id,p_add:null,p_reset:true},e.currentTarget);
+  const two=(btn,label,fn)=>{btn.onclick=()=>{if(!btn.classList.contains("armed")){btn.classList.add("armed");btn.textContent=label;setTimeout(()=>{if(btn.isConnected&&btn.classList.contains("armed")){btn.classList.remove("armed");renderMember()}},6000);return}fn()}};
+  const blk=box.querySelector("#md_block");if(blk)blk.onclick=()=>act("admin_set_blocked",{p_user:d.user_id,p_on:!d.blocked,p_reason:d.blocked?null:(box.querySelector("#md_reason").value.trim()||null)},blk);
+  const ab=box.querySelector("#md_abn");if(ab)two(ab,t("a.reset_confirm",{abn:fmtAbn(d.abn)}),()=>act("admin_reset_abn",{p_user:d.user_id},ab));
+  const del=box.querySelector("#md_del");if(del)two(del,t("a.delete_confirm",{email:d.email}),async()=>{del.disabled=true;const {data:r,error}=await sb.rpc("admin_delete_user",{p_user:d.user_id});
+    if(error||!r||!r.ok){admErr();del.disabled=false;return}admShow("users");$("adm_msg").textContent=t("a.deleted",{email:d.email})});
+  box.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b))}
+function invLi(v,withWho){const per=v.start_date||v.start,end=v.end_date||v.end;
+  return `<li class="ainvrow"><span class="aumain"><strong>${esc(money(v.total))}</strong><span class="aumeta">${esc(t("h.inv",{no:v.invno||"?"}))} · ${per?esc(`${dm(String(per).slice(0,10))} → ${dmy(String(end).slice(0,10))}`):""} · ${esc(hrs(v.hours))} h</span>
+    <span class="aumeta">${withWho?esc((v.name||v.email||"")+" · "):""}${esc(v.billto||"")} · ${esc(t("a.finished_on",{date:d8(v.created_at)}))}</span></span>
+    <button type="button" class="adl-btn" data-dl="${esc(v.id)}">${esc(t("a.download"))}</button></li>`}
+async function adminDownload(id,btn){btn.disabled=true;try{const JsPDF=await loadJsPDF();const {data:r,error}=await sb.rpc("admin_get_invoice",{p_id:id});
+  if(error||!r||!r.ok){admErr();return}const inv=r.inv||{},who=String((r.me&&r.me.name)||"").replace(/[\\/:*?"<>|]+/g,"").trim();
+  const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(inv.start).replace(/\//g,"-")} - ${dmy(inv.end).replace(/\//g,"-")}.pdf`;
+  saveBlob(new Blob([renderInvoice(JsPDF,r.me||{},inv)],{type:"application/pdf"}),name)}catch(e){admErr()}finally{btn.disabled=false}}
+function saveBlob(blob,name){const u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000)}
+
+/* latest invoices on the whole site */
+async function loadRecent(reset){if(reset){invOffset=0;$("adm_invlist").innerHTML=""}
+  const {data:rows,error}=await sb.rpc("admin_recent_invoices",{p_limit:30,p_offset:invOffset});
+  if(error){admErr();return}
+  if(!invOffset&&!rows.length)$("adm_invlist").innerHTML=`<li class="muted">${esc(t("a.no_inv"))}</li>`;
+  $("adm_invlist").insertAdjacentHTML("beforeend",rows.map(v=>invLi(v,true)).join(""));
+  $("adm_invlist").querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
+  invOffset+=rows.length;$("adm_invmore").hidden=rows.length<30}
+$("adm_invmore").onclick=()=>loadRecent(false);
+
+/* CSV exports (opens in Excel / Numbers / Google Sheets) */
+const csvCell=v=>{const s=v==null?"":String(v);return /[",\n;]/.test(s)?`"${s.replace(/"/g,'""')}"`:s};
+async function exportCsv(kind,btn){btn.disabled=true;$("adm_msg").textContent=t("a.exporting");
+  try{let all=[],off=0;for(;;){const {data,error}=kind==="users"?await sb.rpc("admin_list_users",{p_search:"",p_limit:500,p_offset:off}):await sb.rpc("admin_recent_invoices",{p_limit:500,p_offset:off});
+      if(error)throw error;all=all.concat(data);if(data.length<500)break;off+=500}
+    const head=kind==="users"?["email","name","abn","joined","last_login","plan","premium_until","invoices","saved","blocked","bonus_free","admin"]
+      :["finished_at","email","name","abn","invoice_no","period","start","end","client","hours","total_aud"];
+    const rows=kind==="users"?all.map(u=>[u.email,u.name,u.abn,u.created_at,u.last_sign_in_at,u.premium?u.source:"free",u.until,u.invoices,u.saved,u.blocked?"yes":"no",u.bonus_free,u.admin?"yes":"no"])
+      :all.map(v=>[v.created_at,v.email,v.name,v.abn,v.invno,v.period,v.start_date,v.end_date,v.billto,v.hours,v.total]);
+    const csv="﻿"+[head].concat(rows).map(r=>r.map(csvCell).join(",")).join("\r\n");
+    saveBlob(new Blob([csv],{type:"text/csv;charset=utf-8"}),`SubbieBill ${kind==="users"?"members":"invoices"} ${dmy(todayIso()).replace(/\//g,"-")}.csv`);
+    $("adm_msg").textContent=t("a.exported",{n:all.length})}
+  catch(e){admErr()}finally{btn.disabled=false}}
+$("adm_csv_users").onclick=e=>exportCsv("users",e.currentTarget);$("adm_csv_inv").onclick=e=>exportCsv("inv",e.currentTarget);
+
+/* announcement banner */
+let ann=null;
+async function loadAnn(){if(!sb)return;try{const {data,error}=await sb.rpc("get_announcement");if(!error&&data){ann=data;renderAnn()}}catch(e){}}
+function renderAnn(){const bar=$("annbar");if(!ann||!ann.on){bar.hidden=true;return}const txt=(ann[lang]||ann.en||"").trim();
+  let gone=null;try{gone=localStorage.getItem("sb_ann_x")}catch(e){}
+  bar.hidden=!txt||gone===String(ann.id);$("anntext").textContent=txt}
+$("annx").onclick=()=>{try{localStorage.setItem("sb_ann_x",String(ann&&ann.id))}catch(e){}$("annbar").hidden=true};
+async function loadAnnForm(){await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_en").value=a.en||"";$("ann_fr").value=a.fr||""}
+$("ann_save").onclick=async e=>{const btn=e.currentTarget;btn.disabled=true;
+  const {error}=await sb.rpc("admin_set_announcement",{p_on:$("ann_on").checked,p_en:$("ann_en").value.trim(),p_fr:$("ann_fr").value.trim()});
+  btn.disabled=false;if(error){admErr();return}$("adm_msg").textContent=t("a.done");try{localStorage.removeItem("sb_ann_x")}catch(x){}await loadAnn()};
+
 /* ---------- start ---------- */
-(async()=>{lang=storedLang()||"en";applyStatic();renderLangUI();renderDemo();setAuthMode("signup");renderTop();
+(async()=>{lang=storedLang()||"en";applyStatic();renderLangUI();renderDemo();setAuthMode("signup");renderTop();loadAnn();
   if(!sb){$("autherr").textContent=t("err.service");return}
   const {data:{session:s}}=await sb.auth.getSession();
   if(s&&s.user)await loadAccount(s.user);
