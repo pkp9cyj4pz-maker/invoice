@@ -579,6 +579,10 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 .auline .auemail{min-width:0;overflow:hidden;text-overflow:ellipsis}
 .odot{width:10px;height:10px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px color-mix(in srgb,#22C55E 25%,transparent);flex:none}
 .ahead .odot{margin-right:2px}
+/* Premium: gold badge in the top bar (Free shows nothing there) */
+.badge.pro{background:linear-gradient(135deg,#FFE9A3 0%,#F5C542 45%,#D99A1E 100%);border-color:#C98A12;color:#3A2500;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 2px 8px -3px rgba(201,138,18,.7)}
+#planbadge.pro{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;padding:5px 10px;white-space:nowrap}
+#planbadge.pro::before{content:"";width:12px;height:12px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat}
 </style>
 </head>
 <body>
@@ -2069,7 +2073,7 @@ es:{
 
 /* ===== SETTINGS ===== */
 const PAY_MONTHLY="https://buy.stripe.com/test_dRm7sK94H5af7g9c0R53O04";   // Stripe monthly payment link  (https://buy.stripe.com/...)
-const PAY_YEARLY="https://buy.stripe.com/test_dRm4gya8LfOT2ZT6Gx53O03";    // Stripe yearly payment link
+const PAY_YEARLY="https://buy.stripe.com/test_7sY7sKft5eKPcAt8OF53O05";    // Stripe yearly payment link
 const PORTAL="";        // Stripe customer portal link  (https://billing.stripe.com/p/login/...)
 const SUPPORT_EMAIL="Thomas.spychiger.pro@gmail.com";
 const SB_URL="https://snfcqaubjscxgxjyugas.supabase.co",SB_KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
