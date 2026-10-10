@@ -429,8 +429,10 @@ select:disabled,input:disabled{opacity:.7}
 .histsum div:first-child{background:var(--panel);border-color:var(--panel);color:var(--on-panel)}
 .histsum div:first-child span{color:var(--on-panel-mute)}.histsum div:first-child b{color:var(--hivis);font-size:1.2rem}
 @media (max-width:380px){.histsum{grid-template-columns:1fr 1fr}.histsum div:first-child{grid-column:1 / -1}}
-.ainvbtns{display:flex;gap:6px;flex:none}
+.ainvbtns{display:flex;gap:6px;flex:none;flex-wrap:wrap}
 .aeye{padding:6px 10px;display:inline-flex;align-items:center;justify-content:center}
+.ainvbtns .adel{color:#B42318}.ainvbtns .adel.armed{background:#B42318;color:#fff;border-color:#B42318}
+.ainvrow.adeleted{opacity:.62}.adeltag{display:inline-block;align-self:flex-start;font-size:.72rem;font-weight:700;color:#B42318;background:#FDECEA;border-radius:6px;padding:1px 7px;margin-bottom:3px}
 /* v11 mobile spacing */
 .ctx{gap:12px}
 .daylist{gap:8px}
@@ -480,7 +482,7 @@ button.danger{border-color:#B42318;color:#B42318;background:transparent}
 button.danger.armed{background:#B42318;color:#fff}
 @media (prefers-color-scheme: dark){button.danger{border-color:#F97066;color:#F97066}button.danger.armed{background:#D92D20;color:#fff;border-color:#D92D20}}
 button.armed:not(.danger){background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.ainvrow{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.ainvrow{display:flex;gap:8px 10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.ainvrow .aumain{flex:1 1 220px;min-width:0}
 .ainvrow strong{font-family:var(--mono)}
 .adl-btn{min-height:40px;padding:6px 12px;font-size:.86rem;flex:none}
 .codeform{margin-top:12px}
@@ -960,6 +962,14 @@ en:{
   "a.ann_intro":"A banner shown at the top of the site, for everyone (logged in or not).",
   "a.finished_on":"finished {date}",
   "a.download":"Download",
+  "a.inv_del":"Delete",
+  "a.inv_del_confirm":"Tap again to delete",
+  "a.inv_restore":"Restore",
+  "a.inv_removed":"Invoice deleted. Its number is free again.",
+  "a.inv_restored":"Invoice restored.",
+  "a.inv_conflict":"Can't restore: this number has been used again.",
+  "a.inv_deleted_user":"Deleted by the member",
+  "a.inv_deleted_admin":"Deleted by admin",
   "a.no_inv":"No finished invoices yet.",
   "a.s_invoices":"Finished invoices ({n})",
   "a.reason_is":"Reason: {r}",
@@ -1014,10 +1024,10 @@ en:{
   "ph.hint":"Tap “Public holiday” on the day you worked. National holidays (Christmas, Anzac Day, Good Friday…) are already marked.",
   "ph.paid":"Public holidays paid",
   "ph.on":"Public holidays at a higher rate",
-  "days.ot_incl":"incl. {x} h overtime",
-  "days.ot_short":"{x} h OT",
+  "days.ot_incl":"incl. {x} overtime",
+  "days.ot_short":"{x} OT",
   "ot.hint0":"Enter your hourly rate to see your overtime rate.",
-  "ot.hint":"{rate}/h becomes {ot}/h after {after} h in a day.",
+  "ot.hint":"{rate}/h becomes {ot}/h after {after} in a day.",
   "ot.per_day":"a day, paid",
   "ot.after":"After",
   "ot.on":"Paid overtime (higher rate)",
@@ -1125,7 +1135,7 @@ en:{
   "days.title":"Your hours","days.copy_week":"Copy Monday to Tue → Fri","days.copy_multi":"Copy Monday to empty days","days.week_of":"Week of {date}",
   "days.off":"day off","days.add":"Add hours","f.start":"Start","f.end":"Finish","f.pause":"Break","f.hours":"Hours","f.rate":"$/h","f.loc_aria":"Site for this day",
   "f.min":"{m} min",
-  "bar.sum":"{h} h · {d} · AUD","bar.day":"{n} day","bar.days":"{n} days","bar.pdf":"Download PDF",
+  "bar.sum":"{h} · {d} · AUD","bar.day":"{n} day","bar.days":"{n} days","bar.pdf":"Download PDF",
   "pdfm.need_client":"Choose your client first.","pdfm.need_hours":"Add at least one working day.","pdfm.no_lib":"The PDF module didn't load. Check your connection and reload.",
   "pdfm.ready":"PDF ready.","pdfm.fail":"Couldn't create the PDF. Try again.",
   "m.title":"Menu","m.account":"Account","m.premium":"Upgrade to Premium","m.manage":"Manage my subscription",
@@ -1209,6 +1219,14 @@ fr:{
   "a.ann_intro":"Un bandeau affiché en haut du site, pour tout le monde (connecté ou non).",
   "a.finished_on":"terminée le {date}",
   "a.download":"Télécharger",
+  "a.inv_del":"Supprimer",
+  "a.inv_del_confirm":"Retouche pour supprimer",
+  "a.inv_restore":"Restaurer",
+  "a.inv_removed":"Facture supprimée. Son numéro est de nouveau libre.",
+  "a.inv_restored":"Facture restaurée.",
+  "a.inv_conflict":"Impossible de restaurer : ce numéro a été réutilisé.",
+  "a.inv_deleted_user":"Supprimée par le membre",
+  "a.inv_deleted_admin":"Supprimée par l'admin",
   "a.no_inv":"Aucune facture terminée.",
   "a.s_invoices":"Factures terminées ({n})",
   "a.reason_is":"Raison : {r}",
@@ -1263,10 +1281,10 @@ fr:{
   "ph.hint":"Touche « Férié » sur le jour travaillé. Les fériés nationaux (Noël, Anzac Day, Vendredi saint…) sont déjà repérés.",
   "ph.paid":"Jours fériés payés",
   "ph.on":"Jours fériés majorés",
-  "days.ot_incl":"dont {x} h sup",
-  "days.ot_short":"{x} h sup",
+  "days.ot_incl":"dont {x} sup",
+  "days.ot_short":"{x} sup",
   "ot.hint0":"Mets ton taux horaire pour voir le taux des heures sup.",
-  "ot.hint":"{rate}/h devient {ot}/h au-delà de {after} h dans la journée.",
+  "ot.hint":"{rate}/h devient {ot}/h au-delà de {after} dans la journée.",
   "ot.per_day":"par jour, payées",
   "ot.after":"Au-delà de",
   "ot.on":"Heures sup majorées",
@@ -1374,7 +1392,7 @@ fr:{
   "days.title":"Tes heures","days.copy_week":"Copier lundi sur mar → ven","days.copy_multi":"Copier lundi sur les jours vides","days.week_of":"Semaine du {date}",
   "days.off":"repos","days.add":"Ajouter des heures","f.start":"Début","f.end":"Fin","f.pause":"Pause","f.hours":"Heures","f.rate":"$/h","f.loc_aria":"Lieu de travail ce jour-là",
   "f.min":"{m} min",
-  "bar.sum":"{h} h · {d} · AUD","bar.day":"{n} jour","bar.days":"{n} jours","bar.pdf":"Télécharger le PDF",
+  "bar.sum":"{h} · {d} · AUD","bar.day":"{n} jour","bar.days":"{n} jours","bar.pdf":"Télécharger le PDF",
   "pdfm.need_client":"Choisis d'abord ton client.","pdfm.need_hours":"Mets au moins une journée de travail.","pdfm.no_lib":"Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge.",
   "pdfm.ready":"PDF prêt.","pdfm.fail":"Le PDF n'a pas pu être créé. Réessaie.",
   "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
@@ -1421,6 +1439,8 @@ const clean=s=>String(s).replace(/[  ]/g," ");
 const num=(n,d=2)=>clean((+n||0).toLocaleString(loc(),{minimumFractionDigits:d,maximumFractionDigits:d}));
 const fmt=n=>num(n,2);
 const money=n=>clean(new Intl.NumberFormat(loc(),{style:"currency",currency:"AUD",currencyDisplay:"narrowSymbol"}).format(+n||0));
+/* hours shown as clock time on screen: 11.5 → "11h30", 8 → "8h", 7.6 → "7h36" (the invoice itself keeps decimal hours) */
+function dur(n){let v=Math.round((+n||0)*60),h=Math.floor(v/60),m=v-h*60;return `${h}h${m?pad2(m):""}`}
 const hrs=n=>clean((Math.round((+n||0)*100)/100).toLocaleString(loc(),{maximumFractionDigits:2}));
 function storedLang(){try{const v=localStorage.getItem("sb_lang");return I18N[v]?v:null}catch(e){return null}}
 function applyStatic(){
@@ -1468,7 +1488,7 @@ const toMin=v=>{const[h,m]=v.split(":").map(Number);return h*60+m};
 const timeLabel=v=>{if(loc()!=="en-AU")return v;const[h,m]=v.split(":").map(Number);return `${h%12||12}:${pad2(m)}${h<12?"am":"pm"}`};
 function calcHours(r){if(!r.start||!r.end)return 0;let d=toMin(r.end)-toMin(r.start);if(d<0)d+=1440;d-=(P().unpaid?(r.pause||0):0);return Math.max(0,Math.round(d/60*100)/100)}
 const timeOpts=v=>`<option value="">–</option>`+TIMES.map(x=>`<option value="${x}"${x===v?" selected":""}>${timeLabel(x)}</option>`).join("");
-const hourOpts=v=>{let o=`<option value="0">–</option>`;for(let h=0.25;h<=16;h+=0.25)o+=`<option value="${h}"${Math.abs(h-v)<1e-9?" selected":""}>${hrs(h)} h</option>`;if(v&&Math.round(v*4)!==v*4)o=`<option value="${v}" selected>${hrs(v)} h</option>`+o;return o};
+const hourOpts=v=>{let o=`<option value="0">–</option>`;for(let h=0.25;h<=16;h+=0.25)o+=`<option value="${h}"${Math.abs(h-v)<1e-9?" selected":""}>${dur(h)}</option>`;if(v&&Math.round(v*4)!==v*4)o=`<option value="${v}" selected>${dur(v)}</option>`+o;return o};
 const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" selected":""}>${t("f.min",{m})}</option>`).join("");
 
 /* ---------- state ---------- */
@@ -1606,7 +1626,7 @@ function renderMode(){const m=P().mode==="hours"?"hours":"times",lk=locked();
   if(document.activeElement!==fr)fr.value=p.rate?p.rate:"";if(document.activeElement!==fd)fd.value=p.desc||"";
   $("unpaid").checked=!!p.unpaid;$("unpaidwrap").hidden=m==="hours";[fr,fd,$("unpaid")].forEach(x=>x.disabled=lk);
   const ot=I().ot||OT_DEF;$("ot_on").checked=!!ot.on;
-  $("ot_after").innerHTML=[6,7,7.6,8,9,10,11,12].map(v=>`<option value="${v}">${hrs(v)} h</option>`).join("");
+  $("ot_after").innerHTML=[6,7,7.6,8,9,10,11,12].map(v=>`<option value="${v}">${dur(v)}</option>`).join("");
   $("ot_mult").innerHTML=[1.25,1.5,2].map(v=>`<option value="${v}">× ${num(v,v===2?0:(v===1.5?1:2))}</option>`).join("");$("otbox").hidden=!ot.on;$("ot_after").value=String(ot.after);$("ot_mult").value=String(ot.mult);
   [$("ot_on"),$("ot_after"),$("ot_mult")].forEach(x=>x.disabled=lk);renderOtHint();
   $("gstwrap").hidden=!p.gstReg;$("gst_on").checked=!(I().gst&&I().gst.applies===false);$("gst_on").disabled=lk;
@@ -1614,7 +1634,7 @@ function renderMode(){const m=P().mode==="hours"?"hours":"times",lk=locked();
   $("ph_mult").innerHTML=[1.5,2,2.25,2.5].map(v=>`<option value="${v}">× ${num(v,v%1?(v===2.25?2:1):0)}</option>`).join("");$("ph_mult").value=String(ph.mult);
   [$("ph_on"),$("ph_mult")].forEach(x=>x.disabled=lk)}
 function renderOtHint(){const ot=I().ot||OT_DEF,rt=P().rate||0;
-  $("ot_hint").textContent=rt>0?t("ot.hint",{rate:money(rt),ot:money(rt*ot.mult),after:hrs(ot.after)}):t("ot.hint0",{after:hrs(ot.after)})}
+  $("ot_hint").textContent=rt>0?t("ot.hint",{rate:money(rt),ot:money(rt*ot.mult),after:dur(ot.after)}):t("ot.hint0",{after:dur(ot.after)})}
 function setOt(k,v){if(locked())return;const inv=I();inv.ot=Object.assign(clone(OT_DEF),inv.ot||{},{[k]:v});P().ot=clone(inv.ot);
   $("otbox").hidden=!inv.ot.on;renderOtHint();inv.rows.forEach((r,i)=>renderAmt(i));renderTotals();save()}
 function setMode(m){if(m!=="hours")m="times";if(P().mode===m)return;P().mode=m;
@@ -1624,12 +1644,12 @@ function renderDays(){renderMode();const inv=I(),multi=invType(inv)!=="week";let
   inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">${esc(t("days.week_of",{date:nice(mondayOf(r.date))}))}</div>`;h+=dayHtml(r,i)});
   $("daylist").innerHTML=h;inv.rows.forEach((r,i)=>renderAmt(i));renderCopy()}
 function renderAmt(i){const r=I().rows[i],el=$("amt"+i);if(!el)return;
-  const inv=I(),ph=isPh(r,inv),sp=ph?{n:+r.hours||0,x:0}:otSplit(r,inv.ot);el.textContent=r.hours>0?`${hrs(r.hours)} h · ${money(rowAmt(r,inv.ot,inv))}`:(isWkd(r.date)?t("days.off"):"–");
+  const inv=I(),ph=isPh(r,inv),sp=ph?{n:+r.hours||0,x:0}:otSplit(r,inv.ot);el.textContent=r.hours>0?`${dur(r.hours)} · ${money(rowAmt(r,inv.ot,inv))}`:(isWkd(r.date)?t("days.off"):"–");
   if(r.hours>0&&ph){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ph_incl",{m:num(inv.ph.mult,inv.ph.mult%1?1:0)});el.appendChild(sm)}
   const chip=document.querySelector(`#day${i} .phchip`);if(chip){chip.setAttribute("aria-pressed",String(ph));chip.classList.toggle("on",ph)}
-  if(r.hours>0&&sp.x>0){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ot_incl",{x:hrs(sp.x)});el.appendChild(sm)}if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
+  if(r.hours>0&&sp.x>0){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ot_incl",{x:dur(sp.x)});el.appendChild(sm)}if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
 function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length,c=invCalc(inv,meNow());$("total").textContent=money(c.total/100);
-  $("tothours").textContent=t("bar.sum",{h:hrs(invHours(inv)),d:t(d===1?"bar.day":"bar.days",{n:d})})+(c.taxable?" · "+t("bar.gst",{gst:money(c.gst/100)}):"")}
+  $("tothours").textContent=t("bar.sum",{h:dur(invHours(inv)),d:t(d===1?"bar.day":"bar.days",{n:d})})+(c.taxable?" · "+t("bar.gst",{gst:money(c.gst/100)}):"")}
 const isWeekday=r=>{const g=parse(r.date).getDay();return g>=1&&g<=5};
 const mondaySrc=()=>I().rows.find(r=>parse(r.date).getDay()===1&&r.hours>0);
 function renderCopy(){const m=mondaySrc(),b=$("copymon");
@@ -1763,12 +1783,12 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
   const yr=String(new Date().getFullYear()),cents2=e=>invCalc(e.inv,meNow()).total;
   const all=list.reduce((s,e)=>s+cents2(e),0),thisYr=list.filter(e=>String(e.inv.start||"").startsWith(yr)).reduce((s,e)=>s+cents2(e),0),hrsAll=list.reduce((s,e)=>s+invHours(e.inv),0);
   $("histsum").hidden=!list.length;
-  $("histsum").innerHTML=`<div><span>${esc(t("h.sum_all"))}</span><b>${esc(money(all/100))}</b></div><div><span>${esc(t("h.sum_year",{y:yr}))}</span><b>${esc(money(thisYr/100))}</b></div><div><span>${esc(t("h.sum_hours"))}</span><b>${esc(hrs(hrsAll))} h</b></div>`;
+  $("histsum").innerHTML=`<div><span>${esc(t("h.sum_all"))}</span><b>${esc(money(all/100))}</b></div><div><span>${esc(t("h.sum_year",{y:yr}))}</span><b>${esc(money(thisYr/100))}</b></div><div><span>${esc(t("h.sum_hours"))}</span><b>${esc(dur(hrsAll))}</b></div>`;
   if(!list.length){ul.innerHTML=`<li><span class="muted">${esc(t("h.empty"))}</span></li>`;return}
   list.forEach(e=>{const inv=e.inv,li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
     li.innerHTML=`<button class="hopen" type="button"><span class="hrange">${rangeText(inv.start,inv.end)}</span>
       <span class="hsub">${esc(t("pn."+invType(inv)))} · ${esc(t("h.inv",{no:inv.invno||"?"}))}${inv.billto?" · "+esc(inv.billto):""}</span>
-      <span class="htot"><b>${money(invTotal(inv))}</b> · ${hrs(invHours(inv))} h</span>${e.custom?`<span class="hname"></span>`:""}</button>
+      <span class="htot"><b>${money(invTotal(inv))}</b> · ${dur(invHours(inv))}</span>${e.custom?`<span class="hname"></span>`:""}</button>
       <div class="hact"><button class="ren" type="button">${esc(t("h.rename"))}</button><button class="hdel" type="button">${esc(t("h.delete"))}</button></div>`;
     if(e.custom)li.querySelector(".hname").textContent=e.name;
     if(e.id===p.curSaved)li.querySelector(".hrange").dataset.open=t("h.open");
@@ -1778,9 +1798,13 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
       const done=()=>{const v=inp.value.trim();if(v){e.name=v;e.custom=true}else{e.custom=false;e.name=defaultName(e.inv)}save();flushSave();renderHist()};
       box.querySelector("button").onclick=done;inp.addEventListener("keydown",k=>{if(k.key==="Enter")done()})};
     const del=li.querySelector(".hdel");del.onclick=()=>{if(!del.classList.contains("warn")){del.classList.add("warn");del.textContent=t("h.confirm");return}
-      p.saved=p.saved.filter(x=>x.id!==e.id);
-      if(p.curSaved===e.id){p.curSaved=null;p.inv=newInv(invType(inv),inv.start);renderAll()}
-      save();flushSave();renderHist();renderStatus()};
+      del.disabled=true;
+      (async()=>{if(sb&&session&&inv.id){try{await sb.rpc("delete_my_invoice",{p_draft_id:inv.id});
+          const {data:pr}=await sb.rpc("get_my_profile");if(pr&&"last_invno" in pr)p.lastInvNo=+pr.last_invno||0}catch(err){}}
+        p.saved=p.saved.filter(x=>x.id!==e.id);
+        if(p.curSaved===e.id){p.curSaved=null;const o=p.inv||{};p.inv={billto:o.billto,site:o.site};p.inv=newInv(invType(inv),inv.start);renderAll()}
+        else if(p.inv&&!p.inv.finished&&!(p.saved||[]).some(x=>x.inv&&String(x.inv.invno)===String(p.inv.invno))&&(parseInt(p.inv.invno)||0)>nextInvNo()){p.inv.invno=nextInvNo();renderAll()}
+        save();flushSave();renderHist();renderStatus()})()};
     ul.appendChild(li)})}
 
 /* menu + premium */
@@ -1925,7 +1949,7 @@ function renderDemo(){const s=$("demo_start"),e=$("demo_end"),r=$("demo_rate");
   e.innerHTML=TIMES.map(x=>`<option value="${x}"${x===ev?" selected":""}>${timeLabel(x)}</option>`).join("");
   const mon=mondayOf();$("demo_period").textContent=`${dmy(mon)} – ${dmy(addDays(mon,6))}`;$("demo_no").textContent=withLang(INVOICE_LANG,()=>t("pdf.no_short",{no:1}));
   let d=toMin(e.value)-toMin(s.value);if(d<0)d+=1440;const h=Math.round(d/60*100)/100,rate=parseFloat(r.value)||0;
-  $("demo_calc").textContent=`${hrs(h)} h × ${money(rate)}`;$("demo_day").textContent=t("demo.perday",{amount:money(h*rate)});
+  $("demo_calc").textContent=`${dur(h)} × ${money(rate)}`;$("demo_day").textContent=t("demo.perday",{amount:money(h*rate)});
   withLang(INVOICE_LANG,()=>{
     $("demo_rows").innerHTML=[0,1,2,3,4].map(i=>{const dt=addDays(mon,i);return `<tr><td>${dayName(dt)} ${dm(dt)}</td><td class="n">${hrs(h)}</td><td class="n">${fmt(rate)}</td><td class="n">${fmt(h*rate)}</td></tr>`}).join("");
     $("demo_week").textContent=money(h*rate*5)})}
@@ -2261,12 +2285,20 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
   const ab=box.querySelector("#md_abn");if(ab)two(ab,t("a.reset_confirm",{abn:fmtAbn(d.abn)}),()=>act("admin_reset_abn",{p_user:d.user_id},ab));
   const del=box.querySelector("#md_del");if(del)two(del,t("a.delete_confirm",{email:d.email}),async()=>{del.disabled=true;const {data:r,error}=await sb.rpc("admin_delete_user",{p_user:d.user_id});
     if(error||!r||!r.ok){admErr();del.disabled=false;return}admShow("users");$("adm_msg").textContent=t("a.deleted",{email:d.email})});
-  box.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
-  box.querySelectorAll("[data-pv]").forEach(b=>b.onclick=()=>adminView(b.dataset.pv,b))}
+  bindInv(box,()=>openMember(d.user_id))}
 function invLi(v,withWho){const per=v.start_date||v.start,end=v.end_date||v.end;
-  return `<li class="ainvrow"><span class="aumain"><strong>${esc(money(v.total))}</strong><span class="aumeta">${esc(t("h.inv",{no:v.invno||"?"}))} · ${per?esc(`${dm(String(per).slice(0,10))} → ${dmy(String(end).slice(0,10))}`):""} · ${esc(hrs(v.hours))} h</span>
+  return `<li class="ainvrow${v.deleted?" adeleted":""}"><span class="aumain">${v.deleted?`<span class="adeltag">${esc(t(v.deleted_by==="admin"?"a.inv_deleted_admin":"a.inv_deleted_user"))}</span>`:""}<strong>${esc(money(v.total))}</strong><span class="aumeta">${esc(t("h.inv",{no:v.invno||"?"}))} · ${per?esc(`${dm(String(per).slice(0,10))} → ${dmy(String(end).slice(0,10))}`):""} · ${esc(dur(v.hours))}</span>
     <span class="aumeta">${withWho?esc((v.name||v.email||"")+" · "):""}${esc(v.billto||"")} · ${esc(t("a.finished_on",{date:d8(v.created_at)}))}</span></span>
-    <span class="ainvbtns"><button type="button" class="adl-btn aeye" data-pv="${esc(v.id)}" aria-label="${esc(t("a.view"))}" title="${esc(t("a.view"))}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button type="button" class="adl-btn" data-dl="${esc(v.id)}">${esc(t("a.download"))}</button></span></li>`}
+    <span class="ainvbtns"><button type="button" class="adl-btn aeye" data-pv="${esc(v.id)}" aria-label="${esc(t("a.view"))}" title="${esc(t("a.view"))}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button type="button" class="adl-btn" data-dl="${esc(v.id)}">${esc(t("a.download"))}</button>${v.deleted?`<button type="button" class="adl-btn" data-rs="${esc(v.id)}">${esc(t("a.inv_restore"))}</button>`:`<button type="button" class="adl-btn adel" data-rm="${esc(v.id)}">${esc(t("a.inv_del"))}</button>`}</span></li>`}
+/* buttons on admin invoice rows (view, download, delete in 2 taps, restore) */
+function bindInv(box,reload){box.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
+  box.querySelectorAll("[data-pv]").forEach(b=>b.onclick=()=>adminView(b.dataset.pv,b));
+  const run=async(b,restore)=>{b.disabled=true;const {data:r,error}=await sb.rpc("admin_delete_invoice",{p_id:restore?b.dataset.rs:b.dataset.rm,p_restore:restore});
+    if(error||!r||!r.ok){b.disabled=false;if(r&&r.status==="conflict")$("adm_msg").textContent=t("a.inv_conflict");else admErr();return}
+    await reload();$("adm_msg").textContent=t(restore?"a.inv_restored":"a.inv_removed")};
+  box.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{if(!b.classList.contains("armed")){b.classList.add("armed");b.textContent=t("a.inv_del_confirm");
+      setTimeout(()=>{if(b.isConnected&&b.classList.contains("armed")){b.classList.remove("armed");b.textContent=t("a.inv_del")}},6000);return}run(b,false)});
+  box.querySelectorAll("[data-rs]").forEach(b=>b.onclick=()=>run(b,true))}
 async function adminView(id,btn){btn.disabled=true;try{const {data:r,error}=await sb.rpc("admin_get_invoice",{p_id:id});
   if(error||!r||!r.ok){admErr();return}showPreview(r.me||{},r.inv||{},{mark:false,back:"admin"})}catch(e){admErr()}finally{btn.disabled=false}}
 async function adminDownload(id,btn){btn.disabled=true;try{const JsPDF=await loadJsPDF();const {data:r,error}=await sb.rpc("admin_get_invoice",{p_id:id});
@@ -2281,8 +2313,7 @@ async function loadRecent(reset){if(reset){invOffset=0;$("adm_invlist").innerHTM
   if(error){admErr();return}
   if(!invOffset&&!rows.length)$("adm_invlist").innerHTML=`<li class="muted">${esc(t("a.no_inv"))}</li>`;
   $("adm_invlist").insertAdjacentHTML("beforeend",rows.map(v=>invLi(v,true)).join(""));
-  $("adm_invlist").querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
-  $("adm_invlist").querySelectorAll("[data-pv]").forEach(b=>b.onclick=()=>adminView(b.dataset.pv,b));
+  bindInv($("adm_invlist"),()=>loadRecent(true));
   invOffset+=rows.length;$("adm_invmore").hidden=rows.length<30}
 $("adm_invmore").onclick=()=>loadRecent(false);
 
