@@ -574,6 +574,11 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-family:var(--mono);font-size:1.2rem;font-weight:700;color:var(--accent-strong);flex:none}
 .faq details[open] summary::after{content:"–"}
+/* admin: online dot */
+.auline{display:flex;align-items:center;gap:7px;min-width:0}
+.auline .auemail{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.odot{width:10px;height:10px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px color-mix(in srgb,#22C55E 25%,transparent);flex:none}
+.ahead .odot{margin-right:2px}
 </style>
 </head>
 <body>
@@ -986,6 +991,14 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "a.f_seen":"Last visit",
+  "a.seen_on":"Last visit {date}",
+  "a.seen_h":"Seen {n} h ago",
+  "a.seen_min":"Seen {n} min ago",
+  "a.never_seen":"No visit recorded yet",
+  "a.seen24":"Visited in 24 h",
+  "a.online_n":"Online now",
+  "a.online":"Online now",
   "faq.a10":"Free: 3 finished invoices with every tool included, no History. Premium ($39 a year or $4.99 a month): unlimited invoices and a History of every invoice, with yearly totals, to download again anytime.",
   "faq.q10":"What's the difference between Free and Premium?",
   "faq.a9":"Until you finish it, change anything: it saves by itself. A finished invoice keeps its number so your records stay straight. To fix a mistake, tap “Fix a mistake: copy to a new invoice”, correct it and finish it under a new number, then tell your client to use the new one. On Free, this uses one of your free invoices.",
@@ -1131,7 +1144,7 @@ en:{
   "a.free_val":"{used} used of {limit}",
   "a.f_free":"Free invoices",
   "a.never":"never",
-  "a.f_last":"Last login",
+  "a.f_last":"Last login (password)",
   "a.f_joined":"Joined",
   "a.f_acc":"Account",
   "a.f_addr":"Address",
@@ -1308,6 +1321,14 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "a.f_seen":"Dernière visite",
+  "a.seen_on":"Dernière visite le {date}",
+  "a.seen_h":"Vu il y a {n} h",
+  "a.seen_min":"Vu il y a {n} min",
+  "a.never_seen":"Aucune visite enregistrée",
+  "a.seen24":"Venus en 24 h",
+  "a.online_n":"En ligne maintenant",
+  "a.online":"En ligne",
   "faq.a10":"Gratuit : 3 factures terminées avec tous les outils, sans historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées et historique de toutes tes factures, avec les totaux par année, à retélécharger quand tu veux.",
   "faq.q10":"Quelle différence entre Gratuit et Premium ?",
   "faq.a9":"Tant qu'elle n'est pas terminée, tu changes tout : ça s'enregistre tout seul. Une facture terminée garde son numéro pour que tes comptes restent clairs. Pour corriger une erreur, touche « Corriger une erreur : copier dans une nouvelle facture », corrige-la et termine-la sous un nouveau numéro, puis dis à ton client d'utiliser la nouvelle. En gratuit, ça utilise une de tes factures gratuites.",
@@ -1453,7 +1474,7 @@ fr:{
   "a.free_val":"{used} utilisée(s) sur {limit}",
   "a.f_free":"Factures gratuites",
   "a.never":"jamais",
-  "a.f_last":"Dernière connexion",
+  "a.f_last":"Dernière connexion (mot de passe)",
   "a.f_joined":"Inscrit le",
   "a.f_acc":"Compte",
   "a.f_addr":"Adresse",
@@ -1621,6 +1642,429 @@ fr:{
   "p.secure":"Paiement sécurisé par Stripe. Ton compte passe en Premium tout seul juste après.",
   "p.why_full":"La version gratuite garde {limit} factures. Supprime-en une dans l'historique ou passe en Premium.",
   "p.why_banner":"Garde toutes tes factures, sans limite.",
+},
+es:{
+  "_name":"Español",
+  "_short":"ES",
+  "_locale":"es-419",
+  "faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, sin historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas y un historial de todas tus facturas, con totales por año, para descargarlas otra vez cuando quieras.",
+  "faq.q10":"¿Qué diferencia hay entre Gratis y Premium?",
+  "faq.a9":"Mientras no esté terminada, cambia lo que quieras: se guarda sola. Una factura terminada conserva su número para que tus cuentas estén claras. Para corregir un error, toca «Corregir un error: copiar en una factura nueva», corrígela y termínala con un número nuevo, y dile a tu cliente que use la nueva. En Gratis, esto usa una de tus facturas gratuitas.",
+  "faq.q9":"¿Cómo modifico una factura?",
+  "faq.a8":"En tu cuenta de SubbieBill, en línea, no solo en tu teléfono: entra desde cualquier dispositivo y ahí están tus datos y tus borradores. Los borradores se guardan mientras escribes. Con Premium, cada factura queda en tu historial. En Gratis, las facturas terminadas no se guardan en un historial, así que guarda los PDF que descargas.",
+  "faq.q8":"¿Dónde se guardan mis facturas?",
+  "faq.a7":"Toca Terminar factura, revisa el resumen y luego Terminar y descargar PDF. El PDF va a tus descargas. En la mayoría de los teléfonos, Compartir PDF lo envía directo por Mail, Mensajes o WhatsApp. Descargar otra vez funciona mientras la factura esté abierta, y desde tu historial con Premium.",
+  "faq.q7":"¿Cómo descargo o comparto mi PDF?",
+  "faq.a6":"Una «Tax invoice» es para negocios registrados en el GST: muestra el GST (10 %) por separado, como lo exige la ATO. Si no estás registrado, SubbieBill crea una «Invoice» que indica que no se cobró GST, porque un negocio no registrado no puede llamar a su factura «tax invoice». En las tax invoices de $1,000 o más deben figurar el nombre o el ABN del cliente: SubbieBill siempre imprime el nombre del cliente.",
+  "faq.q6":"Invoice o Tax invoice: ¿cuál es la diferencia?",
+  "faq.a5":"Sí. Como subcontratista facturas con tu propio ABN, y SubbieBill lo pone en cada factura. Lo confirmas una vez y queda vinculado a tu cuenta. ¿Todavía no tienes ABN? Solicitarlo es gratis en abr.gov.au. Sin ABN, la empresa que te paga puede tener que retener el 47 % del pago.",
+  "faq.q5":"¿Necesito un ABN?",
+  "price.soon":"El pago en línea abre pronto. Empieza gratis ahora: tu cuenta pasa tal cual a Premium.",
+  "price.free_lim":"Sin historial en Gratis: guarda los PDF que descargas.",
+  "hero.how":"Mira cómo funciona ↓",
+  "i.n_acc":"número de cuenta",
+  "i.n_bsb":"BSB",
+  "i.n_abn":"ABN (toca Confirmar)",
+  "i.n_last":"apellido",
+  "i.n_first":"nombre",
+  "i.all_set":"Listo. Tus datos aparecerán en cada factura.",
+  "i.missing":"Falta para tu factura: {list}.",
+  "i.email_bad":"Este email no parece correcto.",
+  "i.acc_bad":"Revisa el número de cuenta: solo cifras, normalmente de 6 a 10.",
+  "i.bsb_bad":"Un BSB tiene 6 cifras, p. ej. 062-000.",
+  "rv.after_pro":"Terminar le da su número a la factura y crea el PDF. Queda en tu historial para descargarla o compartirla otra vez. Para corregir un error más tarde, cópiala en una factura nueva.",
+  "fin.copied":"Copiada en una factura nueva, n.º {no}. Corrígela y luego termínala.",
+  "fin.share":"Compartir PDF",
+  "rv.ph":"Feriado",
+  "rv.free":"Usa 1 de tus {n} facturas gratuitas restantes.",
+  "rv.after":"Terminar le da su número a la factura y crea el PDF. En Gratis, las facturas terminadas no se guardan en un historial: guarda bien el PDF. Para corregir un error, cópiala en una factura nueva.",
+  "rv.change":"Cambiar",
+  "rv.nogst2":"Sin GST en esta factura.",
+  "rv.nogst":"Sin GST (no registrado).",
+  "rv.total":"Total",
+  "rv.gst":"GST (10 %)",
+  "rv.sub":"Subtotal (sin GST)",
+  "rv.paid":"Pago a",
+  "rv.from":"De",
+  "rv.dates_v":"Emitida el {issue} · vence el {due}",
+  "rv.dates":"Fechas",
+  "rv.days_v":"{d} · {h}",
+  "rv.days":"Trabajo",
+  "rv.period":"Período",
+  "rv.billto":"Facturar a",
+  "rv.no":"Factura n.º",
+  "rv.type":"Documento",
+  "rv.back":"Volver a editar",
+  "rv.preview":"Ver la factura antes",
+  "rv.go":"Terminar y descargar PDF",
+  "rv.title":"Revisar y terminar",
+  "stt.done":"Terminada · {date}",
+  "stt.unsaved":"Borrador · aún sin guardar",
+  "stt.saving":"Borrador · guardando…",
+  "stt.draft_hist":"Borrador · guardado en el historial",
+  "stt.draft":"Borrador · guardado",
+  "stt.new":"Factura nueva",
+  "days.long":"Jornada larga: revisa las horas",
+  "days.no_rate":"Todavía sin tarifa por hora",
+  "rel.next_fortnight":"Próximas 2 semanas",
+  "rel.last_fortnight":"Las 2 semanas anteriores",
+  "rel.this_fortnight":"Estas 2 semanas",
+  "rel.next_week":"La próxima semana",
+  "rel.last_week":"La semana pasada",
+  "rel.this_week":"Esta semana",
+  "h.sum_hours":"Horas",
+  "h.sum_year":"En {y}",
+  "h.sum_all":"Total facturado",
+  "fin.dup_no":"Ese número de factura ya se usó. Ahora es el n.º {no}: toca Terminar otra vez.",
+  "meta.cabn_1000":"Tax invoice de $1,000 o más: lleva el nombre del cliente. Agregar su ABN es opcional.",
+  "meta.cabn_bad":"El ABN del cliente no es válido (11 cifras). Corrígelo o déjalo vacío.",
+  "meta.cabn":"ABN del cliente (opcional)",
+  "bar.gst":"incl. GST {gst}",
+  "g.apply":"Agregar GST (10 %) a esta factura",
+  "g.note_yes":"Tus facturas pasan a ser «Tax invoices» con el GST (10 %) por separado. Puedes desactivar el GST en una factura donde no corresponda.",
+  "g.note_no":"No puedes cobrar GST. Tus facturas dicen «Invoice» y «No GST has been charged». El registro es obligatorio cuando tu facturación GST llega a $75,000 al año.",
+  "g.yes":"Registrado en el GST",
+  "g.no":"No registrado",
+  "g.label":"GST",
+  "ins.desk2":"En tu teléfono, abre este sitio y usa «Agregar a pantalla de inicio».",
+  "ins.desk1":"En una computadora, haz clic en el ícono de instalar a la derecha de la barra de direcciones (Chrome o Edge).",
+  "ins.sam2":"Toca «Agregar página a» y luego «Pantalla de inicio».",
+  "ins.sam1":"Toca el menú ≡ abajo a la derecha.",
+  "ins.and2":"Toca «Agregar a pantalla de inicio» o «Instalar app» y confirma.",
+  "ins.and1":"En Chrome, toca el menú ⋮ arriba a la derecha.",
+  "ins.ios3":"Toca «Agregar». El ícono de SubbieBill aparece en tu pantalla de inicio.",
+  "ins.ios2":"Desliza hacia abajo y toca «Agregar a inicio».",
+  "ins.ios_other1":"Toca el botón Compartir (el cuadrado con una flecha hacia arriba), junto a la barra de direcciones.",
+  "ins.ios1":"En Safari, toca el botón Compartir: el cuadrado con una flecha hacia arriba. En iOS 26 está dentro del menú «•••» de abajo.",
+  "ins.later":"Ahora no",
+  "ins.add":"Agregar",
+  "ins.tip":"Pon SubbieBill en tu pantalla de inicio para abrirlo con un toque.",
+  "ins.ok":"Entendido",
+  "ins.intro":"SubbieBill se abre a pantalla completa, como una app. Sin App Store.",
+  "ins.title":"Agregar a pantalla de inicio",
+  "ins.menu_sub":"abre SubbieBill como una app",
+  "ins.menu":"Agregar a pantalla de inicio",
+  "code.expired":"Este código venció. Pide uno nuevo.",
+  "code.bad":"El código es incorrecto o venció. Revísalo o pide uno nuevo.",
+  "code.short":"Escribe el código completo del email.",
+  "code.too_many":"Se enviaron demasiados códigos. Espera unos minutos y vuelve a intentarlo.",
+  "code.sent":"Un código nuevo está en camino.",
+  "code.spam":"¿No lo encuentras? Revisa la carpeta de spam o promociones.",
+  "code.back":"Cambiar email",
+  "code.wait":"Código nuevo en {s} s",
+  "code.resend":"Enviar un código nuevo",
+  "code.verify":"Confirmar mi email",
+  "code.label":"Código de confirmación",
+  "code.intro":"Enviamos un código de confirmación a {email}. Escríbelo abajo para activar tu cuenta.",
+  "code.title":"Revisa tu email",
+  "fin.blocked":"Esta cuenta está suspendida. Escribe a {email}.",
+  "ph.em":"Lunes de Pascua",
+  "ph.gf":"Viernes Santo",
+  "ph.boxing":"Boxing Day",
+  "ph.xmas":"Navidad",
+  "ph.anzac":"Día de Anzac",
+  "ph.aus":"Día de Australia",
+  "ph.ny":"Año Nuevo",
+  "days.ph_incl":"feriado × {m}",
+  "ph.chip":"Feriado",
+  "ph.hint":"Toca «Feriado» en el día que trabajaste. Los feriados nacionales (Navidad, Día de Anzac, Viernes Santo…) ya están marcados.",
+  "ph.paid":"Feriados pagados",
+  "ph.on":"Feriados con tarifa más alta",
+  "days.ot_incl":"incl. {x} extra",
+  "days.ot_short":"{x} extra",
+  "ot.hint0":"Escribe tu tarifa por hora para ver tu tarifa de horas extra.",
+  "ot.hint":"{rate}/h pasa a {ot}/h después de {after} en el día.",
+  "ot.per_day":"al día, pagadas",
+  "ot.after":"Después de",
+  "ot.on":"Horas extra pagadas (tarifa más alta)",
+  "pdfm.need_rate":"Un día trabajado no tiene tarifa por hora. Escribe tu tarifa arriba o en ese día.",
+  "o.wkd":"Los fines de semana empiezan en $0/h. Si trabajas uno, pon la tarifa en ese día.",
+  "o.desc_ph":"p. ej. Labour",
+  "o.desc":"Descripción en la factura",
+  "o.rate_ph":"p. ej. 40",
+  "o.rate":"Tarifa por hora ($/h)",
+  "pv.note":"Esto es una vista previa, no una factura válida. Termina la factura para obtener el PDF real.",
+  "pv.mark":"VISTA PREVIA",
+  "pv.title":"Vista previa de la factura",
+  "bar.preview":"Vista previa",
+  "i.first":"Nombre",
+  "i.last":"Apellido",
+  "nav.app":"Mis facturas",
+  "fin.missing":"El servicio de facturas aún no está listo. Inténtalo más tarde.",
+  "fin.abn_missing":"Primero confirma tu ABN en Mis datos.",
+  "i.abn_locked_note":"Tu ABN está vinculado a tu cuenta. Si es incorrecto, escribe a {email}.",
+  "i.abn_err":"No se pudo guardar tu ABN. Inténtalo otra vez.",
+  "i.abn_taken":"Este ABN ya está vinculado a otra cuenta de SubbieBill.",
+  "i.abn_saved":"ABN confirmado y vinculado a tu cuenta.",
+  "i.abn_confirm2":"¿Vincular el ABN {abn}?",
+  "i.abn_confirm":"Confirmar mi ABN",
+  "i.abn_warn":"Revísalo bien. Una vez confirmado, tu ABN queda vinculado a tu cuenta para siempre y no se puede cambiar.",
+  "auth.abn_note":"Necesitarás tu ABN. Queda vinculado a tu cuenta para siempre y no se puede cambiar después.",
+  "days.mode_hours":"Horas trabajadas",
+  "days.mode_times":"Inicio – fin",
+  "days.mode_aria":"Cómo ingresas tus horas",
+  "save.auto_pro":"Guardada automáticamente en tu historial ✓",
+  "auth.pass_ph_login":"Tu contraseña",
+  "save.locked":"Historial automático · Premium",
+  "p.why_save":"Con Premium, cada factura que llenas se guarda sola en tu historial.",
+  "p.why_limit":"Usaste tus 3 facturas gratuitas. Pásate a Premium para seguir facturando.",
+  "bar.finish":"Terminar factura",
+  "bar.confirm":"Toca para confirmar",
+  "bar.redownload":"Descargar otra vez",
+  "bar.working":"Creando tu factura…",
+  "quota.left":"Te quedan {n} de {limit} facturas gratuitas",
+  "quota.none":"No te quedan facturas gratuitas",
+  "fin.locked":"Factura terminada el {date}. El PDF está listo para enviar.",
+  "fin.next":"Empezar la siguiente factura",
+  "fin.edit":"Corregir un error: copiar en una factura nueva",
+  "fin.done":"Factura terminada. El PDF está en tus descargas.",
+  "fin.again":"Descargada otra vez.",
+  "fin.abn_taken":"Este ABN ya lo usa otra cuenta de SubbieBill.",
+  "fin.abn_invalid":"Este ABN no es válido. Revísalo en Mis datos.",
+  "fin.details":"Tus datos aún no están completos: mira abajo lo que falta.",
+  "fin.server":"No se pudo contactar al servidor de facturas. Revisa tu conexión e inténtalo otra vez.",
+  "fin.auth":"Tu sesión venció. Vuelve a iniciar sesión.",
+  "fin.bad":"Algo en esta factura no es válido. Revisa tus horas y tarifas.",
+  "st.abn_taken":"Este ABN ya lo usa otra cuenta. Tus cambios no se guardaron.",
+  "i.abn_bad":"Este ABN no parece correcto (11 cifras).",
+  "m.admin":"Admin",
+  "m.admin_sub":"estadísticas y miembros",
+  "days":["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  "doc.title":"SubbieBill · Facturación para subcontratistas con ABN",
+  "lang.label":"Idioma",
+  "nav.login":"Iniciar sesión",
+  "nav.home":"SubbieBill, inicio",
+  "hero.title":"Horas adentro. Factura afuera. En 30 segundos.",
+  "hero.lede":"Para subbies con ABN en Australia que cobran por hora. Anotas tu hora de inicio y de fin: SubbieBill hace las cuentas y crea una factura PDF profesional. Sin planillas, sin plantillas.",
+  "hero.cta":"Crear mi primera factura",
+  "hero.note":"Tus 3 primeras facturas son gratis. Sin tarjeta.",
+  "proof.aria":"Hecho para Australia",
+  "proof.abn":"en cada factura",
+  "proof.bsb":"y número de cuenta",
+  "proof.aud":"al centavo",
+  "proof.periods":"Semanal, quincenal o mensual",
+  "demo.title":"Pruébalo ahora",
+  "demo.sub":"Cambia las horas y mira cómo la factura se llena sola.",
+  "demo.s1":"Horas",
+  "demo.s2":"Cálculo",
+  "demo.s3":"Factura",
+  "demo.start":"Inicio",
+  "demo.end":"Fin",
+  "demo.rate":"Tarifa $/h",
+  "demo.aria":"Vista previa de factura de ejemplo",
+  "demo.sample":"EJEMPLO",
+  "demo.name":"Tu nombre",
+  "demo.client":"Tu cliente Pty Ltd",
+  "demo.perday":"{amount} / día",
+  "demo.cta":"Crear mi factura real",
+  "how.title":"Tres pasos. El papeleo, una sola vez.",
+  "how.1t":"Tus datos, una vez",
+  "how.1d":"Nombre, ABN, BSB y número de cuenta. Van en cada factura.",
+  "how.2t":"Tus horas",
+  "how.2d":"Inicio y fin de cada día. Llena el lunes y cópialo al resto de la semana.",
+  "how.3t":"Tu PDF",
+  "how.3d":"Una factura limpia, lista para enviar a la empresa para la que trabajas.",
+  "why.title":"Hecho para subbies, no para contadores",
+  "why.1t":"¿Cobras por hora? Esto es para ti.",
+  "why.1d":"Sin presupuestos ni inventario. Solo tus horas, tu tarifa y tu cliente.",
+  "why.2t":"Sin errores de cálculo",
+  "why.2d":"Horas, montos y totales se suman solos, con tarifas de fin de semana incluidas.",
+  "why.3t":"Semanal, quincenal o mensual",
+  "why.3d":"Factura con el mismo ciclo en que te paga la empresa.",
+  "why.4t":"Llénala sobre la marcha",
+  "why.4d":"Tu factura queda guardada. Agrégale horas en tu descanso.",
+  "why.5t":"Todas tus facturas, guardadas",
+  "why.5d":"Con Premium, cada factura queda guardada y a un toque. Práctico para los impuestos.",
+  "why.6t":"En tu teléfono, en la obra",
+  "why.6d":"Nada que instalar. Agrega SubbieBill a tu pantalla de inicio.",
+  "price.title":"Pruébalo gratis. Pásate a Premium cuando factures cada semana.",
+  "price.free":"Gratis",
+  "price.free_amt":"$0",
+  "price.f1":"3 facturas terminadas (PDF), gratis",
+  "price.f2":"Semanal, quincenal o mensual",
+  "price.f3":"Horas extra, feriados y GST calculados",
+  "price.f4":"Clientes, lugares y borradores guardados",
+  "price.free_cta":"Empezar gratis",
+  "price.pro":"Premium",
+  "price.pro_tag":"Anual: ahorras $20",
+  "price.pro_amt":"$39",
+  "price.pro_per":" / año",
+  "price.pro_alt":"o $4.99 al mes",
+  "price.p1":"Facturas ilimitadas",
+  "price.p2":"Historial de todas tus facturas, con totales por año",
+  "price.p3":"Descarga otra vez cualquier factura anterior",
+  "price.p4":"Cancela cuando quieras",
+  "price.pro_cta":"Empieza gratis, pásate cuando quieras",
+  "price.fine":"Precios en dólares australianos. Una oferta gratuita por ABN. Si dejas Premium, vuelves a Gratis: tu historial queda en tu cuenta y vuelve con Premium.",
+  "faq.title":"Preguntas frecuentes",
+  "faq.q1":"¿Qué aparece en la factura?",
+  "faq.a1":"Tu nombre, ABN, datos de contacto, BSB y número de cuenta, la empresa a la que facturas, el número de factura, las fechas, el detalle de tus horas día por día y el total en AUD. La factura siempre está en inglés, en formato australiano, aunque uses SubbieBill en español.",
+  "faq.q2":"¿Cómo funciona el GST?",
+  "faq.a2":"Indica una vez, en Mis datos, si estás registrado en el GST. Registrado: tus facturas suman el GST (10 %) a tus horas, y puedes desactivarlo en una factura donde no corresponda. No registrado: no se agrega GST. El registro es obligatorio cuando tu facturación GST llega a $75,000 al año. Si tienes dudas, consulta a tu contador.",
+  "faq.q3":"¿Quién puede ver mis datos bancarios?",
+  "faq.a3":"Tú, y el administrador de SubbieBill cuando ayuda con tu cuenta. Tus datos están vinculados a tu cuenta, protegidos por tu contraseña y se envían por una conexión cifrada. Tus clientes solo los ven en las facturas que les envías.",
+  "faq.q4":"¿Puedo cancelar Premium?",
+  "faq.a4":"Sí, cuando quieras. Vuelves a Gratis: tu historial queda en tu cuenta y vuelve si regresas a Premium.",
+  "auth.title_signup":"Crea tu cuenta gratis",
+  "auth.title_login":"Qué bueno verte de nuevo",
+  "auth.tab_signup":"Registrarse",
+  "auth.tab_login":"Iniciar sesión",
+  "auth.email":"Email",
+  "auth.email_ph":"tu@ejemplo.com",
+  "auth.pass":"Contraseña",
+  "auth.pass_ph":"Mínimo 8 caracteres",
+  "auth.pass2":"Confirma la contraseña",
+  "auth.submit_signup":"Crear mi cuenta gratis",
+  "auth.submit_login":"Iniciar sesión",
+  "auth.wait":"Un momento…",
+  "auth.forgot":"¿Olvidaste tu contraseña?",
+  "err.email":"Escribe un email válido.",
+  "err.pass_len":"Tu contraseña necesita al menos 8 caracteres.",
+  "err.pass_match":"Las dos contraseñas no coinciden.",
+  "err.bad_login":"Email o contraseña incorrectos.",
+  "err.exists":"Esta cuenta ya existe. Inicia sesión.",
+  "err.confirm":"Confirma tu email antes de iniciar sesión.",
+  "err.created_confirm":"Cuenta creada. Abre el email de confirmación y luego inicia sesión.",
+  "err.offline":"Sin conexión. Inténtalo otra vez.",
+  "err.service":"No se puede contactar al servicio. Revisa tu conexión y recarga.",
+  "err.load":"No se pudo cargar tu cuenta. Recarga la página.",
+  "err.forgot":"Escribe a {email} desde la dirección de tu cuenta.",
+  "foot.tag":"Facturación para subcontratistas con ABN en Australia.",
+  "foot.q":"¿Preguntas?",
+  "top.free":"Gratis",
+  "top.premium":"Premium",
+  "top.history":"Historial",
+  "top.menu":"Menú",
+  "sheet.close":"Cerrar",
+  "onb.title":"Bienvenido a SubbieBill",
+  "onb.sub":"Tres pasos y tu primera factura está lista.",
+  "onb.s1":"Tus datos (una sola vez)",
+  "onb.fill":"Completar",
+  "onb.s2":"A quién facturas",
+  "onb.s3":"Tus horas",
+  "per.aria":"Período de la factura",
+  "per.week":"Semana",
+  "per.fortnight":"2 semanas",
+  "per.month":"Mes",
+  "pn.week":"Semanal",
+  "pn.fortnight":"Quincenal",
+  "pn.month":"Mensual",
+  "nav.prev":"Período anterior",
+  "nav.next":"Período siguiente",
+  "nav.today":"Volver a hoy",
+  "ctx.client":"Cliente",
+  "ctx.site":"Lugar de trabajo (opcional)",
+  "ctx.choose":"Elegir…",
+  "ctx.add_client":"+ Agregar un cliente",
+  "ctx.add_site":"+ Agregar un lugar",
+  "ctx.client_ph":"Empresa a la que facturas",
+  "ctx.site_ph":"Dirección o barrio",
+  "meta.no":"Factura n.º",
+  "meta.issue":"Emitida",
+  "meta.due":"Vence",
+  "meta.sum":"Factura {no} · emitida {issue} · vence {due}",
+  "save.btn":"Guardar factura",
+  "save.done":"Guardada ✓",
+  "st.saving":"Guardando…",
+  "st.in_hist":"En tu historial. Los cambios se guardan solos.",
+  "st.not_saved":"Todavía no está en tu historial.",
+  "st.saved":"Factura guardada en tu historial.",
+  "st.already":"Ya está guardada. Los cambios se guardan solos.",
+  "st.need_day":"Agrega al menos un día antes de guardar.",
+  "st.expired":"Sesión vencida. Vuelve a iniciar sesión.",
+  "st.err":"No se guardó: {msg}",
+  "st.full":"El historial gratuito está lleno.",
+  "st.retry":"No se guardó. Inténtalo otra vez.",
+  "st.offline":"Sin conexión. No se guardó.",
+  "st.loading":"Cargando…",
+  "st.shrink":"No se puede: {n} día(s) trabajado(s) quedarían fuera de este período. Elige un período más largo o empieza una factura nueva.",
+  "st.paid_wait":"Pago recibido. Activando Premium…",
+  "st.paid_ok":"Premium activado. ¡Gracias!",
+  "st.paid_later":"Pago recibido. Premium se activará en unos minutos.",
+  "days.title":"Tus horas",
+  "days.copy_week":"Copiar el lunes a mar → vie",
+  "days.copy_multi":"Copiar el lunes a los días vacíos",
+  "days.week_of":"Semana del {date}",
+  "days.off":"día libre",
+  "days.add":"Agregar horas",
+  "f.start":"Inicio",
+  "f.end":"Fin",
+  "f.pause":"Descanso",
+  "f.hours":"Horas",
+  "f.rate":"$/h",
+  "f.loc_aria":"Lugar de este día",
+  "f.min":"{m} min",
+  "bar.sum":"{h} · {d} · AUD",
+  "bar.day":"{n} día",
+  "bar.days":"{n} días",
+  "bar.pdf":"Descargar PDF",
+  "pdfm.need_client":"Primero elige tu cliente.",
+  "pdfm.need_hours":"Agrega al menos un día trabajado.",
+  "pdfm.no_lib":"El módulo PDF no cargó. Revisa tu conexión y recarga.",
+  "pdfm.ready":"PDF listo.",
+  "pdfm.fail":"No se pudo crear el PDF. Inténtalo otra vez.",
+  "m.title":"Menú",
+  "m.account":"Cuenta",
+  "m.premium":"Pasar a Premium",
+  "m.manage":"Gestionar mi suscripción",
+  "m.infos":"Mis datos",
+  "m.infos_sub":"nombre, ABN, banco",
+  "m.settings":"Ajustes",
+  "m.settings_sub":"tarifas, ingreso de horas",
+  "m.lists":"Clientes y lugares",
+  "m.lists_sub":"gestiona tus listas",
+  "m.logout":"Cerrar sesión",
+  "plan.free":"Gratis · te quedan {n} de {limit} facturas gratuitas",
+  "plan.pro":"Premium",
+  "plan.pro_until":"Premium hasta el {date}",
+  "i.title":"Mis datos",
+  "i.intro":"Van en cada factura. Complétalos una sola vez.",
+  "i.name":"Nombre completo",
+  "i.abn":"ABN",
+  "i.abn_ph":"11 cifras",
+  "i.email":"Email (opcional)",
+  "i.phone":"Teléfono (opcional)",
+  "i.addr":"Dirección (opcional)",
+  "i.bsb":"BSB",
+  "i.acc":"Número de cuenta",
+  "i.ok":"Listo",
+  "s.title":"Ajustes",
+  "s.mode":"Cómo ingresas tus horas",
+  "s.times":"Inicio y fin",
+  "s.hours":"Cantidad de horas",
+  "s.unpaid":"Tomo un descanso no pagado",
+  "s.rate":"Tarifa por hora entre semana ($/h)",
+  "s.desc":"Descripción en la factura",
+  "s.note":"Sábado y domingo empiezan en $0/h. Si trabajas un fin de semana, pon la tarifa en ese día.",
+  "s.ok":"OK",
+  "l.title":"Clientes y lugares",
+  "l.clients":"Clientes",
+  "l.sites":"Lugares",
+  "l.none_c":"Todavía no hay clientes.",
+  "l.none_s":"Todavía no hay lugares.",
+  "l.note":"Para agregar uno, elige «+ Agregar» en la lista de Cliente o Lugar.",
+  "l.remove":"Quitar",
+  "h.title":"Historial",
+  "h.count_pro":"{n} factura(s)",
+  "h.count_free":"{n} / {limit} facturas guardadas en Gratis",
+  "h.empty":"Todavía no hay facturas. En cuanto agregues horas, la factura aparece aquí sola.",
+  "h.open":"abierta",
+  "h.inv":"Factura {no}",
+  "h.rename":"Renombrar",
+  "h.delete":"Eliminar",
+  "h.confirm":"Confirmar eliminación",
+  "h.name_ph":"Nombre de la factura",
+  "h.ok":"OK",
+  "p.title":"Premium",
+  "p.f1":"Facturas ilimitadas",
+  "p.f2":"Historial de todas tus facturas, con totales por año",
+  "p.f3":"Descarga otra vez cualquier factura anterior · cancela cuando quieras",
+  "p.yearly":"$39 al año · ahorras $20",
+  "p.monthly":"$4.99 al mes",
+  "p.soon":"El pago en línea abre pronto. ¿Quieres Premium ya? Escribe a {email}.",
+  "p.secure":"Pago seguro con Stripe. Tu cuenta pasa a Premium justo después.",
+  "p.why_full":"El plan gratuito guarda {limit} facturas. Elimina una de tu historial o pásate a Premium.",
+  "p.why_banner":"Guarda todas tus facturas, sin límite."
 }};
 
 /* ===== SETTINGS ===== */
@@ -2097,10 +2541,14 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   const open=data.curSaved&&p.saved.find(x=>x.id===data.curSaved);
   p.inv=draft;p.curSaved=open?open.id:null;syncMsg=null;
   if(draft&&!open&&hasHours(draft)){renderAll()}else{openPeriod(p.period,todayIso())}}
+let pingT=null;
+function ping(){if(session&&sb&&!document.hidden)Promise.resolve(sb.rpc("ping")).catch(()=>{})}
+function startPing(){clearInterval(pingT);ping();pingT=setInterval(ping,90000)}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)ping()});
 async function loadAccount(user){view="app";let {data,error}=await sb.rpc("get_my_profile");
   if(error&&sb.auth.refreshSession){try{await sb.auth.refreshSession()}catch(e){}({data,error}=await sb.rpc("get_my_profile"))}   /* expired access token: refresh once, stay logged in */
   if(error){$("autherr").textContent=t("err.load");return false}
-  applyProfile(user,data);
+  applyProfile(user,data);startPing();
   if(plan.premium&&P().inv&&hasHours(I())&&!curEntry()){addToHistory();save()}   /* just became Premium: the open invoice joins the history */
   return true}
 
@@ -2184,7 +2632,7 @@ async function doInstall(){closeMenu();
 $("m_install").onclick=doInstall;$("instip_go").onclick=doInstall;
 $("instip_x").onclick=()=>{try{localStorage.setItem("sb_ins_x","later")}catch(e){}renderInstall()};
 
-$("logout").onclick=async()=>{flushSave();closeMenu();closeSheet();if(sb)await sb.auth.signOut();session=null;state={me:null,clients:[],sites:[]};renderTop();setAuthMode("login");window.scrollTo(0,0)};
+$("logout").onclick=async()=>{clearInterval(pingT);flushSave();closeMenu();closeSheet();if(sb)await sb.auth.signOut();session=null;state={me:null,clients:[],sites:[]};renderTop();setAuthMode("login");window.scrollTo(0,0)};
 
 /* ---------- landing demo ---------- */
 function renderDemo(){const s=$("demo_start"),e=$("demo_end"),r=$("demo_rate");
@@ -2244,38 +2692,32 @@ function drawInvoice(doc, me, inv) {
   // title
   font("bold", 22); col(ORANGE); doc.text(title, L, 24.7);
 
-  // supplier (left): who is issuing the invoice
+  // supplier (left)
   let ly = 37;
-  font("bold", 12); col(INK); doc.text(fit(me.name, 95), L, ly); ly += STEP + 1;
+  font("bold", 10); col(INK); doc.text(fit(me.name, 95), L, ly); ly += STEP + .4;
   font("normal", 9);
-  [me.abn ? "ABN " + pfmtAbn(me.abn) : "", me.addr, me.phone, me.email]
+  [me.abn ? "ABN number: " + String(me.abn).replace(/\D/g, "") : "", me.email, me.phone, me.addr,
+   me.bsb ? "BSB: " + me.bsb : "", me.acc ? "Account number: " + me.acc : ""]
     .filter(Boolean).forEach((s) => { doc.text(fit(s, 95), L, ly); ly += STEP; });
 
-  // invoice details (right): labels and values right-aligned
+  // invoice info (right): labels right-aligned, values right-aligned
   let ry = 37;
   const per = inv.start && inv.end ? `${pdmy(inv.start)} – ${pdmy(inv.end)}` : "";
-  [["Invoice No:", inv.invno], ["Issue date:", pdmy(inv.issue)], ["Due date:", pdmy(inv.due)], per ? ["Period:", per] : null].filter(Boolean).forEach(([k, v]) => {
-    font("normal", 9); col(MUT); doc.text(k, 150, ry, { align: "right" });
-    font("bold", 9); col(INK); doc.text(fit(v, 40), R, ry, { align: "right" });
-    ry += STEP;
+  [["Bill to:", inv.billto], inv.billto_abn ? ["Client ABN:", String(inv.billto_abn).replace(/\D/g, "")] : null,
+   ["Invoice No:", inv.invno], ["Issue date:", pdmy(inv.issue)], ["Due date:", pdmy(inv.due)], per ? ["Period:", per] : null].filter(Boolean).forEach(([k, v]) => {
+    font("bold", 9); const lines = doc.splitTextToSize(ptxt(v), 46).slice(0, 3);
+    font("normal", 9); col(MUT); doc.text(k, 144, ry, { align: "right" });
+    font("bold", 9); col(INK); lines.forEach((t, i) => doc.text(t, R, ry + i * 4.4, { align: "right" }));
+    ry += STEP + (lines.length - 1) * 4.4;
   });
 
-  // bill to: the client, on its own block
-  let y = Math.max(ly, ry) + 4;
-  hline(y - 4.5, LINE, 0.25);
-  font("bold", 7.5); col(MUT); doc.text("BILL TO", L, y); y += 5;
-  font("bold", 10); col(INK);
-  const bt = doc.splitTextToSize(ptxt(inv.billto), 120).slice(0, 2); bt.forEach((t) => { doc.text(t, L, y); y += 4.8; });
-  if (inv.billto_abn) { font("normal", 9); col(INK); doc.text("ABN " + pfmtAbn(inv.billto_abn), L, y); y += 4.8; }
-  y += 6;
-
   // table: Date · Location · Description · Hours · Rate (AUD/hr) · Amount (AUD)
-  const C = { date: L + 1, loc: 36, desc: 86, qty: 136, rate: 163, amt: R - 1 }, hasLoc = calc.lines.some((l) => String(l.loc || "").trim());
-  if (!hasLoc) C.desc = C.loc;   /* no site on any line: no empty Location column */
+  let y = Math.max(ly, ry) + 8;
+  const C = { date: L + 1, loc: 36, desc: 86, qty: 136, rate: 163, amt: R - 1 };
   const head = () => {
     doc.setFillColor(SOFT[0], SOFT[1], SOFT[2]); doc.rect(L, y - 4.6, R - L, 7.2, "F");
     font("bold", 7.5); col(MUT);
-    doc.text("Date", C.date, y); if (hasLoc) doc.text("Location", C.loc, y); doc.text("Description", C.desc, y);
+    doc.text("Date", C.date, y); doc.text("Location", C.loc, y); doc.text("Description", C.desc, y);
     doc.text("Hours", C.qty, y, { align: "right" }); doc.text("Rate (AUD/hr)", C.rate, y, { align: "right" }); doc.text("Amount (AUD)", C.amt, y, { align: "right" });
     hline(y + 2.6, INK, 0.5); y += 8.6;
   };
@@ -2286,20 +2728,19 @@ function drawInvoice(doc, me, inv) {
     if (y > BOTTOM) newPage();
     font("normal", 9); col(INK);
     doc.text(pdm(l.date), C.date, y);
-    if (hasLoc) doc.text(fit(l.loc, 47), C.loc, y);
-    doc.text(fit(l.desc, hasLoc ? 47 : 95), C.desc, y);
+    doc.text(fit(l.loc, 47), C.loc, y);
+    doc.text(fit(l.desc, 33), C.desc, y);
     doc.text(phrs(l.hours), C.qty, y, { align: "right" });
     doc.text(c2(l.rate), C.rate, y, { align: "right" });
     doc.text(c2(l.amt), C.amt, y, { align: "right" });
     hline(y + 3.2, LINE, 0.25); y += 8;
   });
-  if (calc.lines.length) { font("bold", 8.5); col(MUT); doc.text("Total hours", C.desc, y - 1); col(INK); doc.text(phrs(calc.hours), C.qty, y - 1, { align: "right" }); y += 3; }
 
-  // totals (right) and payment details (left), side by side, always on one page
-  const need = (calc.taxable ? 3 : 1) * 7 + 30;
+  // totals (right) — always fully on one page
+  const need = (calc.taxable ? 3 : 1) * 7 + 24;
   if (y + need > 284) newPage();
-  const tx = 122, top = y + 4;
-  y = top;
+  const tx = 122;
+  y += 4;
   font("normal", 9.5);
   if (calc.taxable) {
     col(MUT); doc.text("Subtotal (excl. GST)", tx, y); col(INK); doc.text(pmoney(calc.sub / 100), R, y, { align: "right" }); y += 6;
@@ -2313,11 +2754,12 @@ function drawInvoice(doc, me, inv) {
     : calc.reg ? "No GST applies to this invoice." : "Not registered for GST. No GST has been charged.";
   doc.text(note, R, y, { align: "right" }); y += 9;
 
-  let py = top;
-  font("bold", 7.5); col(MUT); doc.text("PAYMENT DETAILS", L, py); py += 5.4;
-  [me.bsb ? ["BSB", me.bsb] : null, me.acc ? ["Account no.", me.acc] : null, ["Reference", `Invoice ${ptxt(inv.invno)}`], ["Amount", pmoney(calc.total / 100)], ["Due by", pdmy(inv.due)]]
-    .filter(Boolean).forEach(([k, v]) => { font("normal", 9); col(MUT); doc.text(k, L, py); font("bold", 9); col(INK); doc.text(fit(v, 60), L + 24, py); py += 5; });
-  y = Math.max(y, py + 4);
+  // payment
+  if (y > 280) newPage();
+  font("bold", 9); col(INK); doc.text("Payment", L, y); y += 5;
+  font("normal", 9); col(INK);
+  const pay = `Please pay ${pmoney(calc.total / 100)} by ${pdmy(inv.due)}${me.bsb || me.acc ? " to the account above" : ""}. Reference: Invoice ${ptxt(inv.invno)}.`;
+  doc.splitTextToSize(pay, R - L).forEach((t) => { doc.text(t, L, y); y += 4.6; });
 
   const pages = doc.getNumberOfPages();
   for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 7.5); col(MUT); hline(285, LINE, 0.25);
@@ -2481,6 +2923,13 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
 /* ---------- admin (every call is checked by the server) ---------- */
 let admOffset=0,admTimer=null,admReq=0,admTab="ov",invOffset=0,admCur=null;
 const d8=v=>v?clean(new Date(v).toLocaleDateString(loc())):"–";
+/* date + time (the admin's own time zone) */
+const d8t=v=>v?clean(new Date(v).toLocaleDateString(loc(),{day:"2-digit",month:"2-digit",year:"numeric"}))+" · "+clean(new Date(v).toLocaleTimeString(loc(),{hour:"2-digit",minute:"2-digit"})):"–";
+/* online = the site sent its signal less than 3 minutes ago (it pings every 90 s while open) */
+const isOn=v=>!!v&&Date.now()-new Date(v).getTime()<3*60*1000;
+function seenTxt(v){if(!v)return t("a.never_seen");if(isOn(v))return t("a.online");const m=Math.max(1,Math.round((Date.now()-new Date(v).getTime())/60000));
+  if(m<60)return t("a.seen_min",{n:m});const h=Math.round(m/60);if(h<24)return t("a.seen_h",{n:h});return t("a.seen_on",{date:d8t(v)})}
+const odot=v=>isOn(v)?`<span class="odot" role="img" aria-label="${esc(t("a.online"))}" title="${esc(t("a.online"))}"></span>`:"";
 const admErr=()=>{$("adm_msg").textContent=t("a.err")};
 function admShow(tab){admTab=tab;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=k!==tab);$("adm_detail").hidden=true;$("adm_msg").textContent="";
   document.querySelectorAll('input[name="atab"]').forEach(x=>x.checked=x.value===tab);
@@ -2500,7 +2949,7 @@ async function loadOverview(){
   const tile=(k,v)=>`<div class="atile"><b>${esc(String(v))}</b><span>${esc(t(k))}</span></div>`;
   $("adm_stats").innerHTML=tile("a.users",data.users)+tile("a.new7",data.users_7d)+tile("a.active7",data.active_7d)+tile("a.premium",data.premium)+
     tile("a.paid",data.premium_paid)+tile("a.invoices",data.invoices)+tile("a.inv30",data.invoices_30d)+tile("a.total",money(data.invoiced_total))+
-    tile("a.atlimit",data.free_at_limit)+(data.blocked!=null?tile("a.blocked_n",data.blocked):"");
+    (data.online!=null?tile("a.online_n",data.online)+tile("a.seen24",data.seen_24h):"")+tile("a.atlimit",data.free_at_limit)+(data.blocked!=null?tile("a.blocked_n",data.blocked):"");
   const {data:ser,error:e2}=await sb.rpc("admin_series",{p_weeks:12});
   if(e2||!Array.isArray(ser)){$("adm_charts").innerHTML="";return}
   $("adm_charts").innerHTML=barChart(t("a.ch_signups"),ser.map(r=>({k:r.week,v:+r.signups})),v=>String(v))+
@@ -2523,8 +2972,9 @@ function badgeOf(u){const manual=u.source==="manual",expired=manual&&!u.premium,
   let b=t(stripe?"a.src_stripe":manual&&!expired?"a.src_manual":"a.src_free");
   if(manual&&!expired)b+=" · "+(u.until?t("a.until",{date:d8(u.until)}):t("a.perm"));if(expired)b+=" · "+t("a.expired");return b}
 function admRow(u){const li=document.createElement("li");li.className="arow";
-  li.innerHTML=`<button type="button" class="aopen"><span class="aumain"><strong class="auemail"></strong><span class="auname"></span>
-    <span class="aumeta">${esc(t("a.joined",{date:d8(u.created_at)}))} · ${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></span>
+  li.innerHTML=`<button type="button" class="aopen"><span class="aumain"><span class="auline">${odot(u.last_seen)}<strong class="auemail"></strong></span><span class="auname"></span>
+    <span class="aumeta">${esc(seenTxt(u.last_seen))} · ${esc(t("a.joined",{date:d8t(u.created_at)}))}</span>
+    <span class="aumeta">${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></span>
     <span class="auact"><span class="badge${u.premium?" pro":""}">${esc(badgeOf(u))}${u.admin?" · "+esc(t("a.admin_tag")):""}</span>${u.blocked?`<span class="badge blk">${esc(t("a.blocked_tag"))}</span>`:""}<span class="chev" aria-hidden="true">›</span></span></button>`;
   li.querySelector(".auemail").textContent=u.email||"";li.querySelector(".auname").textContent=u.name||"";
   li.querySelector(".aopen").onclick=()=>openMember(u.user_id);return li}
@@ -2537,7 +2987,7 @@ async function openMember(id){const {data:d,error}=await sb.rpc("admin_user_deta
 function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="stripe",on=d.source==="manual"&&d.premium,me=session&&d.user_id===session.id;
   const row=(k,v)=>v?`<div><dt>${esc(t(k))}</dt><dd></dd></div>`:"";
   box.innerHTML=`<button type="button" class="linkbtn aback">‹ ${esc(t("a.back"))}</button>
-    <div class="ahead"><strong class="auemail"></strong><span class="badge${d.premium?" pro":""}">${esc(badgeOf(d))}</span>${d.blocked?`<span class="badge blk">${esc(t("a.blocked_tag"))}</span>`:""}</div>
+    <div class="ahead">${odot(d.last_seen)}<strong class="auemail"></strong><span class="badge${d.premium?" pro":""}">${esc(badgeOf(d))}</span>${d.blocked?`<span class="badge blk">${esc(t("a.blocked_tag"))}</span>`:""}</div>
     <dl class="adl">
       <div><dt>${esc(t("a.f_name"))}</dt><dd data-v="name"></dd></div>
       <div><dt>ABN</dt><dd data-v="abn"></dd></div>
@@ -2545,8 +2995,9 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
       <div><dt>${esc(t("a.f_email"))}</dt><dd data-v="contact_email"></dd></div>
       <div><dt>${esc(t("a.f_addr"))}</dt><dd data-v="addr"></dd></div>
       <div><dt>BSB / ${esc(t("a.f_acc"))}</dt><dd data-v="bank"></dd></div>
-      <div><dt>${esc(t("a.f_joined"))}</dt><dd>${esc(d8(d.created_at))}</dd></div>
-      <div><dt>${esc(t("a.f_last"))}</dt><dd>${esc(d.last_sign_in_at?d8(d.last_sign_in_at):t("a.never"))}</dd></div>
+      <div><dt>${esc(t("a.f_seen"))}</dt><dd>${esc(isOn(d.last_seen)?t("a.online"):(d.last_seen?d8t(d.last_seen):t("a.never_seen")))}</dd></div>
+      <div><dt>${esc(t("a.f_joined"))}</dt><dd>${esc(d8t(d.created_at))}</dd></div>
+      <div><dt>${esc(t("a.f_last"))}</dt><dd>${esc(d.last_sign_in_at?d8t(d.last_sign_in_at):t("a.never"))}</dd></div>
       <div><dt>${esc(t("a.f_free"))}</dt><dd>${esc(t("a.free_val",{used:d.free_used,limit:d.free_limit}))}</dd></div>
       <div><dt>${esc(t("a.f_saved"))}</dt><dd>${esc(String(d.saved))}</dd></div>
     </dl>
@@ -2579,7 +3030,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
   bindInv(box,()=>openMember(d.user_id))}
 function invLi(v,withWho){const per=v.start_date||v.start,end=v.end_date||v.end;
   return `<li class="ainvrow${v.deleted?" adeleted":""}"><span class="aumain">${v.deleted?`<span class="adeltag">${esc(t(v.deleted_by==="admin"?"a.inv_deleted_admin":"a.inv_deleted_user"))}</span>`:""}<strong>${esc(money(v.total))}</strong><span class="aumeta">${esc(t("h.inv",{no:v.invno||"?"}))} · ${per?esc(`${dm(String(per).slice(0,10))} → ${dmy(String(end).slice(0,10))}`):""} · ${esc(dur(v.hours))}</span>
-    <span class="aumeta">${withWho?esc((v.name||v.email||"")+" · "):""}${esc(v.billto||"")} · ${esc(t("a.finished_on",{date:d8(v.created_at)}))}</span></span>
+    <span class="aumeta">${withWho?esc((v.name||v.email||"")+" · "):""}${esc(v.billto||"")} · ${esc(t("a.finished_on",{date:d8t(v.created_at)}))}</span></span>
     <span class="ainvbtns"><button type="button" class="adl-btn aeye" data-pv="${esc(v.id)}" aria-label="${esc(t("a.view"))}" title="${esc(t("a.view"))}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button type="button" class="adl-btn" data-dl="${esc(v.id)}">${esc(t("a.download"))}</button>${v.deleted?`<button type="button" class="adl-btn" data-rs="${esc(v.id)}">${esc(t("a.inv_restore"))}</button>`:`<button type="button" class="adl-btn adel" data-rm="${esc(v.id)}">${esc(t("a.inv_del"))}</button>`}</span></li>`}
 /* buttons on admin invoice rows (view, download, delete in 2 taps, restore) */
 function bindInv(box,reload){box.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
@@ -2613,9 +3064,9 @@ const csvCell=v=>{const s=v==null?"":String(v);return /[",\n;]/.test(s)?`"${s.re
 async function exportCsv(kind,btn){btn.disabled=true;$("adm_msg").textContent=t("a.exporting");
   try{let all=[],off=0;for(;;){const {data,error}=kind==="users"?await sb.rpc("admin_list_users",{p_search:"",p_limit:500,p_offset:off}):await sb.rpc("admin_recent_invoices",{p_limit:500,p_offset:off});
       if(error)throw error;all=all.concat(data);if(data.length<500)break;off+=500}
-    const head=kind==="users"?["email","name","abn","joined","last_login","plan","premium_until","invoices","saved","blocked","bonus_free","admin"]
+    const head=kind==="users"?["email","name","abn","joined","last_login","last_visit","plan","premium_until","invoices","saved","blocked","bonus_free","admin"]
       :["finished_at","email","name","abn","invoice_no","period","start","end","client","hours","total_aud"];
-    const rows=kind==="users"?all.map(u=>[u.email,u.name,u.abn,u.created_at,u.last_sign_in_at,u.premium?u.source:"free",u.until,u.invoices,u.saved,u.blocked?"yes":"no",u.bonus_free,u.admin?"yes":"no"])
+    const rows=kind==="users"?all.map(u=>[u.email,u.name,u.abn,u.created_at,u.last_sign_in_at,u.last_seen||"",u.premium?u.source:"free",u.until,u.invoices,u.saved,u.blocked?"yes":"no",u.bonus_free,u.admin?"yes":"no"])
       :all.map(v=>[v.created_at,v.email,v.name,v.abn,v.invno,v.period,v.start_date,v.end_date,v.billto,v.hours,v.total]);
     const csv="﻿"+[head].concat(rows).map(r=>r.map(csvCell).join(",")).join("\r\n");
     saveBlob(new Blob([csv],{type:"text/csv;charset=utf-8"}),`SubbieBill ${kind==="users"?"members":"invoices"} ${dmy(todayIso()).replace(/\//g,"-")}.csv`);
