@@ -422,6 +422,26 @@ select:disabled,input:disabled{opacity:.7}
 .phchip.on{border-style:solid;border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
 @media (prefers-color-scheme: dark){.phchip.on{color:var(--accent)}}
 .phname{font-size:.82rem;font-weight:600;color:var(--muted)}
+.histsum{display:grid;grid-template-columns:1.4fr 1fr .8fr;gap:8px;margin:0 0 10px}
+.histsum div{background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.histsum span{font-size:.76rem;color:var(--muted);font-weight:600}
+.histsum b{font-family:var(--mono);font-size:1.05rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.histsum div:first-child{background:var(--panel);border-color:var(--panel);color:var(--on-panel)}
+.histsum div:first-child span{color:var(--on-panel-mute)}.histsum div:first-child b{color:var(--hivis);font-size:1.2rem}
+@media (max-width:380px){.histsum{grid-template-columns:1fr 1fr}.histsum div:first-child{grid-column:1 / -1}}
+.ainvbtns{display:flex;gap:6px;flex:none}
+.aeye{padding:6px 10px;display:inline-flex;align-items:center;justify-content:center}
+/* v11 mobile spacing */
+.ctx{gap:12px}
+.daylist{gap:8px}
+.day{padding:11px 12px;gap:8px}
+.dinputs{gap:6px}
+.mini{gap:3px}
+.dayshead{padding-top:2px}
+.wrap{gap:12px}
+.bottombar{padding-top:10px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.pdfmsg{margin:4px auto 0;max-width:560px}
+@media (max-width:380px){.day{padding:10px}.mini select,.mini input{padding:9px 6px}}
 .annbar{position:relative;display:flex;align-items:flex-start;gap:10px;margin:8px auto 0;max-width:1080px;background:var(--accent-soft);color:var(--ink);border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));border-radius:12px;padding:10px 10px 10px 14px}
 .annbar p{margin:0;flex:1;font-weight:600;font-size:.92rem;line-height:1.4;padding-top:4px}
 .annbar button{flex:none;min-height:36px;min-width:36px;padding:0;border:none;background:transparent;font-size:1.3rem;line-height:1;color:var(--muted)}
@@ -521,6 +541,12 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
       <label for="me_addr" data-i18n="i.addr">Address</label><input id="me_addr" autocomplete="street-address">
       <label for="me_bsb" data-i18n="i.bsb">BSB</label><input id="me_bsb" inputmode="numeric" class="mono" placeholder="000-000">
       <label for="me_acc" data-i18n="i.acc">Account number</label><input id="me_acc" inputmode="numeric" class="mono">
+      <span class="flabel" id="gstreg_lbl" data-i18n="g.label">GST</span>
+      <div class="seg" role="radiogroup" aria-labelledby="gstreg_lbl">
+        <label><input type="radio" name="gstreg" value="no"> <span data-i18n="g.no">Not registered</span></label>
+        <label><input type="radio" name="gstreg" value="yes"> <span data-i18n="g.yes">Registered for GST</span></label>
+      </div>
+      <p class="note" id="gstnote" style="margin:2px 0 0"></p>
       <button class="primary" type="button" data-close data-i18n="i.ok">Done</button>
     </section>
 
@@ -564,6 +590,7 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
     </section>
 
     <section id="p_hist" hidden data-i18n-title="h.title">
+      <div id="histsum" class="histsum" hidden></div>
       <p id="histcount" class="muted" style="margin:0 0 4px"></p>
       <ul id="histlist" class="hist"></ul>
     </section>
@@ -820,6 +847,8 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
           <div class="field"><label for="issue" data-i18n="meta.issue">Issued</label><input id="issue" type="date"></div>
           <div class="field"><label for="due" data-i18n="meta.due">Due</label><input id="due" type="date"></div>
         </div>
+        <div class="field" style="margin-top:10px"><label for="billto_abn" data-i18n="meta.cabn">Client ABN (optional)</label><input id="billto_abn" inputmode="numeric" class="mono" autocomplete="off" data-i18n-ph="i.abn_ph"></div>
+        <p class="note" id="cabn_msg" style="margin:4px 0 0"></p>
       </details>
       <div id="lockbar" class="lockbar" hidden>
         <p id="locktxt"></p>
@@ -847,6 +876,7 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
       <label class="otl"><span data-i18n="ot.after">After</span><select id="ot_after" class="mono"></select><span data-i18n="ot.per_day">a day, paid</span><select id="ot_mult" class="mono"></select></label>
       <p id="ot_hint" class="note"></p>
     </div>
+    <label class="chk" id="gstwrap" hidden><input type="checkbox" id="gst_on"> <span data-i18n="g.apply">Add GST (10%) to this invoice</span></label>
     <label class="chk"><input type="checkbox" id="ph_on"> <span data-i18n="ph.on">Public holidays at a higher rate</span></label>
     <div id="phbox" class="otbox" hidden>
       <label class="otl"><span data-i18n="ph.paid">Public holidays paid</span><select id="ph_mult" class="mono"></select></label>
@@ -876,6 +906,21 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "a.view":"View the invoice",
+  "h.sum_hours":"Hours",
+  "h.sum_year":"In {y}",
+  "h.sum_all":"Total invoiced",
+  "fin.dup_no":"That invoice number is already used. It's now no. {no}: tap Finish again.",
+  "meta.cabn_1000":"Tax invoice of $1,000 or more: the client's name is on it. Adding their ABN is optional.",
+  "meta.cabn_bad":"The client ABN isn't valid (11 digits). Fix it or leave it empty.",
+  "meta.cabn":"Client ABN (optional)",
+  "bar.gst":"incl. GST {gst}",
+  "g.apply":"Add GST (10%) to this invoice",
+  "g.note_yes":"Your invoices become “Tax invoices” with GST (10%) shown separately. You can switch GST off for an invoice where it doesn't apply.",
+  "g.note_no":"You can't charge GST. Your invoices say “Invoice” and “No GST has been charged”. Registration becomes compulsory once your GST turnover reaches $75,000 a year.",
+  "g.yes":"Registered for GST",
+  "g.no":"Not registered",
+  "g.label":"GST",
   "ins.desk2":"On your phone, open this site and use “Add to home screen”.",
   "ins.desk1":"On a computer, click the install icon at the right of the address bar (Chrome or Edge).",
   "ins.sam2":"Tap “Add page to”, then “Home screen”.",
@@ -1049,7 +1094,7 @@ en:{
   "price.fine":"Prices in Australian dollars. One free allowance per ABN. If you cancel Premium, you go back to Free and keep your history.",
   "faq.title":"Common questions",
   "faq.q1":"What's on the invoice?","faq.a1":"Your name, ABN, contact details, BSB and account number, the business you're billing, the invoice number, dates, a day-by-day breakdown of your hours and the total in AUD.",
-  "faq.q2":"What about GST?","faq.a2":"SubbieBill is built for subcontractors who aren't registered for GST, which covers most people turning over less than $75,000 a year. Your invoice says “No GST has been charged”. GST support is coming soon.",
+  "faq.q2":"What about GST?","faq.a2":"If you're not registered for GST, your invoice says “Invoice” and “No GST has been charged”. If you are registered, switch it on in My details: your invoices become “Tax invoices” with the subtotal, GST (10%) and total shown separately. Registration is compulsory once your GST turnover reaches $75,000 a year. Check with your accountant if you're unsure.",
   "faq.q3":"Who can see my bank details?","faq.a3":"Only you. Your details are tied to your account and protected by your password. They travel encrypted and only appear on the invoices you download.",
   "faq.q4":"Can I cancel Premium?","faq.a4":"Yes, anytime. You go back to Free and your saved invoices stay in your account.",
   "auth.title_signup":"Create your free account","auth.title_login":"Welcome back",
@@ -1110,6 +1155,21 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "a.view":"Voir la facture",
+  "h.sum_hours":"Heures",
+  "h.sum_year":"En {y}",
+  "h.sum_all":"Total facturé",
+  "fin.dup_no":"Ce numéro de facture est déjà utilisé. Il passe au n° {no} : touche Terminer à nouveau.",
+  "meta.cabn_1000":"Tax invoice de 1 000 $ ou plus : le nom du client y figure. Son ABN est facultatif.",
+  "meta.cabn_bad":"L'ABN du client n'est pas valide (11 chiffres). Corrige-le ou laisse vide.",
+  "meta.cabn":"ABN du client (facultatif)",
+  "bar.gst":"dont GST {gst}",
+  "g.apply":"Ajouter la GST (10 %) sur cette facture",
+  "g.note_yes":"Tes factures deviennent des « Tax invoices » avec la GST (10 %) indiquée à part. Tu peux retirer la GST d'une facture où elle ne s'applique pas.",
+  "g.note_no":"Tu ne peux pas facturer la GST. Tes factures indiquent « Invoice » et « No GST has been charged ». L'inscription devient obligatoire dès 75 000 $ de chiffre d'affaires par an.",
+  "g.yes":"Inscrit à la GST",
+  "g.no":"Non inscrit",
+  "g.label":"GST",
   "ins.desk2":"Sur ton téléphone, ouvre ce site et utilise « Ajouter à l'écran d'accueil ».",
   "ins.desk1":"Sur ordinateur, clique sur l'icône d'installation à droite de la barre d'adresse (Chrome ou Edge).",
   "ins.sam2":"Touche « Ajouter la page à », puis « Écran d'accueil ».",
@@ -1283,7 +1343,7 @@ fr:{
   "price.fine":"Prix en dollars australiens. Une offre gratuite par ABN. Si tu arrêtes Premium, tu repasses en gratuit et tu gardes ton historique.",
   "faq.title":"Questions fréquentes",
   "faq.q1":"Qu'y a-t-il sur la facture ?","faq.a1":"Ton nom, ton ABN, tes coordonnées, ton BSB et ton numéro de compte, l'entreprise à facturer, le numéro de facture, les dates, le détail des heures jour par jour et le total en AUD. La facture est toujours en anglais, au format australien, même si tu utilises SubbieBill en français.",
-  "faq.q2":"Et la GST ?","faq.a2":"SubbieBill est fait pour les sous-traitants non inscrits à la GST, ce qui est le cas de la plupart de ceux qui facturent moins de 75 000 $ par an. La facture porte la mention « No GST has been charged ». La gestion de la GST arrive bientôt.",
+  "faq.q2":"Et la GST ?","faq.a2":"Si tu n'es pas inscrit à la GST, ta facture indique « Invoice » et « No GST has been charged ». Si tu es inscrit, active-le dans Mes infos : tes factures deviennent des « Tax invoices » avec le sous-total, la GST (10 %) et le total indiqués à part. L'inscription est obligatoire dès 75 000 $ de chiffre d'affaires par an. En cas de doute, demande à ton comptable.",
   "faq.q3":"Qui peut voir mes infos bancaires ?","faq.a3":"Toi seul. Tes infos sont liées à ton compte et protégées par ton mot de passe. Elles circulent de façon chiffrée et n'apparaissent que sur les factures que tu télécharges.",
   "faq.q4":"Je peux arrêter Premium ?","faq.a4":"Oui, quand tu veux. Tu repasses en gratuit et tes factures enregistrées restent sur ton compte.",
   "auth.title_signup":"Crée ton compte gratuit","auth.title_login":"Content de te revoir",
@@ -1432,9 +1492,26 @@ function natHoliday(iso){if(!iso)return null;const md=iso.slice(5),y=+iso.slice(
   const fixed={"01-01":"ph.ny","01-26":"ph.aus","04-25":"ph.anzac","12-25":"ph.xmas","12-26":"ph.boxing"};if(fixed[md])return fixed[md];
   const e=easter(y);if(iso===addDays(e,-2))return "ph.gf";if(iso===addDays(e,1))return "ph.em";return null}
 const isPh=(r,inv)=>!!(inv&&inv.ph&&inv.ph.on)&&(r.ph===true||(r.ph==null&&!!natHoliday(r.date)));
-function rowAmt(r,ot,inv){const rt=+r.rate||0;if(isPh(r,inv))return (+r.hours||0)*rt*(+inv.ph.mult||1);
-  const sp=otSplit(r,ot);return sp.n*rt+sp.x*rt*((ot&&ot.on&&+ot.mult)||1)}
-const invTotal=inv=>(inv.rows||[]).reduce((s,r)=>s+rowAmt(r,inv.ot,inv),0);
+/* ===== ONE calculation engine for the screen, the history, the preview and the PDF =====
+   Money is kept in whole cents. Each line: hours × unit rate (rate rounded to the cent first), rounded half-up to the cent.
+   GST (10 %) only when the supplier is registered AND GST applies to this invoice; worked out once on the subtotal
+   and rounded half-up to the cent (ATO "total invoice" rounding). */
+const cents=v=>Math.round(Number(((+v||0)*100).toFixed(4)));
+const GST_RATE=0.1;
+function invLines(inv){const out=[],ot=inv.ot,ph=inv.ph;
+  (inv.rows||[]).forEach(r=>{const h=+r.hours||0,rt=+r.rate||0;if(!(h>0))return;
+    const base={date:r.date,loc:r.loc||inv.site||"",src:r};
+    if(isPh(r,inv)){const m=+ph.mult||1,u=cents(rt*m);out.push({...base,kind:"ph",desc:`Public holiday (×${m})`,mult:m,hours:h,rate:u,amt:cents(h*u/100)});return}
+    const sp=otSplit(r,ot),u=cents(rt);
+    if(sp.n>0)out.push({...base,kind:"std",desc:r.desc||"Labour",hours:sp.n,rate:u,amt:cents(sp.n*u/100)});
+    if(sp.x>0){const m=+ot.mult||1,uo=cents(rt*m);out.push({...base,kind:"ot",desc:`Overtime (×${m})`,mult:m,hours:sp.x,rate:uo,amt:cents(sp.x*uo/100)})}});
+  return out}
+function invCalc(inv,me){const lines=invLines(inv),sub=lines.reduce((s,l)=>s+l.amt,0),reg=!!(me&&me.gst),taxable=reg&&!(inv.gst&&inv.gst.applies===false);
+  const gst=taxable?Math.round(Number((sub*GST_RATE).toFixed(4))):0;
+  return {lines,sub,gst,total:sub+gst,reg,taxable,hours:lines.reduce((s,l)=>s+l.hours,0)}}   /* amounts in cents */
+const meNow=()=>({gst:!!(P()&&P().gstReg)});
+function rowAmt(r,ot,inv){return invLines({...inv,rows:[r]}).reduce((s,l)=>s+l.amt,0)/100}
+const invTotal=inv=>invCalc(inv,meNow()).total/100;
 const invHours=inv=>(inv.rows||[]).reduce((s,r)=>s+(r.hours||0),0);
 const PT={week:{file:"Weekly"},fortnight:{file:"Fortnightly"},month:{file:"Monthly"}};
 function periodRange(type,ref){const d=parse(ref);if(type==="month")return[isoLocal(new Date(d.getFullYear(),d.getMonth(),1,12)),isoLocal(new Date(d.getFullYear(),d.getMonth()+1,0,12))];
@@ -1445,11 +1522,12 @@ const invType=inv=>PT[inv&&inv.type]?inv.type:"week";
 const todayIso=()=>isoLocal(new Date());
 function rangeText(a,b){const y=parse(b).getFullYear()!==new Date().getFullYear()?" "+parse(b).getFullYear():"";return `${nice(a)} → ${nice(b)}${y}`}
 function defaultName(inv){return `${PT[invType(inv)].file} ${dm(inv.start)}–${dm(inv.end)}`+(inv.billto?` · ${inv.billto}`:"")}
-function nextInvNo(){let m=0;(P().saved||[]).forEach(e=>{m=Math.max(m,parseInt(e.inv&&e.inv.invno)||0)});return m+1}
+function nextInvNo(){let m=+P().lastInvNo||0;(P().saved||[]).forEach(e=>{m=Math.max(m,parseInt(e.inv&&e.inv.invno)||0)});
+  const cur=P().inv;if(cur&&cur.finished)m=Math.max(m,parseInt(cur.invno)||0);return m+1}
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate||0)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF)}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||""}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
@@ -1498,7 +1576,10 @@ function renderWeek(){const inv=I(),ty=invType(inv);
   $("site").innerHTML=listOpts(state.sites,inv.site,"ctx.add_site");$("site").hidden=false;$("site_new").hidden=true;
   $("invno").value=inv.invno||"";$("issue").value=inv.issue||"";$("due").value=inv.due||"";
   $("invsum").textContent=t("meta.sum",{no:inv.invno||"?",issue:dm(inv.issue),due:dm(inv.due)});
-  const lk=locked();["billto","site","invno","issue","due"].forEach(id=>{$(id).disabled=lk});}
+  if(document.activeElement!==$("billto_abn"))$("billto_abn").value=inv.billto_abn?fmtAbn(inv.billto_abn):"";renderCabnMsg();
+  const lk=locked();["billto","site","invno","issue","due","billto_abn"].forEach(id=>{$(id).disabled=lk});}
+function renderCabnMsg(){const v=String(I().billto_abn||"").replace(/\D/g,""),c=invCalc(I(),meNow());
+  $("cabn_msg").textContent=v&&!abnOk(v)?t("meta.cabn_bad"):(c.taxable&&c.total>=100000?t("meta.cabn_1000"):"")}
 function renderStatus(){if(!session||!P())return;const e=curEntry(),b=$("savebtn");
   /* Premium: every invoice with hours goes into the history by itself. Free: the button explains it's Premium. */
   b.hidden=plan.premium;b.textContent=t("save.locked");b.classList.remove("primary","saved");b.classList.add("locked");
@@ -1528,6 +1609,7 @@ function renderMode(){const m=P().mode==="hours"?"hours":"times",lk=locked();
   $("ot_after").innerHTML=[6,7,7.6,8,9,10,11,12].map(v=>`<option value="${v}">${hrs(v)} h</option>`).join("");
   $("ot_mult").innerHTML=[1.25,1.5,2].map(v=>`<option value="${v}">× ${num(v,v===2?0:(v===1.5?1:2))}</option>`).join("");$("otbox").hidden=!ot.on;$("ot_after").value=String(ot.after);$("ot_mult").value=String(ot.mult);
   [$("ot_on"),$("ot_after"),$("ot_mult")].forEach(x=>x.disabled=lk);renderOtHint();
+  $("gstwrap").hidden=!p.gstReg;$("gst_on").checked=!(I().gst&&I().gst.applies===false);$("gst_on").disabled=lk;
   const ph=I().ph||PH_DEF;$("ph_on").checked=!!ph.on;$("phbox").hidden=!ph.on;
   $("ph_mult").innerHTML=[1.5,2,2.25,2.5].map(v=>`<option value="${v}">× ${num(v,v%1?(v===2.25?2:1):0)}</option>`).join("");$("ph_mult").value=String(ph.mult);
   [$("ph_on"),$("ph_mult")].forEach(x=>x.disabled=lk)}
@@ -1546,8 +1628,8 @@ function renderAmt(i){const r=I().rows[i],el=$("amt"+i);if(!el)return;
   if(r.hours>0&&ph){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ph_incl",{m:num(inv.ph.mult,inv.ph.mult%1?1:0)});el.appendChild(sm)}
   const chip=document.querySelector(`#day${i} .phchip`);if(chip){chip.setAttribute("aria-pressed",String(ph));chip.classList.toggle("on",ph)}
   if(r.hours>0&&sp.x>0){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ot_incl",{x:hrs(sp.x)});el.appendChild(sm)}if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
-function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length;$("total").textContent=money(invTotal(inv));
-  $("tothours").textContent=t("bar.sum",{h:hrs(invHours(inv)),d:t(d===1?"bar.day":"bar.days",{n:d})})}
+function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length,c=invCalc(inv,meNow());$("total").textContent=money(c.total/100);
+  $("tothours").textContent=t("bar.sum",{h:hrs(invHours(inv)),d:t(d===1?"bar.day":"bar.days",{n:d})})+(c.taxable?" · "+t("bar.gst",{gst:money(c.gst/100)}):"")}
 const isWeekday=r=>{const g=parse(r.date).getDay();return g>=1&&g<=5};
 const mondaySrc=()=>I().rows.find(r=>parse(r.date).getDay()===1&&r.hours>0);
 function renderCopy(){const m=mondaySrc(),b=$("copymon");
@@ -1582,6 +1664,7 @@ function wirePick(selId,inpId,list,key){
   $(inpId).addEventListener("blur",commit)}
 function setPick(key,v){if(locked()){renderWeek();return}const inv=I(),old=inv[key];inv[key]=v;
   if(key==="site")inv.rows.forEach(r=>{if(!r.loc||r.loc===old)r.loc=v});
+  if(key==="billto")inv.billto_abn=(P().clientAbn||{})[v]||"";
   renderWeek();renderDays();renderOnboard();save()}
 wirePick("billto","billto_new","clients","billto");wirePick("site","site_new","sites","site");
 ["invno","issue","due"].forEach(k=>$(k).addEventListener("change",e=>{if(locked()){renderWeek();return}I()[k]=e.target.value;renderWeek();save()}));
@@ -1602,12 +1685,13 @@ $("nextw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(
 $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
 /* ---------- sheets ---------- */
-function openSheet(id){closeMenu();curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
+function openSheet(id,opts){closeMenu();curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_premium")renderPremium();
-  if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";renderAbn()}
-  if(id==="p_admin")loadAdmin(true)}
-function closeSheet(){$("sheetov").hidden=true;curSheet=null;document.body.style.overflow=""}
+  if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";renderAbn();renderGstReg()}
+  if(id==="p_admin"&&!(opts&&opts.keep))loadAdmin(true)}
+function closeSheet(){if(curSheet==="p_preview"&&pvBack==="admin"){pvBack=null;openSheet("p_admin",{keep:true});return}
+  $("sheetov").hidden=true;curSheet=null;document.body.style.overflow=""}
 $("sheetclose").onclick=closeSheet;$("sheetov").addEventListener("click",e=>{if(e.target.id==="sheetov")closeSheet()});
 document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if(o){openSheet(o.dataset.open);return}if(e.target.closest("[data-close]"))closeSheet()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("langpop").hidden){$("langpop").hidden=true;$("langbtn").focus();return}
@@ -1653,6 +1737,13 @@ $("defrate").addEventListener("input",e=>{if(locked())return;const v=parseFloat(
 $("ot_on").onchange=e=>setOt("on",e.target.checked);
 function setPh(k,v){if(locked())return;const inv=I();inv.ph=Object.assign(clone(PH_DEF),inv.ph||{},{[k]:v});P().ph=clone(inv.ph);renderDays();renderTotals();save()}
 $("ph_on").onchange=e=>setPh("on",e.target.checked);
+/* GST: registration is the supplier's status (My details); "applies" is per invoice */
+function renderGstReg(){const r=!!P().gstReg;document.querySelectorAll('input[name="gstreg"]').forEach(x=>x.checked=(x.value==="yes")===r);
+  $("gstnote").textContent=t(r?"g.note_yes":"g.note_no")}
+document.querySelectorAll('input[name="gstreg"]').forEach(x=>x.onchange=e=>{P().gstReg=e.target.value==="yes";renderGstReg();renderMode();renderTotals();renderWeek();save()});
+$("gst_on").onchange=e=>{if(locked())return;I().gst={applies:e.target.checked};renderTotals();renderCabnMsg();save()};
+$("billto_abn").addEventListener("input",e=>{if(locked())return;const v=e.target.value.replace(/\D/g,"").slice(0,11),inv=I();inv.billto_abn=v;
+  if(inv.billto){P().clientAbn=P().clientAbn||{};if(v)P().clientAbn[inv.billto]=v;else delete P().clientAbn[inv.billto]}renderCabnMsg();save()});
 $("ph_mult").onchange=e=>setPh("mult",parseFloat(e.target.value)||2.5);
 $("ot_after").onchange=e=>setOt("after",parseFloat(e.target.value)||8);
 $("ot_mult").onchange=e=>setOt("mult",parseFloat(e.target.value)||1.5);
@@ -1668,6 +1759,11 @@ function renderLists(){[["clients","list_clients","l.none_c"],["sites","list_sit
 /* history */
 function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
   $("histcount").textContent=plan.premium?t("h.count_pro",{n:list.length}):t("h.count_free",{n:list.length,limit:FREE_LIMIT()});
+  /* totals: same calculation as each invoice (incl. GST when it applies) */
+  const yr=String(new Date().getFullYear()),cents2=e=>invCalc(e.inv,meNow()).total;
+  const all=list.reduce((s,e)=>s+cents2(e),0),thisYr=list.filter(e=>String(e.inv.start||"").startsWith(yr)).reduce((s,e)=>s+cents2(e),0),hrsAll=list.reduce((s,e)=>s+invHours(e.inv),0);
+  $("histsum").hidden=!list.length;
+  $("histsum").innerHTML=`<div><span>${esc(t("h.sum_all"))}</span><b>${esc(money(all/100))}</b></div><div><span>${esc(t("h.sum_year",{y:yr}))}</span><b>${esc(money(thisYr/100))}</b></div><div><span>${esc(t("h.sum_hours"))}</span><b>${esc(hrs(hrsAll))} h</b></div>`;
   if(!list.length){ul.innerHTML=`<li><span class="muted">${esc(t("h.empty"))}</span></li>`;return}
   list.forEach(e=>{const inv=e.inv,li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
     li.innerHTML=`<button class="hopen" type="button"><span class="hrange">${rangeText(inv.start,inv.end)}</span>
@@ -1707,6 +1803,7 @@ async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_m
 function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
   if(!inv.ot||typeof inv.ot!=="object")inv.ot=clone(OT_DEF);
   if(!inv.ph||typeof inv.ph!=="object")inv.ph=clone(PH_DEF);
+  if(!inv.gst||typeof inv.gst!=="object")inv.gst={applies:true};if(inv.billto_abn==null)inv.billto_abn="";
   inv.rows.forEach(r=>{r.hours=+r.hours||0;r.rate=r.rate==null?0:+r.rate;if(r.desc==null)r.desc="Labour"});
   if(!inv.start){const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();inv.start=ds[0]||mondayOf(inv.weekstart||inv.issue||todayIso());inv.end=ds[ds.length-1]||addDays(inv.start,6)}
   if(!inv.end)inv.end=periodRange(inv.type,inv.start)[1];
@@ -1717,7 +1814,8 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
-  p.first=data.first||"";p.last=data.last||"";
+  p.first=data.first||"";p.last=data.last||"";p.gstReg=!!data.gstReg;p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};
+  p.lastInvNo=+(res&&res.last_invno)||0;
   if(!p.first&&!p.last&&p.name){const w=p.name.trim().split(/\s+/);p.last=w.pop()||"";p.first=w.join(" ")}   /* older accounts: one "name" field */
   if(res&&"abn_locked" in res){p.abn=res.abn||"";p.abnLocked=!!res.abn_locked}else p.abnLocked=false;
   const wr=data.inv&&(data.inv.rows||[]).find(r=>!isWkd(r.date)&&r.rate>0);p.rate=data.rate!=null&&+data.rate>0?+data.rate:(wr?wr.rate:null);
@@ -1734,7 +1832,9 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
 async function loadAccount(user){view="app";let {data,error}=await sb.rpc("get_my_profile");
   if(error&&sb.auth.refreshSession){try{await sb.auth.refreshSession()}catch(e){}({data,error}=await sb.rpc("get_my_profile"))}   /* expired access token: refresh once, stay logged in */
   if(error){$("autherr").textContent=t("err.load");return false}
-  applyProfile(user,data);return true}
+  applyProfile(user,data);
+  if(plan.premium&&P().inv&&hasHours(I())&&!curEntry()){addToHistory();save()}   /* just became Premium: the open invoice joins the history */
+  return true}
 
 let authMode="signup";
 function setAuthMode(m){authMode=m;$("authtitle").textContent=!$("codeform").hidden?t("code.title"):t(m==="login"?"auth.title_login":"auth.title_signup");
@@ -1859,84 +1959,94 @@ function renderInvoice(JsPDF, me, inv) {
   return new Uint8Array(doc.output("arraybuffer"));
 }
 function drawInvoice(doc, me, inv) {
-  /* Simple, classic layout (based on Thomas's own invoice): orange INVOICE title, details left, invoice info right, plain table, total.
-     Draws on a jsPDF document, or on the canvas look-alike used for the preview. */
-  const L = 18, R = 192, INK = [29, 35, 33], MUT = [102, 112, 107], LINE = [217, 222, 217], ORANGE = [210, 105, 30];
+  /* Classic layout (based on Thomas's own invoice). Only billable lines are printed; every figure comes from invCalc().
+     "TAX INVOICE" only when the supplier is registered for GST and GST applies (ATO: the document must say it is a tax invoice;
+     business.gov.au: a business not registered for GST must not use the words "tax invoice"). */
+  const L = 18, R = 192, INK = [29, 35, 33], MUT = [102, 112, 107], LINE = [217, 222, 217], ORANGE = [210, 105, 30], SOFT = [244, 246, 242];
   const col = (c) => doc.setTextColor(c[0], c[1], c[2]);
   const font = (w, s) => { doc.setFont("helvetica", w); doc.setFontSize(s); };
-  const fit = (s, w) => doc.splitTextToSize(ptxt(s), w)[0] || "";
-  const hline = (y, c, w) => { doc.setDrawColor(c[0], c[1], c[2]); doc.setLineWidth(w); doc.line(L, y, R, y); };
-  const rowsAll = Array.isArray(inv.rows) ? inv.rows.slice(0, 62) : [];
-  const type = ["week", "fortnight", "month"].includes(inv.type) ? inv.type : "week";
-  const STEP = 5.5;
+  const fit = (s, w) => { const t = ptxt(s), a = doc.splitTextToSize(t, w); return a.length > 1 ? a[0].replace(/\s*\S{0,3}$/, "") + "…" : (a[0] || ""); };
+  const hline = (y, c, w, x1 = L, x2 = R) => { doc.setDrawColor(c[0], c[1], c[2]); doc.setLineWidth(w); doc.line(x1, y, x2, y); };
+  const c2 = (v) => pfmt(v / 100);
+  const calc = invCalc({ ...inv, rows: Array.isArray(inv.rows) ? inv.rows.slice(0, 62) : [] }, me);
+  const title = calc.taxable ? "TAX INVOICE" : "INVOICE";
+  const STEP = 5.2, BOTTOM = 272;
 
   // title
-  font("bold", 22); col(ORANGE); doc.text("INVOICE", L, 24.7);
-  if (me.gst) { font("normal", 7.5); col(MUT); doc.text("TAX INVOICE", L, 30); }
+  font("bold", 22); col(ORANGE); doc.text(title, L, 24.7);
 
-  // your details (left)
-  let ly = 40.2;
-  font("bold", 9); col(INK); doc.text(fit(me.name, 95), L, ly); ly += STEP;
+  // supplier (left)
+  let ly = 37;
+  font("bold", 10); col(INK); doc.text(fit(me.name, 95), L, ly); ly += STEP + .4;
   font("normal", 9);
   [me.abn ? "ABN number: " + String(me.abn).replace(/\D/g, "") : "", me.email, me.phone, me.addr,
    me.bsb ? "BSB: " + me.bsb : "", me.acc ? "Account number: " + me.acc : ""]
     .filter(Boolean).forEach((s) => { doc.text(fit(s, 95), L, ly); ly += STEP; });
 
   // invoice info (right): labels right-aligned, values right-aligned
-  let ry = 40.2;
-  [["Bill to:", inv.billto], ["Invoice No:", inv.invno], ["Issue date:", pdmy(inv.issue)], ["Due date:", pdmy(inv.due)]].forEach(([k, v]) => {
-    font("bold", 9); const lines = doc.splitTextToSize(ptxt(v), 40).slice(0, 3);
-    font("normal", 9); col(MUT); doc.text(k, 150, ry, { align: "right" });
+  let ry = 37;
+  const per = inv.start && inv.end ? `${pdmy(inv.start)} – ${pdmy(inv.end)}` : "";
+  [["Bill to:", inv.billto], inv.billto_abn ? ["Client ABN:", String(inv.billto_abn).replace(/\D/g, "")] : null,
+   ["Invoice No:", inv.invno], ["Issue date:", pdmy(inv.issue)], ["Due date:", pdmy(inv.due)], per ? ["Period:", per] : null].filter(Boolean).forEach(([k, v]) => {
+    font("bold", 9); const lines = doc.splitTextToSize(ptxt(v), 46).slice(0, 3);
+    font("normal", 9); col(MUT); doc.text(k, 144, ry, { align: "right" });
     font("bold", 9); col(INK); lines.forEach((t, i) => doc.text(t, R, ry + i * 4.4, { align: "right" }));
     ry += STEP + (lines.length - 1) * 4.4;
   });
 
-  // table
-  let y = Math.max(ly, ry) + 9;
-  const C = { date: L, loc: 38, desc: 88, qty: 135, rate: 163, amt: R };
+  // table: Date · Location · Description · Hours · Rate (AUD/hr) · Amount (AUD)
+  let y = Math.max(ly, ry) + 8;
+  const C = { date: L + 1, loc: 36, desc: 86, qty: 136, rate: 163, amt: R - 1 };
   const head = () => {
+    doc.setFillColor(SOFT[0], SOFT[1], SOFT[2]); doc.rect(L, y - 4.6, R - L, 7.2, "F");
     font("bold", 7.5); col(MUT);
     doc.text("Date", C.date, y); doc.text("Location", C.loc, y); doc.text("Description", C.desc, y);
-    doc.text("Quantity", C.qty, y, { align: "right" }); doc.text("Unit price ($)", C.rate, y, { align: "right" }); doc.text("Amount ($)", C.amt, y, { align: "right" });
-    hline(y + 2.6, INK, 0.5); y += 9.4;
+    doc.text("Hours", C.qty, y, { align: "right" }); doc.text("Rate (AUD/hr)", C.rate, y, { align: "right" }); doc.text("Amount (AUD)", C.amt, y, { align: "right" });
+    hline(y + 2.6, INK, 0.5); y += 8.6;
   };
+  const newPage = () => { doc.addPage(); y = 20; font("bold", 9); col(MUT); doc.text(`${title} ${ptxt(inv.invno)} (continued)`, L, y); y += 10; head(); };
   head();
-  const rows = type === "week" ? rowsAll : rowsAll.filter((r) => pn(r.hours) > 0);
-  let total = 0;
-  rows.forEach((r) => {
-    if (y > 268) { doc.addPage(); y = 24; head(); }
-    const hol = isPh(r, inv), hm = pn(inv.ph && inv.ph.mult) || 1;
-    const sp = hol ? { n: pn(r.hours), x: 0 } : otSplit(r, inv.ot), rt = pn(r.rate), mult = pn(inv.ot && inv.ot.mult) || 1, urt = hol ? rt * hm : rt, amt = sp.n * urt; total += amt;
+  if (!calc.lines.length) { font("normal", 9); col(MUT); doc.text("No billable hours.", C.date, y); y += 8; }
+  calc.lines.forEach((l) => {
+    if (y > BOTTOM) newPage();
     font("normal", 9); col(INK);
-    doc.text(pdm(r.date), C.date, y);
-    doc.text(fit(r.loc || inv.site, 47), C.loc, y);
-    doc.text(fit(hol && sp.n > 0 ? `Public holiday (×${String(hm)})` : r.desc, 32), C.desc, y);
-    doc.text(phrs(sp.n), C.qty, y, { align: "right" });
-    doc.text(pfmt(urt), C.rate, y, { align: "right" });
-    doc.text(pfmt(amt), C.amt, y, { align: "right" });
-    hline(y + 3.4, LINE, 0.25); y += 8.5;
-    if (sp.x > 0) {   // overtime on its own line, right under the day
-      if (y > 268) { doc.addPage(); y = 24; head(); }
-      const oamt = sp.x * rt * mult; total += oamt;
-      font("normal", 9); col(INK);
-      doc.text(pdm(r.date), C.date, y);
-      doc.text(fit(r.loc || inv.site, 47), C.loc, y);
-      doc.text(fit(`Overtime (×${String(mult)})`, 32), C.desc, y);
-      doc.text(phrs(sp.x), C.qty, y, { align: "right" });
-      doc.text(pfmt(rt * mult), C.rate, y, { align: "right" });
-      doc.text(pfmt(oamt), C.amt, y, { align: "right" });
-      hline(y + 3.4, LINE, 0.25); y += 8.5;
-    }
+    doc.text(pdm(l.date), C.date, y);
+    doc.text(fit(l.loc, 47), C.loc, y);
+    doc.text(fit(l.desc, 33), C.desc, y);
+    doc.text(phrs(l.hours), C.qty, y, { align: "right" });
+    doc.text(c2(l.rate), C.rate, y, { align: "right" });
+    doc.text(c2(l.amt), C.amt, y, { align: "right" });
+    hline(y + 3.2, LINE, 0.25); y += 8;
   });
 
-  // total
-  if (y > 262) { doc.addPage(); y = 24; }
-  y += 3; doc.setDrawColor(INK[0], INK[1], INK[2]); doc.setLineWidth(0.6); doc.line(133, y, R, y);
-  y += 7; font("bold", 10.5); col(INK); doc.text("TOTAL", 133, y); doc.text(pmoney(total), R, y, { align: "right" });
-  if (!me.gst) { y += 6; font("normal", 7.5); col(MUT); doc.text("No GST has been charged.", R, y, { align: "right" }); }
+  // totals (right) — always fully on one page
+  const need = (calc.taxable ? 3 : 1) * 7 + 24;
+  if (y + need > 284) newPage();
+  const tx = 122;
+  y += 4;
+  font("normal", 9.5);
+  if (calc.taxable) {
+    col(MUT); doc.text("Subtotal (excl. GST)", tx, y); col(INK); doc.text(pmoney(calc.sub / 100), R, y, { align: "right" }); y += 6;
+    col(MUT); doc.text("GST (10%)", tx, y); col(INK); doc.text(pmoney(calc.gst / 100), R, y, { align: "right" }); y += 4;
+  }
+  doc.setDrawColor(INK[0], INK[1], INK[2]); doc.setLineWidth(0.6); doc.line(tx, y, R, y); y += 7;
+  font("bold", 11); col(INK); doc.text(calc.taxable ? "Total (AUD, incl. GST)" : "Total (AUD)", tx, y);
+  font("bold", 13); doc.text(pmoney(calc.total / 100), R, y + .3, { align: "right" }); y += 6;
+  font("normal", 7.5); col(MUT);
+  const note = calc.taxable ? "All items on this invoice are taxable sales. GST is shown separately."
+    : calc.reg ? "No GST applies to this invoice." : "Not registered for GST. No GST has been charged.";
+  doc.text(note, R, y, { align: "right" }); y += 9;
+
+  // payment
+  if (y > 280) newPage();
+  font("bold", 9); col(INK); doc.text("Payment", L, y); y += 5;
+  font("normal", 9); col(INK);
+  const pay = `Please pay ${pmoney(calc.total / 100)} by ${pdmy(inv.due)}${me.bsb || me.acc ? " to the account above" : ""}. Reference: Invoice ${ptxt(inv.invno)}.`;
+  doc.splitTextToSize(pay, R - L).forEach((t) => { doc.text(t, L, y); y += 4.6; });
 
   const pages = doc.getNumberOfPages();
-  if (pages > 1) for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 7.5); col(MUT); doc.text(`Page ${i} of ${pages}`, R, 288, { align: "right" }); }
+  for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 7.5); col(MUT); hline(285, LINE, 0.25);
+    doc.text(`${title} ${ptxt(inv.invno)} · ${ptxt(me.name)}`, L, 289.5); if (pages > 1) doc.text(`Page ${i} of ${pages}`, R, 289.5, { align: "right" }); }
 }
 
 /* ---------- preview: same drawing on canvases (one per A4 page), never a downloadable PDF, with a watermark ---------- */
@@ -1953,6 +2063,8 @@ class CanvasDoc {
   setTextColor(r, g, b) { this.fill = `rgb(${r},${g},${b})`; }
   setDrawColor(r, g, b) { this.stroke = `rgb(${r},${g},${b})`; }
   setLineWidth(w) { this.lw = w; }
+  setFillColor(r, g, b) { this.bg = `rgb(${r},${g},${b})`; }
+  rect(x, y, w, h) { const c = this.cur; c.fillStyle = this.bg || "#eee"; c.fillRect(x * this.k, y * this.k, w * this.k, h * this.k); }
   line(x1, y1, x2, y2) { const c = this.cur; c.strokeStyle = this.stroke; c.lineWidth = this.lw * this.k; c.beginPath(); c.moveTo(x1 * this.k, y1 * this.k); c.lineTo(x2 * this.k, y2 * this.k); c.stroke(); }
   text(t, x, y, o) { const c = this.cur; this._font(c); c.fillStyle = this.fill; c.textBaseline = "alphabetic"; c.textAlign = o && o.align === "right" ? "right" : "left"; c.fillText(String(t), x * this.k, y * this.k); }
   splitTextToSize(t, w) { const c = this.cur; this._font(c); const max = w * this.k, out = []; let line = "";
@@ -1972,12 +2084,19 @@ function watermark(canvas, label) {
   c.restore();
 }
 function previewInvoice() {
-  const p = P(), inv = I(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: false };
+  const p = P(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: !!p.gstReg };
+  showPreview(ME2, clone(I()), { mark: true });
+}
+let pvBack = null;   /* "admin": closing the preview goes back to the admin panel where it was */
+function showPreview(me, inv, opts) {
+  opts = opts || {};
   const doc = new CanvasDoc(Math.min(6, Math.max(3.5, (window.devicePixelRatio || 1) * 2.4)));
-  drawInvoice(doc, ME2, clone(inv));
+  drawInvoice(doc, me, inv);
   const label = t("pv.mark"), box = $("pv_pages"); box.innerHTML = "";
-  doc.pages.forEach((cv, i) => { watermark(cv, label); cv.className = "pvpage"; cv.setAttribute("role", "img"); cv.setAttribute("aria-label", `${t("pv.title")} ${i + 1}/${doc.pages.length}`);
+  doc.pages.forEach((cv, i) => { if (opts.mark) watermark(cv, label); cv.className = "pvpage"; cv.setAttribute("role", "img"); cv.setAttribute("aria-label", `${t("pv.title")} ${i + 1}/${doc.pages.length}`);
     cv.addEventListener("contextmenu", (e) => e.preventDefault()); box.appendChild(cv); });
+  document.querySelector("#p_preview .pvnote").hidden = !opts.mark;
+  pvBack = opts.back || null;
   openSheet("p_preview");
 }
 
@@ -2008,6 +2127,7 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
     if(!infosDone()){pdfMsg(t("fin.details"));openSheet("p_infos");return}
     if(!inv.billto){pdfMsg(t("pdfm.need_client"));$("billto").focus();return}
     if(!hasHours(inv)){pdfMsg(t("pdfm.need_hours"));return}
+    if(inv.billto_abn&&!abnOk(inv.billto_abn)){pdfMsg(t("meta.cabn_bad"));const d=document.querySelector(".invmeta");if(d)d.open=true;$("billto_abn").focus();return}
     if(inv.rows.some(r=>r.hours>0&&!(r.rate>0))){pdfMsg(t("pdfm.need_rate"));$("defrate").focus();return}
     if(plan.blocked){pdfMsg(t("fin.blocked",{email:SUPPORT_EMAIL}));return}
     if(!plan.premium){if(freeLeft()<=0){showPremium("p.why_limit");return}
@@ -2018,17 +2138,18 @@ $("pdfbtn").onclick=async()=>{if(finishing)return;const p=P(),inv=I(),lk=locked(
     const {data:out,error}=await sb.rpc("finish_invoice",{p_draft_id:inv.id,p_inv:clone(inv)});
     if(error){pdfMsg(/JWT|auth|401/i.test(error.message||"")?t("fin.auth"):t("fin.server"));return}
     if(out&&out.ok){
-      const me={...(out.me||{})};["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);
+      const me={...(out.me||{})};if(!("gst_v" in me))me.gst=!!p.gstReg;   /* older server script: use the current setting */["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);
       const bytes=renderInvoice(JsPDF,me,out.inv||{});
       if(out.free_left!=null)plan.free_used=(plan.free_limit||3)-(+out.free_left);
       const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim(),src=out.inv||inv;
       const name=`${PT[invType(src)].file} Invoice${who?" "+who:""} ${dmy(src.start||inv.start).replace(/\//g,"-")} - ${dmy(src.end||inv.end).replace(/\//g,"-")}.pdf`;
       const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
-      const again=lk;if(!inv.finished)inv.finished={at:new Date().toISOString()};
+      const again=lk;if(!inv.finished)inv.finished={at:new Date().toISOString()};p.lastInvNo=Math.max(+p.lastInvNo||0,parseInt(inv.invno)||0);
       if(plan.premium&&!curEntry())addToHistory();
       save();flushSave();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
     const st=out&&out.status;
     if(st==="limit"){plan.free_used=plan.free_limit||3;showPremium("p.why_limit")}
+    else if(st==="dup_no"){p.lastInvNo=Math.max(+p.lastInvNo||0,+out.last_invno||0);inv.invno=nextInvNo();renderWeek();save();pdfMsg(t("fin.dup_no",{no:inv.invno}))}
     else if(st==="blocked"){plan.blocked=true;pdfMsg(t("fin.blocked",{email:SUPPORT_EMAIL}))}
     else if(st==="abn_taken")pdfMsg(t("fin.abn_taken"));
     else if(st==="abn_invalid"){pdfMsg(t("fin.abn_invalid"));openSheet("p_infos")}
@@ -2140,11 +2261,14 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
   const ab=box.querySelector("#md_abn");if(ab)two(ab,t("a.reset_confirm",{abn:fmtAbn(d.abn)}),()=>act("admin_reset_abn",{p_user:d.user_id},ab));
   const del=box.querySelector("#md_del");if(del)two(del,t("a.delete_confirm",{email:d.email}),async()=>{del.disabled=true;const {data:r,error}=await sb.rpc("admin_delete_user",{p_user:d.user_id});
     if(error||!r||!r.ok){admErr();del.disabled=false;return}admShow("users");$("adm_msg").textContent=t("a.deleted",{email:d.email})});
-  box.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b))}
+  box.querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
+  box.querySelectorAll("[data-pv]").forEach(b=>b.onclick=()=>adminView(b.dataset.pv,b))}
 function invLi(v,withWho){const per=v.start_date||v.start,end=v.end_date||v.end;
   return `<li class="ainvrow"><span class="aumain"><strong>${esc(money(v.total))}</strong><span class="aumeta">${esc(t("h.inv",{no:v.invno||"?"}))} · ${per?esc(`${dm(String(per).slice(0,10))} → ${dmy(String(end).slice(0,10))}`):""} · ${esc(hrs(v.hours))} h</span>
     <span class="aumeta">${withWho?esc((v.name||v.email||"")+" · "):""}${esc(v.billto||"")} · ${esc(t("a.finished_on",{date:d8(v.created_at)}))}</span></span>
-    <button type="button" class="adl-btn" data-dl="${esc(v.id)}">${esc(t("a.download"))}</button></li>`}
+    <span class="ainvbtns"><button type="button" class="adl-btn aeye" data-pv="${esc(v.id)}" aria-label="${esc(t("a.view"))}" title="${esc(t("a.view"))}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button><button type="button" class="adl-btn" data-dl="${esc(v.id)}">${esc(t("a.download"))}</button></span></li>`}
+async function adminView(id,btn){btn.disabled=true;try{const {data:r,error}=await sb.rpc("admin_get_invoice",{p_id:id});
+  if(error||!r||!r.ok){admErr();return}showPreview(r.me||{},r.inv||{},{mark:false,back:"admin"})}catch(e){admErr()}finally{btn.disabled=false}}
 async function adminDownload(id,btn){btn.disabled=true;try{const JsPDF=await loadJsPDF();const {data:r,error}=await sb.rpc("admin_get_invoice",{p_id:id});
   if(error||!r||!r.ok){admErr();return}const inv=r.inv||{},who=String((r.me&&r.me.name)||"").replace(/[\\/:*?"<>|]+/g,"").trim();
   const name=`${PT[invType(inv)].file} Invoice${who?" "+who:""} ${dmy(inv.start).replace(/\//g,"-")} - ${dmy(inv.end).replace(/\//g,"-")}.pdf`;
@@ -2158,6 +2282,7 @@ async function loadRecent(reset){if(reset){invOffset=0;$("adm_invlist").innerHTM
   if(!invOffset&&!rows.length)$("adm_invlist").innerHTML=`<li class="muted">${esc(t("a.no_inv"))}</li>`;
   $("adm_invlist").insertAdjacentHTML("beforeend",rows.map(v=>invLi(v,true)).join(""));
   $("adm_invlist").querySelectorAll("[data-dl]").forEach(b=>b.onclick=()=>adminDownload(b.dataset.dl,b));
+  $("adm_invlist").querySelectorAll("[data-pv]").forEach(b=>b.onclick=()=>adminView(b.dataset.pv,b));
   invOffset+=rows.length;$("adm_invmore").hidden=rows.length<30}
 $("adm_invmore").onclick=()=>loadRecent(false);
 
