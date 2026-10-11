@@ -583,6 +583,35 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 .badge.pro{background:linear-gradient(135deg,#FFE9A3 0%,#F5C542 45%,#D99A1E 100%);border-color:#C98A12;color:#3A2500;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 2px 8px -3px rgba(201,138,18,.7)}
 #planbadge.pro{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;padding:5px 10px;white-space:nowrap}
 #planbadge.pro::before{content:"";width:12px;height:12px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat}
+/* Free: "Go Premium" in the top bar */
+.gopro{border:1.5px solid #D99A1E;color:#8A5A00;background:linear-gradient(135deg,#FFF6D6,#FFE7A0);font-weight:800;white-space:nowrap}
+@media (prefers-color-scheme:dark){.gopro{color:#3A2500}}
+@media (max-width:380px){.topr .gopro{font-size:.78rem;padding:6px 9px}}
+/* finished invoice: greyed out, the pencil is the way in */
+#app.isdone .ctx .fields,#app.isdone .invmeta,#app.isdone .modeseg,#app.isdone .hoursopts,#app.isdone label.chk,#app.isdone .otbox,#app.isdone .optnote,#app.isdone .daylist,#app.isdone #copymon{opacity:.5;filter:grayscale(1);pointer-events:none;user-select:none}
+.editbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:800}
+.edtxt{margin:0;line-height:1.5}
+/* My details: what is printed on the invoice */
+label.oninv{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;letter-spacing:.02em;color:var(--green);background:var(--green-soft);border-radius:999px;padding:1px 8px}
+/* room for "Go Premium": the menu keeps its icon only, the logo keeps its picture only on mid-size phones */
+@media (max-width:600px){.topr:has(#btn_gopro:not([hidden])) #btn_menu span{display:none}.topr:has(#btn_gopro:not([hidden])) #btn_menu{padding-left:11px;padding-right:11px}}
+@media (max-width:520px){.top:has(#btn_gopro:not([hidden])) .brand span{display:none}}
+/* invoice no., client ABN, dates: always visible, never overlapping */
+.invmeta{font-size:inherit}
+.metagrid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.6fr);gap:10px}
+.metagrid .field{min-width:0}
+.metagrid input{min-width:0;width:100%;box-sizing:border-box}
+.metagrid input[type=date]{-webkit-appearance:none;appearance:none;display:block;min-height:48px;text-align:left}
+.metagrid input[type=date]::-webkit-date-and-time-value{text-align:left}
+.metagrid .field:nth-child(3),.metagrid .field:nth-child(4){grid-column:span 1}
+.metagrid{grid-template-areas:"no abn" "iss due"}
+.metagrid .mno{grid-area:no}.metagrid .mabn{grid-area:abn}
+.metagrid .field:nth-child(3){grid-area:iss}.metagrid .field:nth-child(4){grid-area:due}
+.metagrid:has(.field){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.metagrid .mno input{max-width:100%}
+.metagrid{align-items:end}
+@media (max-width:340px){.ctx .seg label{white-space:nowrap;font-size:.84rem;padding-left:4px;padding-right:4px}}
 </style>
 </head>
 <body>
@@ -596,21 +625,21 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
     <section id="p_infos" class="form" hidden data-i18n-title="i.title">
       <p class="muted" style="margin:0" data-i18n="i.intro">Fill these in once.</p>
       <div class="namegrid">
-        <div class="form"><label for="me_first" data-i18n="i.first">First name</label><input id="me_first" autocomplete="given-name" autocapitalize="words"></div>
-        <div class="form"><label for="me_last" data-i18n="i.last">Last name</label><input id="me_last" autocomplete="family-name" autocapitalize="words"></div>
+        <div class="form"><label for="me_first" class="oninv" data-i18n="i.first">First name</label><input id="me_first" autocomplete="given-name" autocapitalize="words"></div>
+        <div class="form"><label for="me_last" class="oninv" data-i18n="i.last">Last name</label><input id="me_last" autocomplete="family-name" autocapitalize="words"></div>
       </div>
-      <label for="me_abn" data-i18n="i.abn">ABN</label>
+      <label for="me_abn" class="oninv" data-i18n="i.abn">ABN</label>
       <div class="abnbox" id="abnbox">
         <input id="me_abn" inputmode="numeric" class="mono" autocomplete="off" data-i18n-ph="i.abn_ph" aria-describedby="abn_note">
         <p id="abn_note" class="abnnote"></p>
         <button id="abn_ok" type="button" data-i18n="i.abn_confirm">Confirm my ABN</button>
         <p id="abn_msg" class="err" role="status"></p>
       </div>
-      <label for="me_email" data-i18n="i.email">Email</label><input id="me_email" type="email" autocomplete="email" aria-describedby="email_msg"><p id="email_msg" class="err fmsg" role="status"></p>
-      <label for="me_phone" data-i18n="i.phone">Phone</label><input id="me_phone" type="tel" autocomplete="tel" class="mono">
-      <label for="me_addr" data-i18n="i.addr">Address</label><input id="me_addr" autocomplete="street-address">
-      <label for="me_bsb" data-i18n="i.bsb">BSB</label><input id="me_bsb" inputmode="numeric" class="mono" placeholder="000-000" maxlength="7" aria-describedby="bsb_msg"><p id="bsb_msg" class="err fmsg" role="status"></p>
-      <label for="me_acc" data-i18n="i.acc">Account number</label><input id="me_acc" inputmode="numeric" class="mono" maxlength="12" aria-describedby="acc_msg"><p id="acc_msg" class="err fmsg" role="status"></p>
+      <label for="me_email" class="oninv" data-i18n="i.email">Email</label><input id="me_email" type="email" autocomplete="email" aria-describedby="email_msg"><p id="email_msg" class="err fmsg" role="status"></p>
+      <label for="me_phone" class="oninv" data-i18n="i.phone">Phone</label><input id="me_phone" type="tel" autocomplete="tel" class="mono">
+      <label for="me_addr" class="oninv" data-i18n="i.addr">Address</label><input id="me_addr" autocomplete="street-address">
+      <label for="me_bsb" class="oninv" data-i18n="i.bsb">BSB</label><input id="me_bsb" inputmode="numeric" class="mono" placeholder="000-000" maxlength="7" aria-describedby="bsb_msg"><p id="bsb_msg" class="err fmsg" role="status"></p>
+      <label for="me_acc" class="oninv" data-i18n="i.acc">Account number</label><input id="me_acc" inputmode="numeric" class="mono" maxlength="12" aria-describedby="acc_msg"><p id="acc_msg" class="err fmsg" role="status"></p>
       <span class="flabel" id="gstreg_lbl" data-i18n="g.label">GST</span>
       <div class="seg" role="radiogroup" aria-labelledby="gstreg_lbl">
         <label><input type="radio" name="gstreg" value="no"> <span data-i18n="g.no">Not registered</span></label>
@@ -680,6 +709,15 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
       </div>
     </section>
 
+    <section id="p_edit" hidden data-i18n-title="ed.title">
+      <p id="ed_txt" class="edtxt"></p>
+      <div class="rvbtns">
+        <button class="primary" id="ed_go" type="button" data-i18n="ed.go">Edit it (uses 1 free invoice)</button>
+        <button id="ed_pro" type="button" data-i18n="ed.pro">Go Premium: edit for free</button>
+        <button class="linkbtn" type="button" data-close data-i18n="ed.cancel">Keep it as it is</button>
+      </div>
+    </section>
+
     <section id="p_install" hidden data-i18n-title="ins.title">
       <p class="muted" style="margin:0 0 8px" data-i18n="ins.intro">SubbieBill opens full screen, like an app. No App Store needed.</p>
       <ol id="ins_steps" class="insteps"></ol>
@@ -707,6 +745,7 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
   <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="30" height="30"><span>SubbieBill</span></a>
   <div class="topr" id="topr" hidden>
     <span id="planbadge" class="badge"></span>
+    <button id="btn_gopro" class="gopro" type="button" hidden data-i18n="top.gopro">Go Premium</button>
     <button id="btn_app" class="primary" type="button" hidden data-i18n="nav.app">My invoices</button>
     <button id="btn_hist" type="button" data-i18n="top.history">History</button>
     <div class="menuwrap">
@@ -927,22 +966,21 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
       <div class="center"><button id="thisweek" class="linkbtn" type="button" hidden data-i18n="nav.today">Back to today</button></div>
       <div id="lockbar" class="lockbar" hidden>
         <p id="locktxt"></p>
-        <div class="lockbtns"><button id="lock_share" type="button" hidden data-i18n="fin.share">Share PDF</button><button class="primary" id="lock_next" type="button" data-i18n="fin.next">Start the next invoice</button><button id="lock_edit" type="button" class="linkbtn" data-i18n="fin.edit">Fix a mistake: copy to a new invoice</button></div>
+        <div class="lockbtns"><button id="lock_share" type="button" hidden data-i18n="fin.share">Share PDF</button><button class="primary" id="lock_next" type="button" data-i18n="fin.next">Start the next invoice</button><button id="lock_edit" type="button" class="editbtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span data-i18n="fin.edit">Edit</span></button></div>
       </div>
       <div class="fields">
         <div class="field"><label for="billto" data-i18n="ctx.client">Client</label><select id="billto"></select><input id="billto_new" data-i18n-ph="ctx.client_ph" hidden></div>
         <div class="field"><label for="site" data-i18n="ctx.site">Site</label><select id="site"></select><input id="site_new" data-i18n-ph="ctx.site_ph" hidden></div>
       </div>
-      <details class="invmeta">
-        <summary id="invsum"></summary>
-        <div class="fields">
-          <div class="field"><label for="invno" data-i18n="meta.no">Invoice no.</label><input id="invno" type="number" inputmode="numeric" min="1" class="mono"></div>
+      <div class="invmeta">
+        <div class="metagrid">
+          <div class="field mno"><label for="invno" data-i18n="meta.no">Invoice no.</label><input id="invno" type="number" inputmode="numeric" min="1" class="mono"></div>
+          <div class="field mabn"><label for="billto_abn" data-i18n="meta.cabn">Client ABN (optional)</label><input id="billto_abn" inputmode="numeric" class="mono" autocomplete="off" data-i18n-ph="i.abn_ph"></div>
           <div class="field"><label for="issue" data-i18n="meta.issue">Issued</label><input id="issue" type="date"></div>
           <div class="field"><label for="due" data-i18n="meta.due">Due</label><input id="due" type="date"></div>
         </div>
-        <div class="field" style="margin-top:10px"><label for="billto_abn" data-i18n="meta.cabn">Client ABN (optional)</label><input id="billto_abn" inputmode="numeric" class="mono" autocomplete="off" data-i18n-ph="i.abn_ph"></div>
         <p class="note" id="cabn_msg" style="margin:4px 0 0"></p>
-      </details>
+      </div>
       <div class="saverow"><button class="primary" id="savebtn" type="button"></button></div>
       <p id="savestate" class="savestate" role="status"></p>
     </section>
@@ -995,6 +1033,15 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "i.oninv":"On invoice",
+  "p.why_edit":"You've used your free invoices. With Premium you can edit and finish invoices as often as you like.",
+  "ed.cancel":"Keep it as it is",
+  "ed.pro":"Go Premium: edit as often as you like",
+  "ed.go":"Edit it (uses 1 free invoice)",
+  "ed.free":"On Free, finishing it again uses 1 more free invoice. You have {n} left, so {left} after that. It keeps the same number.",
+  "ed.title":"Edit this invoice?",
+  "fin.unlocked":"You can edit the invoice. Tap Finish again to get the updated PDF.",
+  "top.gopro":"Go Premium",
   "a.f_seen":"Last visit",
   "a.seen_on":"Last visit {date}",
   "a.seen_h":"Seen {n} h ago",
@@ -1230,7 +1277,7 @@ en:{
   "days.mode_times":"Start – finish",
   "days.mode_aria":"How you enter your hours",
   "save.auto_pro":"Saved automatically to your history ✓",
-  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap to confirm","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of {limit} free invoices left","quota.none":"No free invoices left","fin.locked":"Invoice finished on {date}. The PDF is ready to send.","fin.next":"Start the next invoice","fin.edit":"Fix a mistake: copy to a new invoice","fin.done":"Invoice finished. The PDF is in your downloads.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Your details aren't complete yet: see what's missing below.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
+  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap to confirm","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of {limit} free invoices left","quota.none":"No free invoices left","fin.locked":"Invoice finished on {date}. The PDF is ready to send.","fin.next":"Start the next invoice","fin.edit":"Edit","fin.done":"Invoice finished. The PDF is in your downloads.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Your details aren't complete yet: see what's missing below.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
   days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
   "doc.title":"SubbieBill · Invoicing for ABN subcontractors",
   "lang.label":"Language",
@@ -1289,7 +1336,7 @@ en:{
   "st.saving":"Saving…","st.in_hist":"In your history. Changes save automatically.","st.not_saved":"Not in your history yet.",
   "st.saved":"Invoice saved to your history.","st.already":"Already saved. Changes save automatically.","st.need_day":"Add at least one day before saving.",
   "st.expired":"Session expired. Log in again.","st.err":"Not saved: {msg}","st.full":"Free history is full.","st.retry":"Not saved. Try again.",
-  "st.offline":"No connection. Not saved.","st.loading":"Loading…",
+  "st.offline":"No connection right now. Your changes will save as soon as it's back.","st.loading":"Loading…",
   "st.shrink":"Can't do that: {n} worked day(s) would fall outside this period. Pick a longer period or start a new invoice.",
   "st.paid_wait":"Payment received. Turning on Premium…","st.paid_ok":"Premium is on. Thanks!","st.paid_later":"Payment received. Premium will switch on in a few minutes.",
   "days.title":"Your hours","days.copy_week":"Copy Monday to Tue → Fri","days.copy_multi":"Copy Monday to empty days","days.week_of":"Week of {date}",
@@ -1302,7 +1349,7 @@ en:{
   "m.infos":"My details","m.infos_sub":"name, ABN, bank","m.settings":"Settings","m.settings_sub":"rates, time entry",
   "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.logout":"Log out",
   "plan.free":"Free · {n} of {limit} free invoices left","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
-  "i.title":"My details","i.intro":"These go on every invoice. Fill them in once.","i.name":"Full name","i.abn":"ABN","i.abn_ph":"11 digits",
+  "i.title":"My details","i.intro":"Everything marked “On invoice” is printed on your invoices. Fill it in once.","i.name":"Full name","i.abn":"ABN","i.abn_ph":"11 digits",
   "i.email":"Email (optional)","i.phone":"Phone (optional)","i.addr":"Address (optional)","i.bsb":"BSB","i.acc":"Account number","i.ok":"Done",
   "s.title":"Settings","s.mode":"How you enter your hours","s.times":"Start and finish","s.hours":"Number of hours","s.unpaid":"I take an unpaid break",
   "s.rate":"Weekday hourly rate ($/h)","s.desc":"Description on the invoice","s.note":"Saturday and Sunday start at $0/h. If you work a weekend, set the rate on that day.","s.ok":"OK",
@@ -1325,6 +1372,15 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "i.oninv":"Sur la facture",
+  "p.why_edit":"Tu as utilisé tes factures gratuites. Avec Premium, tu modifies et termines tes factures autant que tu veux.",
+  "ed.cancel":"La garder telle quelle",
+  "ed.pro":"Passer Premium : modifier sans limite",
+  "ed.go":"La modifier (utilise 1 facture gratuite)",
+  "ed.free":"En gratuit, la terminer à nouveau utilise 1 facture gratuite de plus. Il t'en reste {n}, donc {left} après. Elle garde le même numéro.",
+  "ed.title":"Modifier cette facture ?",
+  "fin.unlocked":"Tu peux modifier la facture. Touche Terminer à nouveau pour avoir le PDF à jour.",
+  "top.gopro":"Passer Premium",
   "a.f_seen":"Dernière visite",
   "a.seen_on":"Dernière visite le {date}",
   "a.seen_h":"Vu il y a {n} h",
@@ -1560,7 +1616,7 @@ fr:{
   "days.mode_times":"Début – fin",
   "days.mode_aria":"Comment tu saisis tes heures",
   "save.auto_pro":"Enregistrée automatiquement dans ton historique ✓",
-  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Corriger une erreur : copier dans une nouvelle facture","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
@@ -1619,7 +1675,7 @@ fr:{
   "st.saving":"Enregistrement…","st.in_hist":"Dans ton historique. Tes changements s'enregistrent tout seuls.","st.not_saved":"Pas encore dans ton historique.",
   "st.saved":"Facture enregistrée dans ton historique.","st.already":"Déjà enregistrée. Tes changements s'enregistrent tout seuls.","st.need_day":"Mets au moins une journée avant d'enregistrer.",
   "st.expired":"Session expirée : reconnecte-toi.","st.err":"Pas enregistré : {msg}","st.full":"Historique gratuit plein.","st.retry":"Pas enregistré, réessaie.",
-  "st.offline":"Pas de connexion : pas enregistré.","st.loading":"Chargement…",
+  "st.offline":"Pas de connexion pour le moment. Tes changements s'enregistreront dès qu'elle revient.","st.loading":"Chargement…",
   "st.shrink":"Impossible : {n} jour(s) travaillé(s) sortiraient de la période. Choisis une durée plus longue ou une nouvelle facture.",
   "st.paid_wait":"Paiement reçu, activation de Premium…","st.paid_ok":"Premium activé. Merci !","st.paid_later":"Paiement reçu. Premium s'activera dans quelques minutes.",
   "days.title":"Tes heures","days.copy_week":"Copier lundi sur mar → ven","days.copy_multi":"Copier lundi sur les jours vides","days.week_of":"Semaine du {date}",
@@ -1632,7 +1688,7 @@ fr:{
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
   "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter",
   "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur {limit}","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
-  "i.title":"Mes infos","i.intro":"Elles vont sur chaque facture. À remplir une seule fois.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
+  "i.title":"Mes infos","i.intro":"Tout ce qui est marqué « Sur la facture » est imprimé sur tes factures. À remplir une seule fois.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email (facultatif)","i.phone":"Téléphone (facultatif)","i.addr":"Adresse (facultatif)","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
   "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
   "s.rate":"Taux horaire en semaine ($/h)","s.desc":"Description sur la facture","s.note":"Le samedi et le dimanche partent à 0 $/h. Si tu travailles le week-end, mets le taux directement sur le jour.","s.ok":"OK",
@@ -1820,7 +1876,7 @@ es:{
   "quota.none":"No te quedan facturas gratuitas",
   "fin.locked":"Factura terminada el {date}. El PDF está listo para enviar.",
   "fin.next":"Empezar la siguiente factura",
-  "fin.edit":"Corregir un error: copiar en una factura nueva",
+  "fin.edit":"Modificar",
   "fin.done":"Factura terminada. El PDF está en tus descargas.",
   "fin.again":"Descargada otra vez.",
   "fin.abn_taken":"Este ABN ya lo usa otra cuenta de SubbieBill.",
@@ -1979,7 +2035,7 @@ es:{
   "st.err":"No se guardó: {msg}",
   "st.full":"El historial gratuito está lleno.",
   "st.retry":"No se guardó. Inténtalo otra vez.",
-  "st.offline":"Sin conexión. No se guardó.",
+  "st.offline":"Sin conexión por ahora. Tus cambios se guardarán en cuanto vuelva.",
   "st.loading":"Cargando…",
   "st.shrink":"No se puede: {n} día(s) trabajado(s) quedarían fuera de este período. Elige un período más largo o empieza una factura nueva.",
   "st.paid_wait":"Pago recibido. Activando Premium…",
@@ -2022,7 +2078,7 @@ es:{
   "plan.pro":"Premium",
   "plan.pro_until":"Premium hasta el {date}",
   "i.title":"Mis datos",
-  "i.intro":"Van en cada factura. Complétalos una sola vez.",
+  "i.intro":"Todo lo marcado «En la factura» se imprime en tus facturas. Complétalo una sola vez.",
   "i.name":"Nombre completo",
   "i.abn":"ABN",
   "i.abn_ph":"11 cifras",
@@ -2068,7 +2124,16 @@ es:{
   "p.soon":"El pago en línea abre pronto. ¿Quieres Premium ya? Escribe a {email}.",
   "p.secure":"Pago seguro con Stripe. Tu cuenta pasa a Premium justo después.",
   "p.why_full":"El plan gratuito guarda {limit} facturas. Elimina una de tu historial o pásate a Premium.",
-  "p.why_banner":"Guarda todas tus facturas, sin límite."
+  "p.why_banner":"Guarda todas tus facturas, sin límite.",
+  "top.gopro":"Hazte Premium",
+  "fin.unlocked":"Puedes modificar la factura. Toca Terminar otra vez para obtener el PDF actualizado.",
+  "ed.title":"¿Modificar esta factura?",
+  "ed.free":"En Gratis, terminarla otra vez usa 1 factura gratuita más. Te quedan {n}, o sea {left} después. Conserva el mismo número.",
+  "ed.go":"Modificarla (usa 1 factura gratuita)",
+  "ed.pro":"Hazte Premium: modifica sin límite",
+  "ed.cancel":"Dejarla como está",
+  "p.why_edit":"Usaste tus facturas gratuitas. Con Premium modificas y terminas tus facturas las veces que quieras.",
+  "i.oninv":"En la factura"
 }};
 
 /* ===== SETTINGS ===== */
@@ -2104,6 +2169,7 @@ function applyStatic(){
   document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.dataset.i18n)});
   document.querySelectorAll("[data-i18n-ph]").forEach(el=>{el.placeholder=t(el.dataset.i18nPh)});
   document.querySelectorAll("[data-i18n-inv]").forEach(el=>{el.textContent=withLang(INVOICE_LANG,()=>t(el.dataset.i18nInv))});
+  document.querySelectorAll("label.oninv").forEach(el=>el.dataset.tag=t("i.oninv"));
   document.querySelectorAll("[data-i18n-aria]").forEach(el=>{el.setAttribute("aria-label",t(el.dataset.i18nAria));if(el.dataset.tip!=null)el.title=t(el.dataset.i18nAria)});
 }
 function renderLangUI(){
@@ -2203,7 +2269,7 @@ function nextInvNo(){let m=+P().lastInvNo||0;(P().saved||[]).forEach(e=>{m=Math.
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate||0)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:a,due:b,weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||""}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:b,due:b,weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||""}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
@@ -2222,12 +2288,17 @@ function setSave(k,v){syncMsg=k?{k,v}:null;renderStatus()}
 async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();const {id,...rest}=p;
   const data={...rest,clients:state.clients,sites:state.sites};
   try{const {data:r,error}=await sb.rpc("save_my_profile",{p_name:(p.name||"").trim(),p_data:data});
-    if(error){/JWT|auth/i.test(error.message)?setSave("st.expired"):setSave("st.err",{msg:error.message});return}
+    if(error){const m=error.message||"";if(/JWT|auth/i.test(m)){setSave("st.expired");return}
+      if(/load failed|failed to fetch|network|fetch|timeout|offline/i.test(m)){setSave("st.offline");retrySave();return}
+      setSave("st.err",{msg:m});return}
     if(r&&r.ok){setSave(null);return}
     if(r&&r.status==="limit"){setSave("st.full");return}
     if(r&&r.status==="abn_taken"){setSave("st.abn_taken");return}
     setSave("st.retry")}
-  catch(e){setSave("st.offline")}}
+  catch(e){setSave("st.offline");retrySave()}}
+/* not saved because of the connection: try again in a few seconds, and as soon as the phone is back online */
+let retryT=null;function retrySave(){clearTimeout(retryT);retryT=setTimeout(()=>{if(session&&!saveTimer)pushSave()},5000)}
+window.addEventListener("online",()=>{if(session&&syncMsg&&syncMsg.k==="st.offline")pushSave()});
 
 /* ---------- rendering ---------- */
 function infosDone(){const p=P();return !!(p.first&&p.last&&p.name&&p.abn&&p.abnLocked&&p.bsb&&p.acc)}
@@ -2237,7 +2308,8 @@ function renderTop(){const on=!!session,home=!on||view==="home";$("topr").hidden
   $("auth").hidden=on;$("btn_app").hidden=!(on&&home);$("btn_hist").hidden=on&&home;
   document.querySelectorAll("[data-auth]").forEach(el=>{el.textContent=on?t("nav.app"):t(el.dataset.i18n)});
   if(on)$("lstick").hidden=true;renderInstall();
-  if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium)}
+  if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium);
+  $("btn_gopro").hidden=plan.premium||home}
 function renderOnboard(){const s1=infosDone(),s2=!!I().billto,s3=hasHours(I());
   [s1,s2,s3].forEach((d,i)=>{const li=$("st"+(i+1));li.classList.toggle("done",d);li.querySelector(".dot").textContent=d?"✓":String(i+1)});
   $("st1").querySelector("button").hidden=s1;
@@ -2259,7 +2331,6 @@ function renderWeek(){const inv=I(),ty=invType(inv);
   $("thisweek").hidden=inv.start===periodRange(ty,todayIso())[0];
   pickUI("billto","billto_new",state.clients,inv.billto,"ctx.add_client");pickUI("site","site_new",state.sites,inv.site,"ctx.add_site");
   $("invno").value=inv.invno||"";$("issue").value=inv.issue||"";$("due").value=inv.due||"";
-  $("invsum").textContent=t("meta.sum",{no:inv.invno||"?",issue:dm(inv.issue),due:dm(inv.due)});
   if(document.activeElement!==$("billto_abn"))$("billto_abn").value=inv.billto_abn?fmtAbn(inv.billto_abn):"";renderCabnMsg();
   const lk=locked();["billto","site","billto_new","site_new","invno","issue","due","billto_abn"].forEach(id=>{$(id).disabled=lk});}
 function renderCabnMsg(){const v=String(I().billto_abn||"").replace(/\D/g,""),c=invCalc(I(),meNow());
@@ -2376,7 +2447,7 @@ function changeType(ty){const inv=I(),p=P();if(invType(inv)===ty)return;if(locke
   const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(ty,ref);
   const lost=inv.rows.filter(r=>r.hours>0&&(r.date<a||r.date>b)).length;
   if(lost){renderWeek();setSave("st.shrink",{n:lost});return}
-  inv.type=ty;inv.start=a;inv.end=b;inv.issue=a;inv.due=b;inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg=null;renderAll();save()}
+  inv.type=ty;inv.start=a;inv.end=b;if(!inv.issueSet)inv.issue=b;if(!inv.dueSet)inv.due=b;inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg=null;renderAll();save()}
 document.querySelectorAll('input[name="ptype"]').forEach(x=>x.onchange=e=>changeType(e.target.value));
 $("prevw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,-1))};
 $("nextw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
@@ -2511,7 +2582,7 @@ function renderPremium(){const has=!!(PAY_MONTHLY||PAY_YEARLY);$("payrow").hidde
   $("premwhy").textContent=premWhy?t(premWhy,{limit:FREE_LIMIT()}):"";$("paysoon").textContent=t("p.soon",{email:SUPPORT_EMAIL});$("paysec").hidden=!has;
   $("paymonthly").hidden=!PAY_MONTHLY;$("payyearly").hidden=!PAY_YEARLY;$("paymonthly").href=payUrl(PAY_MONTHLY);$("payyearly").href=payUrl(PAY_YEARLY)}
 function showPremium(why){premWhy=why||null;openSheet("p_premium")}
-$("m_premium").onclick=()=>showPremium(null);
+$("m_premium").onclick=()=>showPremium(null);$("btn_gopro").onclick=()=>showPremium(null);
 async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_my_profile");
   if(data){setPlan(data);if("abn_locked" in data&&P()){P().abn=data.abn||"";P().abnLocked=!!data.abn_locked}renderTop();syncSaved();renderStatus();renderFinish()}}
 
@@ -2525,7 +2596,9 @@ function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=i
   if(!inv.end)inv.end=periodRange(inv.type,inv.start)[1];
   if(!inv.site)inv.site=(inv.rows[0]&&inv.rows[0].loc)||"";
   if(!inv.rows.some(r=>!r.date||r.date<inv.start||r.date>inv.end))inv.rows=buildRows(inv.start,inv.end,inv.site,inv.rows);
-  if(!/^[A-Za-z0-9_-]{6,64}$/.test(inv.id||""))inv.id=newId();inv.weekstart=inv.start;return inv}
+  if(!/^[A-Za-z0-9_-]{6,64}$/.test(inv.id||""))inv.id=newId();inv.weekstart=inv.start;
+  if(!inv.finished&&!inv.issueSet&&inv.end)settleDates(inv);   /* drafts: issued on the last day of the period */
+  return inv}
 function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
@@ -2835,7 +2908,7 @@ let confirmUntil=0,finishing=false;
 function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=locked();
   if(!finishing)b.textContent=lk?t("bar.redownload"):(Date.now()<confirmUntil?t("bar.confirm",{n:freeLeft()}):t("bar.finish"));
   b.classList.toggle("confirm",Date.now()<confirmUntil);
-  $("lockbar").hidden=!lk;$("lock_share").hidden=!canShareFiles();
+  $("lockbar").hidden=!lk;$("app").classList.toggle("isdone",lk);$("lock_share").hidden=!canShareFiles();
   if(lk)$("locktxt").textContent=t("fin.locked",{date:clean(new Date(inv.finished.at).toLocaleDateString(loc()))});
   document.querySelectorAll('input[name="ptype"]').forEach(x=>{x.closest("label").classList.toggle("dim",lk)});
   renderStatus();
@@ -2843,7 +2916,16 @@ function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=
 function pdfMsg(text){const m=$("pdfmsg");m.textContent=text;m.dataset.keep="1";clearTimeout(pdfMsg.t);pdfMsg.t=setTimeout(()=>{delete m.dataset.keep;renderFinish()},6000)}
 $("pvbtn").onclick=()=>{if(!session||!P())return;previewInvoice()};
 $("lock_next").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
-$("lock_edit").onclick=()=>{const inv=I();inv.finished=null;inv.id=newId();inv.invno=nextInvNo();inv.issueSet=false;if(curEntry())P().curSaved=null;renderAll();save();pdfMsg(t("fin.copied",{no:inv.invno}))};
+/* edit a finished invoice: it reopens with the same number; the finished copy is withdrawn on the server.
+   Free: finishing it again uses one more free invoice, so we say so first. */
+async function unlockInv(){const inv=I(),old=inv.id;
+  try{if(sb&&session)await sb.rpc("delete_my_invoice",{p_draft_id:old})}catch(e){}
+  inv.finished=null;inv.id=newId();lastPdf=null;closeSheet();renderAll();save();flushSave();pdfMsg(t("fin.unlocked"))}
+$("lock_edit").onclick=()=>{if(!locked())return;if(plan.premium){unlockInv();return}
+  if(freeLeft()<=0){showPremium("p.why_edit");return}
+  $("ed_txt").textContent=t("ed.free",{n:freeLeft(),left:freeLeft()-1});openSheet("p_edit")};
+$("ed_go").onclick=()=>unlockInv();
+$("ed_pro").onclick=()=>showPremium(null);
 /* share the PDF (phones: Mail, Messages, WhatsApp…); falls back to a download */
 function canShareFiles(){try{return !!(navigator.canShare&&navigator.canShare({files:[new File([""],"x.pdf",{type:"application/pdf"})]}))}catch(e){return false}}
 let lastPdf=null;
@@ -2863,7 +2945,7 @@ function finishReady(){const p=P(),inv=I();
     if(!plan.premium&&freeLeft()<=0){showPremium("p.why_limit");return false}
     return true}
 /* the issue date is the day you finish (unless you set it yourself); the due date is never before it */
-function settleDates(inv){if(!inv.issueSet)inv.issue=todayIso();if(!inv.due||inv.due<inv.issue)inv.due=inv.issue}
+function settleDates(inv){if(!inv.issueSet)inv.issue=inv.end;if(!inv.due||inv.due<inv.issue)inv.due=inv.issue}
 function openReview(){const inv=I(),p=P(),c=invCalc(inv,meNow()),d=inv.rows.filter(r=>r.hours>0).length;settleDates(inv);renderWeek();
   const row=(k,v,act)=>`<div class="rvrow"><dt>${esc(k)}</dt><dd>${v}${act||""}</dd></div>`;
   const chg=(id)=>`<button type="button" class="linkbtn rvchg" data-rvchg="${id}">${esc(t("rv.change"))}</button>`;
@@ -2905,7 +2987,8 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
       lastPdf={id:inv.id,bytes,name};
       if(o.share){if(!inv.finished)inv.finished={at:new Date().toISOString()};return true}
       const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
-      const again=lk;if(!inv.finished)inv.finished={at:new Date().toISOString()};if(p.drafts)delete p.drafts[draftKey(inv)];p.lastInvNo=Math.max(+p.lastInvNo||0,parseInt(inv.invno)||0);
+      if(out.reused&&!lk&&out.inv){const keep=inv.id;Object.assign(inv,clone(out.inv));inv.id=keep;migrateInv(inv)}
+      const again=lk;if(!inv.finished)inv.finished={at:out.created_at||new Date().toISOString()};if(p.drafts)delete p.drafts[draftKey(inv)];p.lastInvNo=Math.max(+p.lastInvNo||0,parseInt(inv.invno)||0);
       if(plan.premium&&!curEntry())addToHistory();
       save();flushSave();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));return}
     const st=out&&out.status;
@@ -3094,7 +3177,7 @@ $("ann_save").onclick=async e=>{const btn=e.currentTarget;btn.disabled=true;
 (async()=>{lang=storedLang()||"en";applyStatic();renderLangUI();renderDemo();setAuthMode("signup");renderTop();loadAnn();
   if(!sb){$("autherr").textContent=t("err.service");return}
   const {data:{session:s}}=await sb.auth.getSession();
-  if(s&&s.user)await loadAccount(s.user);
+  if(s&&s.user&&await loadAccount(s.user)&&!infosDone())openSheet("p_infos");
   if(new URLSearchParams(location.search).has("paid")&&session){history.replaceState(null,"",location.pathname);setSave("st.paid_wait");
     for(let i=0;i<15&&!plan.premium;i++){await new Promise(r=>setTimeout(r,2000));await refreshPlan()}
     setSave(plan.premium?"st.paid_ok":"st.paid_later");if(plan.premium)save()}
