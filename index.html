@@ -612,6 +612,17 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 .metagrid .mno input{max-width:100%}
 .metagrid{align-items:end}
 @media (max-width:340px){.ctx .seg label{white-space:nowrap;font-size:.84rem;padding-left:4px;padding-right:4px}}
+/* admin: Stripe subscription */
+.asub{margin-bottom:6px}
+.asublink{display:inline-block;margin:2px 0 8px;font-size:.88rem}
+#m_manage_sub{display:block;margin-top:-4px;font-size:.78rem}
+#m_manage_sub[hidden]{display:none}
+.ahead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ahead .odot{order:-1}
+.ahead .auemail{min-width:0;overflow-wrap:anywhere}
+.adl dd{overflow-wrap:normal;word-break:normal;white-space:normal}
+.ahead{flex-direction:row!important}
+.ahead .auemail{flex:1 1 calc(100% - 30px)}
 </style>
 </head>
 <body>
@@ -756,6 +767,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
           <span id="acctplan" class="muted"></span>
           <button class="primary" id="m_premium" type="button" data-i18n="m.premium">Upgrade to Premium</button>
           <a id="m_manage" class="btnlink" href="#" rel="noopener" hidden data-i18n="m.manage">Manage my subscription</a>
+          <small id="m_manage_sub" class="muted" hidden data-i18n="m.manage_sub">Cancel, change card or see your receipts.</small>
         </div>
         <nav class="mlist" data-i18n-aria="m.title" aria-label="Menu">
           <button class="mitem" type="button" data-open="p_infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b data-i18n="m.infos">My details</b><small data-i18n="m.infos_sub">name, ABN, bank</small></span></button>
@@ -1033,6 +1045,21 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 const I18N={
 en:{
   _name:"English",_short:"EN",_locale:"en-AU",
+  "a.sub_open":"Open in Stripe",
+  "a.sub_endedon":"Ended on",
+  "a.sub_ends":"Premium ends",
+  "a.sub_renews":"Next renewal",
+  "a.sub_since":"Subscribed since",
+  "a.sub_ended":"Ended",
+  "a.sub_pastdue":"Payment failed: Stripe is retrying",
+  "a.sub_cancelling":"Cancelled: stays Premium until the end",
+  "a.sub_active":"Active, renews automatically",
+  "a.sub_state":"Status",
+  "a.sub_unknown":"Premium",
+  "a.sub_month":"Monthly · $4.99 a month",
+  "a.sub_year":"Yearly · $39 a year",
+  "a.sub_plan":"Stripe subscription",
+  "m.manage_sub":"Cancel, change your card or see your receipts.",
   "i.oninv":"On invoice",
   "p.why_edit":"You've used your free invoices. With Premium you can edit and finish invoices as often as you like.",
   "ed.cancel":"Keep it as it is",
@@ -1372,6 +1399,21 @@ en:{
 },
 fr:{
   _name:"Français",_short:"FR",_locale:"fr-FR",
+  "a.sub_open":"Ouvrir dans Stripe",
+  "a.sub_endedon":"Terminé le",
+  "a.sub_ends":"Fin du Premium",
+  "a.sub_renews":"Prochain renouvellement",
+  "a.sub_since":"Abonné depuis",
+  "a.sub_ended":"Terminé",
+  "a.sub_pastdue":"Paiement échoué : Stripe réessaie",
+  "a.sub_cancelling":"Résilié : reste Premium jusqu'à la fin",
+  "a.sub_active":"Actif, se renouvelle tout seul",
+  "a.sub_state":"Statut",
+  "a.sub_unknown":"Premium",
+  "a.sub_month":"Mensuel · 4,99 $ par mois",
+  "a.sub_year":"Annuel · 39 $ par an",
+  "a.sub_plan":"Abonnement Stripe",
+  "m.manage_sub":"Résilier, changer de carte ou voir tes reçus.",
   "i.oninv":"Sur la facture",
   "p.why_edit":"Tu as utilisé tes factures gratuites. Avec Premium, tu modifies et termines tes factures autant que tu veux.",
   "ed.cancel":"La garder telle quelle",
@@ -2133,7 +2175,22 @@ es:{
   "ed.pro":"Hazte Premium: modifica sin límite",
   "ed.cancel":"Dejarla como está",
   "p.why_edit":"Usaste tus facturas gratuitas. Con Premium modificas y terminas tus facturas las veces que quieras.",
-  "i.oninv":"En la factura"
+  "i.oninv":"En la factura",
+  "m.manage_sub":"Cancela, cambia tu tarjeta o mira tus recibos.",
+  "a.sub_plan":"Suscripción Stripe",
+  "a.sub_year":"Anual · $39 al año",
+  "a.sub_month":"Mensual · $4.99 al mes",
+  "a.sub_unknown":"Premium",
+  "a.sub_state":"Estado",
+  "a.sub_active":"Activa, se renueva sola",
+  "a.sub_cancelling":"Cancelada: sigue Premium hasta el final",
+  "a.sub_pastdue":"Pago fallido: Stripe lo reintenta",
+  "a.sub_ended":"Terminada",
+  "a.sub_since":"Suscrito desde",
+  "a.sub_renews":"Próxima renovación",
+  "a.sub_ends":"Fin del Premium",
+  "a.sub_endedon":"Terminó el",
+  "a.sub_open":"Abrir en Stripe"
 }};
 
 /* ===== SETTINGS ===== */
@@ -2216,7 +2273,8 @@ const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" sel
 /* ---------- state ---------- */
 let session=null,plan={premium:false,period_end:null,free_limit:3,free_used:0,is_admin:false};
 const freeLeft=()=>Math.max(0,(plan.free_limit||3)-(plan.free_used||0));
-const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit||3,free_used:+d.free_used||0,is_admin:!!d.is_admin,blocked:!!d.blocked}};
+const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit||3,free_used:+d.free_used||0,is_admin:!!d.is_admin,blocked:!!d.blocked,status:d.status||null}};
+const stripeSub=()=>plan.premium&&["active","trialing","past_due"].includes(plan.status);
 const locked=()=>!!(P()&&P().inv&&P().inv.finished);
 const newId=()=>uid()+uid();
 let state={me:null,clients:[],sites:[]};
@@ -2269,7 +2327,7 @@ function nextInvNo(){let m=+P().lastInvNo||0;(P().saved||[]).forEach(e=>{m=Math.
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate||0)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:b,due:b,weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||""}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:b,due:addDays(b,7),weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||""}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
@@ -2447,7 +2505,7 @@ function changeType(ty){const inv=I(),p=P();if(invType(inv)===ty)return;if(locke
   const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(ty,ref);
   const lost=inv.rows.filter(r=>r.hours>0&&(r.date<a||r.date>b)).length;
   if(lost){renderWeek();setSave("st.shrink",{n:lost});return}
-  inv.type=ty;inv.start=a;inv.end=b;if(!inv.issueSet)inv.issue=b;if(!inv.dueSet)inv.due=b;inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg=null;renderAll();save()}
+  inv.type=ty;inv.start=a;inv.end=b;if(!inv.issueSet)inv.issue=b;if(!inv.dueSet)inv.due=addDays(b,7);inv.weekstart=a;inv.rows=buildRows(a,b,inv.site,inv.rows);syncMsg=null;renderAll();save()}
 document.querySelectorAll('input[name="ptype"]').forEach(x=>x.onchange=e=>changeType(e.target.value));
 $("prevw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,-1))};
 $("nextw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
@@ -2575,8 +2633,10 @@ function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searc
   u.searchParams.set("locale",lang==="en"?"en":lang);return u.toString()}
 function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_admin").hidden=!plan.is_admin;
   $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:freeLeft(),limit:FREE_LIMIT()});
-  $("m_premium").hidden=plan.premium;$("m_manage").hidden=!plan.premium||!PORTAL;
-  if(PORTAL){const u=new URL(PORTAL);if(session&&session.email)u.searchParams.set("prefilled_email",session.email);$("m_manage").href=u.toString()}}
+  $("m_premium").hidden=plan.premium;$("m_manage").hidden=!stripeSub();
+  if(PORTAL){const u=new URL(PORTAL);if(session&&session.email)u.searchParams.set("prefilled_email",session.email);$("m_manage").href=u.toString();$("m_manage").target="_blank"}
+  else $("m_manage").href="mailto:"+SUPPORT_EMAIL+"?subject="+encodeURIComponent("SubbieBill Premium");
+  $("m_manage_sub").hidden=!stripeSub()}
 let premWhy=null;
 function renderPremium(){const has=!!(PAY_MONTHLY||PAY_YEARLY);$("payrow").hidden=!has;$("paysoon").hidden=has;
   $("premwhy").textContent=premWhy?t(premWhy,{limit:FREE_LIMIT()}):"";$("paysoon").textContent=t("p.soon",{email:SUPPORT_EMAIL});$("paysec").hidden=!has;
@@ -2945,7 +3005,7 @@ function finishReady(){const p=P(),inv=I();
     if(!plan.premium&&freeLeft()<=0){showPremium("p.why_limit");return false}
     return true}
 /* the issue date is the day you finish (unless you set it yourself); the due date is never before it */
-function settleDates(inv){if(!inv.issueSet)inv.issue=inv.end;if(!inv.due||inv.due<inv.issue)inv.due=inv.issue}
+function settleDates(inv){if(!inv.issueSet)inv.issue=inv.end;if(!inv.dueSet&&inv.end)inv.due=addDays(inv.end,7);if(!inv.due||inv.due<inv.issue)inv.due=inv.issue}
 function openReview(){const inv=I(),p=P(),c=invCalc(inv,meNow()),d=inv.rows.filter(r=>r.hours>0).length;settleDates(inv);renderWeek();
   const row=(k,v,act)=>`<div class="rvrow"><dt>${esc(k)}</dt><dd>${v}${act||""}</dd></div>`;
   const chg=(id)=>`<button type="button" class="linkbtn rvchg" data-rvchg="${id}">${esc(t("rv.change"))}</button>`;
@@ -3071,6 +3131,14 @@ $("adm_more").onclick=()=>loadAdmin(false,false);
 /* member card */
 async function openMember(id){const {data:d,error}=await sb.rpc("admin_user_detail",{p_user:id});
   if(error||!d||!d.ok){admErr();return}admCur=d;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=true);$("adm_detail").hidden=false;renderMember();$("adm_detail").scrollIntoView({block:"start"})}
+/* Stripe subscription: monthly/yearly, since when, renews or ends when */
+function subCard(d){const live=["active","trialing","past_due"].includes(d.sub_status),iv=d.sub_interval==="year"?"a.sub_year":d.sub_interval==="month"?"a.sub_month":"a.sub_unknown";
+  const st=!live?t("a.sub_ended"):d.sub_cancel_at_end?t("a.sub_cancelling"):d.sub_status==="past_due"?t("a.sub_pastdue"):t("a.sub_active");
+  const end=d.period_end?d8t(d.period_end):"–";
+  const row=(k,v)=>`<div><dt>${esc(t(k))}</dt><dd>${esc(v)}</dd></div>`;
+  return `<dl class="adl asub">${row("a.sub_plan",t(iv))}${row("a.sub_state",st)}${row("a.sub_since",d.sub_started?d8t(d.sub_started):"–")}
+    ${row(!live?"a.sub_endedon":d.sub_cancel_at_end?"a.sub_ends":"a.sub_renews",end)}</dl>
+    ${d.stripe_customer?`<a class="linkbtn asublink" href="https://dashboard.stripe.com/customers/${encodeURIComponent(d.stripe_customer)}" target="_blank" rel="noopener">${esc(t("a.sub_open"))}</a>`:""}`}
 function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="stripe",on=d.source==="manual"&&d.premium,me=session&&d.user_id===session.id;
   const row=(k,v)=>v?`<div><dt>${esc(t(k))}</dt><dd></dd></div>`:"";
   box.innerHTML=`<button type="button" class="linkbtn aback">‹ ${esc(t("a.back"))}</button>
@@ -3089,6 +3157,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
       <div><dt>${esc(t("a.f_saved"))}</dt><dd>${esc(String(d.saved))}</dd></div>
     </dl>
     <h4>${esc(t("a.s_premium"))}</h4>
+    ${d.sub_status?subCard(d):""}
     ${stripe?`<p class="note">${esc(t("a.stripe_note"))}</p>`:`<div class="admdur"><select id="md_dur" aria-label="${esc(t("a.dur_lbl"))}">${[["7","a.d7"],["30","a.d30"],["90","a.d90"],["180","a.d180"],["365","a.d365"],["","a.dperm"]].map(([v,k])=>`<option value="${v}"${v==="30"?" selected":""}>${esc(t(k))}</option>`).join("")}</select>
       <button type="button" class="primary" id="md_give">${esc(t(on?"a.update":"a.give"))}</button>${on?`<button type="button" id="md_rem">${esc(t("a.remove"))}</button>`:""}</div>`}
     <h4>${esc(t("a.s_free"))}</h4>
