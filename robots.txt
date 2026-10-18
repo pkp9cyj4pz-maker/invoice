@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://subbiebill.com/sitemap.xml
