@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="SubbieBill · Hours in. Invoice out. In 30 seconds.">
 <meta property="og:description" content="Invoicing for ABN subbies in Australia. Start, finish, and a PDF invoice with your ABN, BSB and total in AUD.">
-<meta property="og:image" content="https://pkp9cyj4pz-maker.github.io/invoice/og.png">
+<meta property="og:image" content="https://subbiebill.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -623,7 +623,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 .adl dd{overflow-wrap:normal;word-break:normal;white-space:normal}
 .ahead{flex-direction:row!important}
 .ahead .auemail{flex:1 1 calc(100% - 30px)}
-</style>
+.trust{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--paper);text-align:left}.trustico{width:26px;height:26px;flex:none;color:var(--green,#1F7A4A);margin-top:1px}.trust strong{display:block;font-size:.98rem}.trust>div>span{display:block;font-size:.86rem;color:var(--muted);margin-top:2px}.trustl{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.86rem}.trustl li{position:relative;padding-left:20px;line-height:1.4}.trustl li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--green,#1F7A4A)}.premium .trust{margin-top:14px}</style>
 </head>
 <body>
 
@@ -720,6 +720,13 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
       </div>
     </section>
 
+    <section id="p_logout" hidden data-i18n-title="lo.title">
+      <p class="edtxt" data-i18n="lo.txt">Your invoices and details stay saved in your account. You can log back in anytime with your email and password.</p>
+      <div class="rvbtns">
+        <button class="primary" id="lo_go" type="button" data-i18n="lo.go">Yes, log out</button>
+        <button class="linkbtn" type="button" data-close data-i18n="lo.cancel">Stay logged in</button>
+      </div>
+    </section>
     <section id="p_edit" hidden data-i18n-title="ed.title">
       <p id="ed_txt" class="edtxt"></p>
       <div class="rvbtns">
@@ -747,7 +754,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
         <a id="paymonthly" class="btnlink" href="#" rel="noopener" data-i18n="p.monthly">$4.99 a month</a>
       </div>
       <p id="paysoon" class="note" data-i18n="p.soon">Online payment is coming very soon.</p>
-      <p class="note" id="paysec" data-i18n="p.secure">Secure payment by Stripe.</p>
+      <div class="trust" id="paysec"><svg class="trustico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><div><strong data-i18n="trust.t">Secure payment with Stripe</strong><span data-i18n="trust.d"></span><ul class="trustl"><li data-i18n="trust.l1"></li><li data-i18n="trust.l2"></li><li data-i18n="trust.l3"></li></ul></div></div>
     </section>
   </div>
 </div>
@@ -889,6 +896,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
         <p class="plim" id="paysoon_land" data-i18n="price.soon" hidden></p>
       </div>
     </div>
+    <div class="trust"><svg class="trustico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><div><strong data-i18n="trust.t">Secure payment with Stripe</strong><span data-i18n="trust.d"></span><ul class="trustl"><li data-i18n="trust.l1"></li><li data-i18n="trust.l2"></li><li data-i18n="trust.l3"></li></ul></div></div>
     <p class="fine" data-i18n="price.fine"></p>
   </section>
 
@@ -1335,7 +1343,7 @@ en:{
   "price.pro":"Premium","price.pro_tag":"Yearly: save $20","price.pro_amt":"$39","price.pro_per":" / year","price.pro_alt":"or $4.99 a month",
   "price.p1":"Unlimited invoices","price.p2":"History of every invoice, with totals per year","price.p3":"Download any past invoice again","price.p4":"Cancel anytime",
   "price.pro_cta":"Start free, upgrade anytime",
-  "price.fine":"Prices in Australian dollars. One free allowance per ABN. If you stop Premium, you go back to Free: your History stays in your account and comes back with Premium.",
+  "price.fine":"Prices in Australian dollars. One free allowance per ABN. If you stop Premium, you go back to Free: your History stays in your account and comes back with Premium.","trust.t":"Secure payment with Stripe","trust.d":"Stripe is the payment platform used by millions of businesses worldwide.","trust.l1":"Your payment is 100% secure. Your card details go straight to Stripe: SubbieBill never sees or stores them.","trust.l2":"Your account switches to Premium straight after payment.","trust.l3":"Cancel anytime in a few taps from your account. No lock-in.",
   "faq.title":"Common questions",
   "faq.q1":"What's on the invoice?","faq.a1":"Your name, ABN, contact details, BSB and account number, the business you're billing, the invoice number, dates, a day-by-day breakdown of your hours and the total in AUD.",
   "faq.q2":"How does GST work?","faq.a2":"Tell SubbieBill once, in My details, whether you're registered for GST. Registered: your invoices add GST (10%) on top of your hours, and you can switch it off for an invoice where it doesn't apply. Not registered: no GST is added. Registration is compulsory once your GST turnover reaches $75,000 a year. Check with your accountant if you're unsure.",
@@ -1374,7 +1382,7 @@ en:{
   "pdfm.ready":"PDF ready.","pdfm.fail":"Couldn't create the PDF. Try again.",
   "m.title":"Menu","m.account":"Account","m.premium":"Upgrade to Premium","m.manage":"Manage my subscription",
   "m.infos":"My details","m.infos_sub":"name, ABN, bank","m.settings":"Settings","m.settings_sub":"rates, time entry",
-  "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.logout":"Log out",
+  "m.lists":"Clients and sites","m.lists_sub":"manage your lists","m.logout":"Log out","lo.title":"Log out?","lo.txt":"Your invoices and details stay saved in your account. You can log back in anytime with your email and password.","lo.go":"Yes, log out","lo.cancel":"Stay logged in",
   "plan.free":"Free · {n} of {limit} free invoices left","plan.pro":"Premium","plan.pro_until":"Premium until {date}",
   "i.title":"My details","i.intro":"Everything marked “On invoice” is printed on your invoices. Fill it in once.","i.name":"Full name","i.abn":"ABN","i.abn_ph":"11 digits",
   "i.email":"Email (optional)","i.phone":"Phone (optional)","i.addr":"Address (optional)","i.bsb":"BSB","i.acc":"Account number","i.ok":"Done",
@@ -1689,7 +1697,7 @@ fr:{
   "price.pro":"Premium","price.pro_tag":"À l'année : 20 $ d'économie","price.pro_amt":"39 $","price.pro_per":" / an","price.pro_alt":"ou 4,99 $ par mois",
   "price.p1":"Factures illimitées","price.p2":"Historique de toutes tes factures, avec les totaux par année","price.p3":"Retélécharge n'importe quelle ancienne facture","price.p4":"Annulable à tout moment",
   "price.pro_cta":"Commencer, puis passer Premium",
-  "price.fine":"Prix en dollars australiens. Une offre gratuite par ABN. Si tu arrêtes Premium, tu repasses en gratuit : ton historique reste sur ton compte et revient avec Premium.",
+  "price.fine":"Prix en dollars australiens. Une offre gratuite par ABN. Si tu arrêtes Premium, tu repasses en gratuit : ton historique reste sur ton compte et revient avec Premium.","trust.t":"Paiement sécurisé avec Stripe","trust.d":"Stripe est la plateforme de paiement utilisée par des millions d'entreprises dans le monde.","trust.l1":"Ton paiement est 100 % sécurisé. Tes informations de carte vont directement chez Stripe : SubbieBill ne les voit jamais et ne les garde pas.","trust.l2":"Ton compte passe en Premium juste après le paiement.","trust.l3":"Résiliable à tout moment en quelques clics depuis ton compte. Sans engagement.",
   "faq.title":"Questions fréquentes",
   "faq.q1":"Qu'y a-t-il sur la facture ?","faq.a1":"Ton nom, ton ABN, tes coordonnées, ton BSB et ton numéro de compte, l'entreprise à facturer, le numéro de facture, les dates, le détail des heures jour par jour et le total en AUD. La facture est toujours en anglais, au format australien, même si tu utilises SubbieBill en français.",
   "faq.q2":"Comment marche la GST ?","faq.a2":"Indique une fois, dans Mes infos, si tu es inscrit à la GST. Inscrit : tes factures ajoutent la GST (10 %) à tes heures, et tu peux la désactiver pour une facture où elle ne s'applique pas. Non inscrit : aucune GST n'est ajoutée. L'inscription est obligatoire dès 75 000 $ de chiffre d'affaires GST par an. En cas de doute, demande à ton comptable.",
@@ -1728,7 +1736,7 @@ fr:{
   "pdfm.ready":"PDF prêt.","pdfm.fail":"Le PDF n'a pas pu être créé. Réessaie.",
   "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
-  "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter",
+  "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter","lo.title":"Déconnexion ?","lo.txt":"Tes factures et tes infos restent enregistrées dans ton compte. Tu pourras te reconnecter quand tu veux avec ton email et ton mot de passe.","lo.go":"Oui, me déconnecter","lo.cancel":"Rester connecté",
   "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur {limit}","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
   "i.title":"Mes infos","i.intro":"Tout ce qui est marqué « Sur la facture » est imprimé sur tes factures. À remplir une seule fois.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email (facultatif)","i.phone":"Téléphone (facultatif)","i.addr":"Adresse (facultatif)","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
@@ -1997,7 +2005,7 @@ es:{
   "price.p3":"Descarga otra vez cualquier factura anterior",
   "price.p4":"Cancela cuando quieras",
   "price.pro_cta":"Empieza gratis, pásate cuando quieras",
-  "price.fine":"Precios en dólares australianos. Una oferta gratuita por ABN. Si dejas Premium, vuelves a Gratis: tu historial queda en tu cuenta y vuelve con Premium.",
+  "price.fine":"Precios en dólares australianos. Una oferta gratuita por ABN. Si dejas Premium, vuelves a Gratis: tu historial queda en tu cuenta y vuelve con Premium.","trust.t":"Pago seguro con Stripe","trust.d":"Stripe es la plataforma de pago que usan millones de empresas en todo el mundo.","trust.l1":"Tu pago es 100 % seguro. Los datos de tu tarjeta van directamente a Stripe: SubbieBill nunca los ve ni los guarda.","trust.l2":"Tu cuenta pasa a Premium justo después del pago.","trust.l3":"Cancela cuando quieras en unos toques desde tu cuenta. Sin permanencia.",
   "faq.title":"Preguntas frecuentes",
   "faq.q1":"¿Qué aparece en la factura?",
   "faq.a1":"Tu nombre, ABN, datos de contacto, BSB y número de cuenta, la empresa a la que facturas, el número de factura, las fechas, el detalle de tus horas día por día y el total en AUD. La factura siempre está en inglés, en formato australiano, aunque uses SubbieBill en español.",
@@ -2115,7 +2123,7 @@ es:{
   "m.settings_sub":"tarifas, ingreso de horas",
   "m.lists":"Clientes y lugares",
   "m.lists_sub":"gestiona tus listas",
-  "m.logout":"Cerrar sesión",
+  "m.logout":"Cerrar sesión","lo.title":"¿Cerrar sesión?","lo.txt":"Tus facturas y tus datos quedan guardados en tu cuenta. Puedes volver a entrar cuando quieras con tu email y tu contraseña.","lo.go":"Sí, cerrar sesión","lo.cancel":"Seguir conectado",
   "plan.free":"Gratis · te quedan {n} de {limit} facturas gratuitas",
   "plan.pro":"Premium",
   "plan.pro_until":"Premium hasta el {date}",
@@ -2769,7 +2777,8 @@ async function doInstall(){closeMenu();
 $("m_install").onclick=doInstall;$("instip_go").onclick=doInstall;
 $("instip_x").onclick=()=>{try{localStorage.setItem("sb_ins_x","later")}catch(e){}renderInstall()};
 
-$("logout").onclick=async()=>{clearInterval(pingT);flushSave();closeMenu();closeSheet();if(sb)await sb.auth.signOut();session=null;state={me:null,clients:[],sites:[]};renderTop();setAuthMode("login");window.scrollTo(0,0)};
+$("logout").onclick=()=>openSheet("p_logout");
+$("lo_go").onclick=async()=>{clearInterval(pingT);flushSave();closeMenu();closeSheet();if(sb)await sb.auth.signOut();session=null;state={me:null,clients:[],sites:[]};renderTop();setAuthMode("login");window.scrollTo(0,0)};
 
 /* ---------- landing demo ---------- */
 function renderDemo(){const s=$("demo_start"),e=$("demo_end"),r=$("demo_rate");
