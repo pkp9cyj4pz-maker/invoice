@@ -18,10 +18,11 @@
 <meta property="og:description" content="Invoicing for ABN subbies in Australia. Start, finish, and a PDF invoice with your ABN, BSB and total in AUD.">
 <meta property="og:image" content="https://subbiebill.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+">
 <link rel="canonical" href="https://subbiebill.com/">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "name": "SubbieBill", "url": "https://subbiebill.com/", "logo": "https://subbiebill.com/icon-512.png", "email": "support@subbiebill.com", "areaServed": "AU", "sameAs": ["https://www.trustpilot.com/review/subbiebill.com"]}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "SubbieBill", "url": "https://subbiebill.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, iOS, Android", "description": "Free invoice app for ABN subcontractors and tradies in Australia. Enter your hours and get a professional PDF invoice with your ABN, BSB and GST worked out in 30 seconds.", "inLanguage": "en-AU", "offers": [{"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD"}, {"@type": "Offer", "name": "Premium monthly", "price": "4.99", "priceCurrency": "AUD"}, {"@type": "Offer", "name": "Premium yearly", "price": "39", "priceCurrency": "AUD"}]}]</script>
-<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -767,7 +768,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 </div>
 
 <header class="top" style="padding-top:12px">
-  <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="favicon.png" alt="SubbieBill logo" width="30" height="30"><span>SubbieBill</span></a>
+  <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="30" height="30"><span>SubbieBill</span></a>
   <div class="topr" id="topr" hidden>
     <span id="planbadge" class="badge"></span>
     <button id="btn_gopro" class="gopro" type="button" hidden data-i18n="top.gopro">Go Premium</button>
@@ -952,7 +953,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
   </section>
 
   <footer class="foot">
-    <div class="footbrand"><img src="favicon.png" alt="" width="22" height="22"><span>SubbieBill</span></div>
+    <div class="footbrand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="22" height="22"><span>SubbieBill</span></div>
     <p data-i18n="foot.tag">Invoicing for ABN subcontractors in Australia.</p>
     <p><span data-i18n="foot.q">Questions?</span> <a class="sel" href="mailto:support@subbiebill.com">support@subbiebill.com</a></p>
     <p class="legal guides"><span data-i18n="lg.guides">Guides:</span><a href="subcontractor-invoice.html">How to invoice as a subbie</a><a href="abn-invoice-template.html">ABN invoice template</a><a href="gst-for-subcontractors.html">GST for subcontractors</a></p>
