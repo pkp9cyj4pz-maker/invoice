@@ -18,11 +18,11 @@
 <meta property="og:description" content="Invoicing for ABN subbies in Australia. Start, finish, and a PDF invoice with your ABN, BSB and total in AUD.">
 <meta property="og:image" content="https://subbiebill.com/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
 <link rel="canonical" href="https://subbiebill.com/">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "name": "SubbieBill", "url": "https://subbiebill.com/", "logo": "https://subbiebill.com/icon-512.png", "email": "support@subbiebill.com", "areaServed": "AU", "sameAs": ["https://www.trustpilot.com/review/subbiebill.com"]}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "SubbieBill", "url": "https://subbiebill.com/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web, iOS, Android", "description": "Free invoice app for ABN subcontractors and tradies in Australia. Enter your hours and get a professional PDF invoice with your ABN, BSB and GST worked out in 30 seconds.", "inLanguage": "en-AU", "offers": [{"@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "AUD"}, {"@type": "Offer", "name": "Premium monthly", "price": "4.99", "priceCurrency": "AUD"}, {"@type": "Offer", "name": "Premium yearly", "price": "39", "priceCurrency": "AUD"}]}]</script>
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="mobile-web-app-capable" content="yes">
@@ -629,7 +629,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 .adl dd{overflow-wrap:normal;word-break:normal;white-space:normal}
 .ahead{flex-direction:row!important}
 .ahead .auemail{flex:1 1 calc(100% - 30px)}
-.trust{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--paper);text-align:left}.trustico{width:26px;height:26px;flex:none;color:var(--green,#1F7A4A);margin-top:1px}.trust strong{display:block;font-size:.98rem}.trust>div>span{display:block;font-size:.86rem;color:var(--muted);margin-top:2px}.trustl{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.86rem}.trustl li{position:relative;padding-left:20px;line-height:1.4}.trustl li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--green,#1F7A4A)}.premium .trust{margin-top:14px}.foot a.sel{color:inherit}.legal{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0}.legal a{color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:6px 0;font-size:.86rem}.footabn{font-size:.8rem}.legalnote{display:none;margin:0;font-size:.82rem;color:var(--muted);line-height:1.45}.legalnote a{color:inherit;text-decoration:underline;text-underline-offset:2px}#authform:has(#authpass2wrap:not([hidden])) .legalnote{display:block}.premlegal{justify-content:center;margin-top:10px}.legal.guides span{color:var(--muted);font-size:.86rem;padding:6px 0;font-weight:700}.rvask{display:flex;gap:10px;align-items:flex-start;margin:10px 0 2px;padding:12px;border-radius:12px;background:var(--paper);border:1px solid var(--line);color:var(--ink)}.rvask[hidden]{display:none}.rvask p{margin:0 0 8px;font-weight:600;color:var(--ink)!important}.rvstar{flex:none;width:30px;height:30px;border-radius:8px;background:#00B67A;color:#fff;display:grid;place-items:center}.rvstar svg{width:18px;height:18px}.rvaskb{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}.rvaskb .btnlink{min-height:40px;padding:0 14px;font-size:.9rem}.rvbody{min-width:0;flex:1}.lockbar .rvask{flex:1 1 100%;width:100%;box-sizing:border-box}.legal .tplink span{text-decoration:none}.legal .tplink [aria-hidden]{color:#00B67A}</style>
+.trust{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--paper);text-align:left}.trustico{width:26px;height:26px;flex:none;color:var(--green,#1F7A4A);margin-top:1px}.trust strong{display:block;font-size:.98rem}.trust>div>span{display:block;font-size:.86rem;color:var(--muted);margin-top:2px}.trustl{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:.86rem}.trustl li{position:relative;padding-left:20px;line-height:1.4}.trustl li::before{content:"✓";position:absolute;left:0;font-weight:800;color:var(--green,#1F7A4A)}.premium .trust{margin-top:14px}.foot a.sel{color:inherit}.legal{display:flex;flex-wrap:wrap;gap:4px 16px;margin:0}.legal a{color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:6px 0;font-size:.86rem}.footabn{font-size:.8rem}.legalnote{display:none;margin:0;font-size:.82rem;color:var(--muted);line-height:1.45}.legalnote a{color:inherit;text-decoration:underline;text-underline-offset:2px}#authform:has(#authpass2wrap:not([hidden])) .legalnote{display:block}.premlegal{justify-content:center;margin-top:10px}.legal.guides span{color:var(--muted);font-size:.86rem;padding:6px 0;font-weight:700}.rvask{display:flex;gap:10px;align-items:flex-start;margin:10px 0 2px;padding:12px;border-radius:12px;background:var(--paper);border:1px solid var(--line);color:var(--ink)}.rvask[hidden]{display:none}.rvask p{margin:0 0 8px;font-weight:600;color:var(--ink)!important}.rvstar{flex:none;width:30px;height:30px;border-radius:8px;background:#00B67A;color:#fff;display:grid;place-items:center}.rvstar svg{width:18px;height:18px}.rvaskb{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}.rvaskb .btnlink{min-height:40px;padding:0 14px;font-size:.9rem}.rvbody{min-width:0;flex:1}.lockbar .rvask{flex:1 1 100%;width:100%;box-sizing:border-box}.legal .tplink span{text-decoration:none}.legal .tplink [aria-hidden]{color:#00B67A}@media (max-width:480px){.dinputs[style*="--cols:4"]{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (max-width:360px){.dinputs[style*="--cols:3"]{grid-template-columns:repeat(2,minmax(0,1fr))}}.dinputs select{text-overflow:clip}#authform:has(#authpass2wrap:not([hidden])) #authforgot{display:none}.seg label{min-width:0}.wlabel{min-width:0;flex:1 1 0}.metagrid>*,.fields>*,.hoursopts>*{min-width:0}@media (max-width:360px){.weeknav{gap:6px}.weeknav .arrow{width:40px;height:44px;flex:none}.wlabel strong{white-space:normal;font-size:clamp(1.1rem,5.8vw,1.3rem)}.seg label{white-space:normal;line-height:1.15}}button.del.sure{width:auto;padding:0 10px;color:var(--accent-strong);font-weight:800;font-size:.84rem}</style>
 </head>
 <body>
 
@@ -767,7 +767,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 </div>
 
 <header class="top" style="padding-top:12px">
-  <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="30" height="30"><span>SubbieBill</span></a>
+  <a class="brand" href="#" data-i18n-aria="nav.home" aria-label="SubbieBill, home"><img src="favicon.png" alt="SubbieBill logo" width="30" height="30"><span>SubbieBill</span></a>
   <div class="topr" id="topr" hidden>
     <span id="planbadge" class="badge"></span>
     <button id="btn_gopro" class="gopro" type="button" hidden data-i18n="top.gopro">Go Premium</button>
@@ -915,7 +915,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
     <details><summary data-i18n="faq.q6">Invoice or Tax invoice: what's the difference?</summary><p data-i18n="faq.a6">A “Tax invoice” is for businesses registered for GST: it shows the GST (10%) separately, as the ATO requires. If you're not registered, SubbieBill makes an “Invoice” that says no GST has been charged, because a business that isn't registered must not call its invoice a tax invoice. For tax invoices of $1,000 or more, the client's name or ABN must appear: SubbieBill always prints the client's name.</p></details>
     <details><summary data-i18n="faq.q7">How do I download or share my PDF?</summary><p data-i18n="faq.a7">Tap Finish invoice, check the summary, then Finish and download PDF. The PDF goes to your downloads. On most phones, Share PDF sends it straight to Mail, Messages or WhatsApp. Download again works as long as the invoice is open, and from your History with Premium.</p></details>
     <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. With Premium, every invoice is kept in your History. On Free, finished invoices aren't kept in a History, so keep the PDFs you download.</p></details>
-    <details><summary data-i18n="faq.q9">How do I change an invoice?</summary><p data-i18n="faq.a9">Until you finish it, change anything: it saves by itself. A finished invoice keeps its number so your records stay straight. To fix a mistake, tap “Fix a mistake: copy to a new invoice”, correct it and finish it under a new number, then tell your client to use the new one. On Free, this uses one of your free invoices.</p></details>
+    <details><summary data-i18n="faq.q9">How do I change an invoice?</summary><p data-i18n="faq.a9">Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.</p></details>
     <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, no History. Premium ($39 a year or $4.99 a month): unlimited invoices and a History of every invoice, with yearly totals, to download again anytime.</p></details>
     <details><summary data-i18n="faq.q3">Who can see my bank details?</summary><p data-i18n="faq.a3">You, and the SubbieBill administrator when helping with your account. Your details are tied to your account, protected by your password and sent over an encrypted connection. Your clients only see them on the invoices you send.</p></details>
     <details><summary data-i18n="faq.q4">Can I cancel Premium?</summary><p data-i18n="faq.a4">Yes, anytime. You go back to Free: your History stays in your account and comes back if you return to Premium.</p></details>
@@ -952,7 +952,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
   </section>
 
   <footer class="foot">
-    <div class="footbrand"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+" alt="" width="22" height="22"><span>SubbieBill</span></div>
+    <div class="footbrand"><img src="favicon.png" alt="" width="22" height="22"><span>SubbieBill</span></div>
     <p data-i18n="foot.tag">Invoicing for ABN subcontractors in Australia.</p>
     <p><span data-i18n="foot.q">Questions?</span> <a class="sel" href="mailto:support@subbiebill.com">support@subbiebill.com</a></p>
     <p class="legal guides"><span data-i18n="lg.guides">Guides:</span><a href="subcontractor-invoice.html">How to invoice as a subbie</a><a href="abn-invoice-template.html">ABN invoice template</a><a href="gst-for-subcontractors.html">GST for subcontractors</a></p>
@@ -1098,7 +1098,7 @@ en:{
   "a.online":"Online now",
   "faq.a10":"Free: 3 finished invoices with every tool included, no History. Premium ($39 a year or $4.99 a month): unlimited invoices and a History of every invoice, with yearly totals, to download again anytime.",
   "faq.q10":"What's the difference between Free and Premium?",
-  "faq.a9":"Until you finish it, change anything: it saves by itself. A finished invoice keeps its number so your records stay straight. To fix a mistake, tap “Fix a mistake: copy to a new invoice”, correct it and finish it under a new number, then tell your client to use the new one. On Free, this uses one of your free invoices.",
+  "faq.a9":"Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.",
   "faq.q9":"How do I change an invoice?",
   "faq.a8":"In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. With Premium, every invoice is kept in your History. On Free, finished invoices aren't kept in a History, so keep the PDFs you download.",
   "faq.q8":"Where are my invoices saved?",
@@ -1121,12 +1121,12 @@ en:{
   "i.email_bad":"This email doesn't look right.",
   "i.acc_bad":"Check the account number: digits only, usually 6 to 10.",
   "i.bsb_bad":"A BSB has 6 digits, e.g. 062-000.",
-  "rv.after_pro":"Finishing gives the invoice its number and creates the PDF. It stays in your History to download or share again. To fix a mistake later, copy it to a new invoice.",
+  "rv.after_pro":"Finishing gives the invoice its number and creates the PDF. It stays in your History to download or share again. To fix a mistake later, tap Edit: it keeps the same number.",
   "fin.copied":"Copied to a new invoice, no. {no}. Fix it, then finish it.",
   "fin.share":"Share PDF",
   "rv.ph":"Public holiday",
   "rv.free":"Uses 1 of your {n} free invoices left.",
-  "rv.after":"Finishing gives the invoice its number and creates the PDF. On Free, finished invoices aren't kept in a History, so keep the PDF. To fix a mistake, copy it to a new invoice.",
+  "rv.after":"Finishing gives the invoice its number and creates the PDF. On Free, finished invoices aren't kept in a History, so keep the PDF. To fix a mistake later, tap Edit: it keeps the same number.",
   "rv.change":"Change",
   "rv.nogst2":"No GST on this invoice.",
   "rv.nogst":"No GST charged (not registered).",
@@ -1369,7 +1369,7 @@ en:{
   "err.created_confirm":"Account created. Open the confirmation email, then log in.","err.offline":"No connection. Try again.",
   "err.service":"Can't reach the service. Check your connection and reload.","err.load":"Couldn't load your account. Reload the page.",
   "err.forgot":"Email {email} from the address on your account.",
-  "foot.tag":"Invoicing for ABN subcontractors in Australia.","foot.q":"Questions?","lg.terms":"Terms","tpr.ask":"Happy with SubbieBill? A quick review really helps.","tpr.go":"Leave a review","tpr.no":"Not now","tpr.foot":"Reviews on Trustpilot","lg.guides":"Guides:","lg.refunds":"Refunds","lg.privacy":"Privacy","lg.agree":"By creating an account, you agree to our","lg.terms_long":"Terms of Service","lg.and":"and","lg.privacy_long":"Privacy Policy",
+  "foot.tag":"Invoicing for ABN subcontractors in Australia.","foot.q":"Questions?","lg.terms":"Terms","lst.sure":"Remove?","tpr.ask":"Happy with SubbieBill? A quick review really helps.","tpr.go":"Leave a review","tpr.no":"Not now","tpr.foot":"Reviews on Trustpilot","lg.guides":"Guides:","lg.refunds":"Refunds","lg.privacy":"Privacy","lg.agree":"By creating an account, you agree to our","lg.terms_long":"Terms of Service","lg.and":"and","lg.privacy_long":"Privacy Policy",
   "top.free":"Free","top.premium":"Premium","top.history":"History","top.menu":"Menu","sheet.close":"Close",
   "onb.title":"Welcome to SubbieBill","onb.sub":"Three steps and your first invoice is ready.","onb.s1":"Your details (just once)","onb.fill":"Fill in","onb.s2":"Who you bill","onb.s3":"Your hours",
   "per.aria":"Invoice period","per.week":"Week","per.fortnight":"Fortnight","per.month":"Month",
@@ -1452,7 +1452,7 @@ fr:{
   "a.online":"En ligne",
   "faq.a10":"Gratuit : 3 factures terminées avec tous les outils, sans historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées et historique de toutes tes factures, avec les totaux par année, à retélécharger quand tu veux.",
   "faq.q10":"Quelle différence entre Gratuit et Premium ?",
-  "faq.a9":"Tant qu'elle n'est pas terminée, tu changes tout : ça s'enregistre tout seul. Une facture terminée garde son numéro pour que tes comptes restent clairs. Pour corriger une erreur, touche « Corriger une erreur : copier dans une nouvelle facture », corrige-la et termine-la sous un nouveau numéro, puis dis à ton client d'utiliser la nouvelle. En gratuit, ça utilise une de tes factures gratuites.",
+  "faq.a9":"Tant qu'elle n'est pas terminée, tu changes tout : ça s'enregistre tout seul. Une facture terminée est verrouillée pour que tes comptes restent clairs. Pour corriger une erreur, ouvre-la et touche Modifier : corrige-la et termine-la à nouveau. Elle garde le même numéro et tu obtiens un nouveau PDF à envoyer. En gratuit, la terminer à nouveau utilise une de tes factures gratuites.",
   "faq.q9":"Comment modifier une facture ?",
   "faq.a8":"Sur ton compte SubbieBill, en ligne, pas seulement sur ton téléphone : connecte-toi sur n'importe quel appareil et tu retrouves tes infos et tes brouillons. Les brouillons s'enregistrent pendant que tu tapes. Avec Premium, chaque facture est gardée dans ton historique. En gratuit, les factures terminées ne sont pas gardées dans un historique : garde les PDF que tu télécharges.",
   "faq.q8":"Où sont enregistrées mes factures ?",
@@ -1475,19 +1475,19 @@ fr:{
   "i.email_bad":"Cet email ne semble pas correct.",
   "i.acc_bad":"Vérifie le numéro de compte : chiffres uniquement, souvent 6 à 10.",
   "i.bsb_bad":"Un BSB a 6 chiffres, ex. 062-000.",
-  "rv.after_pro":"Terminer donne son numéro à la facture et crée le PDF. Elle reste dans ton historique pour la retélécharger ou la partager. Pour corriger une erreur plus tard, copie-la dans une nouvelle facture.",
+  "rv.after_pro":"Terminer donne son numéro à la facture et crée le PDF. Elle reste dans ton historique pour la retélécharger ou la partager. Pour corriger une erreur plus tard, touche Modifier : elle garde le même numéro.",
   "fin.copied":"Copiée dans une nouvelle facture, n° {no}. Corrige-la puis termine-la.",
   "fin.share":"Partager le PDF",
   "rv.ph":"Jour férié",
   "rv.free":"Utilise 1 de tes {n} factures gratuites restantes.",
-  "rv.after":"Terminer donne son numéro à la facture et crée le PDF. En gratuit, les factures terminées ne sont pas gardées dans un historique : garde bien le PDF. Pour corriger une erreur, copie-la dans une nouvelle facture.",
+  "rv.after":"Terminer donne son numéro à la facture et crée le PDF. En gratuit, les factures terminées ne sont pas gardées dans un historique : garde bien le PDF. Pour corriger une erreur plus tard, touche Modifier : elle garde le même numéro.",
   "rv.change":"Modifier",
   "rv.nogst2":"Pas de GST sur cette facture.",
   "rv.nogst":"Pas de GST (non inscrit).",
   "rv.total":"Total",
   "rv.gst":"GST (10 %)",
   "rv.sub":"Sous-total (hors GST)",
-  "rv.paid":"Payé sur",
+  "rv.paid":"À verser sur",
   "rv.from":"De",
   "rv.dates_v":"Émise le {issue} · à payer le {due}",
   "rv.dates":"Dates",
@@ -1677,7 +1677,7 @@ fr:{
   "days.mode_times":"Début – fin",
   "days.mode_aria":"Comment tu saisis tes heures",
   "save.auto_pro":"Enregistrée automatiquement dans ton historique ✓",
-  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) restante(s) sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) sur {limit} restante(s)","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
@@ -1723,7 +1723,7 @@ fr:{
   "err.created_confirm":"Compte créé. Ouvre l'email de confirmation puis connecte-toi.","err.offline":"Pas de connexion. Réessaie.",
   "err.service":"Impossible de joindre le service. Vérifie ta connexion puis recharge.","err.load":"Impossible de charger ton compte. Recharge la page.",
   "err.forgot":"Écris à {email} avec l'email de ton compte.",
-  "foot.tag":"La facture des sous-traitants sous ABN en Australie.","foot.q":"Une question ?","lg.terms":"Conditions","tpr.ask":"Tu aimes SubbieBill ? Un petit avis nous aide vraiment.","tpr.go":"Laisser un avis","tpr.no":"Plus tard","tpr.foot":"Avis sur Trustpilot","lg.guides":"Guides (en anglais) :","lg.refunds":"Remboursements","lg.privacy":"Confidentialité","lg.agree":"En créant un compte, tu acceptes nos","lg.terms_long":"conditions d'utilisation","lg.and":"et notre","lg.privacy_long":"politique de confidentialité",
+  "foot.tag":"La facture des sous-traitants sous ABN en Australie.","foot.q":"Une question ?","lg.terms":"Conditions","lst.sure":"Supprimer ?","tpr.ask":"Tu aimes SubbieBill ? Un petit avis nous aide vraiment.","tpr.go":"Laisser un avis","tpr.no":"Plus tard","tpr.foot":"Avis sur Trustpilot","lg.guides":"Guides (en anglais) :","lg.refunds":"Remboursements","lg.privacy":"Confidentialité","lg.agree":"En créant un compte, tu acceptes nos","lg.terms_long":"conditions d'utilisation","lg.and":"et notre","lg.privacy_long":"politique de confidentialité",
   "top.free":"Gratuit","top.premium":"Premium","top.history":"Historique","top.menu":"Menu","sheet.close":"Fermer",
   "onb.title":"Bienvenue sur SubbieBill","onb.sub":"Trois étapes et ta première facture est prête.","onb.s1":"Tes infos (une seule fois)","onb.fill":"Remplir","onb.s2":"À qui tu factures","onb.s3":"Tes heures",
   "per.aria":"Durée de la facture","per.week":"Semaine","per.fortnight":"2 semaines","per.month":"Mois",
@@ -1745,10 +1745,10 @@ fr:{
   "bar.sum":"{h} · {d} · AUD","bar.day":"{n} jour","bar.days":"{n} jours","bar.pdf":"Télécharger le PDF",
   "pdfm.need_client":"Choisis d'abord ton client.","pdfm.need_hours":"Mets au moins une journée de travail.","pdfm.no_lib":"Le module PDF n'a pas chargé. Vérifie ta connexion puis recharge.",
   "pdfm.ready":"PDF prêt.","pdfm.fail":"Le PDF n'a pas pu être créé. Réessaie.",
-  "m.title":"Menu","m.account":"Compte","m.premium":"Passer en Premium","m.manage":"Gérer mon abonnement",
+  "m.title":"Menu","m.account":"Compte","m.premium":"Passer Premium","m.manage":"Gérer mon abonnement",
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
   "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter","lo.title":"Déconnexion ?","lo.txt":"Tes factures et tes infos restent enregistrées dans ton compte. Tu pourras te reconnecter quand tu veux avec ton email et ton mot de passe.","lo.go":"Oui, me déconnecter","lo.cancel":"Rester connecté",
-  "plan.free":"Gratuit · {n} facture(s) gratuite(s) restante(s) sur {limit}","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
+  "plan.free":"Gratuit · {n} facture(s) gratuite(s) sur {limit} restante(s)","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
   "i.title":"Mes infos","i.intro":"Tout ce qui est marqué « Sur la facture » est imprimé sur tes factures. À remplir une seule fois.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email (facultatif)","i.phone":"Téléphone (facultatif)","i.addr":"Adresse (facultatif)","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
   "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
@@ -1770,7 +1770,7 @@ es:{
   "_locale":"es-419",
   "faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, sin historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas y un historial de todas tus facturas, con totales por año, para descargarlas otra vez cuando quieras.",
   "faq.q10":"¿Qué diferencia hay entre Gratis y Premium?",
-  "faq.a9":"Mientras no esté terminada, cambia lo que quieras: se guarda sola. Una factura terminada conserva su número para que tus cuentas estén claras. Para corregir un error, toca «Corregir un error: copiar en una factura nueva», corrígela y termínala con un número nuevo, y dile a tu cliente que use la nueva. En Gratis, esto usa una de tus facturas gratuitas.",
+  "faq.a9":"Mientras no esté terminada, cambia lo que quieras: se guarda sola. Una factura terminada queda bloqueada para que tus cuentas estén claras. Para corregir un error, ábrela y toca Modificar: corrígela y termínala otra vez. Conserva el mismo número y obtienes un PDF nuevo para enviar. En Gratis, terminarla otra vez usa una de tus facturas gratuitas.",
   "faq.q9":"¿Cómo modifico una factura?",
   "faq.a8":"En tu cuenta de SubbieBill, en línea, no solo en tu teléfono: entra desde cualquier dispositivo y ahí están tus datos y tus borradores. Los borradores se guardan mientras escribes. Con Premium, cada factura queda en tu historial. En Gratis, las facturas terminadas no se guardan en un historial, así que guarda los PDF que descargas.",
   "faq.q8":"¿Dónde se guardan mis facturas?",
@@ -1793,12 +1793,12 @@ es:{
   "i.email_bad":"Este email no parece correcto.",
   "i.acc_bad":"Revisa el número de cuenta: solo cifras, normalmente de 6 a 10.",
   "i.bsb_bad":"Un BSB tiene 6 cifras, p. ej. 062-000.",
-  "rv.after_pro":"Terminar le da su número a la factura y crea el PDF. Queda en tu historial para descargarla o compartirla otra vez. Para corregir un error más tarde, cópiala en una factura nueva.",
+  "rv.after_pro":"Terminar le da su número a la factura y crea el PDF. Queda en tu historial para descargarla o compartirla otra vez. Para corregir un error más tarde, toca Modificar: conserva el mismo número.",
   "fin.copied":"Copiada en una factura nueva, n.º {no}. Corrígela y luego termínala.",
   "fin.share":"Compartir PDF",
   "rv.ph":"Feriado",
   "rv.free":"Usa 1 de tus {n} facturas gratuitas restantes.",
-  "rv.after":"Terminar le da su número a la factura y crea el PDF. En Gratis, las facturas terminadas no se guardan en un historial: guarda bien el PDF. Para corregir un error, cópiala en una factura nueva.",
+  "rv.after":"Terminar le da su número a la factura y crea el PDF. En Gratis, las facturas terminadas no se guardan en un historial: guarda bien el PDF. Para corregir un error más tarde, toca Modificar: conserva el mismo número.",
   "rv.change":"Cambiar",
   "rv.nogst2":"Sin GST en esta factura.",
   "rv.nogst":"Sin GST (no registrado).",
@@ -1955,7 +1955,7 @@ es:{
   "lang.label":"Idioma",
   "nav.login":"Iniciar sesión",
   "nav.home":"SubbieBill, inicio",
-  "hero.title":"Horas adentro. Factura afuera. En 30 segundos.",
+  "hero.title":"Tus horas. Tu factura. En 30 segundos.",
   "hero.lede":"Para subbies con ABN en Australia que cobran por hora. Anotas tu hora de inicio y de fin: SubbieBill hace las cuentas y crea una factura PDF profesional. Sin planillas, sin plantillas.",
   "hero.cta":"Crear mi primera factura",
   "hero.note":"Tus 3 primeras facturas son gratis. Sin tarjeta.",
@@ -2051,7 +2051,7 @@ es:{
   "err.load":"No se pudo cargar tu cuenta. Recarga la página.",
   "err.forgot":"Escribe a {email} desde la dirección de tu cuenta.",
   "foot.tag":"Facturación para subcontratistas con ABN en Australia.",
-  "foot.q":"¿Preguntas?","lg.terms":"Condiciones","tpr.ask":"¿Te gusta SubbieBill? Una reseña rápida nos ayuda mucho.","tpr.go":"Dejar una reseña","tpr.no":"Ahora no","tpr.foot":"Reseñas en Trustpilot","lg.guides":"Guías (en inglés):","lg.refunds":"Reembolsos","lg.privacy":"Privacidad","lg.agree":"Al crear una cuenta, aceptas nuestras","lg.terms_long":"condiciones de uso","lg.and":"y nuestra","lg.privacy_long":"política de privacidad",
+  "foot.q":"¿Preguntas?","lg.terms":"Condiciones","lst.sure":"¿Quitar?","tpr.ask":"¿Te gusta SubbieBill? Una reseña rápida nos ayuda mucho.","tpr.go":"Dejar una reseña","tpr.no":"Ahora no","tpr.foot":"Reseñas en Trustpilot","lg.guides":"Guías (en inglés):","lg.refunds":"Reembolsos","lg.privacy":"Privacidad","lg.agree":"Al crear una cuenta, aceptas nuestras","lg.terms_long":"condiciones de uso","lg.and":"y nuestra","lg.privacy_long":"política de privacidad",
   "top.free":"Gratis",
   "top.premium":"Premium",
   "top.history":"Historial",
@@ -2458,7 +2458,7 @@ function renderOtHint(){const ot=I().ot||OT_DEF,rt=P().rate||0;
 function setOt(k,v){if(locked())return;const inv=I();inv.ot=Object.assign(clone(OT_DEF),inv.ot||{},{[k]:v});P().ot=clone(inv.ot);
   $("otbox").hidden=!inv.ot.on;renderOtHint();inv.rows.forEach((r,i)=>renderAmt(i));renderTotals();save()}
 function setMode(m){if(m!=="hours")m="times";if(P().mode===m)return;P().mode=m;
-  if(!locked()&&m==="times")I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r)});
+  if(!locked()&&m==="times")I().rows.forEach(r=>{if(r.start&&r.end)r.hours=calcHours(r);else if(r.hours>0){const pz=P().unpaid?(+r.pause||0):0,len=Math.round(r.hours*4)*15+pz,st=r.start||"07:00",e=(toMin(st)+len)%1440;r.start=st;r.end=pad2(Math.floor(e/60))+":"+pad2(e%60);r.hours=calcHours(r)}});
   renderDays();renderTotals();save()}
 function renderDays(){renderMode();const inv=I(),multi=invType(inv)!=="week";let h="";
   inv.rows.forEach((r,i)=>{if(multi&&(i===0||parse(r.date).getDay()===1))h+=`<div class="wsep">${esc(t("days.week_of",{date:nice(mondayOf(r.date))}))}</div>`;h+=dayHtml(r,i)});
@@ -2485,7 +2485,7 @@ $("daylist").addEventListener("click",e=>{const c=e.target.closest("[data-ph]");
   const i=I().rows.findIndex(r=>r.date===b.dataset.rest),el=document.querySelector(`#day${i} select`);if(el)el.focus()});
 $("daylist").addEventListener("change",onDay);$("daylist").addEventListener("input",e=>{if(e.target.dataset.f==="rate")onDay(e)});
 function onDay(e){const el=e.target,i=+el.dataset.i,f=el.dataset.f;if(!f||locked())return;const r=I().rows[i];
-  if(f==="rate")r.rate=parseFloat(el.value)||0;
+  if(f==="rate"){const v=parseFloat(el.value);if(v<0)el.value="";r.rate=v>0?v:0}
   else if(f==="hours")r.hours=parseFloat(el.value)||0;
   else if(f==="pause"){r.pause=parseInt(el.value)||0;r.hours=calcHours(r)}
   else if(f==="loc")r.loc=el.value;
@@ -2513,12 +2513,14 @@ wirePick("billto","billto_new","clients","billto");wirePick("site","site_new","s
 
 const draftKey=inv=>invType(inv)+":"+inv.start;
 function stashDraft(){const p=P(),inv=p&&p.inv;if(!inv||plan.premium||inv.finished||!hasHours(inv))return;p.drafts=p.drafts||{};
-  p.drafts[draftKey(inv)]={...clone(inv),_at:Date.now()};
-  Object.keys(p.drafts).sort((x,y)=>(p.drafts[y]._at||0)-(p.drafts[x]._at||0)).slice(12).forEach(k=>delete p.drafts[k])}
+  p.drafts[draftKey(inv)]={...clone(inv),_at:Date.now()};pruneDrafts(p)}
+/* keep the 12 newest drafts and the 104 newest finished invoices (about 2 years of weeks) */
+function pruneDrafts(p){const ks=Object.keys(p.drafts||{}).sort((x,y)=>(p.drafts[y]._at||0)-(p.drafts[x]._at||0));
+  ks.filter(k=>!p.drafts[k].finished).slice(12).forEach(k=>delete p.drafts[k]);ks.filter(k=>p.drafts[k]&&p.drafts[k].finished).slice(104).forEach(k=>delete p.drafts[k])}
 function openPeriod(type,ref){stashDraft();keepCurrent();syncSaved();const p=P(),[a]=periodRange(type,ref);
   const found=(p.saved||[]).filter(e=>e.inv&&invType(e.inv)===type&&e.inv.start===a).sort((x,y)=>(y.updatedAt||0)-(x.updatedAt||0))[0],dr=!found&&p.drafts&&p.drafts[type+":"+a];
-  if(found){p.inv=clone(found.inv);p.curSaved=found.id}else if(dr&&!dr.finished){p.inv=clone(dr);delete p.inv._at;p.curSaved=null}else{p.inv=newInv(type,ref);p.curSaved=null}
-  p.period=type;migrateInv(p.inv);syncMsg=null;renderAll();save()}
+  if(found){p.inv=clone(found.inv);p.curSaved=found.id}else if(dr){p.inv=clone(dr);delete p.inv._at;p.curSaved=null}else{p.inv=newInv(type,ref);p.curSaved=null}
+  p.period=type;migrateInv(p.inv);syncMsg=null;clearTimeout(pdfMsg.t);delete $("pdfmsg").dataset.keep;renderAll();save()}
 function changeType(ty){const inv=I(),p=P();if(invType(inv)===ty)return;if(locked()){p.period=ty;openPeriod(ty,inv.start);return}p.period=ty;
   if(!hasHours(inv)&&!curEntry()){openPeriod(ty,inv.start);return}
   const ref=(inv.rows.find(r=>r.hours>0)||{}).date||inv.start,[a,b]=periodRange(ty,ref);
@@ -2614,7 +2616,7 @@ $("defdesc").addEventListener("input",e=>{if(locked())return;const v=e.target.va
 function renderLists(){[["clients","list_clients","l.none_c"],["sites","list_sites","l.none_s"]].forEach(([k,id,empty])=>{
   const ul=$(id);ul.innerHTML=state[k].length?"":`<li><span class="muted">${esc(t(empty))}</span></li>`;
   state[k].forEach((v,i)=>{const li=document.createElement("li");li.innerHTML=`<span></span><button class="del" type="button" aria-label="${esc(t("l.remove"))}">×</button>`;
-    li.querySelector("span").textContent=v;li.querySelector("button").onclick=()=>{state[k].splice(i,1);renderLists();renderWeek();renderDays();save()};ul.appendChild(li)})})}
+    li.querySelector("span").textContent=v;li.querySelector("button").onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure="1";b.textContent=t("lst.sure");b.classList.add("sure");setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent="×";b.classList.remove("sure")}},3000);return}state[k].splice(i,1);renderLists();renderWeek();renderDays();save()};ul.appendChild(li)})})}
 
 /* history */
 function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
@@ -2862,7 +2864,7 @@ function drawInvoice(doc, me, inv) {
   const per = inv.start && inv.end ? `${pdmy(inv.start)} – ${pdmy(inv.end)}` : "";
   [["Bill to:", inv.billto], inv.billto_abn ? ["Client ABN:", String(inv.billto_abn).replace(/\D/g, "")] : null,
    ["Invoice No:", inv.invno], ["Issue date:", pdmy(inv.issue)], ["Due date:", pdmy(inv.due)], per ? ["Period:", per] : null].filter(Boolean).forEach(([k, v]) => {
-    font("bold", 9); const lines = doc.splitTextToSize(ptxt(v), 46).slice(0, 3);
+    font("bold", 9); const all = doc.splitTextToSize(ptxt(v), 46), lines = all.slice(0, 5); if (all.length > 5) lines[4] = lines[4].replace(/\s*\S{0,2}$/, "") + "…";
     font("normal", 9); col(MUT); doc.text(k, 144, ry, { align: "right" });
     font("bold", 9); col(INK); lines.forEach((t, i) => doc.text(t, R, ry + i * 4.4, { align: "right" }));
     ry += STEP + (lines.length - 1) * 4.4;
@@ -3075,7 +3077,7 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
       if(o.share){if(!inv.finished)inv.finished={at:new Date().toISOString()};return true}
       const u=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);
       if(out.reused&&!lk&&out.inv){const keep=inv.id;Object.assign(inv,clone(out.inv));inv.id=keep;migrateInv(inv)}
-      const again=lk;if(!inv.finished)inv.finished={at:out.created_at||new Date().toISOString()};if(p.drafts)delete p.drafts[draftKey(inv)];p.lastInvNo=Math.max(+p.lastInvNo||0,parseInt(inv.invno)||0);
+      const again=lk;if(!inv.finished)inv.finished={at:out.created_at||new Date().toISOString()};if(!plan.premium){p.drafts=p.drafts||{};p.drafts[draftKey(inv)]={...clone(inv),_at:Date.now()};pruneDrafts(p)}else if(p.drafts)delete p.drafts[draftKey(inv)];p.lastInvNo=Math.max(+p.lastInvNo||0,parseInt(inv.invno)||0);
       if(plan.premium&&!curEntry())addToHistory();
       save();flushSave();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));askReview(again);return}
     const st=out&&out.status;
