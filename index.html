@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-AU">
 <head>
+<meta name="color-scheme" content="dark">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src https://snfcqaubjscxgxjyugas.supabase.co wss://snfcqaubjscxgxjyugas.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'">
@@ -39,7 +40,7 @@
   --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
-@media (prefers-color-scheme: dark){:root{
+@media all{:root{
   --bg:#0F1613; --paper:#18221D; --ink:#EEF2EF; --panel:#1C2822; --panel-2:#26342D; --on-panel:#F2F5F1; --on-panel-mute:#A9B5AE;
   --muted:#9AA6A0; --line:#2C3832; --field:#1F2A24;
   --accent:#FF7A2F; --accent-strong:#FF9554; --on-accent:#15201B; --accent-soft:#3A2618;
@@ -85,7 +86,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .proof{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .proof li{display:flex;align-items:center;gap:6px;font-size:.86rem;font-weight:600;padding:7px 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
 .proof b{font-family:var(--mono);font-weight:600;font-size:.8rem;color:var(--accent-strong)}
-@media (prefers-color-scheme: dark){.proof b{color:var(--accent)}}
+@media all{.proof b{color:var(--accent)}}
 @media (min-width:900px){
   .hero{grid-template-columns:1.05fr 1fr;align-items:start;gap:48px}
   .cta-main{width:auto;padding-inline:30px}.cta-note{text-align:left}
@@ -139,7 +140,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .why{display:grid;grid-template-columns:1fr;gap:12px}
 .why div{display:grid;grid-template-columns:40px 1fr;column-gap:12px;align-items:start;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px}
 .why svg{grid-row:span 2;width:40px;height:40px;padding:8px;border-radius:10px;background:var(--accent-soft);color:var(--accent-strong)}
-@media (prefers-color-scheme: dark){.why svg{color:var(--accent)}}
+@media all{.why svg{color:var(--accent)}}
 .why b{font-size:1rem}
 .why span{color:var(--muted);line-height:1.5;font-size:.95rem}
 @media (min-width:640px){.why{grid-template-columns:1fr 1fr}.how{grid-template-columns:repeat(3,1fr)}.how li{grid-template-columns:1fr;row-gap:8px}.how li::before{grid-row:auto}}
@@ -177,7 +178,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .form label{font-weight:700;font-size:.84rem;margin-top:8px;color:var(--muted)}
 .form .primary{margin-top:14px;padding:15px;min-height:54px;font-size:1.02rem}
 .err{margin:6px 0 0;color:var(--accent-strong);font-weight:600;min-height:1.2em}
-@media (prefers-color-scheme: dark){.err{color:var(--accent)}}
+@media all{.err{color:var(--accent)}}
 .foot{display:flex;flex-direction:column;gap:6px;padding:8px 0 28px;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line);padding-top:18px}
 .foot p{margin:0}
 .footbrand{display:flex;align-items:center;gap:6px;color:var(--ink);font-family:var(--head);font-weight:900;font-size:1.2rem}
@@ -224,7 +225,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .dtop{display:flex;align-items:baseline;gap:8px}
 .dname{font-weight:800;text-transform:uppercase;letter-spacing:.04em;width:2.7rem}
 .day.on .dname{color:var(--accent-strong)}
-@media (prefers-color-scheme: dark){.day.on .dname{color:var(--accent)}}
+@media all{.day.on .dname{color:var(--accent)}}
 .ddate{color:var(--muted);font-size:.92rem}
 .damt{margin-left:auto;font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:.92rem;white-space:nowrap}
 .day:not(.on) .damt{color:var(--muted);font-weight:400}
@@ -279,7 +280,7 @@ button{cursor:pointer;border-radius:10px;border:1px solid var(--line);background
 .lists h3{margin:12px 0 4px;font-size:.88rem;color:var(--muted)}
 .del{border:none;background:none;color:var(--muted);font-size:1.3rem;padding:4px 12px}
 .premium .why2{margin:0 0 12px;font-weight:700;color:var(--accent-strong)}
-@media (prefers-color-scheme: dark){.premium .why2{color:var(--accent)}}
+@media all{.premium .why2{color:var(--accent)}}
 .premium .why2:empty{display:none}
 .btnlink{display:flex;align-items:center;justify-content:center;text-decoration:none;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:14px;font-weight:700;min-height:54px}
 .btnlink.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
@@ -404,7 +405,7 @@ select:disabled,input:disabled{opacity:.7}
 .abnbox{display:flex;flex-direction:column;gap:6px}
 .abnnote{margin:0;font-size:.86rem;color:var(--muted)}
 .abnnote.warnbox{background:var(--accent-soft);color:var(--accent-strong);border-radius:10px;padding:9px 11px;font-weight:600}
-@media (prefers-color-scheme: dark){.abnnote.warnbox{color:var(--accent)}}
+@media all{.abnnote.warnbox{color:var(--accent)}}
 .abnbox.lk input{opacity:1;background:transparent;border-style:dashed;color:var(--ink)}
 #abn_ok{min-height:46px}
 #abn_ok.confirm{background:var(--hivis);border-color:var(--hivis);color:#15201B}
@@ -422,12 +423,12 @@ select:disabled,input:disabled{opacity:.7}
 .otl select{width:auto;min-height:44px;padding:8px 10px}
 .otbox .note{margin:6px 0 0;font-size:.82rem}
 .damt .otx{display:block;font-family:var(--body);font-size:.74rem;font-weight:700;color:var(--accent-strong);text-align:right;margin-top:2px}
-@media (prefers-color-scheme: dark){.damt .otx{color:var(--accent)}}
+@media all{.damt .otx{color:var(--accent)}}
 .dayshead{flex-wrap:wrap;row-gap:4px}
 .dph{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .phchip{min-height:36px;padding:6px 12px;border-radius:999px;font-size:.85rem;font-weight:700;background:transparent;border:1.5px dashed var(--line);color:var(--muted)}
 .phchip.on{border-style:solid;border-color:var(--accent);background:var(--accent-soft);color:var(--accent-strong)}
-@media (prefers-color-scheme: dark){.phchip.on{color:var(--accent)}}
+@media all{.phchip.on{color:var(--accent)}}
 .phname{font-size:.82rem;font-weight:600;color:var(--muted)}
 .histsum{display:grid;grid-template-columns:1.4fr 1fr .8fr;gap:8px;margin:0 0 10px}
 .histsum div{background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
@@ -487,7 +488,7 @@ textarea{font:inherit;color:inherit;background:var(--field);border:1px solid var
 .abtns{display:flex;flex-wrap:wrap;gap:8px}.abtns button{min-height:42px;padding:8px 14px}
 button.danger{border-color:#B42318;color:#B42318;background:transparent}
 button.danger.armed{background:#B42318;color:#fff}
-@media (prefers-color-scheme: dark){button.danger{border-color:#F97066;color:#F97066}button.danger.armed{background:#D92D20;color:#fff;border-color:#D92D20}}
+@media all{button.danger{border-color:#F97066;color:#F97066}button.danger.armed{background:#D92D20;color:#fff;border-color:#D92D20}}
 button.armed:not(.danger){background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .ainvrow{display:flex;gap:8px 10px;align-items:center;justify-content:space-between;flex-wrap:wrap}.ainvrow .aumain{flex:1 1 220px;min-width:0}
 .ainvrow strong{font-family:var(--mono)}
@@ -592,7 +593,7 @@ button.armed:not(.danger){background:var(--accent);border-color:var(--accent);co
 #planbadge.pro::before{content:"";width:12px;height:12px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat}
 /* Free: "Go Premium" in the top bar */
 .gopro{border:1.5px solid #D99A1E;color:#8A5A00;background:linear-gradient(135deg,#FFF6D6,#FFE7A0);font-weight:800;white-space:nowrap}
-@media (prefers-color-scheme:dark){.gopro{color:#3A2500}}
+@media all{.gopro{color:#3A2500}}
 @media (max-width:380px){.topr .gopro{font-size:.78rem;padding:6px 9px}}
 /* finished invoice: greyed out, the pencil is the way in */
 #app.isdone .ctx .fields,#app.isdone .invmeta,#app.isdone .modeseg,#app.isdone .hoursopts,#app.isdone label.chk,#app.isdone .otbox,#app.isdone .optnote,#app.isdone .daylist,#app.isdone #copymon{opacity:.5;filter:grayscale(1);pointer-events:none;user-select:none}
@@ -783,7 +784,7 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 @media (min-width:900px){.heroviz .phone{width:252px}.heroviz .invcard{width:350px;right:-40px;top:104px;transform:rotate(3deg)}}
 @media (min-width:520px) and (max-width:899px){.heroviz .invcard{width:300px;right:0}}
 .pbtn{white-space:normal;text-align:center;max-width:52%;line-height:1.15}
-@media (prefers-color-scheme:dark){.tcard.final{border-color:color-mix(in srgb,var(--orange) 55%,transparent)}.landing .hero{border-bottom:1px solid #22302A}}
+@media all{.tcard.final{border-color:color-mix(in srgb,var(--orange) 55%,transparent)}.landing .hero{border-bottom:1px solid #22302A}}
 /* app header: room for the Premium badge or "Go Premium" on phones */
 @media (max-width:600px){.topr:is(:has(#btn_gopro:not([hidden])),:has(#planbadge.pro)) #btn_menu span{display:none}.topr:is(:has(#btn_gopro:not([hidden])),:has(#planbadge.pro)) #btn_menu{padding-left:11px;padding-right:11px}}
 @media (max-width:520px){.top:is(:has(#btn_gopro:not([hidden])),:has(#planbadge.pro)) .brand span{display:none}}
@@ -844,6 +845,8 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 .abnconf{display:flex;flex-direction:column;gap:10px;background:color-mix(in srgb,var(--hivis,#E4F33A) 22%,var(--paper,#fff));border:1px solid color-mix(in srgb,var(--hivis,#E4F33A) 70%,var(--line));border-radius:14px;padding:12px 14px}
 .abnconf p{margin:0;font-weight:700;overflow-wrap:anywhere}
 .abnconfbtns{display:flex;gap:8px;flex-wrap:wrap}.abnconfbtns{align-items:stretch}#abnconf .abnconfbtns button{min-height:46px;flex:1 1 140px;margin:0;align-self:stretch}
+
+:root{color-scheme:dark}
 </style>
 </head>
 <body>
