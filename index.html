@@ -642,7 +642,7 @@ label.oninv::after{content:attr(data-tag);font-size:.68rem;font-weight:700;lette
 :root{--hero-bg:#15201B;--hero-ink:#F3F6F2;--hero-mute:#A9B7AF;--hivis:#DCF23D;--orange:#E8590C}
 /* full-bleed bands without horizontal scroll */
 body:has(#landing:not([hidden])) header.top,.landing .hero{background:var(--hero-bg);border-image:linear-gradient(var(--hero-bg),var(--hero-bg)) fill 0/0/0 100vmax}
-body:has(#landing:not([hidden])) header.top{position:relative;z-index:40}
+body:has(#landing:not([hidden])) header.top{position:relative;z-index:30}
 body:has(#landing:not([hidden])) header.top{color:var(--hero-ink);padding-top:14px!important;padding-bottom:14px;margin-bottom:0;border-bottom:1px solid rgba(255,255,255,.07);max-width:1080px;margin-inline:auto;width:100%}
 body:has(#landing:not([hidden])) header.top .brand{color:var(--hero-ink)}
 body:has(#landing:not([hidden])) .langbtn,body:has(#landing:not([hidden])) #btn_login{background:transparent;color:var(--hero-ink);border-color:rgba(255,255,255,.22)}
@@ -857,6 +857,25 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 .landing .hero .proof{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
 .landing .hero .proof li{display:block;position:relative;padding-left:28px;line-height:1.35}
 .landing .hero .proof li svg{position:absolute;left:0;top:50%;transform:translateY(-50%)}
+
+.ov{z-index:50}
+
+/* ---- hero title: metallic shine sweep + glint at the end ---- */
+.landing .hero h1>span{-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;background-repeat:no-repeat}
+.landing .hero h1>span:first-child{background-image:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.98) 49%,#FFFDF2 50%,rgba(255,255,255,.98) 51%,transparent 58%),linear-gradient(180deg,#FFFFFF 0%,#EEF2ED 38%,#C4CCC5 62%,#F3F6F2 100%);background-size:260% 100%,100% 100%;background-position:100% 0,0 0;animation:sbShine1 6.5s cubic-bezier(.45,.05,.35,1) .8s infinite}
+.landing .hero h1 .hl{position:relative;background-image:linear-gradient(105deg,transparent 42%,rgba(255,236,200,.95) 49%,#FFF6E4 50%,rgba(255,236,200,.95) 51%,transparent 58%),linear-gradient(180deg,#FF9A52 0%,#F06A1C 40%,#C2470A 64%,#F07A30 100%);background-size:260% 100%,100% 100%;background-position:100% 0,0 0;animation:sbShine2 6.5s cubic-bezier(.45,.05,.35,1) .8s infinite}
+.landing .hero h1 .hl::after{content:"";display:inline-block;width:.62em;height:.62em;margin-left:-.3em;vertical-align:.42em;-webkit-text-fill-color:initial;
+  background:radial-gradient(circle,#fff 0 7%,rgba(255,255,255,.75) 14%,rgba(255,214,150,.35) 30%,transparent 52%),linear-gradient(transparent 47%,#fff 50%,transparent 53%),linear-gradient(90deg,transparent 47%,#fff 50%,transparent 53%);
+  -webkit-background-clip:border-box;background-clip:border-box;opacity:0;transform:scale(0) rotate(0deg);pointer-events:none;animation:sbGlint 6.5s ease-out .8s infinite}
+@keyframes sbShine1{0%{background-position:100% 0,0 0}30%,100%{background-position:0% 0,0 0}}
+@keyframes sbShine2{0%,27%{background-position:100% 0,0 0}50%,100%{background-position:0% 0,0 0}}
+@keyframes sbGlint{0%,47%{opacity:0;transform:scale(0) rotate(0deg)}53%{opacity:1;transform:scale(1.15) rotate(45deg)}58%{opacity:.9;transform:scale(.8) rotate(80deg)}64%,100%{opacity:0;transform:scale(0) rotate(120deg)}}
+@media (prefers-reduced-motion:reduce){.landing .hero h1>span,.landing .hero h1 .hl,.landing .hero h1 .hl::after{animation:none}.landing .hero h1>span{background-position:150% 0,0 0}}
+
+.landing .hero h1 .hl{display:inline;position:static}
+.landing .hero h1 .hl::before{content:"\A";white-space:pre}
+.landing .hero h1>span:first-child{background-image:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.98) 48%,#FFFDF2 50%,rgba(255,255,255,.98) 52%,transparent 62%),linear-gradient(180deg,#FFFFFF 0%,#EEF2ED 36%,#B7C0B9 62%,#EEF2ED 100%)}
+.landing .hero h1 .hl{background-image:linear-gradient(105deg,transparent 38%,rgba(255,236,200,.95) 48%,#FFF6E4 50%,rgba(255,236,200,.95) 52%,transparent 62%),linear-gradient(180deg,#FF9A52 0%,#F06A1C 40%,#BD4409 64%,#F07A30 100%)}
 </style>
 </head>
 <body>
