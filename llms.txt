@@ -1,0 +1,39 @@
+# SubbieBill
+
+> SubbieBill is a web app for ABN subcontractors in Australia (tradies and labour-hire subbies paid by the hour). You enter your start and finish times for each day and it creates a professional PDF invoice with your ABN, BSB and account number, the hours, the rate and the total in AUD, including GST (10%) when you are registered for GST.
+
+Website: https://subbiebill.com/
+Works in any browser, on phone or computer. Nothing to install. Interface in English, French and Spanish; invoices are always in English.
+
+## What it does
+
+- Turns daily start and finish times into hours, including unpaid breaks, overtime rates and public holiday rates
+- Weekly, fortnightly or monthly invoices
+- "Tax invoice" with GST shown separately when the user is registered for GST, plain "Invoice" with "No GST has been charged" when not
+- Expense lines (fuel, materials, tolls) on the invoice
+- Unique invoice numbers, due dates, client ABN
+- Saved clients, sites and drafts
+- Premium: history of every invoice with yearly totals, re-download any invoice, email invoices to the client, paid / overdue tracking
+
+## Pricing (AUD)
+
+- Free: 3 finished invoices, no card needed
+- Premium: $4.99 a month or $39 a year, cancel anytime (payments by Stripe)
+
+## What it is not
+
+SubbieBill is not accounting software: no bank reconciliation, BAS lodgement or payroll. It is not tax advice.
+
+## Guides
+
+- [How to write an invoice as a subcontractor in Australia](https://subbiebill.com/subcontractor-invoice.html)
+- [Free ABN invoice template for subcontractors](https://subbiebill.com/abn-invoice-template.html)
+- [Do subcontractors charge GST?](https://subbiebill.com/gst-for-subcontractors.html)
+- [Free timesheet template for subcontractors](https://subbiebill.com/timesheet-template.html)
+- [How to get an ABN in Australia](https://subbiebill.com/how-to-get-an-abn.html)
+- [How much should a subcontractor charge per hour?](https://subbiebill.com/subcontractor-hourly-rate.html)
+- [SubbieBill vs Excel vs Xero](https://subbiebill.com/subbiebill-vs-excel-vs-xero.html)
+
+## Contact
+
+support@subbiebill.com

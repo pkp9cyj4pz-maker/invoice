@@ -876,6 +876,35 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 .landing .hero h1 .hl::before{content:"\A";white-space:pre}
 .landing .hero h1>span:first-child{background-image:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.98) 48%,#FFFDF2 50%,rgba(255,255,255,.98) 52%,transparent 62%),linear-gradient(180deg,#FFFFFF 0%,#EEF2ED 36%,#B7C0B9 62%,#EEF2ED 100%)}
 .landing .hero h1 .hl{background-image:linear-gradient(105deg,transparent 38%,rgba(255,236,200,.95) 48%,#FFF6E4 50%,rgba(255,236,200,.95) 52%,transparent 62%),linear-gradient(180deg,#FF9A52 0%,#F06A1C 40%,#BD4409 64%,#F07A30 100%)}
+
+/* expenses */
+.expbox{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.exphead{display:flex;align-items:baseline;gap:10px}.exphead h2{margin:0;font-family:var(--head);font-size:1.6rem}.exphead .muted{font-size:.85rem}
+.expbox .note{margin:0}
+.explist{display:flex;flex-direction:column;gap:8px}
+.exprow{display:grid;grid-template-columns:minmax(0,1fr) 118px 44px;gap:6px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:8px}
+.exprow input{min-width:0}
+.expamt{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-weight:700;color:var(--muted)}.expamt input{font-family:var(--mono);width:100%}
+.exprow .del{min-height:44px;padding:0;font-size:1.2rem}
+.addexp{align-self:flex-start;min-height:44px;background:transparent;border:1px dashed var(--line);color:var(--ink);font-weight:700;padding:8px 14px;border-radius:12px}
+.isdone .expbox{pointer-events:none}
+@media (max-width:360px){.exprow{grid-template-columns:minmax(0,1fr) 44px}.exprow .expamt{grid-column:1/2;grid-row:2}.exprow .del{grid-row:1/3;grid-column:2}}
+/* client email: under the invoice details, still editable once the invoice is finished */
+.ctx .memail{margin-top:2px}
+/* lockbar: email + paid buttons */
+#lock_mail{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+#lock_mail.pl::after{content:"PREMIUM";font-size:.62rem;font-weight:900;letter-spacing:.08em;background:var(--hivis);color:#15201B;border-radius:999px;padding:2px 6px}
+#lock_paid.paid{background:color-mix(in srgb,#2B8A55 22%,transparent);border-color:#2B8A55;color:#7FE0A7}
+/* history: paid status */
+.pstat{display:inline-block;font-size:.72rem;font-weight:800;letter-spacing:.02em;padding:2px 7px;border-radius:999px;background:var(--field);color:var(--muted);vertical-align:1px}
+.pstat.ok{background:color-mix(in srgb,#2B8A55 25%,transparent);color:#7FE0A7}
+.pstat.late{background:color-mix(in srgb,#E5484D 25%,transparent);color:#FF9592}
+.hact .hpaid{padding:7px 12px;font-size:.86rem;min-height:40px}
+.hact .hpaid.on{background:color-mix(in srgb,#2B8A55 22%,transparent);border-color:#2B8A55;color:#7FE0A7}
+.histsum{grid-template-columns:repeat(2,minmax(0,1fr))}
+.histsum .late{border-color:color-mix(in srgb,#E5484D 60%,var(--line))}.histsum small{font-size:.74rem;font-weight:700;color:#FF9592}
+#btn_hist{position:relative}
+#btn_hist[data-badge]::after{content:attr(data-badge);position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#E5484D;color:#fff;font-size:.7rem;font-weight:800;line-height:18px;text-align:center;box-sizing:border-box}
 </style>
 </head>
 <body>
@@ -1000,6 +1029,8 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
       <ul class="feat" style="margin-bottom:16px">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1">All your invoices kept, no limit</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2">New features first</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f4">Email invoices to your client</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f5">See what's paid and what's overdue</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f3">Cancel anytime</span></li>
       </ul>
       <div class="form" id="payrow">
@@ -1163,6 +1194,8 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p1">Unlimited invoices</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p2">History of every invoice, with totals per year</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p3">Download any past invoice again</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p5">Email invoices to your client</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p6">See what's paid and what's overdue</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p4">Cancel anytime</span></li>
         </ul>
         <button type="button" data-auth="signup" data-i18n="price.pro_cta">Start free, upgrade anytime</button>
@@ -1229,6 +1262,27 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
       <p class="legalnote"><span data-i18n="lg.agree">By creating an account, you agree to our</span> <a href="terms.html" target="_blank" rel="noopener" data-i18n="lg.terms_long">Terms of Service</a> <span data-i18n="lg.and">and</span> <a href="privacy.html" target="_blank" rel="noopener" data-i18n="lg.privacy_long">Privacy Policy</a>.</p>
       <button id="authforgot" class="linkbtn" type="button" style="align-self:flex-start" data-i18n="auth.forgot">Forgot your password?</button>
     </form>
+    <form id="resetform" class="form codeform" novalidate hidden>
+      <p class="codeintro" id="rs_intro"></p>
+      <div id="rs_step1" class="form">
+        <label for="rs_email" data-i18n="auth.email">Email</label>
+        <input id="rs_email" type="email" autocomplete="email" inputmode="email" data-i18n-ph="auth.email_ph">
+        <button class="primary" id="rs_send" type="button" data-i18n="rs.send">Send me a code</button>
+      </div>
+      <div id="rs_step2" class="form" hidden>
+        <label for="rs_code" data-i18n="code.label">Confirmation code</label>
+        <input id="rs_code" class="mono codeinput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="••••••">
+        <label for="rs_pass" data-i18n="rs.new">New password</label>
+        <input id="rs_pass" type="password" autocomplete="new-password" data-i18n-ph="auth.pass_ph">
+        <label for="rs_pass2" data-i18n="rs.new2">Confirm new password</label>
+        <input id="rs_pass2" type="password" autocomplete="new-password">
+        <button class="primary" id="rs_save" type="submit" data-i18n="rs.save">Save my new password</button>
+        <button id="rs_resend" class="linkbtn" type="button" data-i18n="code.resend">Send a new code</button>
+        <p class="note" data-i18n="code.spam">Can't find it? Check your spam folder.</p>
+      </div>
+      <p id="rs_err" class="err" role="alert"></p>
+      <button id="rs_back" class="linkbtn" type="button" data-i18n="rs.back">Back to log in</button>
+    </form>
     <form id="codeform" class="form codeform" novalidate hidden>
       <p class="codeintro" id="codeintro"></p>
       <label for="authcode" data-i18n="code.label">Confirmation code</label>
@@ -1246,7 +1300,7 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
         <p data-i18n="foot.tag">Invoicing for ABN subcontractors in Australia.</p>
         <p><span data-i18n="foot.q">Questions?</span> <a class="sel" href="mailto:support@subbiebill.com">support@subbiebill.com</a></p></div>
       <div class="fcol"><b data-i18n="fo.product">Product</b><a href="#why" data-i18n="ln.features">Features</a><a href="#pricing" data-i18n="ln.pricing">Pricing</a><a href="#how" data-i18n="ln.how">How it works</a><a href="#faq" data-i18n="ln.faq">FAQ</a></div>
-      <div class="fcol"><b data-i18n="fo.guides">Guides</b><span class="legal guides"><a href="subcontractor-invoice.html">How to invoice as a subbie</a><a href="abn-invoice-template.html">ABN invoice template</a><a href="gst-for-subcontractors.html">GST for subcontractors</a></span></div>
+      <div class="fcol"><b data-i18n="fo.guides">Guides</b><span class="legal guides"><a href="subcontractor-invoice.html">How to invoice as a subbie</a><a href="abn-invoice-template.html">ABN invoice template</a><a href="gst-for-subcontractors.html">GST for subcontractors</a><a href="timesheet-template.html">Timesheet template</a><a href="how-to-get-an-abn.html">How to get an ABN</a><a href="subcontractor-hourly-rate.html">Setting your hourly rate</a><a href="subbiebill-vs-excel-vs-xero.html">SubbieBill vs Excel vs Xero</a></span></div>
       <div class="fcol"><b data-i18n="fo.legal">Legal</b><span class="legal"><a href="terms.html" data-i18n="lg.terms">Terms</a><a href="refunds.html" data-i18n="lg.refunds">Refunds</a><a href="privacy.html" data-i18n="lg.privacy">Privacy</a><a class="tplink" href="https://www.trustpilot.com/review/subbiebill.com" target="_blank" rel="noopener"><span aria-hidden="true">★</span> <span data-i18n="tpr.foot">Reviews on Trustpilot</span></a></span></div>
     </div>
     <p class="fcopy">© 2026 SubbieBill · <span data-i18n="fo.made">Made for Australian subcontractors</span></p>
@@ -1290,7 +1344,7 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
       <div id="lockbar" class="lockbar" hidden>
         <p id="locktxt"></p>
         <div id="rvask" class="rvask" hidden><span class="rvstar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z" fill="currentColor"/></svg></span><div class="rvbody"><p data-i18n="tpr.ask">Happy with SubbieBill? A quick review really helps.</p><div class="rvaskb"><a id="tp_go" class="btnlink primary" href="https://www.trustpilot.com/evaluate/subbiebill.com" target="_blank" rel="noopener" data-i18n="tpr.go">Leave a review</a><button id="tp_no" class="linkbtn" type="button" data-i18n="tpr.no">Not now</button></div></div></div>
-        <div class="lockbtns"><button id="lock_share" type="button" hidden data-i18n="fin.share">Share PDF</button><button class="primary" id="lock_next" type="button" data-i18n="fin.next">Start the next invoice</button><button id="lock_edit" type="button" class="editbtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span data-i18n="fin.edit">Edit</span></button></div>
+        <div class="lockbtns"><button id="lock_mail" type="button"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span data-i18n="mail.btn">Email to client</span></button><button id="lock_paid" type="button" hidden></button><button id="lock_share" type="button" hidden data-i18n="fin.share">Share PDF</button><button class="primary" id="lock_next" type="button" data-i18n="fin.next">Start the next invoice</button><button id="lock_edit" type="button" class="editbtn"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><span data-i18n="fin.edit">Edit</span></button></div>
       </div>
       <div class="fields">
         <div class="field"><label for="billto" data-i18n="ctx.client">Client</label><select id="billto"></select><input id="billto_new" data-i18n-ph="ctx.client_ph" hidden></div>
@@ -1300,11 +1354,13 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
         <div class="metagrid">
           <div class="field mno"><label for="invno" data-i18n="meta.no">Invoice no.</label><input id="invno" type="number" inputmode="numeric" min="1" class="mono"></div>
           <div class="field mabn"><label for="billto_abn" data-i18n="meta.cabn">Client ABN (optional)</label><input id="billto_abn" inputmode="numeric" class="mono" autocomplete="off" data-i18n-ph="i.abn_ph"></div>
+
           <div class="field"><label for="issue" data-i18n="meta.issue">Issued</label><input id="issue" type="date"></div>
           <div class="field"><label for="due" data-i18n="meta.due">Due</label><input id="due" type="date"></div>
         </div>
         <p class="note" id="cabn_msg" style="margin:4px 0 0"></p>
       </div>
+      <div class="field memail"><label for="billto_email" data-i18n="meta.cemail">Client email (optional)</label><input id="billto_email" type="email" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="accounts@client.com.au"></div>
       <div class="saverow"><button class="primary" id="savebtn" type="button"></button></div>
       <p id="savestate" class="savestate" role="status"></p>
     </section>
@@ -1335,6 +1391,12 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
     </div>
     <p class="note optnote" data-i18n="o.wkd">Weekends start at $0/h. If you work one, set the rate on that day.</p>
     <div id="daylist" class="daylist"></div>
+    <section class="expbox" id="expbox" aria-labelledby="exp_t">
+      <div class="exphead"><h2 id="exp_t" data-i18n="exp.title">Expenses</h2><span class="muted" data-i18n="exp.opt">optional</span></div>
+      <p class="note" id="exp_note"></p>
+      <div id="explist" class="explist"></div>
+      <button id="exp_add" class="addexp" type="button" data-i18n="exp.add">+ Add an expense</button>
+    </section>
   </main>
 </div>
 
@@ -1662,7 +1724,7 @@ en:{
   "err.created_confirm":"Account created. Open the confirmation email, then log in.","err.offline":"No connection. Try again.",
   "err.service":"Can't reach the service. Check your connection and reload.","err.load":"Couldn't load your account. Reload the page.",
   "err.forgot":"Email {email} from the address on your account.",
-  "foot.tag":"Invoicing for ABN subcontractors in Australia.","foot.q":"Questions?","lg.terms":"Terms","i.abn_check":"Check your ABN: {abn}. Is this correct?","i.abn_yes":"Yes, continue","i.abn_edit":"Edit","i.abn_bad":"This ABN doesn't look valid","ph.gst":"incl. GST","demo.eye":"The real app","demo.sub2":"This is the screen you use every week. Change a start or finish time and the total updates.","demo.p1":"Start and finish for each day","demo.p2":"Your rate, worked out to the cent","demo.p3":"One tap for the PDF invoice","demo.note":"Example only: nothing is saved here.","demo.aria2":"Interactive example of the SubbieBill hours screen","ln.aria":"Main","ln.features":"Features","ln.pricing":"Pricing","ln.how":"How it works","ln.faq":"FAQ","hero.cta2":"Get started free","hero.eyebrow":"Invoicing for ABN subcontractors","hero.t1":"Hours in. Invoice out.","hero.t2":"In 30 seconds.","ben.aria":"Why SubbieBill","ben.1t":"Save time every week","ben.1d":"Enter your hours once. The maths is done for you.","ben.2t":"Professional PDF invoices","ben.2d":"With your ABN, BSB, account number and GST.","ben.3t":"Works on your phone","ben.3d":"On site, at home or on a computer. Nothing to install.","ben.4t":"Your details stay private","ben.4d":"Saved to your account and protected by your password.","show.title":"Your hours in, a real invoice out","show.sub":"This is what you get: the screen you fill in on your phone, and the PDF your client receives.","show.c1":"Your week, on your phone","show.c2":"The PDF invoice (real example)","show.c3":"Dark mode included","au.title":"Built for Australian subbies","au.1t":"ABN and GST ready","au.1d":"Tax invoice with GST (10%) when you're registered, “No GST” invoice when you're not.","au.2t":"Australian dollars","au.2d":"Every amount in AUD, to the cent, with your BSB and account number.","au.3t":"Real support","au.3d":"A question? Write to support@subbiebill.com.","tpc.title":"Reviews","tpc.h":"Using SubbieBill?","tpc.p":"Tell other subbies what you think on Trustpilot. Honest reviews help us improve.","tpc.btn":"Leave a review on Trustpilot","fin2.h":"Ready to send your next invoice in 30 seconds?","fo.product":"Product","fo.guides":"Guides","fo.legal":"Legal","fo.made":"Made for Australian subcontractors","hero.lede":"SubbieBill turns your hours into a professional PDF invoice, with your ABN, BSB and GST worked out.","lst.sure":"Remove?","tpr.ask":"Happy with SubbieBill? A quick review really helps.","tpr.go":"Leave a review","tpr.no":"Not now","tpr.foot":"Reviews on Trustpilot","lg.guides":"Guides:","lg.refunds":"Refunds","lg.privacy":"Privacy","lg.agree":"By creating an account, you agree to our","lg.terms_long":"Terms of Service","lg.and":"and","lg.privacy_long":"Privacy Policy",
+  "foot.tag":"Invoicing for ABN subcontractors in Australia.","foot.q":"Questions?","lg.terms":"Terms","exp.title":"Expenses","exp.opt":"optional","exp.add":"+ Add an expense","exp.desc":"Expense","exp.desc_ph":"Fuel, materials, tolls…","exp.amt":"Amount in dollars","exp.remove":"Remove this expense","exp.note":"Each expense is added as a line on the invoice.","exp.note_gst":"Enter amounts excl. GST: GST (10%) is added on top, like your hours.","exp.empty":"Fuel, materials or tolls to charge back? Add them here.","rv.exp":"Expenses","rv.exp_v":"{n} line(s) · {amt}","meta.cemail":"Client email (optional)","mail.btn":"Email to client","mail.copied":"Client email copied ({email}). Choose Mail, then paste it in “To”.","mail.noemail":"Choose Mail. Tip: add your client's email in the invoice details for next time.","mail.again":"Tap “Email to client” again to send.","mail.attach":"PDF downloaded: attach it to the email that just opened.","mail.attach_noto":"PDF downloaded: attach it to the email, and add your client's address.","p.why_mail":"With Premium, send your invoice to your client by email in one tap.","pay.mark":"Mark as paid","pay.paid_on":"Paid {date}","pay.paid_short":"Paid ✓","pay.late":"Overdue","pay.unpaid":"Unpaid","h.sum_unpaid":"Still to be paid","h.sum_late":"{n} overdue","price.p5":"Email invoices to your client","price.p6":"See what's paid and what's overdue","p.f4":"Email invoices to your client","p.f5":"See what's paid and what's overdue","faq.a10":"Free: 3 finished invoices with every tool included, no History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking.","rs.title":"Reset your password","rs.intro1":"Enter your account email. We'll send you a 6-digit code.","rs.intro2":"If {email} has an account, a 6-digit code is on its way. Enter it with your new password.","rs.send":"Send me a code","rs.new":"New password","rs.new2":"Confirm new password","rs.save":"Save my new password","rs.back":"Back to log in","rs.wait":"Please wait a minute before asking for a new code.","rs.sent_again":"New code sent.","rs.same":"Choose a password different from your old one.","rs.done":"Password changed. You're logged in.","i.abn_check":"Check your ABN: {abn}. Is this correct?","i.abn_yes":"Yes, continue","i.abn_edit":"Edit","i.abn_bad":"This ABN doesn't look valid","ph.gst":"incl. GST","demo.eye":"The real app","demo.sub2":"This is the screen you use every week. Change a start or finish time and the total updates.","demo.p1":"Start and finish for each day","demo.p2":"Your rate, worked out to the cent","demo.p3":"One tap for the PDF invoice","demo.note":"Example only: nothing is saved here.","demo.aria2":"Interactive example of the SubbieBill hours screen","ln.aria":"Main","ln.features":"Features","ln.pricing":"Pricing","ln.how":"How it works","ln.faq":"FAQ","hero.cta2":"Get started free","hero.eyebrow":"Invoicing for ABN subcontractors","hero.t1":"Hours in. Invoice out.","hero.t2":"In 30 seconds.","ben.aria":"Why SubbieBill","ben.1t":"Save time every week","ben.1d":"Enter your hours once. The maths is done for you.","ben.2t":"Professional PDF invoices","ben.2d":"With your ABN, BSB, account number and GST.","ben.3t":"Works on your phone","ben.3d":"On site, at home or on a computer. Nothing to install.","ben.4t":"Your details stay private","ben.4d":"Saved to your account and protected by your password.","show.title":"Your hours in, a real invoice out","show.sub":"This is what you get: the screen you fill in on your phone, and the PDF your client receives.","show.c1":"Your week, on your phone","show.c2":"The PDF invoice (real example)","show.c3":"Dark mode included","au.title":"Built for Australian subbies","au.1t":"ABN and GST ready","au.1d":"Tax invoice with GST (10%) when you're registered, “No GST” invoice when you're not.","au.2t":"Australian dollars","au.2d":"Every amount in AUD, to the cent, with your BSB and account number.","au.3t":"Real support","au.3d":"A question? Write to support@subbiebill.com.","tpc.title":"Reviews","tpc.h":"Using SubbieBill?","tpc.p":"Tell other subbies what you think on Trustpilot. Honest reviews help us improve.","tpc.btn":"Leave a review on Trustpilot","fin2.h":"Ready to send your next invoice in 30 seconds?","fo.product":"Product","fo.guides":"Guides","fo.legal":"Legal","fo.made":"Made for Australian subcontractors","hero.lede":"SubbieBill turns your hours into a professional PDF invoice, with your ABN, BSB and GST worked out.","lst.sure":"Remove?","tpr.ask":"Happy with SubbieBill? A quick review really helps.","tpr.go":"Leave a review","tpr.no":"Not now","tpr.foot":"Reviews on Trustpilot","lg.guides":"Guides:","lg.refunds":"Refunds","lg.privacy":"Privacy","lg.agree":"By creating an account, you agree to our","lg.terms_long":"Terms of Service","lg.and":"and","lg.privacy_long":"Privacy Policy",
   "top.free":"Free","top.premium":"Premium","top.history":"History","top.menu":"Menu","sheet.close":"Close",
   "onb.title":"Welcome to SubbieBill","onb.sub":"Three steps and your first invoice is ready.","onb.s1":"Your details (just once)","onb.fill":"Fill in","onb.s2":"Who you bill","onb.s3":"Your hours",
   "per.aria":"Invoice period","per.week":"Week","per.fortnight":"Fortnight","per.month":"Month",
@@ -2016,7 +2078,7 @@ fr:{
   "err.created_confirm":"Compte créé. Ouvre l'email de confirmation puis connecte-toi.","err.offline":"Pas de connexion. Réessaie.",
   "err.service":"Impossible de joindre le service. Vérifie ta connexion puis recharge.","err.load":"Impossible de charger ton compte. Recharge la page.",
   "err.forgot":"Écris à {email} avec l'email de ton compte.",
-  "foot.tag":"La facture des sous-traitants sous ABN en Australie.","foot.q":"Une question ?","lg.terms":"Conditions","i.abn_check":"Vérifie ton ABN : {abn}. Est-ce correct ?","i.abn_yes":"Oui, continuer","i.abn_edit":"Modifier","i.abn_bad":"Cet ABN ne semble pas valide","ph.gst":"GST incluse","demo.eye":"La vraie appli","demo.sub2":"C'est l'écran que tu utilises chaque semaine. Change une heure de début ou de fin, le total se met à jour.","demo.p1":"Début et fin pour chaque jour","demo.p2":"Ton taux, calculé au centime","demo.p3":"Un geste pour la facture PDF","demo.note":"Exemple seulement : rien n'est enregistré ici.","demo.aria2":"Exemple interactif de l'écran des heures de SubbieBill","ln.aria":"Navigation","ln.features":"Fonctionnalités","ln.pricing":"Tarifs","ln.how":"Comment ça marche","ln.faq":"FAQ","hero.cta2":"Commencer gratuitement","hero.eyebrow":"La facture des sous-traitants sous ABN","hero.t1":"Tes heures. Ta facture.","hero.t2":"En 30 secondes.","ben.aria":"Pourquoi SubbieBill","ben.1t":"Du temps gagné chaque semaine","ben.1d":"Tu entres tes heures une fois, les calculs se font tout seuls.","ben.2t":"Des factures PDF pro","ben.2d":"Avec ton ABN, ton BSB, ton numéro de compte et la GST.","ben.3t":"Sur ton téléphone","ben.3d":"Sur le chantier, chez toi ou sur ordinateur. Rien à installer.","ben.4t":"Tes infos restent privées","ben.4d":"Enregistrées sur ton compte et protégées par ton mot de passe.","show.title":"Tes heures, une vraie facture","show.sub":"Voici ce que tu obtiens : l'écran que tu remplis sur ton téléphone, et le PDF que reçoit ton client.","show.c1":"Ta semaine, sur ton téléphone","show.c2":"La facture PDF (vrai exemple)","show.c3":"Mode sombre inclus","au.title":"Fait pour les subbies en Australie","au.1t":"ABN et GST","au.1d":"Tax invoice avec GST (10 %) si tu es inscrit, facture « No GST » sinon.","au.2t":"Dollars australiens","au.2d":"Tous les montants en AUD, au centime près, avec ton BSB et ton numéro de compte.","au.3t":"Un vrai support","au.3d":"Une question ? Écris à support@subbiebill.com.","tpc.title":"Avis","tpc.h":"Tu utilises SubbieBill ?","tpc.p":"Dis ce que tu en penses sur Trustpilot. Les avis honnêtes nous aident à nous améliorer.","tpc.btn":"Laisser un avis sur Trustpilot","fin2.h":"Prêt à envoyer ta prochaine facture en 30 secondes ?","fo.product":"Produit","fo.guides":"Guides (en anglais)","fo.legal":"Mentions légales","fo.made":"Fait pour les sous-traitants en Australie","hero.lede":"SubbieBill transforme tes heures en facture PDF professionnelle, avec ton ABN, ton BSB et la GST calculée.","lst.sure":"Supprimer ?","tpr.ask":"Tu aimes SubbieBill ? Un petit avis nous aide vraiment.","tpr.go":"Laisser un avis","tpr.no":"Plus tard","tpr.foot":"Avis sur Trustpilot","lg.guides":"Guides (en anglais) :","lg.refunds":"Remboursements","lg.privacy":"Confidentialité","lg.agree":"En créant un compte, tu acceptes nos","lg.terms_long":"conditions d'utilisation","lg.and":"et notre","lg.privacy_long":"politique de confidentialité",
+  "foot.tag":"La facture des sous-traitants sous ABN en Australie.","foot.q":"Une question ?","lg.terms":"Conditions","exp.title":"Frais","exp.opt":"facultatif","exp.add":"+ Ajouter un frais","exp.desc":"Frais","exp.desc_ph":"Essence, matériel, péage…","exp.amt":"Montant en dollars","exp.remove":"Retirer ce frais","exp.note":"Chaque frais est ajouté comme une ligne sur la facture.","exp.note_gst":"Montants hors GST : la GST (10 %) s'ajoute par-dessus, comme pour tes heures.","exp.empty":"Essence, matériel ou péage à refacturer ? Ajoute-les ici.","rv.exp":"Frais","rv.exp_v":"{n} ligne(s) · {amt}","meta.cemail":"Email du client (facultatif)","mail.btn":"Envoyer au client","mail.copied":"Email du client copié ({email}). Choisis Mail, puis colle-le dans « À ».","mail.noemail":"Choisis Mail. Astuce : ajoute l'email du client dans les détails de la facture pour la prochaine fois.","mail.again":"Touche encore « Envoyer au client » pour envoyer.","mail.attach":"PDF téléchargé : joins-le à l'email qui vient de s'ouvrir.","mail.attach_noto":"PDF téléchargé : joins-le à l'email et ajoute l'adresse du client.","p.why_mail":"Avec Premium, envoie ta facture à ton client par email en une touche.","pay.mark":"Marquer payée","pay.paid_on":"Payée le {date}","pay.paid_short":"Payée ✓","pay.late":"En retard","pay.unpaid":"Pas payée","h.sum_unpaid":"Reste à encaisser","h.sum_late":"{n} en retard","price.p5":"Envoi des factures au client par email","price.p6":"Suivi des factures payées et en retard","p.f4":"Envoi des factures au client par email","p.f5":"Suivi des factures payées et en retard","faq.a10":"Gratuit : 3 factures terminées avec tous les outils, sans historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées, historique de toutes tes factures avec les totaux par année, envoi des factures au client par email et suivi des factures payées ou en retard.","rs.title":"Nouveau mot de passe","rs.intro1":"Entre l'email de ton compte. On t'envoie un code à 6 chiffres.","rs.intro2":"Si {email} a un compte, un code à 6 chiffres arrive. Entre-le avec ton nouveau mot de passe.","rs.send":"M'envoyer un code","rs.new":"Nouveau mot de passe","rs.new2":"Confirme le nouveau mot de passe","rs.save":"Enregistrer mon nouveau mot de passe","rs.back":"Retour à la connexion","rs.wait":"Attends une minute avant de demander un nouveau code.","rs.sent_again":"Nouveau code envoyé.","rs.same":"Choisis un mot de passe différent de l'ancien.","rs.done":"Mot de passe changé. Tu es connecté.","i.abn_check":"Vérifie ton ABN : {abn}. Est-ce correct ?","i.abn_yes":"Oui, continuer","i.abn_edit":"Modifier","i.abn_bad":"Cet ABN ne semble pas valide","ph.gst":"GST incluse","demo.eye":"La vraie appli","demo.sub2":"C'est l'écran que tu utilises chaque semaine. Change une heure de début ou de fin, le total se met à jour.","demo.p1":"Début et fin pour chaque jour","demo.p2":"Ton taux, calculé au centime","demo.p3":"Un geste pour la facture PDF","demo.note":"Exemple seulement : rien n'est enregistré ici.","demo.aria2":"Exemple interactif de l'écran des heures de SubbieBill","ln.aria":"Navigation","ln.features":"Fonctionnalités","ln.pricing":"Tarifs","ln.how":"Comment ça marche","ln.faq":"FAQ","hero.cta2":"Commencer gratuitement","hero.eyebrow":"La facture des sous-traitants sous ABN","hero.t1":"Tes heures. Ta facture.","hero.t2":"En 30 secondes.","ben.aria":"Pourquoi SubbieBill","ben.1t":"Du temps gagné chaque semaine","ben.1d":"Tu entres tes heures une fois, les calculs se font tout seuls.","ben.2t":"Des factures PDF pro","ben.2d":"Avec ton ABN, ton BSB, ton numéro de compte et la GST.","ben.3t":"Sur ton téléphone","ben.3d":"Sur le chantier, chez toi ou sur ordinateur. Rien à installer.","ben.4t":"Tes infos restent privées","ben.4d":"Enregistrées sur ton compte et protégées par ton mot de passe.","show.title":"Tes heures, une vraie facture","show.sub":"Voici ce que tu obtiens : l'écran que tu remplis sur ton téléphone, et le PDF que reçoit ton client.","show.c1":"Ta semaine, sur ton téléphone","show.c2":"La facture PDF (vrai exemple)","show.c3":"Mode sombre inclus","au.title":"Fait pour les subbies en Australie","au.1t":"ABN et GST","au.1d":"Tax invoice avec GST (10 %) si tu es inscrit, facture « No GST » sinon.","au.2t":"Dollars australiens","au.2d":"Tous les montants en AUD, au centime près, avec ton BSB et ton numéro de compte.","au.3t":"Un vrai support","au.3d":"Une question ? Écris à support@subbiebill.com.","tpc.title":"Avis","tpc.h":"Tu utilises SubbieBill ?","tpc.p":"Dis ce que tu en penses sur Trustpilot. Les avis honnêtes nous aident à nous améliorer.","tpc.btn":"Laisser un avis sur Trustpilot","fin2.h":"Prêt à envoyer ta prochaine facture en 30 secondes ?","fo.product":"Produit","fo.guides":"Guides (en anglais)","fo.legal":"Mentions légales","fo.made":"Fait pour les sous-traitants en Australie","hero.lede":"SubbieBill transforme tes heures en facture PDF professionnelle, avec ton ABN, ton BSB et la GST calculée.","lst.sure":"Supprimer ?","tpr.ask":"Tu aimes SubbieBill ? Un petit avis nous aide vraiment.","tpr.go":"Laisser un avis","tpr.no":"Plus tard","tpr.foot":"Avis sur Trustpilot","lg.guides":"Guides (en anglais) :","lg.refunds":"Remboursements","lg.privacy":"Confidentialité","lg.agree":"En créant un compte, tu acceptes nos","lg.terms_long":"conditions d'utilisation","lg.and":"et notre","lg.privacy_long":"politique de confidentialité",
   "top.free":"Gratuit","top.premium":"Premium","top.history":"Historique","top.menu":"Menu","sheet.close":"Fermer",
   "onb.title":"Bienvenue sur SubbieBill","onb.sub":"Trois étapes et ta première facture est prête.","onb.s1":"Tes infos (une seule fois)","onb.fill":"Remplir","onb.s2":"À qui tu factures","onb.s3":"Tes heures",
   "per.aria":"Durée de la facture","per.week":"Semaine","per.fortnight":"2 semaines","per.month":"Mois",
@@ -2344,7 +2406,7 @@ es:{
   "err.load":"No se pudo cargar tu cuenta. Recarga la página.",
   "err.forgot":"Escribe a {email} desde la dirección de tu cuenta.",
   "foot.tag":"Facturación para subcontratistas con ABN en Australia.",
-  "foot.q":"¿Preguntas?","lg.terms":"Condiciones","i.abn_check":"Revisa tu ABN: {abn}. ¿Es correcto?","i.abn_yes":"Sí, continuar","i.abn_edit":"Editar","i.abn_bad":"Este ABN no parece válido","ph.gst":"GST incluido","demo.eye":"La app real","demo.sub2":"Esta es la pantalla que usas cada semana. Cambia una hora de inicio o fin y el total se actualiza.","demo.p1":"Inicio y fin de cada día","demo.p2":"Tu tarifa, calculada al céntimo","demo.p3":"Un toque para la factura PDF","demo.note":"Solo es un ejemplo: aquí no se guarda nada.","demo.aria2":"Ejemplo interactivo de la pantalla de horas de SubbieBill","ln.aria":"Navegación","ln.features":"Funciones","ln.pricing":"Precios","ln.how":"Cómo funciona","ln.faq":"Preguntas","hero.cta2":"Empezar gratis","hero.eyebrow":"Facturación para subcontratistas con ABN","hero.t1":"Tus horas. Tu factura.","hero.t2":"En 30 segundos.","ben.aria":"Por qué SubbieBill","ben.1t":"Ahorra tiempo cada semana","ben.1d":"Pones tus horas una vez y los cálculos se hacen solos.","ben.2t":"Facturas PDF profesionales","ben.2d":"Con tu ABN, tu BSB, tu número de cuenta y el GST.","ben.3t":"Funciona en tu teléfono","ben.3d":"En la obra, en casa o en el ordenador. Nada que instalar.","ben.4t":"Tus datos son privados","ben.4d":"Guardados en tu cuenta y protegidos por tu contraseña.","show.title":"Tus horas, una factura real","show.sub":"Esto es lo que obtienes: la pantalla que rellenas en tu teléfono y el PDF que recibe tu cliente.","show.c1":"Tu semana, en tu teléfono","show.c2":"La factura PDF (ejemplo real)","show.c3":"Modo oscuro incluido","au.title":"Hecho para subcontratistas en Australia","au.1t":"ABN y GST","au.1d":"Tax invoice con GST (10 %) si estás registrado, factura «No GST» si no.","au.2t":"Dólares australianos","au.2d":"Todos los importes en AUD, al céntimo, con tu BSB y tu número de cuenta.","au.3t":"Soporte real","au.3d":"¿Una pregunta? Escribe a support@subbiebill.com.","tpc.title":"Reseñas","tpc.h":"¿Usas SubbieBill?","tpc.p":"Cuenta lo que piensas en Trustpilot. Las reseñas honestas nos ayudan a mejorar.","tpc.btn":"Dejar una reseña en Trustpilot","fin2.h":"¿Listo para enviar tu próxima factura en 30 segundos?","fo.product":"Producto","fo.guides":"Guías (en inglés)","fo.legal":"Legal","fo.made":"Hecho para subcontratistas en Australia","hero.lede":"SubbieBill convierte tus horas en una factura PDF profesional, con tu ABN, tu BSB y el GST calculado.","lst.sure":"¿Quitar?","tpr.ask":"¿Te gusta SubbieBill? Una reseña rápida nos ayuda mucho.","tpr.go":"Dejar una reseña","tpr.no":"Ahora no","tpr.foot":"Reseñas en Trustpilot","lg.guides":"Guías (en inglés):","lg.refunds":"Reembolsos","lg.privacy":"Privacidad","lg.agree":"Al crear una cuenta, aceptas nuestras","lg.terms_long":"condiciones de uso","lg.and":"y nuestra","lg.privacy_long":"política de privacidad",
+  "foot.q":"¿Preguntas?","lg.terms":"Condiciones","exp.title":"Gastos","exp.opt":"opcional","exp.add":"+ Agregar un gasto","exp.desc":"Gasto","exp.desc_ph":"Gasolina, materiales, peajes…","exp.amt":"Monto en dólares","exp.remove":"Quitar este gasto","exp.note":"Cada gasto se agrega como una línea en la factura.","exp.note_gst":"Montos sin GST: el GST (10 %) se suma encima, como tus horas.","exp.empty":"¿Gasolina, materiales o peajes por cobrar? Agrégalos aquí.","rv.exp":"Gastos","rv.exp_v":"{n} línea(s) · {amt}","meta.cemail":"Email del cliente (opcional)","mail.btn":"Enviar al cliente","mail.copied":"Email del cliente copiado ({email}). Elige Mail y pégalo en «Para».","mail.noemail":"Elige Mail. Consejo: agrega el email del cliente en los datos de la factura para la próxima vez.","mail.again":"Toca otra vez «Enviar al cliente» para enviar.","mail.attach":"PDF descargado: adjúntalo al email que se acaba de abrir.","mail.attach_noto":"PDF descargado: adjúntalo al email y agrega la dirección del cliente.","p.why_mail":"Con Premium, envía tu factura al cliente por email con un toque.","pay.mark":"Marcar pagada","pay.paid_on":"Pagada el {date}","pay.paid_short":"Pagada ✓","pay.late":"Vencida","pay.unpaid":"Sin pagar","h.sum_unpaid":"Pendiente de cobro","h.sum_late":"{n} vencida(s)","price.p5":"Envío de facturas al cliente por email","price.p6":"Seguimiento de facturas pagadas y vencidas","p.f4":"Envío de facturas al cliente por email","p.f5":"Seguimiento de facturas pagadas y vencidas","faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, sin historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas, historial de todas tus facturas con totales por año, envío de facturas al cliente por email y seguimiento de facturas pagadas o vencidas.","rs.title":"Nueva contraseña","rs.intro1":"Escribe el email de tu cuenta. Te enviamos un código de 6 cifras.","rs.intro2":"Si {email} tiene una cuenta, va en camino un código de 6 cifras. Escríbelo con tu nueva contraseña.","rs.send":"Enviarme un código","rs.new":"Nueva contraseña","rs.new2":"Confirma la nueva contraseña","rs.save":"Guardar mi nueva contraseña","rs.back":"Volver a iniciar sesión","rs.wait":"Espera un minuto antes de pedir un código nuevo.","rs.sent_again":"Código nuevo enviado.","rs.same":"Elige una contraseña distinta de la anterior.","rs.done":"Contraseña cambiada. Ya iniciaste sesión.","i.abn_check":"Revisa tu ABN: {abn}. ¿Es correcto?","i.abn_yes":"Sí, continuar","i.abn_edit":"Editar","i.abn_bad":"Este ABN no parece válido","ph.gst":"GST incluido","demo.eye":"La app real","demo.sub2":"Esta es la pantalla que usas cada semana. Cambia una hora de inicio o fin y el total se actualiza.","demo.p1":"Inicio y fin de cada día","demo.p2":"Tu tarifa, calculada al céntimo","demo.p3":"Un toque para la factura PDF","demo.note":"Solo es un ejemplo: aquí no se guarda nada.","demo.aria2":"Ejemplo interactivo de la pantalla de horas de SubbieBill","ln.aria":"Navegación","ln.features":"Funciones","ln.pricing":"Precios","ln.how":"Cómo funciona","ln.faq":"Preguntas","hero.cta2":"Empezar gratis","hero.eyebrow":"Facturación para subcontratistas con ABN","hero.t1":"Tus horas. Tu factura.","hero.t2":"En 30 segundos.","ben.aria":"Por qué SubbieBill","ben.1t":"Ahorra tiempo cada semana","ben.1d":"Pones tus horas una vez y los cálculos se hacen solos.","ben.2t":"Facturas PDF profesionales","ben.2d":"Con tu ABN, tu BSB, tu número de cuenta y el GST.","ben.3t":"Funciona en tu teléfono","ben.3d":"En la obra, en casa o en el ordenador. Nada que instalar.","ben.4t":"Tus datos son privados","ben.4d":"Guardados en tu cuenta y protegidos por tu contraseña.","show.title":"Tus horas, una factura real","show.sub":"Esto es lo que obtienes: la pantalla que rellenas en tu teléfono y el PDF que recibe tu cliente.","show.c1":"Tu semana, en tu teléfono","show.c2":"La factura PDF (ejemplo real)","show.c3":"Modo oscuro incluido","au.title":"Hecho para subcontratistas en Australia","au.1t":"ABN y GST","au.1d":"Tax invoice con GST (10 %) si estás registrado, factura «No GST» si no.","au.2t":"Dólares australianos","au.2d":"Todos los importes en AUD, al céntimo, con tu BSB y tu número de cuenta.","au.3t":"Soporte real","au.3d":"¿Una pregunta? Escribe a support@subbiebill.com.","tpc.title":"Reseñas","tpc.h":"¿Usas SubbieBill?","tpc.p":"Cuenta lo que piensas en Trustpilot. Las reseñas honestas nos ayudan a mejorar.","tpc.btn":"Dejar una reseña en Trustpilot","fin2.h":"¿Listo para enviar tu próxima factura en 30 segundos?","fo.product":"Producto","fo.guides":"Guías (en inglés)","fo.legal":"Legal","fo.made":"Hecho para subcontratistas en Australia","hero.lede":"SubbieBill convierte tus horas en una factura PDF profesional, con tu ABN, tu BSB y el GST calculado.","lst.sure":"¿Quitar?","tpr.ask":"¿Te gusta SubbieBill? Una reseña rápida nos ayuda mucho.","tpr.go":"Dejar una reseña","tpr.no":"Ahora no","tpr.foot":"Reseñas en Trustpilot","lg.guides":"Guías (en inglés):","lg.refunds":"Reembolsos","lg.privacy":"Privacidad","lg.agree":"Al crear una cuenta, aceptas nuestras","lg.terms_long":"condiciones de uso","lg.and":"y nuestra","lg.privacy_long":"política de privacidad",
   "top.free":"Gratis",
   "top.premium":"Premium",
   "top.history":"Historial",
@@ -2609,6 +2671,7 @@ const isPh=(r,inv)=>!!(inv&&inv.ph&&inv.ph.on)&&(r.ph===true||(r.ph==null&&!!nat
    GST (10 %) only when the supplier is registered AND GST applies to this invoice; worked out once on the subtotal
    and rounded half-up to the cent (ATO "total invoice" rounding). */
 const cents=v=>Math.round(Number(((+v||0)*100).toFixed(4)));
+const EXP_MAX=20;   /* expense lines per invoice (fuel, materials, tolls…), amounts excl. GST */
 const GST_RATE=0.1;
 function invLines(inv){const out=[],ot=inv.ot,ph=inv.ph;
   (inv.rows||[]).forEach(r=>{const h=+r.hours||0,rt=+r.rate||0;if(!(h>0))return;
@@ -2617,12 +2680,14 @@ function invLines(inv){const out=[],ot=inv.ot,ph=inv.ph;
     const sp=otSplit(r,ot),u=cents(rt);
     if(sp.n>0)out.push({...base,kind:"std",desc:r.desc||"Labour",hours:sp.n,rate:u,amt:cents(sp.n*u/100)});
     if(sp.x>0){const m=+ot.mult||1,uo=cents(rt*m);out.push({...base,kind:"ot",desc:`Overtime (×${m})`,mult:m,hours:sp.x,rate:uo,amt:cents(sp.x*uo/100)})}});
+  (Array.isArray(inv.exp)?inv.exp:[]).slice(0,EXP_MAX).forEach(e=>{if(!e)return;const a=cents(Math.min(100000,Math.max(0,+e.amt||0)));
+    if(a>0)out.push({date:"",loc:"",kind:"exp",desc:String(e.desc||"").trim().slice(0,60)||"Expense",hours:0,rate:null,amt:a,src:null})});
   return out}
 function invCalc(inv,me){const lines=invLines(inv),sub=lines.reduce((s,l)=>s+l.amt,0),reg=!!(me&&me.gst),taxable=reg&&!(inv.gst&&inv.gst.applies===false);
   const gst=taxable?Math.round(Number((sub*GST_RATE).toFixed(4))):0;
   return {lines,sub,gst,total:sub+gst,reg,taxable,hours:lines.reduce((s,l)=>s+l.hours,0)}}   /* amounts in cents */
 const meNow=()=>({gst:!!(P()&&P().gstReg)});
-function rowAmt(r,ot,inv){return invLines({...inv,rows:[r]}).reduce((s,l)=>s+l.amt,0)/100}
+function rowAmt(r,ot,inv){return invLines({...inv,rows:[r],exp:[]}).reduce((s,l)=>s+l.amt,0)/100}
 const invTotal=inv=>invCalc(inv,meNow()).total/100;
 const invHours=inv=>(inv.rows||[]).reduce((s,r)=>s+(r.hours||0),0);
 const PT={week:{file:"Weekly"},fortnight:{file:"Fortnightly"},month:{file:"Monthly"}};
@@ -2639,7 +2704,7 @@ function nextInvNo(){let m=+P().lastInvNo||0;(P().saved||[]).forEach(e=>{m=Math.
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Labour",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate||0)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:b,due:addDays(b,7),weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||""}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(),issue:b,due:addDays(b,7),weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||"",billto_email:(p.clientEmail||{})[old.billto||state.clients[0]||""]||"",exp:[]}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
@@ -2672,14 +2737,14 @@ window.addEventListener("online",()=>{if(session&&syncMsg&&syncMsg.k==="st.offli
 
 /* ---------- rendering ---------- */
 function infosDone(){const p=P();return !!(p.first&&p.last&&p.name&&p.abn&&p.abnLocked&&p.bsb&&p.acc)}
-function renderAll(){renderTop();if(!session)return;loadJsPDF().catch(()=>{});renderWeek();renderDays();renderTotals();renderOnboard();renderStatus();renderFinish()}
+function renderAll(){renderTop();if(!session)return;loadJsPDF().catch(()=>{});renderWeek();renderDays();renderExp();renderTotals();renderOnboard();renderStatus();renderFinish()}
 let view="app";   /* once logged in: "app" (the invoice) or "home" (the home page, opened with the logo) */
 function renderTop(){const on=!!session,home=!on||view==="home";$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=!home;$("app").hidden=home;$("bottombar").hidden=home;
   $("auth").hidden=on;$("btn_app").hidden=!(on&&home);$("btn_hist").hidden=on&&home;
   document.querySelectorAll("[data-auth]").forEach(el=>{el.textContent=on?t("nav.app"):t(el.dataset.i18n)});
   if(on)$("lstick").hidden=true;renderInstall();
   if(!on)return;const b=$("planbadge");b.textContent=plan.premium?t("top.premium"):t("top.free");b.classList.toggle("pro",plan.premium);
-  $("btn_gopro").hidden=plan.premium||home}
+  $("btn_gopro").hidden=plan.premium||home;renderHistBadge()}
 function renderOnboard(){const s1=infosDone(),s2=!!I().billto,s3=hasHours(I());
   [s1,s2,s3].forEach((d,i)=>{const li=$("st"+(i+1));li.classList.toggle("done",d);li.querySelector(".dot").textContent=d?"✓":String(i+1)});
   $("st1").querySelector("button").hidden=s1;
@@ -2701,7 +2766,7 @@ function renderWeek(){const inv=I(),ty=invType(inv);
   $("thisweek").hidden=inv.start===periodRange(ty,todayIso())[0];
   pickUI("billto","billto_new",state.clients,inv.billto,"ctx.add_client");pickUI("site","site_new",state.sites,inv.site,"ctx.add_site");
   $("invno").value=inv.invno||"";$("issue").value=inv.issue||"";$("due").value=inv.due||"";
-  if(document.activeElement!==$("billto_abn"))$("billto_abn").value=inv.billto_abn?fmtAbn(inv.billto_abn):"";renderCabnMsg();
+  if(document.activeElement!==$("billto_abn"))$("billto_abn").value=inv.billto_abn?fmtAbn(inv.billto_abn):"";if(document.activeElement!==$("billto_email"))$("billto_email").value=inv.billto_email||"";renderCabnMsg();
   const lk=locked();["billto","site","billto_new","site_new","invno","issue","due","billto_abn"].forEach(id=>{$(id).disabled=lk});}
 function renderCabnMsg(){const v=String(I().billto_abn||"").replace(/\D/g,""),c=invCalc(I(),meNow());
   $("cabn_msg").textContent=v&&!abnOk(v)?t("meta.cabn_bad"):(c.taxable&&c.total>=100000?t("meta.cabn_1000"):"")}
@@ -2799,7 +2864,7 @@ function wirePick(selId,inpId,list,key){
   $(inpId).addEventListener("blur",commit)}
 function setPick(key,v){if(locked()){renderWeek();return}const inv=I(),old=inv[key];inv[key]=v;
   if(key==="site")inv.rows.forEach(r=>{if(!r.loc||r.loc===old)r.loc=v});
-  if(key==="billto")inv.billto_abn=(P().clientAbn||{})[v]||"";
+  if(key==="billto"){inv.billto_abn=(P().clientAbn||{})[v]||"";inv.billto_email=(P().clientEmail||{})[v]||""}
   renderWeek();renderDays();renderOnboard();save()}
 wirePick("billto","billto_new","clients","billto");wirePick("site","site_new","sites","site");
 ["invno","issue","due"].forEach(k=>$(k).addEventListener("change",e=>{if(locked()){renderWeek();return}I()[k]=e.target.value;if(k!=="invno")I()[k+"Set"]=true;renderWeek();save()}));
@@ -2923,14 +2988,17 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
   const yr=String(new Date().getFullYear()),cents2=e=>invCalc(e.inv,meNow()).total;
   const all=list.reduce((s,e)=>s+cents2(e),0),thisYr=list.filter(e=>String(e.inv.start||"").startsWith(yr)).reduce((s,e)=>s+cents2(e),0),hrsAll=list.reduce((s,e)=>s+invHours(e.inv),0);
   $("histsum").hidden=!list.length;
-  $("histsum").innerHTML=`<div><span>${esc(t("h.sum_all"))}</span><b>${esc(money(all/100))}</b></div><div><span>${esc(t("h.sum_year",{y:yr}))}</span><b>${esc(money(thisYr/100))}</b></div><div><span>${esc(t("h.sum_hours"))}</span><b>${esc(dur(hrsAll))}</b></div>`;
+  const fin=list.filter(e=>e.inv&&e.inv.finished),unp=fin.filter(e=>!e.paid),late=unp.filter(isLate),unpAmt=unp.reduce((s,e)=>s+cents2(e),0);
+  $("histsum").innerHTML=`<div><span>${esc(t("h.sum_all"))}</span><b>${esc(money(all/100))}</b></div><div><span>${esc(t("h.sum_year",{y:yr}))}</span><b>${esc(money(thisYr/100))}</b></div><div><span>${esc(t("h.sum_hours"))}</span><b>${esc(dur(hrsAll))}</b></div>`+
+    (plan.premium&&fin.length?`<div class="${late.length?"late":""}"><span>${esc(t("h.sum_unpaid"))}</span><b>${esc(money(unpAmt/100))}</b>${late.length?`<small>${esc(t("h.sum_late",{n:late.length}))}</small>`:""}</div>`:"");
   if(!list.length){ul.innerHTML=`<li><span class="muted">${esc(t("h.empty"))}</span></li>`;return}
   list.forEach(e=>{const inv=e.inv,li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
     li.innerHTML=`<button class="hopen" type="button"><span class="hrange">${rangeText(inv.start,inv.end)}</span>
       <span class="hsub">${esc(t("pn."+invType(inv)))} · ${esc(t("h.inv",{no:inv.invno||"?"}))}${inv.billto?" · "+esc(inv.billto):""}</span>
-      <span class="htot"><b>${money(invTotal(inv))}</b> · ${dur(invHours(inv))}</span>${e.custom?`<span class="hname"></span>`:""}</button>
-      <div class="hact"><button class="ren" type="button">${esc(t("h.rename"))}</button><button class="hdel" type="button">${esc(t("h.delete"))}</button></div>`;
+      <span class="htot"><b>${money(invTotal(inv))}</b> · ${dur(invHours(inv))}${payTag(e)}</span>${e.custom?`<span class="hname"></span>`:""}</button>
+      <div class="hact">${plan.premium&&inv.finished?`<button class="hpaid${e.paid?" on":""}" type="button" aria-pressed="${!!e.paid}">${esc(e.paid?t("pay.paid_short"):t("pay.mark"))}</button>`:""}<button class="ren" type="button">${esc(t("h.rename"))}</button><button class="hdel" type="button">${esc(t("h.delete"))}</button></div>`;
     if(e.custom)li.querySelector(".hname").textContent=e.name;
+    const hp=li.querySelector(".hpaid");if(hp)hp.onclick=()=>{e.paid=e.paid?null:todayIso();save();flushSave();renderHist();renderHistBadge();if(e.id===p.curSaved)renderFinish()};
     if(e.id===p.curSaved)li.querySelector(".hrange").dataset.open=t("h.open");
     li.querySelector(".hopen").onclick=()=>{if(e.id!==p.curSaved)keepCurrent();syncSaved();p.inv=clone(inv);p.curSaved=e.id;p.period=invType(inv);migrateInv(p.inv);closeSheet();syncMsg=null;view="app";renderAll();save();flushSave()};
     li.querySelector(".ren").onclick=()=>{const box=li.querySelector(".hact");box.innerHTML=`<input maxlength="80" placeholder="${esc(t("h.name_ph"))}"><button class="primary" type="button">${esc(t("h.ok"))}</button>`;
@@ -2969,7 +3037,8 @@ async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_m
 function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
   if(!inv.ot||typeof inv.ot!=="object")inv.ot=clone(OT_DEF);
   if(!inv.ph||typeof inv.ph!=="object")inv.ph=clone(PH_DEF);
-  if(!inv.gst||typeof inv.gst!=="object")inv.gst={applies:true};if(inv.billto_abn==null)inv.billto_abn="";
+  if(!inv.gst||typeof inv.gst!=="object")inv.gst={applies:true};if(inv.billto_abn==null)inv.billto_abn="";if(inv.billto_email==null)inv.billto_email="";
+  inv.exp=Array.isArray(inv.exp)?inv.exp.filter(e=>e&&typeof e==="object").slice(0,EXP_MAX):[];
   inv.rows.forEach(r=>{r.hours=+r.hours||0;r.rate=r.rate==null?0:+r.rate;if(r.desc==null)r.desc="Labour"});
   if(!inv.start){const ds=inv.rows.map(r=>r.date).filter(Boolean).sort();inv.start=ds[0]||mondayOf(inv.weekstart||inv.issue||todayIso());inv.end=ds[ds.length-1]||addDays(inv.start,6)}
   if(!inv.end)inv.end=periodRange(inv.type,inv.start)[1];
@@ -2982,7 +3051,7 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
-  p.first=data.first||"";p.last=data.last||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};
+  p.first=data.first||"";p.last=data.last||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};p.clientEmail=data.clientEmail&&typeof data.clientEmail==="object"?data.clientEmail:{};
   p.lastInvNo=+(res&&res.last_invno)||0;
   if(!p.first&&!p.last&&p.name){const w=p.name.trim().split(/\s+/);p.last=w.pop()||"";p.first=w.join(" ")}   /* older accounts: one "name" field */
   if(res&&"abn_locked" in res){p.abn=res.abn||"";p.abnLocked=!!res.abn_locked}else p.abnLocked=false;
@@ -3025,7 +3094,41 @@ document.querySelector(".brand").addEventListener("click",e=>{e.preventDefault()
   if(session){flushSave();view="home";renderTop();window.scrollTo(0,0);return}
   window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
 $("tab_login").onclick=()=>{setAuthMode("login");$("autherr").textContent=""};$("tab_signup").onclick=()=>{setAuthMode("signup");$("autherr").textContent=""};
-$("authforgot").onclick=()=>{$("autherr").textContent=t("err.forgot",{email:SUPPORT_EMAIL})};
+/* forgot password: a code by email (Supabase "Reset Password" template shows {{ .Token }}), then a new password.
+   The same message shows whether or not the email has an account, so nobody can test which emails are registered. */
+let rsEmail="",rsAt=0,rsUser=null;
+function showReset(){rsUser=null;$("authform").hidden=true;$("resetform").hidden=false;document.querySelector("#auth .tabs").hidden=true;$("authtitle").textContent=t("rs.title");
+  $("rs_email").value=$("authemail").value.trim();$("rs_step1").hidden=false;$("rs_step2").hidden=true;$("rs_err").textContent="";$("rs_intro").textContent=t("rs.intro1");
+  setTimeout(()=>$("rs_email").focus(),100)}
+function hideReset(){$("resetform").hidden=true;$("authform").hidden=false;document.querySelector("#auth .tabs").hidden=false;setAuthMode("login")}
+$("authforgot").onclick=showReset;$("rs_back").onclick=hideReset;
+async function rsSend(again){const e=again?rsEmail:$("rs_email").value.trim(),err=$("rs_err");err.textContent="";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){err.textContent=t("err.email");return}
+  if(!sb){err.textContent=t("err.service");return}
+  if(Date.now()<rsAt){err.textContent=t("rs.wait");return}
+  const b=again?$("rs_resend"):$("rs_send");b.disabled=true;const old=b.textContent;b.textContent=t("auth.wait");
+  try{const {error}=await sb.auth.resetPasswordForEmail(e);
+    if(error&&/rate|seconds|security purposes|too many/i.test(error.message||"")){err.textContent=t("rs.wait");if(!again)return}
+    else if(error&&!/not found|no user/i.test(error.message||"")){err.textContent=t("err.service");return}
+    rsEmail=e;rsUser=null;rsAt=Date.now()+60000;$("rs_step1").hidden=true;$("rs_step2").hidden=false;$("rs_intro").textContent=t("rs.intro2",{email:e});
+    if(again)err.textContent=t("rs.sent_again");setTimeout(()=>$("rs_code").focus(),100)}
+  catch(x){err.textContent=t("err.offline")}
+  finally{b.disabled=false;b.textContent=old}}
+$("rs_send").onclick=()=>rsSend(false);$("rs_resend").onclick=()=>rsSend(true);
+$("resetform").addEventListener("submit",async ev=>{ev.preventDefault();if($("rs_step2").hidden){rsSend(false);return}
+  const err=$("rs_err");err.textContent="";const code=$("rs_code").value.replace(/\D/g,""),pw=$("rs_pass").value;
+  if(code.length<6){err.textContent=t("code.short");return}
+  if(pw.length<8){err.textContent=t("err.pass_len");return}
+  if(pw!==$("rs_pass2").value){err.textContent=t("err.pass_match");return}
+  const b=$("rs_save");b.disabled=true;b.textContent=t("auth.wait");
+  try{if(!rsUser){const r=await sb.auth.verifyOtp({email:rsEmail,token:code,type:"recovery"});   /* a code works once: keep the result for a retry */
+      if(r.error||!r.data||!r.data.session){err.textContent=t("code.bad");return}rsUser=r.data.user||r.data.session.user}
+    const u=await sb.auth.updateUser({password:pw});
+    if(u&&u.error){err.textContent=/different|same/i.test(u.error.message||"")?t("rs.same"):t("err.service");return}
+    $("rs_pass").value="";$("rs_pass2").value="";$("rs_code").value="";hideReset();
+    const who=rsUser;rsUser=null;if(await loadAccount(who))pdfMsg(t("rs.done"))}
+  catch(x){err.textContent=t("err.offline")}
+  finally{b.disabled=false;b.textContent=t("rs.save")}});
 $("authform").addEventListener("submit",async e=>{e.preventDefault();const err=$("autherr");err.textContent="";
   if(!sb){err.textContent=t("err.service");return}
   const email=$("authemail").value.trim(),pass=$("authpass").value;
@@ -3197,11 +3300,12 @@ function drawInvoice(doc, me, inv) {
   calc.lines.forEach((l) => {
     if (y > BOTTOM) newPage();
     font("normal", 9); col(INK);
-    doc.text(pdm(l.date), C.date, y);
-    doc.text(fit(l.loc, 47), C.loc, y);
-    doc.text(fit(l.desc, 33), C.desc, y);
-    doc.text(phrs(l.hours), C.qty, y, { align: "right" });
-    doc.text(c2(l.rate), C.rate, y, { align: "right" });
+    const ex = l.kind === "exp";
+    if (!ex) doc.text(pdm(l.date), C.date, y);
+    if (l.loc) doc.text(fit(l.loc, 47), C.loc, y);
+    doc.text(fit(l.desc, ex ? 82 : 33), ex ? C.loc : C.desc, y);
+    if (!ex) doc.text(phrs(l.hours), C.qty, y, { align: "right" });
+    if (!ex) doc.text(c2(l.rate), C.rate, y, { align: "right" });
     doc.text(c2(l.amt), C.amt, y, { align: "right" });
     hline(y + 3.2, LINE, 0.25); y += 8;
   });
@@ -3302,6 +3406,8 @@ function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=
   if(!finishing)b.textContent=lk?t("bar.redownload"):(Date.now()<confirmUntil?t("bar.confirm",{n:freeLeft()}):t("bar.finish"));
   b.classList.toggle("confirm",Date.now()<confirmUntil);
   $("lockbar").hidden=!lk;$("app").classList.toggle("isdone",lk);$("lock_share").hidden=!canShareFiles();
+  $("lock_mail").classList.toggle("pl",!plan.premium);const ce=curEntry(),lp=$("lock_paid");lp.hidden=!(lk&&plan.premium&&ce);
+  if(!lp.hidden){lp.textContent=ce.paid?t("pay.paid_on",{date:dmy(ce.paid)}):t("pay.mark");lp.classList.toggle("paid",!!ce.paid)}
   if(lk)$("locktxt").textContent=t("fin.locked",{date:clean(new Date(inv.finished.at).toLocaleDateString(loc()))});
   document.querySelectorAll('input[name="ptype"]').forEach(x=>{x.closest("label").classList.toggle("dim",lk)});
   renderStatus();
@@ -3354,6 +3460,7 @@ function openReview(){const inv=I(),p=P(),c=invCalc(inv,meNow()),d=inv.rows.filt
     ${row(t("rv.billto"),esc(inv.billto)+(inv.billto_abn?` <span class="muted">· ABN ${esc(fmtAbn(inv.billto_abn))}</span>`:""),chg("billto"))}
     ${row(t("rv.period"),esc(rangeText(inv.start,inv.end)))}
     ${row(t("rv.days"),esc(t("rv.days_v",{d:t(d===1?"bar.day":"bar.days",{n:d}),h:dur(c.hours)})))}
+    ${(()=>{const ex=c.lines.filter(l=>l.kind==="exp");return ex.length?row(t("rv.exp"),esc(t("rv.exp_v",{n:ex.length,amt:money(ex.reduce((a,l)=>a+l.amt,0)/100)}))):""})()}
     ${row(t("rv.dates"),esc(t("rv.dates_v",{issue:dmy(inv.issue),due:dmy(inv.due)})),chg("dates"))}
     ${row(t("rv.from"),esc(fullName(p)||p.name)+` <span class="muted">· ABN ${esc(fmtAbn(p.abn))}</span>`,chg("infos"))}
     ${row(t("rv.paid"),`BSB ${esc(p.bsb)} · ${esc(p.acc)}`)}
@@ -3407,6 +3514,53 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
   catch(e){console.error(e);pdfMsg(t("fin.server"))}
   finally{finishing=false;b.disabled=false;renderFinish()}}
 
+
+/* ---------- expenses: extra lines on the invoice (fuel, materials, tolls…), amounts excl. GST ---------- */
+function renderExp(){if(!session||!P()||!$("explist"))return;const inv=I(),lk=locked();inv.exp=Array.isArray(inv.exp)?inv.exp:[];
+  $("explist").innerHTML=inv.exp.map((e,i)=>`<div class="exprow"><input data-x="${i}" data-f="desc" maxlength="60" autocapitalize="sentences" value="${esc(e.desc||"")}" placeholder="${esc(t("exp.desc_ph"))}" aria-label="${esc(t("exp.desc"))}"${lk?" disabled":""}><label class="expamt"><span aria-hidden="true">$</span><input data-x="${i}" data-f="amt" type="number" inputmode="decimal" min="0" max="100000" step="0.01" value="${e.amt===""||e.amt==null?"":esc(String(e.amt))}" placeholder="0.00" aria-label="${esc(t("exp.amt"))}"${lk?" disabled":""}></label>${lk?"":`<button type="button" class="del" data-xdel="${i}" aria-label="${esc(t("exp.remove"))}">×</button>`}</div>`).join("");
+  $("exp_add").hidden=lk||inv.exp.length>=EXP_MAX;
+  $("exp_note").textContent=inv.exp.length?t(meNow().gst?"exp.note_gst":"exp.note"):t("exp.empty");
+  $("expbox").hidden=lk&&!inv.exp.some(e=>+e.amt>0)}
+$("explist").addEventListener("input",e=>{const x=e.target.closest("[data-x]");if(!x||locked())return;const it=I().exp[+x.dataset.x];if(!it)return;
+  if(x.dataset.f==="amt"){const v=x.value===""?"":Math.min(100000,Math.max(0,parseFloat(x.value)||0));it.amt=v}else it.desc=x.value.slice(0,60);
+  renderTotals();renderCabnMsg();save()});
+$("explist").addEventListener("click",e=>{const b=e.target.closest("[data-xdel]");if(!b||locked())return;I().exp.splice(+b.dataset.xdel,1);renderExp();renderTotals();save()});
+$("exp_add").onclick=()=>{if(locked())return;const inv=I();inv.exp=inv.exp||[];if(inv.exp.length>=EXP_MAX)return;inv.exp.push({desc:"",amt:""});renderExp();
+  const ins=$("explist").querySelectorAll('[data-f="desc"]');if(ins.length)ins[ins.length-1].focus();save()};
+
+/* ---------- email to client (Premium): the subbie's own email app, with the PDF and a ready message ----------
+   Browsers can't open Mail with the address AND an attachment at once, so:
+   phone/tablet (can share files): the share sheet gets the PDF + message, and the client's email is copied to paste in "To";
+   computer: the PDF downloads, then the email app opens with the address, subject and message filled in. */
+const EMAIL_RE=/^[^\s@<>()"',;:]+@[^\s@<>()"',;:]+\.[^\s@<>()"',;:]+$/;
+$("billto_email").addEventListener("input",e=>{const v=e.target.value.trim().slice(0,120),inv=I();inv.billto_email=v;
+  if(inv.billto){P().clientEmail=P().clientEmail||{};if(v)P().clientEmail[inv.billto]=v;else delete P().clientEmail[inv.billto]}save()});
+function mailParts(){const inv=I(),p=P(),c=invCalc(inv,meNow()),nm=fullName(p)||p.name||"",kind=c.taxable?"tax invoice":"invoice";
+  const to=EMAIL_RE.test((inv.billto_email||"").trim())?inv.billto_email.trim():"";
+  const subj=`${c.taxable?"Tax invoice":"Invoice"} ${inv.invno}${nm?" from "+nm:""}`;
+  const body=[`Hi${inv.billto?" "+inv.billto:""},`,"",`Please find attached ${kind} ${inv.invno} for ${pdmy(inv.start)} – ${pdmy(inv.end)}.`,"",
+    `Total: ${pmoney(c.total/100)} (AUD${c.taxable?", incl. GST":""})`,`Due: ${pdmy(inv.due)}`,`Pay to BSB ${p.bsb||""}, account ${p.acc||""}`,`Reference: Invoice ${inv.invno}`,"","Thanks,",nm].join("\n");
+  return{to,subj,body}}
+function openMailto(m){location.href=`mailto:${m.to}?subject=${encodeURIComponent(m.subj)}&body=${encodeURIComponent(m.body)}`}
+$("lock_mail").onclick=async()=>{if(!plan.premium){showPremium("p.why_mail");return}
+  const m=mailParts();
+  if(m.to){try{navigator.clipboard&&navigator.clipboard.writeText(m.to).catch(()=>{})}catch(e){}}   /* while the tap still counts */
+  if(!lastPdf||lastPdf.id!==I().id){const got=await doFinish({share:true});if(!got)return}
+  const blob=new Blob([lastPdf.bytes],{type:"application/pdf"});
+  if(canShareFiles()){pdfMsg(m.to?t("mail.copied",{email:m.to}):t("mail.noemail"));
+    try{await navigator.share({files:[new File([blob],lastPdf.name,{type:"application/pdf"})],title:m.subj,text:m.body})}
+    catch(e){if(e&&e.name==="AbortError")return;if(e&&e.name==="NotAllowedError"){pdfMsg(t("mail.again"));return}saveBlob(blob,lastPdf.name);openMailto(m);pdfMsg(t("mail.attach"))}
+    return}
+  saveBlob(blob,lastPdf.name);openMailto(m);pdfMsg(t(m.to?"mail.attach":"mail.attach_noto"))};
+$("lock_paid").onclick=()=>{const e=curEntry();if(!e||!plan.premium)return;e.paid=e.paid?null:todayIso();save();flushSave();renderFinish();renderHistBadge()};
+
+/* ---------- paid / unpaid (Premium): saved on each history entry; overdue = finished, not paid, past its due date ---------- */
+function isLate(e){return !!(e&&e.inv&&e.inv.finished&&!e.paid&&e.inv.due&&e.inv.due<todayIso())}
+function payTag(e){if(!plan.premium||!e.inv||!e.inv.finished)return"";
+  if(e.paid)return ` <span class="pstat ok">${esc(t("pay.paid_on",{date:dmy(e.paid)}))}</span>`;
+  return isLate(e)?` <span class="pstat late">${esc(t("pay.late"))}</span>`:` <span class="pstat">${esc(t("pay.unpaid"))}</span>`}
+function renderHistBadge(){const b=$("btn_hist");if(!b)return;const n=session&&P()&&plan.premium?(P().saved||[]).filter(isLate).length:0;
+  if(n)b.dataset.badge=String(n);else delete b.dataset.badge;b.setAttribute("aria-label",n?t("top.history")+" · "+t("h.sum_late",{n}):t("top.history"))}
 /* ---------- admin (every call is checked by the server) ---------- */
 let admOffset=0,admTimer=null,admReq=0,admTab="ov",invOffset=0,admCur=null;
 const d8=v=>v?clean(new Date(v).toLocaleDateString(loc())):"–";
