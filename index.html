@@ -4,7 +4,7 @@
 <meta name="color-scheme" content="dark">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src https://snfcqaubjscxgxjyugas.supabase.co wss://snfcqaubjscxgxjyugas.supabase.co; form-action 'self'; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://www.google.com https://www.google.com.au https://googleads.g.doubleclick.net https://www.googletagmanager.com https://www.googleadservices.com; connect-src https://snfcqaubjscxgxjyugas.supabase.co wss://snfcqaubjscxgxjyugas.supabase.co https://www.google.com https://www.googletagmanager.com https://googleads.g.doubleclick.net https://www.googleadservices.com https://pagead2.googlesyndication.com; frame-src https://td.doubleclick.net https://www.googletagmanager.com; form-action 'self'; base-uri 'self'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SubbieBill">
@@ -3857,6 +3857,15 @@ const JSPDF_URL="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"
 
 const $=id=>document.getElementById(id);
 
+
+/* ===== Google Ads: measures sign-ups and Premium payments. Fill in the 3 values from Google Ads
+   (Goals → Conversions → your action → Tag setup → "Install the tag yourself"). Empty = nothing is loaded.
+   These are public IDs, not secret keys. ===== */
+const GADS={id:"",signup:"",premium:""};      /* e.g. id:"AW-123456789", signup:"AbCdEfGhIjk", premium:"LmNoPqRsTuv" */
+(function(){if(!GADS.id)return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};
+  gtag("js",new Date());gtag("config",GADS.id);const sc=document.createElement("script");sc.async=true;
+  sc.src="https://www.googletagmanager.com/gtag/js?id="+encodeURIComponent(GADS.id);document.head.appendChild(sc)})();
+function adConv(kind){try{if(GADS.id&&GADS[kind]&&window.gtag)gtag("event","conversion",{send_to:GADS.id+"/"+GADS[kind],currency:"AUD"})}catch(e){}}
 /* ---------- i18n engine ---------- */
 const LANGS=Object.keys(I18N);
 let lang="en";
@@ -4446,7 +4455,7 @@ $("authform").addEventListener("submit",async e=>{e.preventDefault();const err=$
     if(!r.data.session){
       if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){err.textContent=t("err.exists");return}
       showCode(email,false);return}   /* email confirmation is on: a 6-digit code was emailed */
-    $("authpass").value="";$("authpass2").value="";
+    if(authMode==="signup")adConv("signup");$("authpass").value="";$("authpass2").value="";
     if(await loadAccount(r.data.user)&&!infosDone())openSheet("p_infos")}
   catch(x){err.textContent=t("err.offline")}
   finally{btn.disabled=false;setAuthMode(authMode)}});
@@ -4472,7 +4481,7 @@ $("codeform").addEventListener("submit",async e=>{e.preventDefault();const code=
   try{let r=await sb.auth.verifyOtp({email:codeEmail,token:code,type:"email"});
     if(r.error)r=await sb.auth.verifyOtp({email:codeEmail,token:code,type:"signup"});
     if(r.error||!r.data||!r.data.session){err.textContent=t("code.bad");return}
-    $("authpass").value="";$("authpass2").value="";hideCode();
+    adConv("signup");$("authpass").value="";$("authpass2").value="";hideCode();
     if(await loadAccount(r.data.user||r.data.session.user)&&!infosDone())openSheet("p_infos")}
   catch(x){err.textContent=t("err.offline")}
   finally{btn.disabled=false;btn.textContent=t("code.verify")}});
@@ -5093,7 +5102,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTop);
   if(s&&s.user&&await loadAccount(s.user)&&!infosDone())openSheet("p_infos");
   if(new URLSearchParams(location.search).has("paid")&&session){history.replaceState(null,"",location.pathname);setSave("st.paid_wait");
     for(let i=0;i<15&&!plan.premium;i++){await new Promise(r=>setTimeout(r,2000));await refreshPlan()}
-    setSave(plan.premium?"st.paid_ok":"st.paid_later");if(plan.premium)save()}
+    adConv("premium");setSave(plan.premium?"st.paid_ok":"st.paid_later");if(plan.premium)save()}
 })();
 </script>
 </body>
