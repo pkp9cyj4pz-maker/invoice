@@ -988,7 +988,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <div class="sheethead"><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
 
     <section id="p_infos" class="form" hidden data-i18n-title="i.title">
-      <p class="muted" style="margin:0" data-i18n="i.intro">Fill these in once.</p>
+      <p class="muted" style="margin:0" data-i18n="i.intro">Everything marked “On invoice” is printed on your invoices. Fill it in once.</p>
       <div class="namegrid">
         <div class="form"><label for="me_first" class="oninv" data-i18n="i.first">First name</label><input id="me_first" autocomplete="given-name" autocapitalize="words"></div>
         <div class="form"><label for="me_last" class="oninv" data-i18n="i.last">Last name</label><input id="me_last" autocomplete="family-name" autocapitalize="words"></div>
@@ -1001,9 +1001,9 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
         <div id="abnconf" class="abnconf" role="group" aria-labelledby="abnconf_t" hidden><p id="abnconf_t"></p><div class="abnconfbtns"><button id="abn_yes" class="primary" type="button" data-i18n="i.abn_yes">Yes, continue</button><button id="abn_edit" type="button" data-i18n="i.abn_edit">Edit</button></div></div>
         <p id="abn_msg" class="err" role="status"></p>
       </div>
-      <label for="me_email" class="oninv" data-i18n="i.email">Email</label><input id="me_email" type="email" autocomplete="email" aria-describedby="email_msg"><p id="email_msg" class="err fmsg" role="status"></p>
-      <label for="me_phone" class="oninv" data-i18n="i.phone">Phone</label><input id="me_phone" type="tel" autocomplete="tel" class="mono">
-      <label for="me_addr" class="oninv" data-i18n="i.addr">Address</label><input id="me_addr" autocomplete="street-address">
+      <label for="me_email" class="oninv" data-i18n="i.email">Email (optional)</label><input id="me_email" type="email" autocomplete="email" aria-describedby="email_msg"><p id="email_msg" class="err fmsg" role="status"></p>
+      <label for="me_phone" class="oninv" data-i18n="i.phone">Phone (optional)</label><input id="me_phone" type="tel" autocomplete="tel" class="mono">
+      <label for="me_addr" class="oninv" data-i18n="i.addr">Address (optional)</label><input id="me_addr" autocomplete="street-address">
       <label for="me_bsb" class="oninv" data-i18n="i.bsb">BSB</label><input id="me_bsb" inputmode="numeric" class="mono" placeholder="000-000" maxlength="7" aria-describedby="bsb_msg"><p id="bsb_msg" class="err fmsg" role="status"></p>
       <label for="me_acc" class="oninv" data-i18n="i.acc">Account number</label><input id="me_acc" inputmode="numeric" class="mono" maxlength="12" aria-describedby="acc_msg"><p id="acc_msg" class="err fmsg" role="status"></p>
       <span class="flabel" id="gstreg_lbl" data-i18n="g.label">GST</span>
@@ -1047,7 +1047,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
         <button id="adm_invmore" type="button" hidden data-i18n="a.more">Load more</button>
       </div>
       <div id="adm_ann" class="apane form" hidden>
-        <p class="note" style="margin:0" data-i18n="a.ann_intro">A banner shown at the top of the site for everyone.</p>
+        <p class="note" style="margin:0" data-i18n="a.ann_intro">A banner shown at the top of the site, for everyone (logged in or not).</p>
         <label class="chk"><input type="checkbox" id="ann_on"> <span data-i18n="a.ann_on">Show the message</span></label>
         <label for="ann_en" data-i18n="a.ann_en">Message in English</label><textarea id="ann_en" rows="2" maxlength="300"></textarea>
         <label for="ann_fr" data-i18n="a.ann_fr">Message in French</label><textarea id="ann_fr" rows="2" maxlength="300"></textarea>
@@ -1063,7 +1063,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     </section>
 
     <section id="p_preview" hidden data-i18n-title="pv.title">
-      <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice.</p>
+      <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice. Finish the invoice to get the real PDF.</p>
       <div id="pv_pages" class="pvpages"></div>
     </section>
 
@@ -1099,13 +1099,13 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       <p id="ed_txt" class="edtxt"></p>
       <div class="rvbtns">
         <button class="primary" id="ed_go" type="button" data-i18n="ed.go">Edit it (uses 1 free invoice)</button>
-        <button id="ed_pro" type="button" data-i18n="ed.pro">Go Premium: edit for free</button>
+        <button id="ed_pro" type="button" data-i18n="ed.pro">Go Premium: edit as often as you like</button>
         <button class="linkbtn" type="button" data-close data-i18n="ed.cancel">Keep it as it is</button>
       </div>
     </section>
 
     <section id="p_install" hidden data-i18n-title="ins.title">
-      <p class="muted" style="margin:0 0 8px" data-i18n="ins.intro">SubbieBill opens full screen, like an app. No App Store needed.</p>
+      <p class="muted" style="margin:0 0 8px" data-i18n="ins.intro">SubbieBill then opens full screen, like an app. No App Store needed.</p>
       <ol id="ins_steps" class="insteps"></ol>
       <button class="primary" type="button" data-close data-i18n="ins.ok">Got it</button>
     </section>
@@ -1113,17 +1113,17 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <section id="p_premium" class="premium" hidden data-i18n-title="p.title">
       <p id="premwhy" class="why2"></p>
       <ul class="feat" style="margin-bottom:16px">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1">All your invoices kept, no limit</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2">New features first</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f4">Email invoices to your client</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1">Unlimited invoices</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2">History of every invoice, with totals per year</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f4">Invoices emailed to your client, with a copy to you</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f5">See what's paid and what's overdue</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f3">Cancel anytime</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f3">Download any past invoice again · cancel anytime</span></li>
       </ul>
       <div class="form" id="payrow">
-        <a id="payyearly" class="btnlink primary" href="#" rel="noopener" data-i18n="p.yearly">$39 a year</a>
+        <a id="payyearly" class="btnlink primary" href="#" rel="noopener" data-i18n="p.yearly">$39 a year · save $20</a>
         <a id="paymonthly" class="btnlink" href="#" rel="noopener" data-i18n="p.monthly">$4.99 a month</a>
       </div>
-      <p id="paysoon" class="note" data-i18n="p.soon">Online payment is coming very soon.</p>
+      <p id="paysoon" class="note" data-i18n="p.soon" hidden></p>
       <div class="trust" id="paysec"><svg class="trustico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><div><strong data-i18n="trust.t">Secure payment with Stripe</strong><span data-i18n="trust.d">Stripe is the payment platform used by millions of businesses worldwide.</span><ul class="trustl"><li data-i18n="trust.l1">Your payment is 100% secure. Your card details go straight to Stripe: SubbieBill never sees or stores them.</li><li data-i18n="trust.l2">Your account switches to Premium straight after payment.</li><li data-i18n="trust.l3">Cancel anytime in a few taps from your account. No lock-in.</li></ul></div></div>
       <p class="legal premlegal"><a href="terms.html" target="_blank" rel="noopener" data-i18n="lg.terms">Terms</a><a href="refunds.html" target="_blank" rel="noopener" data-i18n="lg.refunds">Refunds</a><a href="privacy.html" target="_blank" rel="noopener" data-i18n="lg.privacy">Privacy</a></p>
     </section>
@@ -1145,7 +1145,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
           <span id="acctplan" class="muted"></span>
           <button class="primary" id="m_premium" type="button" data-i18n="m.premium">Upgrade to Premium</button>
           <a id="m_manage" class="btnlink" href="#" rel="noopener" hidden data-i18n="m.manage">Manage my subscription</a>
-          <small id="m_manage_sub" class="muted" hidden data-i18n="m.manage_sub">Cancel, change card or see your receipts.</small>
+          <small id="m_manage_sub" class="muted" hidden data-i18n="m.manage_sub">Cancel, change your card or see your receipts.</small>
         </div>
         <nav class="mlist" data-i18n-aria="m.title" aria-label="Menu">
           <button class="mitem" type="button" data-open="p_infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b data-i18n="m.infos">My details</b><small data-i18n="m.infos_sub">name, ABN, bank</small></span></button>
@@ -1183,9 +1183,9 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       <p class="lede" data-i18n="hero.lede">SubbieBill turns your hours into a professional PDF invoice, with your ABN, BSB and GST worked out.</p>
       <div class="ctas">
         <button class="primary cta-main" id="herocta" type="button" data-auth="signup" data-i18n="hero.cta">Create my first invoice</button>
-        <a class="seclink btn2" href="#demo" data-i18n="hero.how">See how it works</a>
+        <a class="seclink btn2" href="#demo" data-i18n="hero.how">See how it works ↓</a>
       </div>
-      <p class="cta-note" data-i18n="hero.note">Free. No credit card needed.</p>
+      <p class="cta-note" data-i18n="hero.note">Your first 3 invoices are free. No card needed.</p>
       <ul class="proof" data-i18n-aria="proof.aria" aria-label="Built for Australia">
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><b>ABN</b> <span data-i18n="proof.abn">on every invoice</span></li>
         <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><b>BSB</b> <span data-i18n="proof.bsb">and account number</span></li>
@@ -1258,7 +1258,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
   </section>
 
   <section class="sec" id="pricing" aria-labelledby="price_t">
-    <h2 id="price_t" data-i18n="price.title">Free to start. Premium when you invoice every week.</h2>
+    <h2 id="price_t" data-i18n="price.title">Try it free. Go Premium when you invoice every week.</h2>
     <div class="plans">
       <div class="plan">
         <h3 data-i18n="price.free">Free</h3>
@@ -1280,12 +1280,12 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p1">Unlimited invoices</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p2">History of every invoice, with totals per year</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p3">Download any past invoice again</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p5">Email invoices to your client</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p5">Invoices emailed to your client, with a copy to you</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p6">See what's paid and what's overdue</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p4">Cancel anytime</span></li>
         </ul>
         <button type="button" data-auth="signup" data-i18n="price.pro_cta">Start free, upgrade anytime</button>
-        <p class="plim" id="paysoon_land" data-i18n="price.soon" hidden>Online payment opens soon. Start free now: your account carries over to Premium.</p>
+        <p class="plim" id="paysoon_land" data-i18n="price.soon" hidden></p>
       </div>
     </div>
     <div class="trust"><svg class="trustico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><div><strong data-i18n="trust.t">Secure payment with Stripe</strong><span data-i18n="trust.d">Stripe is the payment platform used by millions of businesses worldwide.</span><ul class="trustl"><li data-i18n="trust.l1">Your payment is 100% secure. Your card details go straight to Stripe: SubbieBill never sees or stores them.</li><li data-i18n="trust.l2">Your account switches to Premium straight after payment.</li><li data-i18n="trust.l3">Cancel anytime in a few taps from your account. No lock-in.</li></ul></div></div>
@@ -1299,9 +1299,9 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <details><summary data-i18n="faq.q2">How does GST work?</summary><p data-i18n="faq.a2">Tell SubbieBill once, in My details, whether you're registered for GST. Registered: your invoices add GST (10%) on top of your hours, and you can switch it off for an invoice where it doesn't apply. Not registered: no GST is added. Registration is compulsory once your GST turnover reaches $75,000 a year. Check with your accountant if you're unsure.</p></details>
     <details><summary data-i18n="faq.q6">Invoice or Tax invoice: what's the difference?</summary><p data-i18n="faq.a6">A “Tax invoice” is for businesses registered for GST: it shows the GST (10%) separately, as the ATO requires. If you're not registered, SubbieBill makes an “Invoice” that says no GST has been charged, because a business that isn't registered must not call its invoice a tax invoice. For tax invoices of $1,000 or more, the client's name or ABN must appear: SubbieBill always prints the client's name.</p></details>
     <details><summary data-i18n="faq.q7">How do I download or share my PDF?</summary><p data-i18n="faq.a7">Tap Finish invoice, check the summary, then Finish and download PDF. The PDF goes to your downloads. On most phones, Share PDF sends it straight to Mail, Messages or WhatsApp. Download again works as long as the invoice is open, and from your History with Premium.</p></details>
-    <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. With Premium, every invoice is kept in your History. On Free, finished invoices aren't kept in a History, so keep the PDFs you download.</p></details>
+    <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there.</p></details>
     <details><summary data-i18n="faq.q9">How do I change an invoice?</summary><p data-i18n="faq.a9">Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.</p></details>
-    <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, no History. Premium ($39 a year or $4.99 a month): unlimited invoices and a History of every invoice, with yearly totals, to download again anytime.</p></details>
+    <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking.</p></details>
     <details><summary data-i18n="faq.q3">Who can see my bank details?</summary><p data-i18n="faq.a3">You, and the SubbieBill administrator when helping with your account. Your details are tied to your account, protected by your password and sent over an encrypted connection. Your clients only see them on the invoices you send.</p></details>
     <details><summary data-i18n="faq.q4">Can I cancel Premium?</summary><p data-i18n="faq.a4">Yes, anytime. You go back to Free: your History stays in your account and comes back if you return to Premium.</p></details>
   </section>
@@ -1325,7 +1325,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <div class="tcard final">
       <b class="fh" data-i18n="fin2.h">Ready to send your next invoice in 30 seconds?</b>
       <button class="primary cta-main" type="button" data-auth="signup" data-i18n="hero.cta2">Get started free</button>
-      <span class="fn" data-i18n="hero.note">Free. No credit card needed.</span>
+      <span class="fn" data-i18n="hero.note">Your first 3 invoices are free. No card needed.</span>
     </div>
   </section>
 
@@ -1342,7 +1342,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       <input id="authpass" type="password" autocomplete="current-password" data-i18n-ph="auth.pass_ph">
       <div id="authpass2wrap" class="form" hidden><label for="authpass2" data-i18n="auth.pass2">Confirm password</label>
       <input id="authpass2" type="password" autocomplete="new-password"></div>
-      <p id="authabn" class="note" data-i18n="auth.abn_note">You'll need your ABN. It's linked to your account and can't be changed later.</p>
+      <p id="authabn" class="note" data-i18n="auth.abn_note">You'll need your ABN. It's linked to your account for good and can't be changed later.</p>
       <button class="primary" id="authsubmit" type="submit"></button>
       <p id="autherr" class="err" role="alert"></p>
       <p class="legalnote"><span data-i18n="lg.agree">By creating an account, you agree to our</span> <a href="terms.html" target="_blank" rel="noopener" data-i18n="lg.terms_long">Terms of Service</a> <span data-i18n="lg.and">and</span> <a href="privacy.html" target="_blank" rel="noopener" data-i18n="lg.privacy_long">Privacy Policy</a>.</p>
@@ -1357,7 +1357,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       </div>
       <div id="rs_step2" class="form" hidden>
         <button id="rs_resend" type="button" data-i18n="rs.resend">Send a new link</button>
-        <p class="note" data-i18n="code.spam">Can't find it? Check your spam folder.</p>
+        <p class="note" data-i18n="code.spam">Can't find it? Check your spam or promotions folder.</p>
       </div>
       <div id="rs_step3" class="form" hidden>
         <label for="rs_pass" data-i18n="rs.new">New password</label>
@@ -1376,7 +1376,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       <button class="primary" id="codesubmit" type="submit" data-i18n="code.verify">Confirm my email</button>
       <p id="codeerr" class="err" role="alert"></p>
       <div class="coderow"><button id="coderesend" class="linkbtn" type="button" data-i18n="code.resend">Send a new code</button><button id="codeback" class="linkbtn" type="button" data-i18n="code.back">Change email</button></div>
-      <p class="note" data-i18n="code.spam">Can't find it? Check your spam folder.</p>
+      <p class="note" data-i18n="code.spam">Can't find it? Check your spam or promotions folder.</p>
     </form>
   </section>
 
@@ -1410,7 +1410,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       <p class="muted" style="margin:0" data-i18n="onb.sub">Three steps and your first invoice is ready.</p>
       <ol class="steps">
         <li id="st1"><span class="dot">1</span><span data-i18n="onb.s1">Your details (just once)</span><button type="button" data-open="p_infos" data-i18n="onb.fill">Fill in</button></li>
-        <li id="st2"><span class="dot">2</span><span data-i18n="onb.s2">Your client and site</span></li>
+        <li id="st2"><span class="dot">2</span><span data-i18n="onb.s2">Who you bill</span></li>
         <li id="st3"><span class="dot">3</span><span data-i18n="onb.s3">Your hours</span></li>
       </ol>
     </section>
@@ -1435,7 +1435,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       </div>
       <div class="fields">
         <div class="field"><label for="billto" data-i18n="ctx.client">Client</label><select id="billto"></select><input id="billto_new" data-i18n-ph="ctx.client_ph" hidden></div>
-        <div class="field"><label for="site" data-i18n="ctx.site">Site</label><select id="site"></select><input id="site_new" data-i18n-ph="ctx.site_ph" hidden></div>
+        <div class="field"><label for="site" data-i18n="ctx.site">Site (optional)</label><select id="site"></select><input id="site_new" data-i18n-ph="ctx.site_ph" hidden></div>
       </div>
       <div class="invmeta">
         <div class="metagrid">
@@ -1447,7 +1447,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
         </div>
         <p class="note" id="cabn_msg" style="margin:4px 0 0"></p>
       </div>
-      <div class="field memail" id="emailfield" hidden><label for="billto_email" data-i18n="meta.cemail">Client email (optional)</label><input id="billto_email" type="email" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="accounts@client.com.au" aria-describedby="email_need"><p id="email_need" class="err fneed" role="status" hidden data-i18n="mail.need_field">Fill in your client's email to send the invoice.</p></div>
+      <div class="field memail" id="emailfield" hidden><label for="billto_email" data-i18n="meta.cemail">Client email (optional)</label><input id="billto_email" type="email" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="accounts@client.com.au" aria-describedby="email_need"><p id="email_need" class="err fneed" role="status" hidden data-i18n="mail.need_field">Enter your client's email to send the invoice.</p></div>
       <div class="saverow"><button class="primary" id="savebtn" type="button"></button></div>
       <p id="savestate" class="savestate" role="status"></p>
     </section>
@@ -1462,10 +1462,10 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     </div>
     <div class="hoursopts">
       <div class="field"><label for="defrate" data-i18n="o.rate">Hourly rate ($/h)</label><input id="defrate" type="number" inputmode="decimal" min="0" step="0.5" class="mono" data-i18n-ph="o.rate_ph"></div>
-      <div class="field"><label for="defdesc" data-i18n="o.desc">Description</label><input id="defdesc" autocapitalize="sentences" data-i18n-ph="o.desc_ph"></div>
+      <div class="field"><label for="defdesc" data-i18n="o.desc">Description on the invoice</label><input id="defdesc" autocapitalize="sentences" data-i18n-ph="o.desc_ph"></div>
     </div>
     <label class="chk" id="unpaidwrap"><input type="checkbox" id="unpaid"> <span data-i18n="s.unpaid">I take an unpaid break</span></label>
-    <label class="chk"><input type="checkbox" id="ot_on"> <span data-i18n="ot.on">Paid overtime</span></label>
+    <label class="chk"><input type="checkbox" id="ot_on"> <span data-i18n="ot.on">Paid overtime (higher rate)</span></label>
     <div id="otbox" class="otbox" hidden>
       <label class="otl"><span data-i18n="ot.after">After</span><select id="ot_after" class="mono"></select><span data-i18n="ot.per_day">a day, paid</span><select id="ot_mult" class="mono"></select></label>
       <p id="ot_hint" class="note"></p>
@@ -1474,7 +1474,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <label class="chk"><input type="checkbox" id="ph_on"> <span data-i18n="ph.on">Public holidays at a higher rate</span></label>
     <div id="phbox" class="otbox" hidden>
       <label class="otl"><span data-i18n="ph.paid">Public holidays paid</span><select id="ph_mult" class="mono"></select></label>
-      <p class="note" data-i18n="ph.hint">Tap “Public holiday” on the day. National holidays are already marked.</p>
+      <p class="note" data-i18n="ph.hint">Tap “Public holiday” on the day you worked. National holidays (Christmas, Anzac Day, Good Friday…) are already marked.</p>
     </div>
     <p class="note optnote" data-i18n="o.wkd">Weekends start at $0/h. If you work one, set the rate on that day.</p>
     <div id="daylist" class="daylist"></div>
@@ -3905,7 +3905,7 @@ function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang
   ["autherr","pdfmsg"].forEach(id=>{const el=$(id);if(el){el.textContent="";delete el.dataset.keep}});
   if(session&&P()){if(opts.toProfile!==false&&P().lang!==l){P().lang=l;save()}renderAll();if(!$("menupop").hidden)renderMenu();if(curSheet&&!$("sheetov").hidden)openSheet(curSheet)}
   return changed}
-$("langbtn").onclick=e=>{e.stopPropagation();const p=$("langpop"),open=p.hidden;p.hidden=!open;$("langbtn").setAttribute("aria-expanded",String(open));if(open){const b=p.querySelector("button");b&&b.focus()}};
+$("langbtn").onclick=e=>{e.stopPropagation();const p=$("langpop"),open=p.hidden;p.hidden=!open;if(open){p.style.right="0px";const r=p.getBoundingClientRect(),m=12;if(r.left<m)p.style.right=(r.left-m)+"px";else if(r.right>innerWidth-m)p.style.right=(r.right-innerWidth+m)+"px"}$("langbtn").setAttribute("aria-expanded",String(open));if(open){const b=p.querySelector("button");b&&b.focus()}};
 $("langpop").addEventListener("click",e=>{const b=e.target.closest("[data-lang]");if(!b)return;$("langpop").hidden=true;$("langbtn").setAttribute("aria-expanded","false");setLang(b.dataset.lang);$("langbtn").focus()});
 document.addEventListener("click",e=>{if(!e.target.closest(".langpick")){$("langpop").hidden=true;$("langbtn").setAttribute("aria-expanded","false")}});
 $("langseg").addEventListener("change",e=>{if(e.target.name==="langsel")setLang(e.target.value)});

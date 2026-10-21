@@ -3,7 +3,7 @@
 > SubbieBill is a web app for ABN subcontractors in Australia (tradies and labour-hire subbies paid by the hour). You enter your start and finish times for each day and it creates a professional PDF invoice with your ABN, BSB and account number, the hours, the rate and the total in AUD, including GST (10%) when you are registered for GST.
 
 Website: https://subbiebill.com/
-Works in any browser, on phone or computer. Nothing to install. Interface in English, French and Spanish; invoices are always in English.
+Works in any browser, on phone or computer. Nothing to install. Interface in English, French, Spanish, Italian and Portuguese; invoices are always in English.
 
 ## What it does
 
@@ -17,8 +17,8 @@ Works in any browser, on phone or computer. Nothing to install. Interface in Eng
 
 ## Pricing (AUD)
 
-- Free: 3 finished invoices, no card needed
-- Premium: $4.99 a month or $39 a year, cancel anytime (payments by Stripe)
+- Free: 3 finished invoices with every tool, kept in the History, no card needed
+- Premium: $4.99 a month or $39 a year, cancel anytime. Online payment is open now (secure checkout by Stripe)
 
 ## What it is not
 
