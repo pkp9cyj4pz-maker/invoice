@@ -971,6 +971,13 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 #langseg label>span{display:flex;justify-content:center;align-items:center;min-height:20px}
 #langseg .flag{height:18px}
 #langseg label:has(input:checked){background:var(--field);box-shadow:inset 0 0 0 2px var(--accent)}
+
+/* lang button: flag + arrow only, so "Log in" stays on one line */
+.langbtn>svg:not(.chev){display:none!important}
+.langbtn{gap:4px;padding:7px 8px}
+#btn_login{white-space:nowrap}
+
+.top.tight .brand span{display:none}
 </style>
 </head>
 <body>
@@ -3885,7 +3892,7 @@ function renderLangUI(){
 let curSheet=null;
 function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang;lang=l;
   try{localStorage.setItem("sb_lang",l)}catch(e){}
-  applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);renderAnn();
+  applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);renderAnn();requestAnimationFrame(fitTop);
   ["autherr","pdfmsg"].forEach(id=>{const el=$(id);if(el){el.textContent="";delete el.dataset.keep}});
   if(session&&P()){if(opts.toProfile!==false&&P().lang!==l){P().lang=l;save()}renderAll();if(!$("menupop").hidden)renderMenu();if(curSheet&&!$("sheetov").hidden)openSheet(curSheet)}
   return changed}
@@ -5071,6 +5078,13 @@ $("ann_save").onclick=async e=>{const btn=e.currentTarget;btn.disabled=true;
     document.addEventListener("sb:lang",lab)});
   /* back to hidden when the form is sent or the page changes */
   ["authform","resetform"].forEach(id=>{const fm=document.getElementById(id);if(fm)fm.addEventListener("submit",()=>{fm.querySelectorAll(".pwwrap input").forEach(i=>{i.type="password"});document.dispatchEvent(new Event("sb:lang"))},true)})})();
+
+/* landing header: if the brand name would touch the language button, show only the logo */
+function fitTop(){const top=document.querySelector(".top"),br=top&&top.querySelector(".brand"),lp=$("topl");if(!br||!lp)return;
+  top.classList.remove("tight");if(lp.offsetParent===null)return;
+  const a=(br.querySelector("span")||br).getBoundingClientRect(),b=lp.getBoundingClientRect();if(a.right>b.left-6||document.documentElement.scrollWidth>innerWidth)top.classList.add("tight")}
+addEventListener("resize",fitTop);document.addEventListener("sb:lang",()=>requestAnimationFrame(fitTop));
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTop);
 /* ---------- start ---------- */
 (async()=>{lang=storedLang()||"en";applyStatic();renderLangUI();renderDemo();setAuthMode("signup");renderTop();loadAnn();
   if(!sb){$("autherr").textContent=t("err.service");return}
