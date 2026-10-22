@@ -20,6 +20,10 @@ Works in any browser, on phone or computer. Nothing to install. Interface in Eng
 - Free: 3 finished invoices with every tool, kept in the History, no card needed
 - Premium: $4.99 a month or $39 a year, cancel anytime. Online payment is open now (secure checkout by Stripe)
 
+## Referral program
+
+- Share your link: a friend who signs up with it gets 1 extra free invoice; when they take Premium you get 1 month of Premium (or A$4.99 off if you already pay), 14 days after their first payment, up to 12 times
+
 ## What it is not
 
 SubbieBill is not accounting software: no bank reconciliation, BAS lodgement or payroll. It is not tax advice.
