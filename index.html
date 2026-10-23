@@ -1007,6 +1007,53 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 .tyh{font-size:.95rem;margin:16px 0 8px}
 .tyfeat{margin-bottom:14px}
 .thanks .primary{width:100%;margin-top:12px}
+
+/* ===== menu v2 (user's design) ===== */
+.menupop{position:fixed;left:auto;width:min(420px,calc(100vw - 24px));padding:16px 14px 14px;border-radius:22px;background:color-mix(in srgb,var(--paper) 96%,#000);
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.75),0 0 0 1px var(--line);z-index:45}
+.menupop .mlbl{display:block;margin:2px 4px 10px}
+.menupop .acctbox{background:transparent;padding:0 4px 12px;gap:12px}
+.acct2{display:flex;align-items:center;gap:14px;min-width:0}
+.mavatar{position:relative;flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;
+  background:color-mix(in srgb,#2E9D5E 30%,var(--field));border:2px solid color-mix(in srgb,#2E9D5E 55%,transparent);font:800 1.25rem/1 "Inter Display",Inter,sans-serif;color:#CFEFD9}
+.mavcrown{display:none;position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#FFE9A3 0%,#F5C542 45%,#D99A1E 100%);box-shadow:0 0 0 3px var(--paper)}
+.mavcrown::after{content:"";position:absolute;inset:5px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233A2500' d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 10H5z'/%3E%3C/svg%3E") center/contain no-repeat}
+.mavatar.pro .mavcrown{display:block}
+.acctinfo{display:flex;flex-direction:column;gap:4px;min-width:0}
+.acctinfo strong{font-size:1.02rem;overflow-wrap:anywhere;line-height:1.25}
+#acctplan.pro{color:#F5C542;font-weight:700}
+#acctplan .mpro{display:inline-flex;align-items:center;gap:7px;font-size:1rem}
+#acctplan .mok{width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%232E9D5E'/%3E%3Cpath d='M7 12.5l3.2 3.2L17 9' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+#acctplan small{display:block;color:var(--muted);font-weight:500;font-size:.8rem}
+.mcard{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;padding:0;overflow:hidden}
+.mcard .mitem{border-radius:0;padding:14px 14px;min-height:62px;position:relative;background:color-mix(in srgb,var(--field) 70%,var(--paper))}
+.mcard .mitem svg{width:26px;height:26px;color:var(--ink);opacity:.9}
+.mcard .mitem span{flex:1}
+.mcard .mitem b{font-size:1rem}
+.mcard .mitem small{font-size:.86rem}
+.mcard .mitem::after{content:"";flex:none;width:18px;height:18px;background:currentColor;opacity:.7;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat}
+.mcard .mitem:hover{background:var(--field)}
+.mitem.mout{margin-top:14px;border:1px solid var(--line);border-radius:16px;padding:14px;min-height:62px;background:color-mix(in srgb,var(--field) 70%,var(--paper))}
+.mitem.mout svg{width:26px;height:26px;color:#FF6B6B}
+.mitem.mout span{flex:1}.mitem.mout b{font-size:1rem}
+.mitem.mout::after{content:"";flex:none;width:18px;height:18px;background:currentColor;opacity:.7;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center/contain no-repeat}
+.mcard a.mitem,.mcard a.mitem:hover{text-decoration:none;color:var(--ink)}
+.menupop .langrow{padding:16px 0 0;gap:10px}
+.menupop .langrow .lbl{margin:0 4px}
+#langseg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;background:transparent;padding:0;border:none}
+#langseg label{position:relative;border-radius:14px;padding:10px 1px 8px;min-width:0;background:color-mix(in srgb,var(--field) 70%,transparent);border:1px solid var(--line);box-shadow:none}
+#langseg label>span{flex-direction:column;gap:6px}
+#langseg .flag{height:22px}
+#langseg small{font-size:.68rem;letter-spacing:-.01em;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+#langseg label:has(input:checked){background:color-mix(in srgb,#F5C542 10%,var(--field));border-color:#F5C542;box-shadow:0 0 0 1px #F5C542 inset}
+#langseg label:has(input:checked) small{color:#F5C542}
+#langseg label:has(input:checked)::after{content:"";position:absolute;top:-7px;right:-6px;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#FFE9A3 0%,#F5C542 45%,#D99A1E 100%);box-shadow:0 0 0 2px var(--paper)}
+#langseg label:has(input:checked)::before{content:"";position:absolute;top:-2px;right:-1px;width:10px;height:10px;z-index:1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233A2500' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center/contain no-repeat}
+@media (max-width:370px){#langseg small{display:none}#langseg label{padding:10px 2px}}
+#btn_menu .mx{display:none}
+#btn_menu.on svg:not(.mx){display:none}
+#btn_menu.on .mx{display:block}
+#btn_menu.on{background:transparent;color:var(--ink);border-color:var(--line)}
 </style>
 </head>
 <body>
@@ -1208,16 +1255,18 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <button id="btn_app" class="primary" type="button" hidden data-i18n="nav.app">My invoices</button>
     <button id="btn_hist" type="button" data-i18n="top.history">History</button>
     <div class="menuwrap">
-      <button id="btn_menu" type="button" data-tip data-i18n-aria="top.menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span data-i18n="top.menu">Menu</span></button>
+      <button id="btn_menu" type="button" data-tip data-i18n-aria="top.menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="mx" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span data-i18n="top.menu">Menu</span></button>
       <div id="menupop" class="menupop" hidden>
+        <span class="lbl mlbl" data-i18n="m.account">Account</span>
         <div class="acctbox">
-          <span class="lbl" data-i18n="m.account">Account</span><strong id="acctemail"></strong>
-          <span id="acctplan" class="muted"></span>
+          <div class="acct2">
+            <span class="mavatar" id="m_avatar" aria-hidden="true"><span id="m_init"></span><i class="mavcrown"></i></span>
+            <span class="acctinfo"><strong id="acctemail"></strong><span id="acctplan" class="muted"></span></span>
+          </div>
           <button class="primary" id="m_premium" type="button" data-i18n="m.premium">Upgrade to Premium</button>
-          <a id="m_manage" class="btnlink" href="#" rel="noopener" hidden data-i18n="m.manage">Manage my subscription</a>
-          <small id="m_manage_sub" class="muted" hidden data-i18n="m.manage_sub">Cancel, change your card or see your receipts.</small>
         </div>
-        <nav class="mlist" data-i18n-aria="m.title" aria-label="Menu">
+        <nav class="mlist mcard" data-i18n-aria="m.title" aria-label="Menu">
+          <a class="mitem" id="m_manage" href="#" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span><b data-i18n="m.manage">Manage my subscription</b><small id="m_manage_sub" data-i18n="m.manage_sub">Cancel, change your card or see your receipts.</small></span></a>
           <button class="mitem" type="button" data-open="p_infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b data-i18n="m.infos">My details</b><small data-i18n="m.infos_sub">name, ABN, bank</small></span></button>
           <button class="mitem" type="button" data-open="p_lists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg><span><b data-i18n="m.lists">Clients and sites</b><small data-i18n="m.lists_sub">manage your lists</small></span></button>
           <button class="mitem" type="button" data-open="p_ref" id="m_ref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M12 8c-1.5-3-5-3.5-5-1.2C7 8 9.5 8 12 8zM12 8c1.5-3 5-3.5 5-1.2C17 8 14.5 8 12 8z"/></svg><span><b data-i18n="m.ref">Invite a friend</b><small data-i18n="m.ref_sub">1 month of Premium for you</small></span></button>
@@ -1228,7 +1277,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
           <span class="lbl" id="langseg_lbl" data-i18n="lang.label">Language</span>
           <div class="seg" id="langseg" role="radiogroup" aria-labelledby="langseg_lbl"></div>
         </div>
-        <button class="mitem out" type="button" id="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b data-i18n="m.logout">Log out</b></span></button>
+        <button class="mitem out mout" type="button" id="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b data-i18n="m.logout">Log out</b></span></button>
       </div>
     </div>
   </div>
@@ -1577,6 +1626,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "m.pro_until2":"until {date}",
   "ty.title":"Thank you ❤️!","ty.lead":"Your Premium is on. Thanks for supporting SubbieBill!","ty.lead_wait":"Payment received. Thanks for supporting SubbieBill!","ty.unlocked":"Everything you just unlocked","ty.edit":"Edit and finish invoices again as often as you like","ty.ref":"Invite friends and earn free months of Premium","ty.manage":"You can manage or cancel your subscription anytime from Menu → Manage my subscription.","ty.close":"Close",
   "a.ref_title":"Referral","a.ref_by":"Invited by:","a.ref_invited":"Friends invited:","a.ref_none":"No one yet.","a.ref_signed":"signed up","a.ref_pending":"paid, waiting 14 days","a.ref_rewarded":"rewarded","a.ref_rejected":"refused","a.ref_why_same_card":"same card","a.ref_why_refunded":"refunded or disputed","a.ref_why_not_active":"subscription stopped","a.ref_why_cap":"limit of 12 reached","a.ref_why_blocked":"account blocked",
   "m.ref":"Invite a friend","m.ref_sub":"1 month of Premium for you","ref.title":"Invite a friend","ref.intro":"Share your link. When a friend signs up with it and takes Premium, you get 1 month of Premium free. Your friend gets 1 extra free invoice.","ref.link":"Your link","ref.copy":"Copy","ref.copied":"Link copied ✓","ref.copy_fail":"Couldn't copy. Select the link and copy it.","ref.share":"Share my link","ref.share_text":"I make my invoices with SubbieBill: enter your hours, get a PDF invoice with ABN and GST done in 30 seconds. Sign up with my link and get 1 extra free invoice:","ref.st_signed":"Signed up","ref.st_pending":"Waiting","ref.st_rewarded":"Rewards","ref.next":"Next reward expected on {date}, if your friend's payment goes through.","ref.bonus_until":"Premium offered until {date}.","ref.r_title":"How it works","ref.r1":"Your friend signs up with your link and gets 1 extra free invoice.","ref.r2":"You get your reward 14 days after your friend's first Premium payment.","ref.r3":"Already on Premium? You get $4.99 off your next payment instead.","ref.r4":"No reward if the payment is refunded or disputed, or if it's you with another account.","ref.r5":"Up to 12 rewards per account.","ref.terms":"Full rules in the Terms","ref.won":"🎉 Reward received: 1 month of Premium is yours.","ref.won_credit":"🎉 Reward received: $4.99 off your next payment.","ref.loading":"Loading…","ref.err":"Couldn't load your link. Check your connection and try again.","ref.invited":"Invited by a friend: you get 1 extra free invoice (4 instead of 3).","ref.claimed":"Welcome! 1 extra free invoice added thanks to your friend's link.",
@@ -1934,6 +1984,7 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "m.pro_until2":"jusqu'au {date}",
   "ty.title":"Merci ❤️ !","ty.lead":"Ton Premium est activé. Merci de soutenir SubbieBill !","ty.lead_wait":"Paiement reçu. Merci de soutenir SubbieBill !","ty.unlocked":"Tout ce que tu viens de débloquer","ty.edit":"Modifier et refinir tes factures autant de fois que tu veux","ty.ref":"Inviter des amis et gagner des mois de Premium offerts","ty.manage":"Tu peux gérer ou résilier ton abonnement à tout moment depuis Menu → Gérer mon abonnement.","ty.close":"Fermer",
   "a.ref_title":"Parrainage","a.ref_by":"Invité par :","a.ref_invited":"Amis invités :","a.ref_none":"Personne pour l'instant.","a.ref_signed":"inscrit","a.ref_pending":"a payé, attente 14 jours","a.ref_rewarded":"récompensé","a.ref_rejected":"refusé","a.ref_why_same_card":"même carte","a.ref_why_refunded":"remboursé ou contesté","a.ref_why_not_active":"abonnement arrêté","a.ref_why_cap":"limite de 12 atteinte","a.ref_why_blocked":"compte bloqué",
   "m.ref":"Inviter un ami","m.ref_sub":"1 mois de Premium pour toi","ref.title":"Inviter un ami","ref.intro":"Partage ton lien. Quand un ami s'inscrit avec et prend Premium, tu gagnes 1 mois de Premium offert. Ton ami reçoit 1 facture gratuite en plus.","ref.link":"Ton lien","ref.copy":"Copier","ref.copied":"Lien copié ✓","ref.copy_fail":"Impossible de copier. Sélectionne le lien et copie-le.","ref.share":"Partager mon lien","ref.share_text":"Je fais mes factures avec SubbieBill : tu entres tes heures, tu as une facture PDF avec ABN et GST en 30 secondes. Inscris-toi avec mon lien et tu as 1 facture gratuite en plus :","ref.st_signed":"Inscrits","ref.st_pending":"En attente","ref.st_rewarded":"Récompenses","ref.next":"Prochaine récompense prévue le {date}, si le paiement de ton ami est confirmé.","ref.bonus_until":"Premium offert jusqu'au {date}.","ref.r_title":"Comment ça marche","ref.r1":"Ton ami s'inscrit avec ton lien et reçoit 1 facture gratuite en plus.","ref.r2":"Tu reçois ta récompense 14 jours après le premier paiement Premium de ton ami.","ref.r3":"Déjà Premium ? Tu as 4,99 $ de réduction sur ton prochain paiement à la place.","ref.r4":"Pas de récompense si le paiement est remboursé ou contesté, ou si c'est toi avec un autre compte.","ref.r5":"Jusqu'à 12 récompenses par compte.","ref.terms":"Toutes les règles dans les Conditions","ref.won":"🎉 Récompense reçue : 1 mois de Premium offert.","ref.won_credit":"🎉 Récompense reçue : 4,99 $ de réduction sur ton prochain paiement.","ref.loading":"Chargement…","ref.err":"Impossible de charger ton lien. Vérifie ta connexion et réessaie.","ref.invited":"Invité par un ami : tu as 1 facture gratuite en plus (4 au lieu de 3).","ref.claimed":"Bienvenue ! 1 facture gratuite en plus grâce au lien de ton ami.",
@@ -2285,6 +2336,7 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "m.pro_until2":"hasta el {date}",
   "ty.title":"¡Gracias ❤️!","ty.lead":"Tu Premium está activo. ¡Gracias por apoyar SubbieBill!","ty.lead_wait":"Pago recibido. ¡Gracias por apoyar SubbieBill!","ty.unlocked":"Todo lo que acabas de desbloquear","ty.edit":"Editar y terminar tus facturas tantas veces como quieras","ty.ref":"Invitar a amigos y ganar meses de Premium gratis","ty.manage":"Puedes gestionar o cancelar tu suscripción cuando quieras desde Menú → Gestionar mi suscripción.","ty.close":"Cerrar",
   "m.ref":"Invitar a un amigo","m.ref_sub":"1 mes de Premium para ti","ref.title":"Invitar a un amigo","ref.intro":"Comparte tu enlace. Cuando un amigo se registre con él y tome Premium, ganas 1 mes de Premium gratis. Tu amigo recibe 1 factura gratis extra.","ref.link":"Tu enlace","ref.copy":"Copiar","ref.copied":"Enlace copiado ✓","ref.copy_fail":"No se pudo copiar. Selecciona el enlace y cópialo.","ref.share":"Compartir mi enlace","ref.share_text":"Hago mis facturas con SubbieBill: pones tus horas y tienes una factura PDF con ABN y GST en 30 segundos. Regístrate con mi enlace y recibe 1 factura gratis extra:","ref.st_signed":"Registrados","ref.st_pending":"En espera","ref.st_rewarded":"Recompensas","ref.next":"Próxima recompensa prevista el {date}, si el pago de tu amigo se confirma.","ref.bonus_until":"Premium gratis hasta el {date}.","ref.r_title":"Cómo funciona","ref.r1":"Tu amigo se registra con tu enlace y recibe 1 factura gratis extra.","ref.r2":"Recibes tu recompensa 14 días después del primer pago Premium de tu amigo.","ref.r3":"¿Ya tienes Premium? Recibes $4.99 de descuento en tu próximo pago.","ref.r4":"Sin recompensa si el pago se reembolsa o se disputa, o si eres tú con otra cuenta.","ref.r5":"Hasta 12 recompensas por cuenta.","ref.terms":"Todas las reglas en las Condiciones","ref.won":"🎉 Recompensa recibida: 1 mes de Premium gratis.","ref.won_credit":"🎉 Recompensa recibida: $4.99 de descuento en tu próximo pago.","ref.loading":"Cargando…","ref.err":"No se pudo cargar tu enlace. Revisa tu conexión e inténtalo de nuevo.","ref.invited":"Invitado por un amigo: recibes 1 factura gratis extra (4 en lugar de 3).","ref.claimed":"¡Bienvenido! 1 factura gratis extra gracias al enlace de tu amigo.",
   "_name":"Español",
@@ -2734,6 +2786,7 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "m.pro_until2":"fino al {date}",
   "ty.title":"Grazie ❤️!","ty.lead":"Il tuo Premium è attivo. Grazie per sostenere SubbieBill!","ty.lead_wait":"Pagamento ricevuto. Grazie per sostenere SubbieBill!","ty.unlocked":"Tutto quello che hai appena sbloccato","ty.edit":"Modificare e finire di nuovo le fatture tutte le volte che vuoi","ty.ref":"Invitare amici e guadagnare mesi di Premium gratis","ty.manage":"Puoi gestire o disdire l'abbonamento quando vuoi da Menu → Gestisci l'abbonamento.","ty.close":"Chiudi",
   "m.ref":"Invita un amico","m.ref_sub":"1 mese di Premium per te","ref.title":"Invita un amico","ref.intro":"Condividi il tuo link. Quando un amico si iscrive con il link e passa a Premium, ricevi 1 mese di Premium gratis. Il tuo amico riceve 1 fattura gratuita in più.","ref.link":"Il tuo link","ref.copy":"Copia","ref.copied":"Link copiato ✓","ref.copy_fail":"Impossibile copiare. Seleziona il link e copialo.","ref.share":"Condividi il mio link","ref.share_text":"Faccio le mie fatture con SubbieBill: inserisci le ore e hai una fattura PDF con ABN e GST in 30 secondi. Iscriviti con il mio link e ricevi 1 fattura gratuita in più:","ref.st_signed":"Iscritti","ref.st_pending":"In attesa","ref.st_rewarded":"Premi","ref.next":"Prossimo premio previsto il {date}, se il pagamento del tuo amico va a buon fine.","ref.bonus_until":"Premium offerto fino al {date}.","ref.r_title":"Come funziona","ref.r1":"Il tuo amico si iscrive con il tuo link e riceve 1 fattura gratuita in più.","ref.r2":"Ricevi il premio 14 giorni dopo il primo pagamento Premium del tuo amico.","ref.r3":"Hai già Premium? Ricevi invece 4,99 $ di sconto sul prossimo pagamento.","ref.r4":"Nessun premio se il pagamento viene rimborsato o contestato, o se sei tu con un altro account.","ref.r5":"Fino a 12 premi per account.","ref.terms":"Tutte le regole nei Termini","ref.won":"🎉 Premio ricevuto: 1 mese di Premium è tuo.","ref.won_credit":"🎉 Premio ricevuto: 4,99 $ di sconto sul prossimo pagamento.","ref.loading":"Caricamento…","ref.err":"Impossibile caricare il tuo link. Controlla la connessione e riprova.","ref.invited":"Invitato da un amico: ricevi 1 fattura gratuita in più (4 invece di 3).","ref.claimed":"Benvenuto! 1 fattura gratuita in più grazie al link del tuo amico.",
   "_name":"Italiano",
@@ -3332,6 +3385,7 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "m.pro_until2":"até {date}",
   "ty.title":"Obrigado ❤️!","ty.lead":"Seu Premium está ativo. Obrigado por apoiar o SubbieBill!","ty.lead_wait":"Pagamento recebido. Obrigado por apoiar o SubbieBill!","ty.unlocked":"Tudo o que você acabou de desbloquear","ty.edit":"Editar e finalizar faturas de novo quantas vezes quiser","ty.ref":"Convidar amigos e ganhar meses de Premium grátis","ty.manage":"Você pode gerenciar ou cancelar sua assinatura quando quiser em Menu → Gerenciar assinatura.","ty.close":"Fechar",
   "m.ref":"Convidar um amigo","m.ref_sub":"1 mês de Premium para você","ref.title":"Convidar um amigo","ref.intro":"Compartilhe seu link. Quando um amigo se cadastrar com ele e assinar o Premium, você ganha 1 mês de Premium grátis. Seu amigo ganha 1 fatura grátis a mais.","ref.link":"Seu link","ref.copy":"Copiar","ref.copied":"Link copiado ✓","ref.copy_fail":"Não foi possível copiar. Selecione o link e copie.","ref.share":"Compartilhar meu link","ref.share_text":"Faço minhas faturas com o SubbieBill: você digita as horas e tem uma fatura PDF com ABN e GST em 30 segundos. Cadastre-se com meu link e ganhe 1 fatura grátis a mais:","ref.st_signed":"Cadastrados","ref.st_pending":"Aguardando","ref.st_rewarded":"Prêmios","ref.next":"Próximo prêmio previsto para {date}, se o pagamento do seu amigo for confirmado.","ref.bonus_until":"Premium grátis até {date}.","ref.r_title":"Como funciona","ref.r1":"Seu amigo se cadastra com seu link e ganha 1 fatura grátis a mais.","ref.r2":"Você recebe o prêmio 14 dias após o primeiro pagamento Premium do seu amigo.","ref.r3":"Já é Premium? Você ganha $ 4,99 de desconto no próximo pagamento.","ref.r4":"Sem prêmio se o pagamento for reembolsado ou contestado, ou se for você com outra conta.","ref.r5":"Até 12 prêmios por conta.","ref.terms":"Todas as regras nos Termos","ref.won":"🎉 Prêmio recebido: 1 mês de Premium é seu.","ref.won_credit":"🎉 Prêmio recebido: $ 4,99 de desconto no próximo pagamento.","ref.loading":"Carregando…","ref.err":"Não foi possível carregar seu link. Confira a conexão e tente de novo.","ref.invited":"Convidado por um amigo: você ganha 1 fatura grátis a mais (4 em vez de 3).","ref.claimed":"Bem-vindo! 1 fatura grátis a mais graças ao link do seu amigo.",
   "_name":"Português",
@@ -3980,7 +4034,7 @@ const flag=l=>FLAGS[l]||"";
 function renderLangUI(){
   $("langbtn_t").innerHTML=flag(lang);$("langbtn").title=I18N[lang]._name;$("langbtn").setAttribute("aria-label",`${t("lang.label")}: ${I18N[lang]._name}`);
   $("langpop").innerHTML=LANGS.map(l=>`<button type="button" role="menuitemradio" aria-checked="${l===lang}" data-lang="${l}" aria-label="${I18N[l]._name}" title="${I18N[l]._name}" lang="${l}">${flag(l)}</button>`).join("");
-  $("langseg").innerHTML=LANGS.map(l=>`<label><input type="radio" name="langsel" value="${l}"${l===lang?" checked":""}> <span lang="${l}" title="${I18N[l]._name}" aria-label="${I18N[l]._name}">${flag(l)}</span></label>`).join("");
+  $("langseg").innerHTML=LANGS.map(l=>`<label><input type="radio" name="langsel" value="${l}"${l===lang?" checked":""}> <span lang="${l}" title="${I18N[l]._name}">${flag(l)}<small>${I18N[l]._name}</small></span></label>`).join("");
 }
 let curSheet=null;
 function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang;lang=l;
@@ -4284,7 +4338,7 @@ document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("langpop").hidden){$("langpop").hidden=true;$("langbtn").focus();return}
   if(!$("menupop").hidden){closeMenu();$("btn_menu").focus();return}if(!$("sheetov").hidden)closeSheet()});
 /* menu: a dropdown under the Menu button */
-function openMenu(){renderMenu();$("menupop").hidden=false;$("btn_menu").setAttribute("aria-expanded","true");$("btn_menu").classList.add("on")}
+function openMenu(){renderMenu();const mp=$("menupop"),br=$("btn_menu").getBoundingClientRect();mp.style.top=Math.round(br.bottom+10)+"px";mp.style.right=Math.max(12,Math.round(innerWidth-br.right))+"px";mp.style.maxHeight=`calc(100dvh - ${Math.round(br.bottom+22)}px)`;mp.hidden=false;$("btn_menu").setAttribute("aria-expanded","true");$("btn_menu").classList.add("on")}
 function closeMenu(){const m=$("menupop");if(!m||m.hidden)return;m.hidden=true;$("btn_menu").setAttribute("aria-expanded","false");$("btn_menu").classList.remove("on")}
 $("btn_menu").onclick=e=>{e.stopPropagation();$("menupop").hidden?openMenu():closeMenu()};
 document.addEventListener("click",e=>{if(!$("menupop").hidden&&!e.target.closest(".menuwrap"))closeMenu()});$("btn_hist").onclick=()=>openSheet("p_hist");
@@ -4400,7 +4454,12 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
 function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);
   u.searchParams.set("locale",lang==="en"?"en":lang==="pt"?"pt-BR":lang);return u.toString()}
 function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_admin").hidden=!plan.is_admin;
-  $("acctplan").textContent=plan.premium?(plan.period_end?t("plan.pro_until",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):t("plan.pro")):t("plan.free",{n:freeLeft(),limit:FREE_LIMIT()});
+  const ap=$("acctplan");ap.classList.toggle("pro",!!plan.premium);
+  if(plan.premium){const until=!stripeSub()&&plan.period_end?t("m.pro_until2",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):"";
+    ap.innerHTML=`<span class="mpro">${esc(t("plan.pro"))}<i class="mok" aria-hidden="true"></i></span>${until?`<small>${esc(until)}</small>`:""}`}
+  else ap.textContent=t("plan.free",{n:freeLeft(),limit:FREE_LIMIT()});
+  const me=P()||{},ini=((me.first||"").trim()[0]||"")+((me.last||"").trim()[0]||"");
+  $("m_init").textContent=(ini||(session&&session.email||"?").slice(0,2)).toUpperCase();$("m_avatar").classList.toggle("pro",!!plan.premium);
   $("m_premium").hidden=plan.premium;$("m_manage").hidden=!stripeSub();
   if(PORTAL){const u=new URL(PORTAL);if(session&&session.email)u.searchParams.set("prefilled_email",session.email);$("m_manage").href=u.toString();$("m_manage").target="_blank"}
   else $("m_manage").href="mailto:"+SUPPORT_EMAIL+"?subject="+encodeURIComponent("SubbieBill Premium");
