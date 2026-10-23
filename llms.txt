@@ -28,6 +28,12 @@ Works in any browser, on phone or computer. Nothing to install. Interface in Eng
 
 SubbieBill is not accounting software: no bank reconciliation, BAS lodgement or payroll. It is not tax advice.
 
+## How to use it (button by button)
+
+- [Illustrated step-by-step help](https://subbiebill.com/help.html): every screen with the button to tap highlighted. Also in [French](https://subbiebill.com/help-fr.html), [Spanish](https://subbiebill.com/help-es.html), [Italian](https://subbiebill.com/help-it.html), [Portuguese](https://subbiebill.com/help-pt.html)
+- [Full step list with exact button names in all 5 languages](https://subbiebill.com/llms-full.txt)
+- Short version: tap "Create my first invoice", sign up with email and password, enter the 6-digit code from the email, add your name, ABN, BSB, account number and GST status, type your client, set your hourly rate, enter Monday's start and finish then "Copy Monday to Tue → Fri", tap "Finish invoice", then "Finish and download PDF".
+
 ## Guides
 
 - [How to write an invoice as a subcontractor in Australia](https://subbiebill.com/subcontractor-invoice.html)

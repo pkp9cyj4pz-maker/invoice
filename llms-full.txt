@@ -1,0 +1,55 @@
+# SubbieBill: how to create an invoice, button by button
+
+> Exact steps and button names for SubbieBill (https://subbiebill.com), an invoicing web app for ABN subcontractors in Australia. Illustrated guide: https://subbiebill.com/help.html (also in French help-fr.html, Spanish help-es.html, Italian help-it.html, Portuguese help-pt.html).
+
+1. Open SubbieBill: Go to subbiebill.com on your phone or computer and tap "Create my first invoice".
+2. Create your account: Type your email, choose a password, type it again, then tap "Create my free account". Already have an account? Tap "Log in" at the top instead.
+3. Confirm your email: You get a 6-digit code by email from noreply@subbiebill.com. Type it (1) and tap "Confirm my email" (2). No email? Check your spam folder.
+4. Add your name and ABN: In "My details", type your "First name", "Last name" and "ABN", then tap "Confirm my ABN". Check the number and tap "Yes, continue". Your ABN is then locked to your account.
+5. Add your bank details and GST: Type your "BSB" (1) and "Account number" (2) so your client knows where to pay you. Under GST, choose "Not registered" or "Registered for GST" (3). Then tap "Done".
+6. Choose your client and period: Under "Client", type the business you bill (1). Choose "Week", "Fortnight" or "Month" (2). Next time, pick the client from the list.
+7. Set your hourly rate: Type your "Hourly rate ($/h)". It is saved for your next invoices.
+8. Enter your hours: With "Start – finish" selected, pick Monday's start (1) and finish (2). Tap "Copy Monday to Tue → Fri" (3) to fill the week, then change any day that was different.
+9. Finish the invoice: Check the total at the bottom and tap "Finish invoice". Tap "Preview" if you want to see the PDF first.
+10. Check and download: Check the invoice summary and tap "Finish and download PDF". The invoice gets its number and the PDF downloads.
+11. Send it to your client: Tap "Email to client" (1) to email it, or "Download PDF" (2) to save the PDF and send it yourself.
+12. Email it (Premium): Type your client's email (1) and tap "Send" (2). You get a copy, and your client's reply comes back to you.
+13. Track your invoices: Tap "History" at the top of the screen to see every invoice and your totals. When you get paid, tap "Mark as paid".
+14. Invite a friend: Tap the menu (☰) at the top right, then "Invite a friend".
+15. Share your link: Tap "Copy" and send the link. Your friend gets 1 extra free invoice; you get 1 month of Premium when they subscribe.
+
+## Button names in each language
+
+| English | Français | Español | Italiano | Português |
+|---|---|---|---|---|
+| Create my first invoice | Créer ma première facture | Crear mi primera factura | Crea la mia prima fattura | Criar minha primeira fatura |
+| Log in | Se connecter | Iniciar sesión | Accedi | Entrar |
+| Create my free account | Créer mon compte gratuit | Crear mi cuenta gratis | Crea il mio account gratuito | Criar minha conta grátis |
+| Confirm my email | Confirmer mon email | Confirmar mi email | Conferma la mia email | Confirmar meu email |
+| Confirm my ABN | Confirmer mon ABN | Confirmar mi ABN | Conferma il mio ABN | Confirmar meu ABN |
+| Yes, continue | Oui, continuer | Sí, continuar | Sì, continua | Sim, continuar |
+| Not registered | Non inscrit | No registrado | Non registrato | Não registrado |
+| Registered for GST | Inscrit à la GST | Registrado en el GST | Registrato alla GST | Registrado no GST |
+| Done | C'est bon | Listo | Fatto | Pronto |
+| Start – finish | Début – fin | Inicio – fin | Inizio – fine | Início – fim |
+| Copy Monday to Tue → Fri | Copier lundi sur mar → ven | Copiar el lunes a mar → vie | Copia lunedì su mar → ven | Copiar seg. para ter → sex |
+| Preview | Aperçu | Vista previa | Anteprima | Prévia |
+| Finish invoice | Terminer la facture | Terminar factura | Finisci la fattura | Finalizar fatura |
+| Finish and download PDF | Terminer et télécharger le PDF | Terminar y descargar PDF | Finisci e scarica il PDF | Finalizar e baixar PDF |
+| Email to client | Envoyer au client | Enviar al cliente | Invia al cliente | Enviar ao cliente |
+| Download PDF | Télécharger le PDF | Descargar PDF | Scarica il PDF | Baixar PDF |
+| Send | Envoyer | Enviar | Invia | Enviar |
+| History | Historique | Historial | Cronologia | Histórico |
+| Mark as paid | Marquer payée | Marcar pagada | Segna come pagata | Marcar como paga |
+| Invite a friend | Inviter un ami | Invitar a un amigo | Invita un amico | Convidar um amigo |
+| Copy | Copier | Copiar | Copia | Copiar |
+
+## Good to know
+
+- How much does it cost? Your first 3 finished invoices are free. Premium costs A$4.99 a month or A$39 a year and adds unlimited invoices, sending by email and the full history.
+- Can I change my ABN later? No. Your ABN is linked to your account for good once you confirm it, so check it carefully.
+- I didn't get the code by email. Wait a minute and check your spam or promotions folder. The email comes from noreply@subbiebill.com. You can ask for a new code after 60 seconds.
+- Can I fix a mistake after finishing? Yes. Open the invoice and tap Edit. It keeps the same invoice number.
+- The invoice PDF is always in English, whatever the interface language.
+- Not registered for GST: the PDF says "Invoice" and "No GST has been charged". Registered: "Tax Invoice" with 10% GST shown.
+- Support: support@subbiebill.com
