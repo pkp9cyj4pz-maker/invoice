@@ -4766,7 +4766,7 @@ function renderAccount(){$("ac_cur").innerHTML=esc(t("ac.current"))+" <b>"+esc(s
   if(!acNew){acShow(0);$("ac_email").value="";$("ac_email2").value="";acMsg("ac_emsg","")}else acShow(1);
   $("ac_pass").value="";$("ac_pass2").value="";acMsg("ac_pmsg","")}
 const acErr=st=>({bad_email:t("err.email"),same:t("ac.same"),taken:t("ac.taken"),too_many:t("code.too_many"),bad:t("code.bad"),expired:t("code.expired"),auth:t("st.expired")}[st]||t("err.service"));
-async function acCall(body){const {data,error}=await sb.functions.invoke("change-email",{body});
+async function acCall(body){const {data,error}=await sb.functions.invoke("change-mail",{body});
   if(data)return data;let st="";try{st=(await error.context.json()).status||""}catch(e){}return{ok:false,status:st}}
 $("ac_send").onclick=async()=>{const em=lc($("ac_email").value);acMsg("ac_emsg","");
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){acMsg("ac_emsg",t("err.email"));return}
