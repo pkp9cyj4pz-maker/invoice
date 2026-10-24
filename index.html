@@ -1155,6 +1155,14 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 .pchips{list-style:none;margin:-4px 0 18px;padding:0;display:flex;flex-wrap:wrap;gap:8px 10px}
 .pchips li{display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font-weight:700;font-size:.9rem}
 .pchips svg{width:18px;height:18px;flex:none;color:var(--hivis,#DCF23D)}
+
+/* account sheet */
+#p_account .achead{font-size:1.05rem;margin:4px 0 0}
+#p_account .acsep{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+#p_account .accur{margin:0;overflow-wrap:anywhere}#p_account .accur b{color:var(--ink)}
+#p_account .accode{margin:0;overflow-wrap:anywhere}
+#p_account .acsmall{font-size:.86rem;margin:0}
+#p_account .err:empty{display:none}
 </style>
 </head>
 <body>
@@ -1281,6 +1289,33 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
       </div>
     </section>
 
+    <section id="p_account" class="form" hidden data-i18n-title="ac.title">
+      <h3 class="achead" data-i18n="ac.email_h">Email</h3>
+      <p class="muted accur" id="ac_cur"></p>
+      <div id="ac_e1" class="form">
+        <label for="ac_email" data-i18n="ac.new_email">New email</label>
+        <input id="ac_email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false">
+        <button class="primary" id="ac_send" type="button" data-i18n="ac.send">Send me a code</button>
+      </div>
+      <div id="ac_e2" class="form" hidden>
+        <p id="ac_codeintro" class="accode"></p>
+        <label for="ac_code" data-i18n="code.label">Confirmation code</label>
+        <input id="ac_code" class="mono codeinput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="••••••">
+        <button class="primary" id="ac_verify" type="button" data-i18n="ac.verify">Confirm</button>
+        <p class="muted acsmall" data-i18n="code.spam">Can't find it? Check your spam or promotions folder.</p>
+        <button class="linkbtn" id="ac_cancel" type="button" data-i18n="ac.cancel">Cancel</button>
+      </div>
+      <p id="ac_emsg" class="err" role="status"></p>
+      <p id="ac_stripe" class="muted acsmall" hidden data-i18n="ac.stripe">Your Stripe receipts still go to your old email. To change it, open “Manage my subscription”.</p>
+      <h3 class="achead acsep" data-i18n="ac.pass_h">Password</h3>
+      <label for="ac_pass" data-i18n="rs.new">New password</label>
+      <input id="ac_pass" type="password" autocomplete="new-password">
+      <label for="ac_pass2" data-i18n="rs.new2">Confirm new password</label>
+      <input id="ac_pass2" type="password" autocomplete="new-password">
+      <button class="primary" id="ac_psave" type="button" data-i18n="ac.psave">Change my password</button>
+      <p id="ac_pmsg" class="err" role="status"></p>
+    </section>
+
     <section id="p_ref" hidden data-i18n-title="ref.title">
       <p class="refintro" data-i18n="ref.intro">Share your link. When a friend signs up with it and takes Premium, you get 1 month of Premium free. Your friend gets 1 extra free invoice.</p>
       <p id="ref_won" class="refwon" role="status" hidden></p>
@@ -1369,6 +1404,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
         <nav class="mlist mcard" data-i18n-aria="m.title" aria-label="Menu">
           <a class="mitem" id="m_manage" href="#" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span><b data-i18n="m.manage">Manage my subscription</b><small id="m_manage_sub" data-i18n="m.manage_sub">Cancel, change your card or see your receipts.</small></span></a>
           <button class="mitem" type="button" data-open="p_infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b data-i18n="m.infos">My details</b><small data-i18n="m.infos_sub">name, ABN, bank</small></span></button>
+          <button class="mitem" type="button" data-open="p_account" id="m_account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg><span><b data-i18n="m.account2">Email and password</b><small data-i18n="m.account2_sub">change your login details</small></span></button>
           <button class="mitem" type="button" data-open="p_lists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg><span><b data-i18n="m.lists">Clients and sites</b><small data-i18n="m.lists_sub">manage your lists</small></span></button>
           <button class="mitem" type="button" data-open="p_ref" id="m_ref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M12 8c-1.5-3-5-3.5-5-1.2C7 8 9.5 8 12 8zM12 8c1.5-3 5-3.5 5-1.2C17 8 14.5 8 12 8z"/></svg><span><b data-i18n="m.ref">Invite a friend</b><small data-i18n="m.ref_sub">1 month of Premium for you</small></span></button>
           <button class="mitem" type="button" id="m_install" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg><span><b data-i18n="ins.menu">Add to home screen</b><small data-i18n="ins.menu_sub">open SubbieBill like an app</small></span></button>
@@ -1729,6 +1765,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "m.account2":"Email and password","m.account2_sub":"change your login details","ac.title":"Email and password","ac.email_h":"Email","ac.current":"Current email:","ac.new_email":"New email","ac.send":"Send me a code","ac.code_new":"We sent a code to {email}. Enter it below.","ac.code_old":"Last step: we also sent a code to your current email, {email}. Enter it below.","ac.verify":"Confirm","ac.cancel":"Cancel","ac.same":"That's already your email.","ac.taken":"This email is already used by another account.","ac.half":"First code accepted.","ac.done":"Email changed. Use it to log in from now on.","ac.stripe":"Your Stripe receipts still go to your old email. To change it, open “Manage my subscription”.","ac.pass_h":"Password","ac.psave":"Change my password","ac.pdone":"Password changed.","ac.reauth":"For your security, log out and log in again, then change your password.",
   "arg.h1":"Save time every week","arg.h2":"Turn your hours into professional invoices","arg.h3":"Built for Australian subcontractors","arg.1t":"Create your invoice in seconds","arg.1d":"Enter your hours, tap once, and your PDF invoice is ready.","arg.2t":"Built for Australian subcontractors","arg.2d":"ABN, BSB, GST and AUD, set up the Australian way.","arg.3t":"Track your hours, day by day","arg.3d":"Start, finish and breaks for every day you work.","arg.4t":"Let SubbieBill calculate your totals","arg.4d":"Hours, rates, overtime, public holidays and GST, worked out for you.","arg.5t":"Professional invoices, ready to send","arg.5d":"A clean PDF that looks right to the business that pays you.","arg.6t":"Made for hourly workers","arg.6d":"No quotes, no stock: just your hours, your rate and your client.","arg.7t":"Invoicing made easy on mobile","arg.7d":"Works on your phone, on site. Nothing to install.","arg.8t":"Keep your clients and work locations organised","arg.8d":"Save each client and site once, then pick them in a tap.","arg.9t":"Save your details","arg.9d":"Your name, ABN and bank details fill in every week, kept private in your account.","arg.10t":"Send and download your invoices","arg.10d":"Download the PDF, or have it emailed to your client (Premium).","arg.11t":"Keep track of your previous invoices","arg.11d":"Your invoices stay in your History, with totals per year.","arg.12t":"Manage your invoices wherever you work","arg.12d":"On site, at home or on your smoko, from any device.","arg.p1":"3 invoices free","arg.p2":"No credit card to start","arg.p3":"Simple, affordable pricing",
   "auth.title_hl":"free","auth.abn2":"Your ABN will be {hl} and can't be changed later.","auth.abn2_hl":"linked to your account for good","ref.inv_s2":"Sign up and get {hl} instead of 3.","ref.inv_hl":"4 free invoices","ref.inv_badge":"free",
   "ref.inv_t":"{name} invited you 🎁","ref.inv_t0":"A friend invited you 🎁","ref.inv_s":"Your gift: 4 free invoices instead of 3.",
@@ -2091,6 +2128,7 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "m.account2":"Email et mot de passe","m.account2_sub":"modifier tes identifiants","ac.title":"Email et mot de passe","ac.email_h":"Email","ac.current":"Email actuel :","ac.new_email":"Nouvel email","ac.send":"M'envoyer un code","ac.code_new":"On a envoyé un code à {email}. Entre-le ci-dessous.","ac.code_old":"Dernière étape : on a aussi envoyé un code à ton email actuel, {email}. Entre-le ci-dessous.","ac.verify":"Confirmer","ac.cancel":"Annuler","ac.same":"C'est déjà ton email.","ac.taken":"Cet email est déjà utilisé par un autre compte.","ac.half":"Premier code validé.","ac.done":"Email modifié. Utilise-le désormais pour te connecter.","ac.stripe":"Tes reçus Stripe arrivent encore sur ton ancien email. Pour le changer, ouvre « Gérer mon abonnement ».","ac.pass_h":"Mot de passe","ac.psave":"Changer mon mot de passe","ac.pdone":"Mot de passe modifié.","ac.reauth":"Par sécurité, déconnecte-toi puis reconnecte-toi, et change ton mot de passe ensuite.",
   "arg.h1":"Gagne du temps chaque semaine","arg.h2":"Tes heures deviennent des factures pro","arg.h3":"Conçu pour les sous-traitants en Australie","arg.1t":"Ta facture en quelques secondes","arg.1d":"Entre tes heures, un tap, et ta facture PDF est prête.","arg.2t":"Conçu pour les sous-traitants australiens","arg.2d":"ABN, BSB, GST et AUD, réglés à l'australienne.","arg.3t":"Tes heures, jour par jour","arg.3d":"Début, fin et pauses pour chaque jour travaillé.","arg.4t":"SubbieBill calcule tes totaux","arg.4d":"Heures, taux, heures sup, jours fériés et GST, calculés pour toi.","arg.5t":"Des factures pro, prêtes à envoyer","arg.5d":"Un PDF propre, comme l'attend l'entreprise qui te paie.","arg.6t":"Pensé pour ceux payés à l'heure","arg.6d":"Pas de devis, pas de stock : tes heures, ton taux, ton client.","arg.7t":"Simple sur téléphone","arg.7d":"Ça marche sur ton téléphone, en plein chantier. Rien à installer.","arg.8t":"Tes clients et chantiers organisés","arg.8d":"Enregistre chaque client et chantier une fois, choisis-les en un tap.","arg.9t":"Tes infos réutilisées","arg.9d":"Nom, ABN et coordonnées bancaires remplis chaque semaine, gardés privés sur ton compte.","arg.10t":"Envoie et télécharge tes factures","arg.10d":"Télécharge le PDF, ou fais-le envoyer à ton client par email (Premium).","arg.11t":"L'historique de tes factures","arg.11d":"Tes factures restent dans ton historique, avec les totaux par année.","arg.12t":"Tes factures partout où tu bosses","arg.12d":"Sur le chantier, à la maison ou en pause, depuis n'importe quel appareil.","arg.p1":"3 factures gratuites","arg.p2":"Sans carte bancaire pour commencer","arg.p3":"Un prix simple et abordable",
   "auth.title_hl":"gratuit","auth.abn2":"Ton ABN sera {hl} et ne pourra plus être changé.","auth.abn2_hl":"lié à ton compte pour de bon","ref.inv_s2":"Crée ton compte et profite de {hl} au lieu de 3.","ref.inv_hl":"4 factures gratuites","ref.inv_badge":"gratuites",
   "ref.inv_t":"{name} t'a invité 🎁","ref.inv_t0":"Un ami t'a invité 🎁","ref.inv_s":"Ton cadeau : 4 factures gratuites au lieu de 3.",
@@ -2447,6 +2485,7 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "m.account2":"Email y contraseña","m.account2_sub":"cambia tus datos de acceso","ac.title":"Email y contraseña","ac.email_h":"Email","ac.current":"Email actual:","ac.new_email":"Nuevo email","ac.send":"Enviarme un código","ac.code_new":"Enviamos un código a {email}. Escríbelo abajo.","ac.code_old":"Último paso: también enviamos un código a tu email actual, {email}. Escríbelo abajo.","ac.verify":"Confirmar","ac.cancel":"Cancelar","ac.same":"Ese ya es tu email.","ac.taken":"Este email ya lo usa otra cuenta.","ac.half":"Primer código aceptado.","ac.done":"Email cambiado. Úsalo a partir de ahora para iniciar sesión.","ac.stripe":"Tus recibos de Stripe siguen llegando a tu email anterior. Para cambiarlo, abre «Gestionar mi suscripción».","ac.pass_h":"Contraseña","ac.psave":"Cambiar mi contraseña","ac.pdone":"Contraseña cambiada.","ac.reauth":"Por seguridad, cierra sesión y vuelve a entrar, y luego cambia tu contraseña.",
   "arg.h1":"Ahorra tiempo cada semana","arg.h2":"Convierte tus horas en facturas profesionales","arg.h3":"Hecho para subcontratistas en Australia","arg.1t":"Tu factura en segundos","arg.1d":"Pon tus horas, un toque, y tu factura PDF está lista.","arg.2t":"Hecho para subcontratistas australianos","arg.2d":"ABN, BSB, GST y AUD, al estilo australiano.","arg.3t":"Tus horas, día a día","arg.3d":"Inicio, fin y pausas de cada día que trabajas.","arg.4t":"SubbieBill calcula tus totales","arg.4d":"Horas, tarifas, horas extra, festivos y GST, calculados por ti.","arg.5t":"Facturas profesionales, listas para enviar","arg.5d":"Un PDF limpio, como lo espera la empresa que te paga.","arg.6t":"Pensado para quien cobra por hora","arg.6d":"Sin presupuestos ni stock: tus horas, tu tarifa y tu cliente.","arg.7t":"Fácil desde el móvil","arg.7d":"Funciona en tu teléfono, en la obra. Nada que instalar.","arg.8t":"Tus clientes y obras organizados","arg.8d":"Guarda cada cliente y obra una vez y elígelos con un toque.","arg.9t":"Tus datos guardados","arg.9d":"Nombre, ABN y datos bancarios rellenados cada semana, privados en tu cuenta.","arg.10t":"Envía y descarga tus facturas","arg.10d":"Descarga el PDF o haz que se envíe a tu cliente por email (Premium).","arg.11t":"El historial de tus facturas","arg.11d":"Tus facturas quedan en tu historial, con totales por año.","arg.12t":"Tus facturas donde trabajes","arg.12d":"En la obra, en casa o en tu descanso, desde cualquier dispositivo.","arg.p1":"3 facturas gratis","arg.p2":"Sin tarjeta para empezar","arg.p3":"Precio simple y asequible",
   "auth.title_hl":"gratis","auth.abn2":"Tu ABN quedará {hl} y no se podrá cambiar.","auth.abn2_hl":"vinculado a tu cuenta para siempre","ref.inv_s2":"Regístrate y obtén {hl} en lugar de 3.","ref.inv_hl":"4 facturas gratis","ref.inv_badge":"gratis",
   "ref.inv_t":"{name} te ha invitado 🎁","ref.inv_t0":"Un amigo te ha invitado 🎁","ref.inv_s":"Tu regalo: 4 facturas gratis en lugar de 3.",
@@ -2901,6 +2940,7 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "m.account2":"Email e password","m.account2_sub":"cambia i dati di accesso","ac.title":"Email e password","ac.email_h":"Email","ac.current":"Email attuale:","ac.new_email":"Nuova email","ac.send":"Inviami un codice","ac.code_new":"Abbiamo inviato un codice a {email}. Inseriscilo qui sotto.","ac.code_old":"Ultimo passo: abbiamo inviato un codice anche alla tua email attuale, {email}. Inseriscilo qui sotto.","ac.verify":"Conferma","ac.cancel":"Annulla","ac.same":"È già la tua email.","ac.taken":"Questa email è già usata da un altro account.","ac.half":"Primo codice accettato.","ac.done":"Email cambiata. D'ora in poi usala per accedere.","ac.stripe":"Le ricevute Stripe arrivano ancora alla tua vecchia email. Per cambiarla, apri «Gestisci il mio abbonamento».","ac.pass_h":"Password","ac.psave":"Cambia la mia password","ac.pdone":"Password cambiata.","ac.reauth":"Per sicurezza, esci e accedi di nuovo, poi cambia la password.",
   "arg.h1":"Risparmia tempo ogni settimana","arg.h2":"Le tue ore diventano fatture professionali","arg.h3":"Fatto per i subappaltatori in Australia","arg.1t":"La tua fattura in pochi secondi","arg.1d":"Inserisci le ore, un tocco, e la fattura PDF è pronta.","arg.2t":"Fatto per i subappaltatori australiani","arg.2d":"ABN, BSB, GST e AUD, impostati all'australiana.","arg.3t":"Le tue ore, giorno per giorno","arg.3d":"Inizio, fine e pause per ogni giorno di lavoro.","arg.4t":"SubbieBill calcola i totali","arg.4d":"Ore, tariffe, straordinari, festivi e GST, calcolati per te.","arg.5t":"Fatture professionali, pronte da inviare","arg.5d":"Un PDF pulito, come se lo aspetta l'azienda che ti paga.","arg.6t":"Pensato per chi è pagato a ore","arg.6d":"Niente preventivi né magazzino: le tue ore, la tua tariffa, il tuo cliente.","arg.7t":"Semplice dal telefono","arg.7d":"Funziona sul telefono, in cantiere. Niente da installare.","arg.8t":"Clienti e cantieri in ordine","arg.8d":"Salva ogni cliente e cantiere una volta e sceglili con un tocco.","arg.9t":"I tuoi dati salvati","arg.9d":"Nome, ABN e dati bancari compilati ogni settimana, privati nel tuo account.","arg.10t":"Invia e scarica le fatture","arg.10d":"Scarica il PDF o fallo inviare al cliente via email (Premium).","arg.11t":"Lo storico delle fatture","arg.11d":"Le fatture restano nella Cronologia, con i totali annuali.","arg.12t":"Le fatture ovunque lavori","arg.12d":"In cantiere, a casa o in pausa, da qualsiasi dispositivo.","arg.p1":"3 fatture gratuite","arg.p2":"Nessuna carta per iniziare","arg.p3":"Prezzo semplice e accessibile",
   "auth.title_hl":"gratuito","auth.abn2":"Il tuo ABN sarà {hl} e non si potrà cambiare.","auth.abn2_hl":"collegato al tuo account per sempre","ref.inv_s2":"Iscriviti e ricevi {hl} invece di 3.","ref.inv_hl":"4 fatture gratuite","ref.inv_badge":"gratis",
   "ref.inv_t":"{name} ti ha invitato 🎁","ref.inv_t0":"Un amico ti ha invitato 🎁","ref.inv_s":"Il tuo regalo: 4 fatture gratuite invece di 3.",
@@ -3504,6 +3544,7 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "m.account2":"Email e senha","m.account2_sub":"alterar seus dados de acesso","ac.title":"Email e senha","ac.email_h":"Email","ac.current":"Email atual:","ac.new_email":"Novo email","ac.send":"Enviar um código","ac.code_new":"Enviamos um código para {email}. Digite abaixo.","ac.code_old":"Último passo: também enviamos um código para seu email atual, {email}. Digite abaixo.","ac.verify":"Confirmar","ac.cancel":"Cancelar","ac.same":"Esse já é o seu email.","ac.taken":"Este email já é usado por outra conta.","ac.half":"Primeiro código aceito.","ac.done":"Email alterado. Use-o para entrar a partir de agora.","ac.stripe":"Seus recibos da Stripe ainda vão para o email antigo. Para mudar, abra “Gerenciar minha assinatura”.","ac.pass_h":"Senha","ac.psave":"Mudar minha senha","ac.pdone":"Senha alterada.","ac.reauth":"Por segurança, saia e entre de novo, depois mude sua senha.",
   "arg.h1":"Ganhe tempo toda semana","arg.h2":"Suas horas viram faturas profissionais","arg.h3":"Feito para subcontratados na Austrália","arg.1t":"Sua fatura em segundos","arg.1d":"Digite suas horas, um toque, e a fatura PDF está pronta.","arg.2t":"Feito para subcontratados australianos","arg.2d":"ABN, BSB, GST e AUD, do jeito australiano.","arg.3t":"Suas horas, dia a dia","arg.3d":"Início, fim e pausas de cada dia trabalhado.","arg.4t":"O SubbieBill calcula seus totais","arg.4d":"Horas, valores, hora extra, feriados e GST, calculados para você.","arg.5t":"Faturas profissionais, prontas para enviar","arg.5d":"Um PDF limpo, como a empresa que paga você espera.","arg.6t":"Feito para quem recebe por hora","arg.6d":"Sem orçamentos nem estoque: suas horas, seu valor e seu cliente.","arg.7t":"Fácil no celular","arg.7d":"Funciona no celular, na obra. Nada para instalar.","arg.8t":"Clientes e obras organizados","arg.8d":"Salve cada cliente e obra uma vez e escolha com um toque.","arg.9t":"Seus dados salvos","arg.9d":"Nome, ABN e dados bancários preenchidos toda semana, privados na sua conta.","arg.10t":"Envie e baixe suas faturas","arg.10d":"Baixe o PDF ou faça o envio ao cliente por email (Premium).","arg.11t":"O histórico das suas faturas","arg.11d":"Suas faturas ficam no Histórico, com totais por ano.","arg.12t":"Suas faturas onde você trabalhar","arg.12d":"Na obra, em casa ou no intervalo, de qualquer aparelho.","arg.p1":"3 faturas grátis","arg.p2":"Sem cartão para começar","arg.p3":"Preço simples e acessível",
   "auth.title_hl":"grátis","auth.abn2":"Seu ABN ficará {hl} e não poderá ser mudado.","auth.abn2_hl":"vinculado à sua conta para sempre","ref.inv_s2":"Cadastre-se e ganhe {hl} em vez de 3.","ref.inv_hl":"4 faturas grátis","ref.inv_badge":"grátis",
   "ref.inv_t":"{name} convidou você 🎁","ref.inv_t0":"Um amigo convidou você 🎁","ref.inv_s":"Seu presente: 4 faturas grátis em vez de 3.",
@@ -4450,7 +4491,7 @@ $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 /* ---------- sheets ---------- */
 function openSheet(id,opts){closeMenu();curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";document.querySelector("#sheetov .sheetbox").scrollTop=0;
-  if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_ref")renderRef();if(id==="p_premium")renderPremium();
+  if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_ref")renderRef();if(id==="p_account")renderAccount();if(id==="p_premium")renderPremium();
   if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";$("abn_msg").classList.remove("okmsg");["bsb","acc","email"].forEach(k=>$(k+"_msg").textContent="");renderAbn();renderGstReg();renderMissing()}
   if(id==="p_admin"&&!(opts&&opts.keep))loadAdmin(true)}
 function closeSheet(){if(curSheet==="p_preview"&&pvBack==="admin"){pvBack=null;openSheet("p_admin",{keep:true});return}
@@ -4697,6 +4738,50 @@ $("resetform").addEventListener("submit",async ev=>{ev.preventDefault();
     const who=rsUser;rsUser=null;if(await loadAccount(who))pdfMsg(t("rs.done"))}
   catch(x){err.textContent=t("err.offline")}
   finally{b.disabled=false;b.textContent=t("rs.save")}});
+
+/* ---------- account: change email (code sent by email) and password ---------- */
+let acNew="",acStep=0;
+const lc=x=>String(x||"").trim().toLowerCase();
+function acMsg(id,txt,ok){const e=$(id);e.textContent=txt||"";e.classList.toggle("okmsg",!!ok)}
+function acShow(st){acStep=st;$("ac_e1").hidden=st!==0;$("ac_e2").hidden=st===0;
+  if(st){$("ac_codeintro").textContent=t(st===1?"ac.code_new":"ac.code_old",{email:st===1?acNew:(session&&session.email)||""});$("ac_code").value="";setTimeout(()=>$("ac_code").focus(),50)}}
+function renderAccount(){$("ac_stripe").hidden=true;$("ac_cur").innerHTML=esc(t("ac.current"))+" <b>"+esc(session?session.email:"")+"</b>";
+  if(!acNew){acShow(0);$("ac_email").value="";acMsg("ac_emsg","")}else acShow(acStep||1);
+  $("ac_pass").value="";$("ac_pass2").value="";acMsg("ac_pmsg","")}
+$("ac_send").onclick=async()=>{const em=lc($("ac_email").value);acMsg("ac_emsg","");
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){acMsg("ac_emsg",t("err.email"));return}
+  if(session&&em===lc(session.email)){acMsg("ac_emsg",t("ac.same"));return}
+  const b=$("ac_send");b.disabled=true;b.textContent=t("auth.wait");
+  try{const {error}=await sb.auth.updateUser({email:em});
+    if(error){const m=error.message||"";acMsg("ac_emsg",/already|registered|exists/i.test(m)?t("ac.taken"):/rate|seconds|limit/i.test(m)?t("code.too_many"):/session|jwt|expired/i.test(m)?t("st.expired"):t("err.service"));return}
+    acNew=em;acShow(1)}
+  catch(x){acMsg("ac_emsg",t("err.offline"))}
+  finally{b.disabled=false;b.textContent=t("ac.send")}};
+$("ac_code").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,"");if(v!==e.target.value)e.target.value=v});
+$("ac_code").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("ac_verify").click()}});
+$("ac_email").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("ac_send").click()}});
+$("ac_cancel").onclick=()=>{acNew="";acShow(0);acMsg("ac_emsg","")};
+$("ac_verify").onclick=async()=>{const code=$("ac_code").value.replace(/\D/g,"");acMsg("ac_emsg","");
+  if(code.length<6){acMsg("ac_emsg",t("code.short"));return}
+  const b=$("ac_verify");b.disabled=true;b.textContent=t("auth.wait");
+  try{const {data,error}=await sb.auth.verifyOtp({email:acStep===1?acNew:session.email,token:code,type:"email_change"});
+    if(error){acMsg("ac_emsg",/expired|invalid/i.test(error.message||"")?t("code.bad"):t("err.service"));return}
+    let u=data&&data.user;
+    if(!u||lc(u.email)!==acNew){try{const r=await sb.auth.refreshSession();u=(r&&r.data&&r.data.user)||u}catch(e){}}
+    if(u&&lc(u.email)===acNew){session.email=u.email;acNew="";renderMenu();renderAccount();acMsg("ac_emsg",t("ac.done"),true);$("ac_stripe").hidden=!plan.premium;return}
+    if(acStep===1){acShow(2);acMsg("ac_emsg",t("ac.half"),true);return}
+    acMsg("ac_emsg",t("ac.half"),true)}
+  catch(x){acMsg("ac_emsg",t("err.offline"))}
+  finally{b.disabled=false;b.textContent=t("ac.verify")}};
+$("ac_psave").onclick=async()=>{const pw=$("ac_pass").value;acMsg("ac_pmsg","");
+  if(pw.length<8){acMsg("ac_pmsg",t("err.pass_len"));return}
+  if(pw!==$("ac_pass2").value){acMsg("ac_pmsg",t("err.pass_match"));return}
+  const b=$("ac_psave");b.disabled=true;b.textContent=t("auth.wait");
+  try{const {error}=await sb.auth.updateUser({password:pw});
+    if(error){const m=error.message||"";acMsg("ac_pmsg",/different|same/i.test(m)?t("rs.same"):/reauth|recent/i.test(m)?t("ac.reauth"):/session|jwt|expired/i.test(m)?t("st.expired"):t("err.service"));return}
+    $("ac_pass").value="";$("ac_pass2").value="";acMsg("ac_pmsg",t("ac.pdone"),true)}
+  catch(x){acMsg("ac_pmsg",t("err.offline"))}
+  finally{b.disabled=false;b.textContent=t("ac.psave")}};
 /* back from the email link? (runs before the normal start, which then sees no app session yet) */
 async function takeRecovery(){const h=new URLSearchParams((location.hash||"").replace(/^#/,""));
   if(h.get("type")!=="recovery"&&!h.get("error_code"))return false;
