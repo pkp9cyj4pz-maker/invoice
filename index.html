@@ -1163,6 +1163,55 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 #p_account .accode{margin:0;overflow-wrap:anywhere}
 #p_account .acsmall{font-size:.86rem;margin:0}
 #p_account .err:empty{display:none}
+
+/* ===== menu + settings v3 (user's mockup) ===== */
+#menupop .m2head{background:transparent;padding:4px 4px 14px}
+#menupop .m2head .acct2{display:flex;align-items:center;gap:14px}
+#menupop .mavatar{width:60px;height:60px;font:800 1.45rem/1 var(--head);letter-spacing:.02em}
+#menupop .acctinfo strong{font:800 1.18rem/1.2 var(--head);letter-spacing:.01em}
+#menupop #acctplan.pro .mpro{font-family:var(--head);font-size:1.15rem;font-weight:800}
+.m2card{border-radius:18px}
+.m2card+.m2card{margin-top:12px}
+.mcard .mitem.m2{gap:16px;min-height:72px;padding:14px 16px;text-decoration:none;color:var(--ink)}
+.mitem.m2 .m2ico{flex:none;display:grid;place-items:center;color:var(--accent,#FF7A2F)}
+.mitem.m2 .m2ico svg{width:30px;height:30px;opacity:1;color:inherit}
+.mitem.m2 .m2txt{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.mitem.m2 b{font:800 1.22rem/1.15 var(--head);letter-spacing:.01em}
+.mitem.m2 small{font-size:.88rem;color:var(--muted)}
+.mitem.m2gold .m2ico{color:#F5C542}
+.mitem.m2out .m2ico{color:var(--accent,#FF7A2F)}
+.m2set .mitem.m2 .m2ico{width:40px}
+.m2set .mitem.m2 .m2ico svg{width:30px;height:30px}
+.m2set .mitem.m2{min-height:84px}
+.sheethead .sheetback{flex:none;width:46px;height:46px;min-height:46px;padding:0;display:grid;place-items:center;border-radius:14px;border:1px solid var(--line);background:transparent;color:var(--ink)}
+.sheethead .sheetback svg{width:22px;height:22px}
+.sheethead .sheetback[hidden]{display:none}
+.sheethead:has(.sheetback:not([hidden])) h2{flex:1;text-align:center}
+#p_lang .langrow{padding:4px 0}
+/* premium polish */
+#menupop .mavatar{background:var(--accent-soft,#3A2618);border:2px solid color-mix(in srgb,var(--accent,#FF7A2F) 60%,transparent);color:#FFD9C2}
+#menupop .mavatar.pro{background:color-mix(in srgb,#F5C542 16%,var(--field));border-color:#F5C542;color:#FFE9A3}
+#menupop #acctplan:not(.pro){display:grid;grid-template-columns:1fr auto;align-items:center;gap:4px 10px;color:var(--muted)}
+#menupop #acctplan .mfree{grid-column:1/-1;font-size:.9rem}
+#menupop #acctplan .mbar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+#menupop #acctplan .mbar i{display:block;height:100%;border-radius:inherit;background:var(--accent,#FF7A2F)}
+#menupop #acctplan .mbarn{font:600 .78rem/1 var(--mono);color:var(--muted)}
+.mcard .mitem.m2gold#m_premium{background:linear-gradient(100deg,color-mix(in srgb,#F5C542 16%,var(--field)) 0%,color-mix(in srgb,var(--field) 70%,var(--paper)) 75%)}
+.mcard .mitem.m2gold#m_premium b{color:#F5C542}
+.mitem.m2 #m_manage_sub{margin-top:0;font-size:.88rem}
+/* Free: "Go Premium" looks like the gold Premium badge, with the crown */
+.topr #btn_gopro{display:inline-flex;align-items:center;gap:4px;min-height:0;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;border-radius:999px;white-space:nowrap;
+  background:linear-gradient(135deg,#FFE9A3 0%,#F5C542 45%,#D99A1E 100%);border:1px solid #C98A12;color:#3A2500;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 2px 8px -3px rgba(201,138,18,.7)}
+.topr #btn_gopro[hidden]{display:none}
+.topr #btn_gopro::before{content:"";width:12px;height:12px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 8l4.5 3.5L12 5l4.5 6.5L21 8l-2 11H5z'/%3E%3C/svg%3E") center/contain no-repeat}
+@media (max-width:360px){.topr #btn_gopro{font-size:.62rem;padding:5px 8px;letter-spacing:.03em}}
+.sheethead:has(.sheetback:not([hidden])) h2{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sheethead #sheetclose{flex:none}
+@media (max-width:360px){.m2set .mitem.m2 .m2ico{width:32px}.mcard .mitem.m2{gap:12px;padding:12px}.sheethead:has(.sheetback:not([hidden])) h2{font-size:1.45rem}}
+#p_lang .m2note{font-size:.88rem;margin:10px 0 0}
+
+/* at the top of the page (not scrolled): no bar under the status bar */
+html.attop::before{display:none}
 </style>
 </head>
 <body>
@@ -1170,7 +1219,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 <div id="annbar" class="annbar" hidden role="status"><p id="anntext"></p><button id="annx" type="button" data-i18n-aria="a.ann_close" aria-label="Close">×</button></div>
 <div id="sheetov" class="ov" hidden>
   <div class="sheetbox" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
-    <div class="sheethead"><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
+    <div class="sheethead"><button id="sheetback" class="sheetback" type="button" hidden data-i18n-aria="s2.back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
 
     <section id="p_infos" class="form" hidden data-i18n-title="i.title">
       <p class="muted" style="margin:0" data-i18n="i.intro">Everything marked “On invoice” is printed on your invoices. Fill it in once.</p>
@@ -1290,11 +1339,21 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     </section>
 
     <section id="p_settings" hidden data-i18n-title="m.params">
-      <nav class="mlist mcard" data-i18n-aria="m.params" aria-label="Settings">
-        <button class="mitem" type="button" data-open="p_infos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span><b data-i18n="m.infos">My details</b><small data-i18n="m.infos_sub">name, ABN, bank</small></span></button>
-        <button class="mitem" type="button" data-open="p_account" id="m_account"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg><span><b data-i18n="m.account2">Email and password</b><small data-i18n="m.account2_sub">change your login details</small></span></button>
-        <button class="mitem" type="button" data-open="p_lists"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M9 21v-6h6v6"/></svg><span><b data-i18n="m.lists">Clients and sites</b><small data-i18n="m.lists_sub">manage your lists</small></span></button>
+      <nav class="mlist mcard m2card m2set" data-i18n-aria="m.params" aria-label="Settings">
+        <button class="mitem m2" type="button" data-open="p_infos"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><span class="m2txt"><b data-i18n="s2.infos">My details</b><small data-i18n="s2.infos_sub">Name, ABN, bank and contact details</small></span></button>
+        <button class="mitem m2" type="button" data-open="p_account" id="m_account"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span><span class="m2txt"><b data-i18n="m.account2">Email and password</b><small data-i18n="m.account2_sub">change your login details</small></span></button>
+        <button class="mitem m2" type="button" data-open="p_lists"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.8c1.6.8 2.7 2.5 3 5.2"/></svg></span><span class="m2txt"><b data-i18n="s2.lists">Clients and job sites</b><small data-i18n="s2.lists_sub">Manage your clients and sites</small></span></button>
+        <button class="mitem m2" type="button" data-open="p_lang"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></span><span class="m2txt"><b data-i18n="s2.lang">Language</b><small data-i18n="s2.lang_sub">Choose the app language</small></span></button>
+        <a class="mitem m2" id="m_help" href="help.html" target="_blank" rel="noopener"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.3-2.5 3.8"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></span><span class="m2txt"><b data-i18n="s2.help">Help and contact</b><small data-i18n="s2.help_sub">Step-by-step guide and support</small></span></a>
       </nav>
+    </section>
+
+    <section id="p_lang" hidden data-i18n-title="s2.lang">
+      <div class="langrow">
+          <span class="lbl" id="langseg_lbl" data-i18n="lang.label">Language</span>
+          <div class="seg" id="langseg" role="radiogroup" aria-labelledby="langseg_lbl"></div>
+        </div>
+      <p class="muted m2note" data-i18n="s2.lang_note">Your invoices (the PDF) are always in English.</p>
     </section>
 
     <section id="p_account" class="form" hidden data-i18n-title="ac.title">
@@ -1402,26 +1461,24 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
     <div class="menuwrap">
       <button id="btn_menu" type="button" data-tip data-i18n-aria="top.menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="mx" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span data-i18n="top.menu">Menu</span></button>
       <div id="menupop" class="menupop" hidden>
-        <span class="lbl mlbl" data-i18n="m.account">Account</span>
-        <div class="acctbox">
+        <div class="acctbox m2head">
           <div class="acct2">
             <span class="mavatar" id="m_avatar" aria-hidden="true"><span id="m_init"></span><i class="mavcrown"></i></span>
             <span class="acctinfo"><strong id="acctemail"></strong><span id="acctplan" class="muted"></span></span>
           </div>
-          <button class="primary" id="m_premium" type="button" data-i18n="m.premium">Upgrade to Premium</button>
         </div>
-        <nav class="mlist mcard" data-i18n-aria="m.title" aria-label="Menu">
-          <button class="mitem" type="button" data-open="p_settings" id="m_settings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span><b data-i18n="m.params">Settings</b><small data-i18n="m.params_sub">my details, email, password, clients</small></span></button>
-          <a class="mitem" id="m_manage" href="#" rel="noopener" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M6.5 15h4"/></svg><span><b data-i18n="m.manage">Manage my subscription</b><small id="m_manage_sub" data-i18n="m.manage_sub">Cancel, change your card or see your receipts.</small></span></a>
-          <button class="mitem" type="button" data-open="p_ref" id="m_ref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M12 8c-1.5-3-5-3.5-5-1.2C7 8 9.5 8 12 8zM12 8c1.5-3 5-3.5 5-1.2C17 8 14.5 8 12 8z"/></svg><span><b data-i18n="m.ref">Invite a friend</b><small data-i18n="m.ref_sub">1 month of Premium for you</small></span></button>
-          <button class="mitem" type="button" id="m_install" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg><span><b data-i18n="ins.menu">Add to home screen</b><small data-i18n="ins.menu_sub">open SubbieBill like an app</small></span></button>
-          <button class="mitem" type="button" data-open="p_admin" id="m_admin" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span><b data-i18n="m.admin">Admin</b><small data-i18n="m.admin_sub">stats and members</small></span></button>
+        <nav class="mlist mcard m2card" data-i18n-aria="m.title" aria-label="Menu">
+          <button class="mitem m2" type="button" data-open="p_settings" id="m_settings"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><span class="m2txt"><b data-i18n="m2.acct">My account</b><small data-i18n="m2.acct_sub">Details, ABN, email and password</small></span></button>
+          <button class="mitem m2 m2gold" type="button" id="m_premium"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg></span><span class="m2txt"><b data-i18n="m2.pro">Premium</b><small data-i18n="m2.pro_go">Go Premium: everything unlimited</small></span></button>
+          <a class="mitem m2 m2gold" id="m_manage" href="#" rel="noopener" hidden><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></svg></span><span class="m2txt"><b data-i18n="m2.pro">Premium</b><small id="m_manage_sub" data-i18n="m2.pro_manage">Manage your subscription</small></span></a>
+          <button class="mitem m2" type="button" data-open="p_lang" id="m_prefs"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span><span class="m2txt"><b data-i18n="m2.prefs">Preferences</b><small data-i18n="m2.prefs_sub">App language</small></span></button>
+          <button class="mitem m2" type="button" data-open="p_ref" id="m_ref"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M12 8c-1.5-3-5-3.5-5-1.2C7 8 9.5 8 12 8zM12 8c1.5-3 5-3.5 5-1.2C17 8 14.5 8 12 8z"/></svg></span><span class="m2txt"><b data-i18n="m.ref">Invite a friend</b><small data-i18n="m.ref_sub">1 month of Premium for you</small></span></button>
+          <button class="mitem m2" type="button" id="m_install" hidden><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M12 7v7M9 11l3 3 3-3M10 18h4"/></svg></span><span class="m2txt"><b data-i18n="ins.menu">Add to home screen</b><small data-i18n="ins.menu_sub">open SubbieBill like an app</small></span></button>
+          <button class="mitem m2" type="button" data-open="p_admin" id="m_admin" hidden><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><span class="m2txt"><b data-i18n="m.admin">Admin</b><small data-i18n="m.admin_sub">stats and members</small></span></button>
         </nav>
-        <div class="langrow">
-          <span class="lbl" id="langseg_lbl" data-i18n="lang.label">Language</span>
-          <div class="seg" id="langseg" role="radiogroup" aria-labelledby="langseg_lbl"></div>
-        </div>
-        <button class="mitem out mout" type="button" id="logout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b data-i18n="m.logout">Log out</b></span></button>
+        <nav class="mlist mcard m2card m2outcard" aria-label="Log out">
+          <button class="mitem m2 m2out" type="button" id="logout"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4"/><path d="M15 8l-4 4 4 4M11 12h10"/></svg></span><span class="m2txt"><b data-i18n="m.logout">Log out</b><small data-i18n="m2.logout_sub">Leave your account</small></span></button>
+        </nav>
       </div>
     </div>
   </div>
@@ -1772,6 +1829,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "m2.acct":"My account","m2.acct_sub":"Details, email, password","m2.pro":"Premium","m2.pro_go":"Everything unlimited","m2.pro_manage":"Manage your subscription","m2.prefs":"Preferences","m2.prefs_sub":"App language","m2.logout_sub":"Leave your account","s2.infos":"My details","s2.infos_sub":"Name, ABN and bank","s2.lists":"Clients and sites","s2.lists_sub":"Manage your lists","s2.lang":"Language","s2.lang_sub":"App language","s2.help":"Help and contact","s2.help_sub":"Guide and support","s2.lang_note":"Your invoices (the PDF) are always in English.","s2.back":"Back","m.params":"Settings","m2.free_n":"{n} free invoices left","m2.free_1":"1 free invoice left","m2.free_0":"No free invoices left",
   "ac.new_email2":"Confirm new email","ac.mismatch":"The two emails don't match.","ac.code_cur":"For your security, we sent a code to your current email, {email}. Enter it below to switch to {nemail}.",
   "m.params":"Settings","m.params_sub":"my details, email, password, clients",
   "m.account2":"Email and password","m.account2_sub":"change your login details","ac.title":"Email and password","ac.email_h":"Email","ac.current":"Current email:","ac.new_email":"New email","ac.send":"Send me a code","ac.code_new":"We sent a code to {email}. Enter it below.","ac.code_old":"Last step: we also sent a code to your current email, {email}. Enter it below.","ac.verify":"Confirm","ac.cancel":"Cancel","ac.same":"That's already your email.","ac.taken":"This email is already used by another account.","ac.half":"First code accepted.","ac.done":"Email changed. Use it to log in from now on.","ac.stripe":"Your Stripe receipts still go to your old email. To change it, open “Manage my subscription”.","ac.pass_h":"Password","ac.psave":"Change my password","ac.pdone":"Password changed.","ac.reauth":"For your security, log out and log in again, then change your password.",
@@ -2137,6 +2195,7 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "m2.acct":"Mon compte","m2.acct_sub":"Infos, email, mot de passe","m2.pro":"Premium","m2.pro_go":"Tout en illimité","m2.pro_manage":"Gérer ton abonnement","m2.prefs":"Préférences","m2.prefs_sub":"Langue de l'app","m2.logout_sub":"Quitter ton compte","s2.infos":"Mes informations","s2.infos_sub":"Nom, ABN et banque","s2.lists":"Clients et lieux","s2.lists_sub":"Gérer tes listes","s2.lang":"Langue","s2.lang_sub":"Langue de l'app","s2.help":"Aide et contact","s2.help_sub":"Guide et assistance","s2.lang_note":"Tes factures (le PDF) restent toujours en anglais.","s2.back":"Retour","m.params":"Paramètres","m2.free_n":"{n} factures gratuites restantes","m2.free_1":"1 facture gratuite restante","m2.free_0":"Plus de facture gratuite",
   "ac.new_email2":"Confirme le nouvel email","ac.mismatch":"Les deux emails ne sont pas identiques.","ac.code_cur":"Par sécurité, on a envoyé un code à ton email actuel, {email}. Entre-le ci-dessous pour passer à {nemail}.",
   "m.params":"Paramètres","m.params_sub":"mes infos, email, mot de passe, clients",
   "m.account2":"Email et mot de passe","m.account2_sub":"modifier tes identifiants","ac.title":"Email et mot de passe","ac.email_h":"Email","ac.current":"Email actuel :","ac.new_email":"Nouvel email","ac.send":"M'envoyer un code","ac.code_new":"On a envoyé un code à {email}. Entre-le ci-dessous.","ac.code_old":"Dernière étape : on a aussi envoyé un code à ton email actuel, {email}. Entre-le ci-dessous.","ac.verify":"Confirmer","ac.cancel":"Annuler","ac.same":"C'est déjà ton email.","ac.taken":"Cet email est déjà utilisé par un autre compte.","ac.half":"Premier code validé.","ac.done":"Email modifié. Utilise-le désormais pour te connecter.","ac.stripe":"Tes reçus Stripe arrivent encore sur ton ancien email. Pour le changer, ouvre « Gérer mon abonnement ».","ac.pass_h":"Mot de passe","ac.psave":"Changer mon mot de passe","ac.pdone":"Mot de passe modifié.","ac.reauth":"Par sécurité, déconnecte-toi puis reconnecte-toi, et change ton mot de passe ensuite.",
@@ -2408,7 +2467,7 @@ fr:{
   "days.mode_times":"Début – fin",
   "days.mode_aria":"Comment tu saisis tes heures",
   "save.auto_pro":"Enregistrée automatiquement dans ton historique ✓",
-  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"{n} facture(s) gratuite(s) sur {limit} restante(s)","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"Factures gratuites restantes : {n} sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des sous-traitants sous ABN",
   "lang.label":"Langue",
@@ -2479,7 +2538,7 @@ fr:{
   "m.title":"Menu","m.account":"Compte","m.premium":"Passer Premium","m.manage":"Gérer mon abonnement",
   "m.infos":"Mes infos","m.infos_sub":"nom, ABN, banque","m.settings":"Réglages","m.settings_sub":"taux, saisie",
   "m.lists":"Clients et lieux","m.lists_sub":"gérer les listes","m.logout":"Se déconnecter","lo.title":"Déconnexion ?","lo.txt":"Tes factures et tes infos restent enregistrées dans ton compte. Tu pourras te reconnecter quand tu veux avec ton email et ton mot de passe.","lo.go":"Oui, me déconnecter","lo.cancel":"Rester connecté",
-  "plan.free":"Gratuit · {n} facture(s) gratuite(s) sur {limit} restante(s)","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
+  "plan.free":"Gratuit · factures gratuites restantes : {n} sur {limit}","plan.pro":"Premium","plan.pro_until":"Premium jusqu'au {date}",
   "i.title":"Mes infos","i.intro":"Tout ce qui est marqué « Sur la facture » est imprimé sur tes factures. À remplir une seule fois.","i.name":"Nom et prénom","i.abn":"ABN","i.abn_ph":"11 chiffres",
   "i.email":"Email (facultatif)","i.phone":"Téléphone (facultatif)","i.addr":"Adresse (facultatif)","i.bsb":"BSB","i.acc":"Numéro de compte","i.ok":"C'est bon",
   "s.title":"Réglages","s.mode":"Comment tu saisis tes heures","s.times":"Début et fin","s.hours":"Nombre d'heures","s.unpaid":"J'ai une pause non payée",
@@ -2496,6 +2555,7 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "m2.acct":"Mi cuenta","m2.acct_sub":"Datos, email, contraseña","m2.pro":"Premium","m2.pro_go":"Todo ilimitado","m2.pro_manage":"Gestionar tu suscripción","m2.prefs":"Preferencias","m2.prefs_sub":"Idioma de la app","m2.logout_sub":"Salir de tu cuenta","s2.infos":"Mis datos","s2.infos_sub":"Nombre, ABN y banco","s2.lists":"Clientes y obras","s2.lists_sub":"Gestionar tus listas","s2.lang":"Idioma","s2.lang_sub":"Idioma de la app","s2.help":"Ayuda y contacto","s2.help_sub":"Guía y soporte","s2.lang_note":"Tus facturas (el PDF) siempre están en inglés.","s2.back":"Volver","m.params":"Ajustes","m2.free_n":"Te quedan {n} facturas gratis","m2.free_1":"Te queda 1 factura gratis","m2.free_0":"No te quedan facturas gratis",
   "ac.new_email2":"Confirma el nuevo email","ac.mismatch":"Los dos emails no coinciden.","ac.code_cur":"Por seguridad, enviamos un código a tu email actual, {email}. Escríbelo abajo para cambiar a {nemail}.",
   "m.params":"Ajustes","m.params_sub":"mis datos, email, contraseña, clientes",
   "m.account2":"Email y contraseña","m.account2_sub":"cambia tus datos de acceso","ac.title":"Email y contraseña","ac.email_h":"Email","ac.current":"Email actual:","ac.new_email":"Nuevo email","ac.send":"Enviarme un código","ac.code_new":"Enviamos un código a {email}. Escríbelo abajo.","ac.code_old":"Último paso: también enviamos un código a tu email actual, {email}. Escríbelo abajo.","ac.verify":"Confirmar","ac.cancel":"Cancelar","ac.same":"Ese ya es tu email.","ac.taken":"Este email ya lo usa otra cuenta.","ac.half":"Primer código aceptado.","ac.done":"Email cambiado. Úsalo a partir de ahora para iniciar sesión.","ac.stripe":"Tus recibos de Stripe siguen llegando a tu email anterior. Para cambiarlo, abre «Gestionar mi suscripción».","ac.pass_h":"Contraseña","ac.psave":"Cambiar mi contraseña","ac.pdone":"Contraseña cambiada.","ac.reauth":"Por seguridad, cierra sesión y vuelve a entrar, y luego cambia tu contraseña.",
@@ -2953,6 +3013,7 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "m2.acct":"Il mio account","m2.acct_sub":"Dati, email, password","m2.pro":"Premium","m2.pro_go":"Tutto illimitato","m2.pro_manage":"Gestisci l'abbonamento","m2.prefs":"Preferenze","m2.prefs_sub":"Lingua dell'app","m2.logout_sub":"Esci dal tuo account","s2.infos":"I miei dati","s2.infos_sub":"Nome, ABN e banca","s2.lists":"Clienti e cantieri","s2.lists_sub":"Gestisci le liste","s2.lang":"Lingua","s2.lang_sub":"Lingua dell'app","s2.help":"Aiuto e contatti","s2.help_sub":"Guida e assistenza","s2.lang_note":"Le tue fatture (il PDF) sono sempre in inglese.","s2.back":"Indietro","m.params":"Impostazioni","m2.free_n":"{n} fatture gratuite rimaste","m2.free_1":"1 fattura gratuita rimasta","m2.free_0":"Nessuna fattura gratuita rimasta",
   "ac.new_email2":"Conferma la nuova email","ac.mismatch":"Le due email non coincidono.","ac.code_cur":"Per sicurezza, abbiamo inviato un codice alla tua email attuale, {email}. Inseriscilo qui sotto per passare a {nemail}.",
   "m.params":"Impostazioni","m.params_sub":"i miei dati, email, password, clienti",
   "m.account2":"Email e password","m.account2_sub":"cambia i dati di accesso","ac.title":"Email e password","ac.email_h":"Email","ac.current":"Email attuale:","ac.new_email":"Nuova email","ac.send":"Inviami un codice","ac.code_new":"Abbiamo inviato un codice a {email}. Inseriscilo qui sotto.","ac.code_old":"Ultimo passo: abbiamo inviato un codice anche alla tua email attuale, {email}. Inseriscilo qui sotto.","ac.verify":"Conferma","ac.cancel":"Annulla","ac.same":"È già la tua email.","ac.taken":"Questa email è già usata da un altro account.","ac.half":"Primo codice accettato.","ac.done":"Email cambiata. D'ora in poi usala per accedere.","ac.stripe":"Le ricevute Stripe arrivano ancora alla tua vecchia email. Per cambiarla, apri «Gestisci il mio abbonamento».","ac.pass_h":"Password","ac.psave":"Cambia la mia password","ac.pdone":"Password cambiata.","ac.reauth":"Per sicurezza, esci e accedi di nuovo, poi cambia la password.",
@@ -3559,6 +3620,7 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "m2.acct":"Minha conta","m2.acct_sub":"Dados, email, senha","m2.pro":"Premium","m2.pro_go":"Tudo ilimitado","m2.pro_manage":"Gerenciar sua assinatura","m2.prefs":"Preferências","m2.prefs_sub":"Idioma do app","m2.logout_sub":"Sair da sua conta","s2.infos":"Meus dados","s2.infos_sub":"Nome, ABN e banco","s2.lists":"Clientes e locais","s2.lists_sub":"Gerenciar suas listas","s2.lang":"Idioma","s2.lang_sub":"Idioma do app","s2.help":"Ajuda e contato","s2.help_sub":"Guia e suporte","s2.lang_note":"Suas faturas (o PDF) são sempre em inglês.","s2.back":"Voltar","m.params":"Configurações","m2.free_n":"{n} faturas grátis restantes","m2.free_1":"1 fatura grátis restante","m2.free_0":"Nenhuma fatura grátis restante",
   "ac.new_email2":"Confirme o novo email","ac.mismatch":"Os dois emails não são iguais.","ac.code_cur":"Por segurança, enviamos um código para seu email atual, {email}. Digite abaixo para mudar para {nemail}.",
   "m.params":"Configurações","m.params_sub":"meus dados, email, senha, clientes",
   "m.account2":"Email e senha","m.account2_sub":"alterar seus dados de acesso","ac.title":"Email e senha","ac.email_h":"Email","ac.current":"Email atual:","ac.new_email":"Novo email","ac.send":"Enviar um código","ac.code_new":"Enviamos um código para {email}. Digite abaixo.","ac.code_old":"Último passo: também enviamos um código para seu email atual, {email}. Digite abaixo.","ac.verify":"Confirmar","ac.cancel":"Cancelar","ac.same":"Esse já é o seu email.","ac.taken":"Este email já é usado por outra conta.","ac.half":"Primeiro código aceito.","ac.done":"Email alterado. Use-o para entrar a partir de agora.","ac.stripe":"Seus recibos da Stripe ainda vão para o email antigo. Para mudar, abra “Gerenciar minha assinatura”.","ac.pass_h":"Senha","ac.psave":"Mudar minha senha","ac.pdone":"Senha alterada.","ac.reauth":"Por segurança, saia e entre de novo, depois mude sua senha.",
@@ -4506,7 +4568,8 @@ $("nextw").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(
 $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
 /* ---------- sheets ---------- */
-function openSheet(id,opts){closeMenu();curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
+let sheetFrom="",sheetBackTo="";const backOf={};
+function openSheet(id,opts){closeMenu();if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";document.querySelector("#sheetov .sheetbox").scrollTop=0;
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_ref")renderRef();if(id==="p_account")renderAccount();if(id==="p_premium")renderPremium();
   if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";$("abn_msg").classList.remove("okmsg");["bsb","acc","email"].forEach(k=>$(k+"_msg").textContent="");renderAbn();renderGstReg();renderMissing()}
@@ -4514,8 +4577,9 @@ function openSheet(id,opts){closeMenu();curSheet=id;document.querySelectorAll("#
 function closeSheet(){if(curSheet==="p_preview"&&pvBack==="admin"){pvBack=null;openSheet("p_admin",{keep:true});return}
   if(curSheet==="p_preview"&&pvBack==="review"){pvBack=null;openSheet("p_review");return}
   $("sheetov").hidden=true;curSheet=null;document.body.style.overflow=""}
-$("sheetclose").onclick=closeSheet;$("sheetov").addEventListener("click",e=>{if(e.target.id==="sheetov")closeSheet()});
-document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if(o){openSheet(o.dataset.open);return}if(e.target.closest("[data-close]"))closeSheet()});
+$("sheetclose").onclick=closeSheet;
+$("sheetback").onclick=()=>{const to=sheetBackTo;if(to==="menu"){closeSheet();setTimeout(openMenu,0)}else if(to){openSheet(to,{viaBack:true})}else closeSheet()};$("sheetov").addEventListener("click",e=>{if(e.target.id==="sheetov")closeSheet()});
+document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if(o){const ps=o.closest("#sheetov section");sheetFrom=o.closest("#menupop")?"menu":ps&&ps.id!==o.dataset.open?ps.id:"";openSheet(o.dataset.open);return}if(e.target.closest("[data-close]"))closeSheet()});
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("langpop").hidden){$("langpop").hidden=true;$("langbtn").focus();return}
   if(!$("menupop").hidden){closeMenu();$("btn_menu").focus();return}if(!$("sheetov").hidden)closeSheet()});
 /* menu: a dropdown under the Menu button */
@@ -4634,11 +4698,11 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
 /* menu + premium */
 function payUrl(base){if(!base||!session)return"#";const u=new URL(base);u.searchParams.set("client_reference_id",session.id);if(session.email)u.searchParams.set("prefilled_email",session.email);
   u.searchParams.set("locale",lang==="en"?"en":lang==="pt"?"pt-BR":lang);return u.toString()}
-function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_admin").hidden=!plan.is_admin;
+function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_help").href=lang==="en"?"help.html":"help-"+lang+".html";$("m_admin").hidden=!plan.is_admin;
   const ap=$("acctplan");ap.classList.toggle("pro",!!plan.premium);
   if(plan.premium){const until=!stripeSub()&&plan.period_end?t("m.pro_until2",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):"";
     ap.innerHTML=`<span class="mpro">${esc(t("plan.pro"))}<i class="mok" aria-hidden="true"></i></span>${until?`<small>${esc(until)}</small>`:""}`}
-  else ap.textContent=t("plan.free",{n:freeLeft(),limit:FREE_LIMIT()});
+  else{const n=freeLeft(),lim=FREE_LIMIT();ap.innerHTML=`<span class="mfree">${esc(t(n===1?"m2.free_1":n>0?"m2.free_n":"m2.free_0",{n}))}</span><span class="mbar" aria-hidden="true"><i style="width:${Math.max(0,Math.min(100,Math.round(n/lim*100)))}%"></i></span><small class="mbarn">${n} / ${lim}</small>`}
   const me=P()||{},ini=((me.first||"").trim()[0]||"")+((me.last||"").trim()[0]||"");
   $("m_init").textContent=(ini||(session&&session.email||"?").slice(0,2)).toUpperCase();$("m_avatar").classList.toggle("pro",!!plan.premium);
   $("m_premium").hidden=plan.premium;$("m_manage").hidden=!stripeSub();
@@ -5539,5 +5603,6 @@ function openThanks(st){$("ty_lead").textContent=t(st==="ok"?"ty.lead":"ty.lead_
     adConv("premium");if(curSheet==="p_thanks"&&!$("sheetov").hidden)openThanks(plan.premium?"ok":"later");if(plan.premium){save();renderTop&&renderTop()}}
 })();
 </script>
+<script>(function(){const r=document.documentElement,u=()=>r.classList.toggle("attop",(window.scrollY||0)<=2);u();addEventListener("scroll",u,{passive:true});addEventListener("pageshow",u)})();</script>
 </body>
 </html>
