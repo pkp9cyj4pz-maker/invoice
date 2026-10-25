@@ -1252,6 +1252,20 @@ html.menuopen #btn_menu{position:relative;z-index:46}
 
 /* keep the buttons clear of Safari's soft edge under the status bar */
 html body header.top{padding-top:30px!important}
+
+/* guest mode: try without an account */
+html.guestmode #btn_hist,html.guestmode #btn_menu,html.guestmode #btn_gopro,html.guestmode #planbadge{display:none!important}
+#btn_gsign{min-height:44px;padding:0 16px;border-radius:12px;font-weight:800;white-space:nowrap}
+#btn_gsign[hidden]{display:none}
+.gsign .gsignt{margin:0 0 12px;font-size:1rem;line-height:1.5}
+.gsign .gsignl{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:8px}
+.gsign .gsignl li{position:relative;padding-left:28px;font-weight:600}
+.gsign .gsignl li::before{content:"✓";position:absolute;left:4px;color:var(--accent);font-weight:800}
+.gsign #g_go{width:100%;min-height:54px;font-size:1.05rem}
+.gsign .linkbtn{display:block;margin:12px auto 0}
+.gsign .gsignlater{color:var(--muted)}
+.gnote{margin:0 0 14px;padding:12px 14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));background:var(--accent-soft);color:var(--ink);font-weight:600;font-size:.92rem}
+.gnote[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -1378,6 +1392,18 @@ html body header.top{padding-top:30px!important}
       </div>
     </section>
 
+    <section id="p_gsign" class="gsign" hidden data-i18n-title="g.title">
+      <p class="gsignt" data-i18n="g.text">Your invoice is almost ready. Create your free account to add your ABN and download the PDF. Your hours are kept.</p>
+      <ul class="gsignl">
+        <li data-i18n="g.l1">3 free invoices, no card</li>
+        <li data-i18n="g.l2">Your ABN, BSB and GST on every invoice</li>
+        <li data-i18n="g.l3">Takes 1 minute</li>
+      </ul>
+      <button class="primary" id="g_go" type="button" data-i18n="g.go">Create my free account</button>
+      <button class="linkbtn" id="g_login" type="button" data-i18n="g.login">I already have an account</button>
+      <button class="linkbtn gsignlater" type="button" data-close data-i18n="g.later">Keep filling in my hours</button>
+    </section>
+
     <section id="p_settings" hidden data-i18n-title="m.params">
       <nav class="mlist mcard m2card m2set" data-i18n-aria="m.params" aria-label="Settings">
         <button class="mitem m2" type="button" data-open="p_infos"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><span class="m2txt"><b data-i18n="s2.infos">My details</b><small data-i18n="s2.infos_sub">Name, ABN, bank and contact details</small></span></button>
@@ -1497,6 +1523,7 @@ html body header.top{padding-top:30px!important}
     <span id="planbadge" class="badge"></span>
     <button id="btn_gopro" class="gopro" type="button" hidden data-i18n="top.gopro">Go Premium</button>
     <button id="btn_app" class="primary" type="button" hidden data-i18n="nav.app">My invoices</button>
+    <button id="btn_gsign" class="primary" type="button" hidden data-i18n="g.top">Create account</button>
     <button id="btn_hist" type="button" data-i18n="top.history">History</button>
     <div class="menuwrap">
       <button id="btn_menu" type="button" data-tip data-i18n-aria="top.menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="mx" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span data-i18n="top.menu">Menu</span></button>
@@ -1695,6 +1722,7 @@ html body header.top{padding-top:30px!important}
 
   <section id="auth" class="card auth">
     <h2 id="authtitle"></h2>
+    <p id="gnote" class="gnote" hidden data-i18n="g.note">Your hours are kept: create your account and they move into it.</p>
     <div id="refnote" class="refnote" hidden role="note"><span class="refgift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M5 12v9h14v-9"/><path d="M12 8c-1.5-3-5-3.5-5-1.2C7 8 9.5 8 12 8zM12 8c1.5-3 5-3.5 5-1.2C17 8 14.5 8 12 8z"/></svg></span><span class="reftxt"><b id="refnote_t"></b><small id="refnote_s"></small></span><span class="refbig" aria-hidden="true"><b>4</b><small id="refnote_b"></small></span></div>
     <div class="tabs" role="tablist">
       <button id="tab_signup" type="button" role="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M19 8v6M16 11h6"/></svg><span data-i18n="auth.tab_signup">Sign up</span></button>
@@ -1870,6 +1898,7 @@ html body header.top{padding-top:30px!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "g.title":"Create your free account","g.text":"Your invoice is almost ready. Create your free account to add your ABN and download the PDF. Your hours are kept.","g.l1":"3 free invoices, no card","g.l2":"Your ABN, BSB and GST on every invoice","g.l3":"Takes 1 minute","g.go":"Create my free account","g.login":"I already have an account","g.later":"Keep filling in my hours","g.top":"Create account","g.note":"Your hours are kept: create your account and they move into it.","g.saved":"Saved on this phone. Create your account to keep it for good.",
   "m2.acct":"My account","m2.acct_sub":"Details, email, password","m2.pro":"Premium","m2.pro_go":"Everything unlimited","m2.pro_manage":"Manage your subscription","m2.prefs":"Preferences","m2.prefs_sub":"App language","m2.logout_sub":"Leave your account","s2.infos":"My details","s2.infos_sub":"Name, ABN and bank","s2.lists":"Clients and sites","s2.lists_sub":"Manage your lists","s2.lang":"Language","s2.lang_sub":"App language","s2.help":"Help and contact","s2.help_sub":"Guide and support","s2.lang_note":"Your invoices (the PDF) are always in English.","s2.back":"Back","m.params":"Settings","m2.free_n":"{n} free invoices left","m2.free_1":"1 free invoice left","m2.free_0":"No free invoices left",
   "ac.new_email2":"Confirm new email","ac.mismatch":"The two emails don't match.","ac.code_cur":"For your security, we sent a code to your current email, {email}. Enter it below to switch to {nemail}.",
   "m.params":"Settings","m.params_sub":"my details, email, password, clients",
@@ -2236,6 +2265,7 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "g.title":"Crée ton compte gratuit","g.text":"Ta facture est presque prête. Crée ton compte gratuit pour ajouter ton ABN et télécharger le PDF. Tes heures sont gardées.","g.l1":"3 factures gratuites, sans carte","g.l2":"Ton ABN, ton BSB et la GST sur chaque facture","g.l3":"Ça prend 1 minute","g.go":"Créer mon compte gratuit","g.login":"J'ai déjà un compte","g.later":"Continuer à remplir mes heures","g.top":"Créer un compte","g.note":"Tes heures sont gardées : crée ton compte et elles y sont transférées.","g.saved":"Gardé sur ce téléphone. Crée ton compte pour le garder pour de bon.",
   "m2.acct":"Mon compte","m2.acct_sub":"Infos, email, mot de passe","m2.pro":"Premium","m2.pro_go":"Tout en illimité","m2.pro_manage":"Gérer ton abonnement","m2.prefs":"Préférences","m2.prefs_sub":"Langue de l'app","m2.logout_sub":"Quitter ton compte","s2.infos":"Mes informations","s2.infos_sub":"Nom, ABN et banque","s2.lists":"Clients et lieux","s2.lists_sub":"Gérer tes listes","s2.lang":"Langue","s2.lang_sub":"Langue de l'app","s2.help":"Aide et contact","s2.help_sub":"Guide et assistance","s2.lang_note":"Tes factures (le PDF) restent toujours en anglais.","s2.back":"Retour","m.params":"Paramètres","m2.free_n":"{n} factures gratuites restantes","m2.free_1":"1 facture gratuite restante","m2.free_0":"Plus de facture gratuite",
   "ac.new_email2":"Confirme le nouvel email","ac.mismatch":"Les deux emails ne sont pas identiques.","ac.code_cur":"Par sécurité, on a envoyé un code à ton email actuel, {email}. Entre-le ci-dessous pour passer à {nemail}.",
   "m.params":"Paramètres","m.params_sub":"mes infos, email, mot de passe, clients",
@@ -2596,6 +2626,7 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "g.title":"Crea tu cuenta gratis","g.text":"Tu factura está casi lista. Crea tu cuenta gratis para añadir tu ABN y descargar el PDF. Tus horas se guardan.","g.l1":"3 facturas gratis, sin tarjeta","g.l2":"Tu ABN, BSB y GST en cada factura","g.l3":"Lleva 1 minuto","g.go":"Crear mi cuenta gratis","g.login":"Ya tengo una cuenta","g.later":"Seguir llenando mis horas","g.top":"Crear cuenta","g.note":"Tus horas se guardan: crea tu cuenta y pasan a ella.","g.saved":"Guardado en este móvil. Crea tu cuenta para conservarlo.",
   "m2.acct":"Mi cuenta","m2.acct_sub":"Datos, email, contraseña","m2.pro":"Premium","m2.pro_go":"Todo ilimitado","m2.pro_manage":"Gestionar tu suscripción","m2.prefs":"Preferencias","m2.prefs_sub":"Idioma de la app","m2.logout_sub":"Salir de tu cuenta","s2.infos":"Mis datos","s2.infos_sub":"Nombre, ABN y banco","s2.lists":"Clientes y obras","s2.lists_sub":"Gestionar tus listas","s2.lang":"Idioma","s2.lang_sub":"Idioma de la app","s2.help":"Ayuda y contacto","s2.help_sub":"Guía y soporte","s2.lang_note":"Tus facturas (el PDF) siempre están en inglés.","s2.back":"Volver","m.params":"Ajustes","m2.free_n":"Te quedan {n} facturas gratis","m2.free_1":"Te queda 1 factura gratis","m2.free_0":"No te quedan facturas gratis",
   "ac.new_email2":"Confirma el nuevo email","ac.mismatch":"Los dos emails no coinciden.","ac.code_cur":"Por seguridad, enviamos un código a tu email actual, {email}. Escríbelo abajo para cambiar a {nemail}.",
   "m.params":"Ajustes","m.params_sub":"mis datos, email, contraseña, clientes",
@@ -3054,6 +3085,7 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "g.title":"Crea il tuo account gratuito","g.text":"La tua fattura è quasi pronta. Crea l'account gratuito per aggiungere il tuo ABN e scaricare il PDF. Le tue ore restano salvate.","g.l1":"3 fatture gratis, senza carta","g.l2":"ABN, BSB e GST su ogni fattura","g.l3":"Ci vuole 1 minuto","g.go":"Crea il mio account gratuito","g.login":"Ho già un account","g.later":"Continua a inserire le ore","g.top":"Crea account","g.note":"Le tue ore restano salvate: crea l'account e passano lì.","g.saved":"Salvato su questo telefono. Crea l'account per conservarlo.",
   "m2.acct":"Il mio account","m2.acct_sub":"Dati, email, password","m2.pro":"Premium","m2.pro_go":"Tutto illimitato","m2.pro_manage":"Gestisci l'abbonamento","m2.prefs":"Preferenze","m2.prefs_sub":"Lingua dell'app","m2.logout_sub":"Esci dal tuo account","s2.infos":"I miei dati","s2.infos_sub":"Nome, ABN e banca","s2.lists":"Clienti e cantieri","s2.lists_sub":"Gestisci le liste","s2.lang":"Lingua","s2.lang_sub":"Lingua dell'app","s2.help":"Aiuto e contatti","s2.help_sub":"Guida e assistenza","s2.lang_note":"Le tue fatture (il PDF) sono sempre in inglese.","s2.back":"Indietro","m.params":"Impostazioni","m2.free_n":"{n} fatture gratuite rimaste","m2.free_1":"1 fattura gratuita rimasta","m2.free_0":"Nessuna fattura gratuita rimasta",
   "ac.new_email2":"Conferma la nuova email","ac.mismatch":"Le due email non coincidono.","ac.code_cur":"Per sicurezza, abbiamo inviato un codice alla tua email attuale, {email}. Inseriscilo qui sotto per passare a {nemail}.",
   "m.params":"Impostazioni","m.params_sub":"i miei dati, email, password, clienti",
@@ -3661,6 +3693,7 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "g.title":"Crie sua conta grátis","g.text":"Sua fatura está quase pronta. Crie sua conta grátis para adicionar seu ABN e baixar o PDF. Suas horas ficam guardadas.","g.l1":"3 faturas grátis, sem cartão","g.l2":"Seu ABN, BSB e GST em cada fatura","g.l3":"Leva 1 minuto","g.go":"Criar minha conta grátis","g.login":"Já tenho uma conta","g.later":"Continuar preenchendo minhas horas","g.top":"Criar conta","g.note":"Suas horas ficam guardadas: crie sua conta e elas passam para ela.","g.saved":"Salvo neste celular. Crie sua conta para guardar de vez.",
   "m2.acct":"Minha conta","m2.acct_sub":"Dados, email, senha","m2.pro":"Premium","m2.pro_go":"Tudo ilimitado","m2.pro_manage":"Gerenciar sua assinatura","m2.prefs":"Preferências","m2.prefs_sub":"Idioma do app","m2.logout_sub":"Sair da sua conta","s2.infos":"Meus dados","s2.infos_sub":"Nome, ABN e banco","s2.lists":"Clientes e locais","s2.lists_sub":"Gerenciar suas listas","s2.lang":"Idioma","s2.lang_sub":"Idioma do app","s2.help":"Ajuda e contato","s2.help_sub":"Guia e suporte","s2.lang_note":"Suas faturas (o PDF) são sempre em inglês.","s2.back":"Voltar","m.params":"Configurações","m2.free_n":"{n} faturas grátis restantes","m2.free_1":"1 fatura grátis restante","m2.free_0":"Nenhuma fatura grátis restante",
   "ac.new_email2":"Confirme o novo email","ac.mismatch":"Os dois emails não são iguais.","ac.code_cur":"Por segurança, enviamos um código para seu email atual, {email}. Digite abaixo para mudar para {nemail}.",
   "m.params":"Configurações","m.params_sub":"meus dados, email, senha, clientes",
@@ -4438,7 +4471,7 @@ function save(){if(session&&plan.premium&&P()&&P().inv&&!curEntry()&&hasHours(I(
 const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;return pushSave()}return Promise.resolve()};
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
 function setSave(k,v){syncMsg=k?{k,v}:null;renderStatus()}
-async function pushSave(){saveTimer=null;if(!session||!sb)return;const p=P();const {id,...rest}=p;
+async function pushSave(){saveTimer=null;if(isGuest()){guestPersist();setSave("g.saved");return}if(!session||!sb)return;const p=P();const {id,...rest}=p;
   const data={...rest,clients:state.clients,sites:state.sites};
   try{const {data:r,error}=await sb.rpc("save_my_profile",{p_name:(p.name||"").trim(),p_data:data});
     if(error){const m=error.message||"";if(/JWT|auth/i.test(m)){setSave("st.expired");return}
@@ -4457,7 +4490,7 @@ window.addEventListener("online",()=>{if(session&&syncMsg&&syncMsg.k==="st.offli
 function infosDone(){const p=P();return !!(p.first&&p.last&&p.name&&p.abn&&p.abnLocked&&p.bsb&&p.acc)}
 function renderAll(){renderTop();if(!session)return;loadJsPDF().catch(()=>{});renderWeek();renderDays();renderExp();renderTotals();renderOnboard();renderStatus();renderFinish()}
 let view="app";   /* once logged in: "app" (the invoice) or "home" (the home page, opened with the logo) */
-function renderTop(){const on=!!session,home=!on||view==="home";$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=!home;$("app").hidden=home;$("bottombar").hidden=home;
+function renderTop(){document.documentElement.classList.toggle("guestmode",isGuest());$("btn_gsign").hidden=!isGuest();const on=!!session&&!(isGuest()&&view==="home"),home=!on||view==="home";$("topr").hidden=!on;$("topl").hidden=on;$("landing").hidden=!home;$("app").hidden=home;$("bottombar").hidden=home;
   $("auth").hidden=on;$("btn_app").hidden=!(on&&home);$("btn_hist").hidden=on&&home;
   document.querySelectorAll("[data-auth]").forEach(el=>{el.textContent=on?t("nav.app"):t(el.dataset.i18n)});
   if(on)$("lstick").hidden=true;renderInstall();
@@ -4610,7 +4643,7 @@ $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
 /* ---------- sheets ---------- */
 let sheetFrom="",sheetBackTo="";const backOf={};
-function openSheet(id,opts){closeMenu();if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
+function openSheet(id,opts){closeMenu();if(isGuest()&&!["p_gsign","p_preview","p_lists"].includes(id))id="p_gsign";if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";document.querySelector("#sheetov .sheetbox").scrollTop=0;
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_ref")renderRef();if(id==="p_account")renderAccount();if(id==="p_premium")renderPremium();
   if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";$("abn_msg").classList.remove("okmsg");["bsb","acc","email"].forEach(k=>$(k+"_msg").textContent="");renderAbn();renderGstReg();renderMissing()}
@@ -4795,13 +4828,13 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   p.inv=draft;p.curSaved=open?open.id:null;syncMsg=null;
   if(draft&&!open&&hasHours(draft)){renderAll()}else{openPeriod(p.period,todayIso())}}
 let pingT=null;
-function ping(){if(session&&sb&&!document.hidden)Promise.resolve(sb.rpc("ping")).catch(()=>{})}
+function ping(){if(session&&!session.guest&&sb&&!document.hidden)Promise.resolve(sb.rpc("ping")).catch(()=>{})}
 function startPing(){clearInterval(pingT);ping();pingT=setInterval(ping,90000)}
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)ping()});
 async function loadAccount(user){view="app";let {data,error}=await sb.rpc("get_my_profile");
   if(error&&sb.auth.refreshSession){try{await sb.auth.refreshSession()}catch(e){}({data,error}=await sb.rpc("get_my_profile"))}   /* expired access token: refresh once, stay logged in */
   if(error){$("autherr").textContent=t("err.load");return false}
-  applyProfile(user,data);startPing();setTimeout(async()=>{await claimRef();refCheck(false)},400);
+  applyProfile(user,data);mergeGuest();startPing();setTimeout(async()=>{await claimRef();refCheck(false)},400);
   if(plan.premium&&P().inv&&hasHours(I())&&!curEntry()){addToHistory();save()}   /* just became Premium: the open invoice joins the history */
   return true}
 
@@ -4816,7 +4849,7 @@ function setAuthMode(m){authMode=m;try{renderRefNote()}catch(e){}{const ti=!$("c
   $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass").placeholder=t(m==="login"?"auth.pass_ph_login":"auth.pass_ph");$("authpass2wrap").hidden=m==="login";$("authabn").hidden=m==="login"}
 function goAuth(m){setAuthMode(m);$("autherr").textContent="";$("auth").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});setTimeout(()=>$("authemail").focus({preventScroll:true}),350)}
 function goApp(){view="app";closeMenu();renderAll();window.scrollTo(0,0)}
-document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>{if(session){goApp();return}goAuth(b.dataset.auth)});
+document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>{if(session){goApp();return}if(b.dataset.auth==="signup"&&!b.closest("#auth")&&!refStored()){enterGuest();return}goAuth(b.dataset.auth)});
 $("btn_app").onclick=goApp;
 $("btn_login").onclick=()=>goAuth("login");
 /* logo = home: closes whatever is open and goes back to the top of the page (the invoice, once logged in) */
@@ -4907,6 +4940,25 @@ $("ac_psave").onclick=async()=>{const pw=$("ac_pass").value;acMsg("ac_pmsg","");
     $("ac_pass").value="";$("ac_pass2").value="";acMsg("ac_pmsg",t("ac.pdone"),true)}
   catch(x){acMsg("ac_pmsg",t("err.offline"))}
   finally{b.disabled=false;b.textContent=t("ac.psave")}};
+
+/* ---------- try without an account (guest) ---------- */
+const isGuest=()=>!!(session&&session.guest);
+function guestLoad(){try{return JSON.parse(localStorage.getItem("sb_guest")||"null")}catch(e){return null}}
+function guestPersist(){if(!isGuest()||!P())return;const {id,...rest}=P();try{localStorage.setItem("sb_guest",JSON.stringify({...rest,clients:state.clients,sites:state.sites}))}catch(e){}}
+function enterGuest(){setPlan({});applyProfile({id:"guest",email:""},{data:guestLoad()||{}});session.guest=true;view="app";closeMenu();renderAll();window.scrollTo(0,0)}
+function leaveGuest(m){if(saveTimer){clearTimeout(saveTimer);saveTimer=null}guestPersist();if(!$("sheetov").hidden)closeSheet();
+  session=null;state={me:null,clients:[],sites:[]};view="app";renderTop();renderGuestNote();goAuth(m)}
+function renderGuestNote(){const g=guestLoad();$("gnote").hidden=!!session||!(g&&g.inv&&hasHours(g.inv))}
+/* after sign-up / log-in: the hours typed as a guest move into the account (only if its open invoice is still empty) */
+function mergeGuest(){const g=guestLoad();try{localStorage.removeItem("sb_guest")}catch(e){}renderGuestNote();
+  if(!g||!g.inv||!hasHours(g.inv)||!P()||locked()||(P().inv&&hasHours(I())))return;
+  const p=P();p.inv=migrateInv(clone(g.inv));p.inv.finished=false;
+  ["rate","mode","unpaid","ph","ot","desc","period","clientAbn","clientEmail"].forEach(k=>{if(g[k]!=null)p[k]=g[k]});
+  const add=(list,more)=>(Array.isArray(more)?more:[]).forEach(x=>{if(!list.some(y=>JSON.stringify(y)===JSON.stringify(x)))list.push(x)});
+  add(state.clients,g.clients);add(state.sites,g.sites);renderAll();save()}
+$("btn_gsign").onclick=()=>openSheet("p_gsign");
+$("g_go").onclick=()=>leaveGuest("signup");
+$("g_login").onclick=()=>leaveGuest("login");
 /* back from the email link? (runs before the normal start, which then sees no app session yet) */
 async function takeRecovery(){const h=new URLSearchParams((location.hash||"").replace(/^#/,""));
   if(h.get("type")!=="recovery"&&!h.get("error_code"))return false;
@@ -5264,7 +5316,7 @@ $("rv_body").addEventListener("click",e=>{const b=e.target.closest("[data-rvchg]
   const d=document.querySelector(".invmeta");d.open=true;d.scrollIntoView({block:"center"});$("issue").focus()});
 $("rv_go").onclick=()=>{closeSheet();if(finishReady())doFinish()};
 $("rv_pv").onclick=()=>previewInvoice({back:"review"});
-$("pdfbtn").onclick=()=>{if(finishing)return;if(locked()){doFinish();return}if(finishReady())openReview()};
+$("pdfbtn").onclick=()=>{if(isGuest()){openSheet("p_gsign");return}if(finishing)return;if(locked()){doFinish();return}if(finishReady())openReview()};
 async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=locked();
   if(!lk){settleDates(inv);
 }
@@ -5639,6 +5691,7 @@ function openThanks(st){$("ty_lead").textContent=t(st==="ok"?"ty.lead":"ty.lead_
   if(!sb){$("autherr").textContent=t("err.service");return}
   if(await takeRecovery())return;
   const {data:{session:s}}=await sb.auth.getSession();
+  renderGuestNote();
   if(s&&s.user&&await loadAccount(s.user)&&!infosDone())openSheet("p_infos");
   if(!session&&refStored()){refLookup();if(refArrive)setTimeout(()=>goAuth("signup"),250)}
   if(new URLSearchParams(location.search).has("paid")&&session){history.replaceState(null,"",location.pathname);openThanks("wait");
