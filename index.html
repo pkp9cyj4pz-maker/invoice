@@ -4477,7 +4477,7 @@ function save(){if(session&&plan.premium&&P()&&P().inv&&!curEntry()&&hasHours(I(
 const flushSave=()=>{if(saveTimer){clearTimeout(saveTimer);saveTimer=null;return pushSave()}return Promise.resolve()};
 document.addEventListener("visibilitychange",()=>{if(document.hidden)flushSave()});window.addEventListener("pagehide",flushSave);
 function setSave(k,v){syncMsg=k?{k,v}:null;renderStatus()}
-async function pushSave(){saveTimer=null;if(isGuest()){guestPersist();setSave("g.saved");return}if(!session||!sb)return;const p=P();const {id,...rest}=p;
+async function pushSave(){saveTimer=null;if(isGuest()){guestPersist();setSave("g.saved");if(hasHours(I()))gping("start");return}if(!session||!sb)return;const p=P();const {id,...rest}=p;
   const data={...rest,clients:state.clients,sites:state.sites};
   try{const {data:r,error}=await sb.rpc("save_my_profile",{p_name:(p.name||"").trim(),p_data:data});
     if(error){const m=error.message||"";if(/JWT|auth/i.test(m)){setSave("st.expired");return}
@@ -4970,6 +4970,13 @@ function mergeGuest(){const g=guestLoad();try{localStorage.removeItem("sb_guest"
 $("btn_gsign").onclick=()=>openSheet("p_gsign");
 $("g_go").onclick=()=>leaveGuest("signup");
 $("g_login").onclick=()=>leaveGuest("login");
+
+/* anonymous trial steps -> a private ntfy notification for the owner (no personal data; once per visitor and step) */
+function guestVid(){let v="";try{v=localStorage.getItem("sb_vid")||""}catch(e){}if(!/^[a-z0-9]{16,64}$/.test(v)){v=(uid()+uid()+uid()).toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,32);while(v.length<16)v+=Math.random().toString(36).slice(2);try{localStorage.setItem("sb_vid",v)}catch(e){}}return v}
+function gping(ev){if(!isGuest()||!sb||!P()||!I())return;try{if(localStorage.getItem("sb_gp_"+ev))return;localStorage.setItem("sb_gp_"+ev,"1")}catch(e){return}
+  let total=0;try{total=invCalc(I(),meNow()).total/100}catch(e){}
+  const days=(I().rows||[]).filter(r=>r.hours>0).length;
+  Promise.resolve(sb.rpc("guest_ping",{p_vid:guestVid(),p_event:ev,p_lang:lang,p_days:days,p_total:Math.round(total*100)/100})).catch(()=>{})}
 /* back from the email link? (runs before the normal start, which then sees no app session yet) */
 async function takeRecovery(){const h=new URLSearchParams((location.hash||"").replace(/^#/,""));
   if(h.get("type")!=="recovery"&&!h.get("error_code"))return false;
@@ -5267,7 +5274,7 @@ function renderFinish(){if(!session||!P())return;const b=$("pdfbtn"),inv=I(),lk=
   renderStatus();
   if(!$("pdfmsg").dataset.keep)$("pdfmsg").textContent=plan.premium||lk?"":(freeLeft()>0?t("quota.left",{n:freeLeft(),limit:FREE_LIMIT()}):t("quota.none"))}
 function pdfMsg(text){const m=$("pdfmsg");m.textContent=text;m.dataset.keep="1";clearTimeout(pdfMsg.t);pdfMsg.t=setTimeout(()=>{delete m.dataset.keep;renderFinish()},6000)}
-$("pvbtn").onclick=()=>{if(!session||!P())return;previewInvoice()};
+$("pvbtn").onclick=()=>{if(!session||!P())return;gping("preview");previewInvoice()};
 /* review ask: after the 2nd invoice finished on this device, once */
 function lsg(k){try{return localStorage.getItem(k)}catch(e){return null}}function lss(k,v){try{localStorage.setItem(k,v)}catch(e){}}
 function askReview(again){if(again)return;const n=(+lsg("sb_fin_n")||0)+1;lss("sb_fin_n",String(n));if(n>=2&&!lsg("sb_rv_x"))$("rvask").hidden=false}
@@ -5327,7 +5334,7 @@ $("rv_body").addEventListener("click",e=>{const b=e.target.closest("[data-rvchg]
   const d=document.querySelector(".invmeta");d.open=true;d.scrollIntoView({block:"center"});$("issue").focus()});
 $("rv_go").onclick=()=>{closeSheet();if(finishReady())doFinish()};
 $("rv_pv").onclick=()=>previewInvoice({back:"review"});
-$("pdfbtn").onclick=()=>{if(isGuest()){openSheet("p_gsign");return}if(finishing)return;if(locked()){doFinish();return}if(finishReady())openReview()};
+$("pdfbtn").onclick=()=>{if(isGuest()){gping("finish");openSheet("p_gsign");return}if(finishing)return;if(locked()){doFinish();return}if(finishReady())openReview()};
 async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=locked();
   if(!lk){settleDates(inv);
 }
