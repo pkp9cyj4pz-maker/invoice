@@ -3,26 +3,31 @@
 > Exact steps and button names for SubbieBill (https://subbiebill.com), an invoicing web app for ABN subcontractors in Australia. Illustrated guide: https://subbiebill.com/help.html (also in French help-fr.html, Spanish help-es.html, Italian help-it.html, Portuguese help-pt.html).
 
 1. Open SubbieBill: Go to subbiebill.com on your phone or computer and tap "Create my first invoice".
-2. Create your account: Type your email, choose a password, type it again, then tap "Create my free account". Already have an account? Tap "Log in" at the top instead.
+2. Create your account: Tap "Create account" at the top (or fill in your work first: SubbieBill asks for an account when you finish). Type your email, choose a password, type it again, then tap "Create my free account". Already have an account? Tap "Log in" at the top instead.
 3. Confirm your email: You get a 6-digit code by email from noreply@subbiebill.com. Type it (1) and tap "Confirm my email" (2). No email? Check your spam folder.
 4. Add your name and ABN: In "My details", type your "First name", "Last name" and "ABN", then tap "Confirm my ABN". Check the number and tap "Yes, continue". Your ABN is then locked to your account.
 5. Add your bank details and GST: Type your "BSB" (1) and "Account number" (2) so your client knows where to pay you. Under GST, choose "Not registered" or "Registered for GST" (3). Then tap "Done".
 6. Choose your client and period: Under "Client", type the business you bill (1). Choose "Week", "Fortnight" or "Month" (2). Next time, pick the client from the list.
-7. Set your hourly rate: Type your "Hourly rate ($/h)". It is saved for your next invoices.
-8. Enter your hours: With "Start – finish" selected, pick Monday's start (1) and finish (2). Tap "Copy Monday to Tue → Fri" (3) to fill the week, then change any day that was different.
-9. Finish the invoice: Check the total at the bottom and tap "Finish invoice". Tap "Preview" if you want to see the PDF first.
-10. Check and download: Check the invoice summary and tap "Finish and download PDF". The invoice gets its number and the PDF downloads.
-11. Send it to your client: Tap "Email to client" (1) to email it, or "Download PDF" (2) to save the PDF and send it yourself.
-12. Email it (Premium): Type your client's email (1) and tap "Send" (2). You get a copy, and your client's reply comes back to you.
-13. Track your invoices: Tap "History" at the top of the screen to see every invoice and your totals. When you get paid, tap "Mark as paid".
-14. Invite a friend: Tap the menu (☰) at the top right, then "Invite a friend".
-15. Share your link: Tap "Copy" and send the link. Your friend gets 1 extra free invoice; you get 1 month of Premium when they subscribe.
+7. Choose how you are paid: Under "How are you paid?", tap "By the hour" (1), "By the day" (2), "Fixed weekly" (3) or "Fixed price" (4). The next steps show "By the hour". "By the day": enter your day rate and tap the days you worked. Fixed amount or price: just type the amount.
+8. Set your hourly rate: Type your "Hourly rate ($/h)". It is saved for your next invoices.
+9. Enter your hours: With "Start – finish" selected, pick Monday's start (1) and finish (2). Tap "Copy Monday to Tue → Fri" (3) to fill the week, then change any day that was different.
+10. Finish the invoice: Check the total at the bottom and tap "Finish invoice". Tap "Preview" if you want to see the PDF first.
+11. Check and download: Check the invoice summary and tap "Finish and download PDF". The invoice gets its number and the PDF downloads.
+12. Send it to your client: Tap "Email to client" (1) to email it, or "Download PDF" (2) to save the PDF and send it yourself.
+13. Email it (Premium): Type your client's email (1) and tap "Send" (2). You get a copy, and your client's reply comes back to you.
+14. Track your invoices: Tap "History" at the top of the screen to see every invoice and your totals. When you get paid, tap "Mark as paid".
+15. Invite a friend: Tap the menu (☰) at the top right, then "Invite a friend".
+16. Share your link: Tap "Copy" and send the link. Your friend gets 1 extra free invoice; you get 1 month of Premium when they subscribe.
 
 ## Button names in each language
 
 | English | Français | Español | Italiano | Português |
 |---|---|---|---|---|
 | Create my first invoice | Créer ma première facture | Crear mi primera factura | Crea la mia prima fattura | Criar minha primeira fatura |
+| By the hour | À l'heure | Por hora | A ore | Por hora |
+| By the day | À la journée | Por día | A giornata | Por dia |
+| Fixed weekly | Forfait semaine | Fijo semanal | Fisso settimanale | Fixo semanal |
+| Fixed price | Prix fixe | Precio fijo | Prezzo fisso | Preço fixo |
 | Log in | Se connecter | Iniciar sesión | Accedi | Entrar |
 | Create my free account | Créer mon compte gratuit | Crear mi cuenta gratis | Crea il mio account gratuito | Criar minha conta grátis |
 | Confirm my email | Confirmer mon email | Confirmar mi email | Conferma la mia email | Confirmar meu email |
