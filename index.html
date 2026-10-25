@@ -1234,6 +1234,18 @@ html.attop::before{display:none}
 /* "On invoice" tags and the ABN check box: orange family, green stays for "done/paid" */
 label.oninv::after{color:var(--accent-strong);background:var(--accent-soft)}
 .abnconf{background:color-mix(in srgb,var(--accent) 12%,var(--paper));border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+
+/* menu open: same blurred backdrop as the sheets, nothing scrolls behind */
+.menubd{position:fixed;inset:0;z-index:44;background:color-mix(in srgb,var(--bg) 60%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.menubd[hidden]{display:none}
+html.menuopen,html.menuopen body{overflow:hidden;overscroll-behavior:none}
+html.menuopen #btn_menu{position:relative;z-index:46}
+#menupop{overscroll-behavior:contain}
+
+/* sign-up card: same orange as the rest (hero highlight, buttons, icons) */
+.auth h2 .hl,.auth .hl{color:var(--accent)}
+.auth .tabs button.on{color:var(--accent)}
+#authabn .abnico{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -1482,6 +1494,7 @@ label.oninv::after{color:var(--accent-strong);background:var(--accent-soft)}
     <button id="btn_hist" type="button" data-i18n="top.history">History</button>
     <div class="menuwrap">
       <button id="btn_menu" type="button" data-tip data-i18n-aria="top.menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false" aria-controls="menupop"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="mx" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg><span data-i18n="top.menu">Menu</span></button>
+      <div id="menubd" class="menubd" hidden></div>
       <div id="menupop" class="menupop" hidden>
         <div class="acctbox m2head">
           <div class="acct2">
@@ -4605,8 +4618,10 @@ document.addEventListener("click",e=>{const o=e.target.closest("[data-open]");if
 document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("langpop").hidden){$("langpop").hidden=true;$("langbtn").focus();return}
   if(!$("menupop").hidden){closeMenu();$("btn_menu").focus();return}if(!$("sheetov").hidden)closeSheet()});
 /* menu: a dropdown under the Menu button */
-function openMenu(){renderMenu();const mp=$("menupop"),br=$("btn_menu").getBoundingClientRect();mp.style.top=Math.round(br.bottom+10)+"px";mp.style.right=Math.max(12,Math.round(innerWidth-br.right))+"px";mp.style.maxHeight=`calc(100dvh - ${Math.round(br.bottom+22)}px)`;mp.hidden=false;$("btn_menu").setAttribute("aria-expanded","true");$("btn_menu").classList.add("on")}
-function closeMenu(){const m=$("menupop");if(!m||m.hidden)return;m.hidden=true;$("btn_menu").setAttribute("aria-expanded","false");$("btn_menu").classList.remove("on")}
+function openMenu(){renderMenu();const mp=$("menupop"),br=$("btn_menu").getBoundingClientRect();mp.style.top=Math.round(br.bottom+10)+"px";mp.style.right=Math.max(12,Math.round(innerWidth-br.right))+"px";mp.style.maxHeight=`calc(100dvh - ${Math.round(br.bottom+22)}px)`;mp.hidden=false;$("menubd").hidden=false;document.documentElement.classList.add("menuopen");$("btn_menu").setAttribute("aria-expanded","true");$("btn_menu").classList.add("on")}
+function closeMenu(){const m=$("menupop");if(!m||m.hidden)return;m.hidden=true;$("menubd").hidden=true;document.documentElement.classList.remove("menuopen");$("btn_menu").setAttribute("aria-expanded","false");$("btn_menu").classList.remove("on")}
+$("menubd").addEventListener("click",e=>{e.stopPropagation();closeMenu()});
+$("menubd").addEventListener("touchmove",e=>e.preventDefault(),{passive:false});
 $("btn_menu").onclick=e=>{e.stopPropagation();$("menupop").hidden?openMenu():closeMenu()};
 document.addEventListener("click",e=>{if(!$("menupop").hidden&&!e.target.closest(".menuwrap"))closeMenu()});$("btn_hist").onclick=()=>openSheet("p_hist");
 
