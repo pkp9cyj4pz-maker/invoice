@@ -1211,7 +1211,10 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 #p_lang .m2note{font-size:.88rem;margin:10px 0 0}
 
 /* at the top of the page (not scrolled): no bar under the status bar */
-html.attop::before{display:none}
+/* top of the page: the status-bar area is painted the same colour as the hero, so there is no darker band */
+html:has(#landing:not([hidden])){background:var(--hero-bg)}
+html:has(#landing:not([hidden])) body{background:linear-gradient(var(--hero-bg),var(--hero-bg)) top/100% calc(env(safe-area-inset-top,0px) + 120px) no-repeat,var(--bg)}
+html::before{height:max(env(safe-area-inset-top,0px),1px)}
 
 /* ===== palette tokens (one source for every colour) ===== */
 :root{--gold:#F5C542;--gold-2:#D99A1E;--gold-hi:#FFE9A3;--gold-edge:#C98A12;--on-gold:#3A2500;
@@ -1246,6 +1249,9 @@ html.menuopen #btn_menu{position:relative;z-index:46}
 .auth h2 .hl,.auth .hl{color:var(--accent)}
 .auth .tabs button.on{color:var(--accent)}
 #authabn .abnico{color:var(--accent)}
+
+/* keep the buttons clear of Safari's soft edge under the status bar */
+html body header.top{padding-top:30px!important}
 </style>
 </head>
 <body>
