@@ -1276,6 +1276,7 @@ html.guestmode #btn_hist,html.guestmode #btn_menu,html.guestmode #btn_gopro,html
     <div class="sheethead"><button id="sheetback" class="sheetback" type="button" hidden data-i18n-aria="s2.back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
 
     <section id="p_infos" class="form" hidden data-i18n-title="i.title">
+      <p id="gi_note" class="gnote" hidden data-i18n="gi.note">No account yet: your details stay on this phone. Your ABN is linked to your account when you create it.</p>
       <p class="muted" style="margin:0" data-i18n="i.intro">Everything marked “On invoice” is printed on your invoices. Fill it in once.</p>
       <div class="namegrid">
         <div class="form"><label for="me_first" class="oninv" data-i18n="i.first">First name</label><input id="me_first" autocomplete="given-name" autocapitalize="words"></div>
@@ -1898,6 +1899,7 @@ html.guestmode #btn_hist,html.guestmode #btn_menu,html.guestmode #btn_gopro,html
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "gi.note":"No account yet: your details stay on this phone. Your ABN is linked to your account when you create it.","gi.abn_kept":"ABN noted. It will be linked to your account when you create it.",
   "g.title":"Create your free account","g.text":"Your invoice is almost ready. Create your free account to add your ABN and download the PDF. Your hours are kept.","g.l1":"3 free invoices, no card","g.l2":"Your ABN, BSB and GST on every invoice","g.l3":"Takes 1 minute","g.go":"Create my free account","g.login":"I already have an account","g.later":"Keep filling in my hours","g.top":"Create account","g.note":"Your hours are kept: create your account and they move into it.","g.saved":"Saved on this phone. Create your account to keep it for good.",
   "m2.acct":"My account","m2.acct_sub":"Details, email, password","m2.pro":"Premium","m2.pro_go":"Everything unlimited","m2.pro_manage":"Manage your subscription","m2.prefs":"Preferences","m2.prefs_sub":"App language","m2.logout_sub":"Leave your account","s2.infos":"My details","s2.infos_sub":"Name, ABN and bank","s2.lists":"Clients and sites","s2.lists_sub":"Manage your lists","s2.lang":"Language","s2.lang_sub":"App language","s2.help":"Help and contact","s2.help_sub":"Guide and support","s2.lang_note":"Your invoices (the PDF) are always in English.","s2.back":"Back","m.params":"Settings","m2.free_n":"{n} free invoices left","m2.free_1":"1 free invoice left","m2.free_0":"No free invoices left",
   "ac.new_email2":"Confirm new email","ac.mismatch":"The two emails don't match.","ac.code_cur":"For your security, we sent a code to your current email, {email}. Enter it below to switch to {nemail}.",
@@ -2265,6 +2267,7 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "gi.note":"Pas encore de compte : tes infos restent sur ce téléphone. Ton ABN sera lié à ton compte quand tu le créeras.","gi.abn_kept":"ABN noté. Il sera lié à ton compte quand tu le créeras.",
   "g.title":"Crée ton compte gratuit","g.text":"Ta facture est presque prête. Crée ton compte gratuit pour ajouter ton ABN et télécharger le PDF. Tes heures sont gardées.","g.l1":"3 factures gratuites, sans carte","g.l2":"Ton ABN, ton BSB et la GST sur chaque facture","g.l3":"Ça prend 1 minute","g.go":"Créer mon compte gratuit","g.login":"J'ai déjà un compte","g.later":"Continuer à remplir mes heures","g.top":"Créer un compte","g.note":"Tes heures sont gardées : crée ton compte et elles y sont transférées.","g.saved":"Gardé sur ce téléphone. Crée ton compte pour le garder pour de bon.",
   "m2.acct":"Mon compte","m2.acct_sub":"Infos, email, mot de passe","m2.pro":"Premium","m2.pro_go":"Tout en illimité","m2.pro_manage":"Gérer ton abonnement","m2.prefs":"Préférences","m2.prefs_sub":"Langue de l'app","m2.logout_sub":"Quitter ton compte","s2.infos":"Mes informations","s2.infos_sub":"Nom, ABN et banque","s2.lists":"Clients et lieux","s2.lists_sub":"Gérer tes listes","s2.lang":"Langue","s2.lang_sub":"Langue de l'app","s2.help":"Aide et contact","s2.help_sub":"Guide et assistance","s2.lang_note":"Tes factures (le PDF) restent toujours en anglais.","s2.back":"Retour","m.params":"Paramètres","m2.free_n":"{n} factures gratuites restantes","m2.free_1":"1 facture gratuite restante","m2.free_0":"Plus de facture gratuite",
   "ac.new_email2":"Confirme le nouvel email","ac.mismatch":"Les deux emails ne sont pas identiques.","ac.code_cur":"Par sécurité, on a envoyé un code à ton email actuel, {email}. Entre-le ci-dessous pour passer à {nemail}.",
@@ -2626,6 +2629,7 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "gi.note":"Aún sin cuenta: tus datos se quedan en este móvil. Tu ABN se vinculará a tu cuenta cuando la crees.","gi.abn_kept":"ABN anotado. Se vinculará a tu cuenta cuando la crees.",
   "g.title":"Crea tu cuenta gratis","g.text":"Tu factura está casi lista. Crea tu cuenta gratis para añadir tu ABN y descargar el PDF. Tus horas se guardan.","g.l1":"3 facturas gratis, sin tarjeta","g.l2":"Tu ABN, BSB y GST en cada factura","g.l3":"Lleva 1 minuto","g.go":"Crear mi cuenta gratis","g.login":"Ya tengo una cuenta","g.later":"Seguir llenando mis horas","g.top":"Crear cuenta","g.note":"Tus horas se guardan: crea tu cuenta y pasan a ella.","g.saved":"Guardado en este móvil. Crea tu cuenta para conservarlo.",
   "m2.acct":"Mi cuenta","m2.acct_sub":"Datos, email, contraseña","m2.pro":"Premium","m2.pro_go":"Todo ilimitado","m2.pro_manage":"Gestionar tu suscripción","m2.prefs":"Preferencias","m2.prefs_sub":"Idioma de la app","m2.logout_sub":"Salir de tu cuenta","s2.infos":"Mis datos","s2.infos_sub":"Nombre, ABN y banco","s2.lists":"Clientes y obras","s2.lists_sub":"Gestionar tus listas","s2.lang":"Idioma","s2.lang_sub":"Idioma de la app","s2.help":"Ayuda y contacto","s2.help_sub":"Guía y soporte","s2.lang_note":"Tus facturas (el PDF) siempre están en inglés.","s2.back":"Volver","m.params":"Ajustes","m2.free_n":"Te quedan {n} facturas gratis","m2.free_1":"Te queda 1 factura gratis","m2.free_0":"No te quedan facturas gratis",
   "ac.new_email2":"Confirma el nuevo email","ac.mismatch":"Los dos emails no coinciden.","ac.code_cur":"Por seguridad, enviamos un código a tu email actual, {email}. Escríbelo abajo para cambiar a {nemail}.",
@@ -3085,6 +3089,7 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "gi.note":"Ancora senza account: i tuoi dati restano su questo telefono. Il tuo ABN sarà collegato all'account quando lo crei.","gi.abn_kept":"ABN salvato. Sarà collegato al tuo account quando lo crei.",
   "g.title":"Crea il tuo account gratuito","g.text":"La tua fattura è quasi pronta. Crea l'account gratuito per aggiungere il tuo ABN e scaricare il PDF. Le tue ore restano salvate.","g.l1":"3 fatture gratis, senza carta","g.l2":"ABN, BSB e GST su ogni fattura","g.l3":"Ci vuole 1 minuto","g.go":"Crea il mio account gratuito","g.login":"Ho già un account","g.later":"Continua a inserire le ore","g.top":"Crea account","g.note":"Le tue ore restano salvate: crea l'account e passano lì.","g.saved":"Salvato su questo telefono. Crea l'account per conservarlo.",
   "m2.acct":"Il mio account","m2.acct_sub":"Dati, email, password","m2.pro":"Premium","m2.pro_go":"Tutto illimitato","m2.pro_manage":"Gestisci l'abbonamento","m2.prefs":"Preferenze","m2.prefs_sub":"Lingua dell'app","m2.logout_sub":"Esci dal tuo account","s2.infos":"I miei dati","s2.infos_sub":"Nome, ABN e banca","s2.lists":"Clienti e cantieri","s2.lists_sub":"Gestisci le liste","s2.lang":"Lingua","s2.lang_sub":"Lingua dell'app","s2.help":"Aiuto e contatti","s2.help_sub":"Guida e assistenza","s2.lang_note":"Le tue fatture (il PDF) sono sempre in inglese.","s2.back":"Indietro","m.params":"Impostazioni","m2.free_n":"{n} fatture gratuite rimaste","m2.free_1":"1 fattura gratuita rimasta","m2.free_0":"Nessuna fattura gratuita rimasta",
   "ac.new_email2":"Conferma la nuova email","ac.mismatch":"Le due email non coincidono.","ac.code_cur":"Per sicurezza, abbiamo inviato un codice alla tua email attuale, {email}. Inseriscilo qui sotto per passare a {nemail}.",
@@ -3693,6 +3698,7 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "gi.note":"Ainda sem conta: seus dados ficam neste celular. Seu ABN será vinculado à sua conta quando você criá-la.","gi.abn_kept":"ABN anotado. Ele será vinculado à sua conta quando você criá-la.",
   "g.title":"Crie sua conta grátis","g.text":"Sua fatura está quase pronta. Crie sua conta grátis para adicionar seu ABN e baixar o PDF. Suas horas ficam guardadas.","g.l1":"3 faturas grátis, sem cartão","g.l2":"Seu ABN, BSB e GST em cada fatura","g.l3":"Leva 1 minuto","g.go":"Criar minha conta grátis","g.login":"Já tenho uma conta","g.later":"Continuar preenchendo minhas horas","g.top":"Criar conta","g.note":"Suas horas ficam guardadas: crie sua conta e elas passam para ela.","g.saved":"Salvo neste celular. Crie sua conta para guardar de vez.",
   "m2.acct":"Minha conta","m2.acct_sub":"Dados, email, senha","m2.pro":"Premium","m2.pro_go":"Tudo ilimitado","m2.pro_manage":"Gerenciar sua assinatura","m2.prefs":"Preferências","m2.prefs_sub":"Idioma do app","m2.logout_sub":"Sair da sua conta","s2.infos":"Meus dados","s2.infos_sub":"Nome, ABN e banco","s2.lists":"Clientes e locais","s2.lists_sub":"Gerenciar suas listas","s2.lang":"Idioma","s2.lang_sub":"Idioma do app","s2.help":"Ajuda e contato","s2.help_sub":"Guia e suporte","s2.lang_note":"Suas faturas (o PDF) são sempre em inglês.","s2.back":"Voltar","m.params":"Configurações","m2.free_n":"{n} faturas grátis restantes","m2.free_1":"1 fatura grátis restante","m2.free_0":"Nenhuma fatura grátis restante",
   "ac.new_email2":"Confirme o novo email","ac.mismatch":"Os dois emails não são iguais.","ac.code_cur":"Por segurança, enviamos um código para seu email atual, {email}. Digite abaixo para mudar para {nemail}.",
@@ -4643,10 +4649,10 @@ $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
 /* ---------- sheets ---------- */
 let sheetFrom="",sheetBackTo="";const backOf={};
-function openSheet(id,opts){closeMenu();if(isGuest()&&!["p_gsign","p_preview","p_lists"].includes(id))id="p_gsign";if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
+function openSheet(id,opts){closeMenu();if(isGuest()&&!["p_gsign","p_preview","p_lists","p_infos"].includes(id))id="p_gsign";if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";document.querySelector("#sheetov .sheetbox").scrollTop=0;
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_ref")renderRef();if(id==="p_account")renderAccount();if(id==="p_premium")renderPremium();
-  if(id==="p_infos"){ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";$("abn_msg").classList.remove("okmsg");["bsb","acc","email"].forEach(k=>$(k+"_msg").textContent="");renderAbn();renderGstReg();renderMissing()}
+  if(id==="p_infos"){$("gi_note").hidden=!isGuest();ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";$("abn_msg").classList.remove("okmsg");["bsb","acc","email"].forEach(k=>$(k+"_msg").textContent="");renderAbn();renderGstReg();renderMissing()}
   if(id==="p_admin"&&!(opts&&opts.keep))loadAdmin(true)}
 function closeSheet(){if(curSheet==="p_preview"&&pvBack==="admin"){pvBack=null;openSheet("p_admin",{keep:true});return}
   if(curSheet==="p_preview"&&pvBack==="review"){pvBack=null;openSheet("p_review");return}
@@ -4674,7 +4680,7 @@ function checkField(k){const v=($("me_"+k).value||"").trim();
   if(k==="acc")$("acc_msg").textContent=v&&!accOk(v)?t("i.acc_bad"):"";
   if(k==="email")$("email_msg").textContent=v&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)?t("i.email_bad"):""}
 function renderMissing(){const p=P();if(!p)return;const miss=[];if(!String(p.first||"").trim())miss.push(t("i.n_first"));if(!String(p.last||"").trim())miss.push(t("i.n_last"));
-  if(!p.abnLocked)miss.push(t("i.n_abn"));if(!bsbOk(p.bsb))miss.push(t("i.n_bsb"));if(!String(p.acc||"").trim())miss.push(t("i.n_acc"));
+  if(!p.abnLocked&&!(isGuest()&&abnOk(p.abn)))miss.push(t("i.n_abn"));if(!bsbOk(p.bsb))miss.push(t("i.n_bsb"));if(!String(p.acc||"").trim())miss.push(t("i.n_acc"));
   const el=$("i_missing");el.textContent=miss.length?t("i.missing",{list:miss.join(", ")}):t("i.all_set");el.classList.toggle("ok",!miss.length)}
 ["bsb","acc","email"].forEach(k=>$("me_"+k).addEventListener("blur",()=>checkField(k)));
 $("me_bsb").addEventListener("blur",e=>{const d=e.target.value.replace(/\D/g,"");if(d.length===6){e.target.value=d.slice(0,3)+"-"+d.slice(3);P().bsb=e.target.value;save()}});
@@ -4692,7 +4698,7 @@ function renderAbn(){const p=P(),lk=!!p.abnLocked,inp=$("me_abn"),b=$("abn_ok"),
   n.textContent=lk?t("i.abn_locked_note",{email:SUPPORT_EMAIL}):t("i.abn_warn");n.classList.toggle("warnbox",!lk);
   b.classList.add("primary");b.textContent=t("i.abn_confirm");
   if(abnAsk)$("abnconf_t").textContent=t("i.abn_check",{abn:fmtAbn(inp.value)})}
-$("me_abn").addEventListener("input",()=>{if(P().abnLocked)return;abnAsk=false;$("abn_msg").textContent="";renderAbn()});
+$("me_abn").addEventListener("input",()=>{if(P().abnLocked)return;if(isGuest()){P().abn=$("me_abn").value.replace(/\D/g,"").slice(0,11);save()}abnAsk=false;$("abn_msg").textContent="";renderAbn()});
 $("me_abn").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();(abnAsk?$("abn_yes"):$("abn_ok")).click()}});
 /* step 1: 11 digits + official ATO checksum, then ask "Is this correct?" */
 $("abn_ok").onclick=()=>{const p=P();if(p.abnLocked||abnBusy)return;const v=$("me_abn").value.replace(/\D/g,""),msg=$("abn_msg");msg.textContent="";msg.classList.remove("okmsg");
@@ -4702,6 +4708,7 @@ $("abn_edit").onclick=()=>{abnAsk=false;renderAbn();const i=$("me_abn");i.focus(
 /* step 2: "Yes, continue" locks it to the account */
 $("abn_yes").onclick=async()=>{const p=P();if(p.abnLocked||abnBusy||!abnAsk)return;const v=$("me_abn").value.replace(/\D/g,""),msg=$("abn_msg");msg.textContent="";msg.classList.remove("okmsg");
   if(!abnOk(v)){msg.textContent=t("i.abn_bad");abnAsk=false;renderAbn();return}
+  if(isGuest()){p.abn=v;abnAsk=false;save();msg.textContent=t("gi.abn_kept");msg.classList.add("okmsg");renderAbn();renderMissing();return}
   abnBusy=true;const b=$("abn_yes");b.disabled=true;$("abn_edit").disabled=true;b.textContent=t("auth.wait");
   try{const {data,error}=await sb.rpc("set_my_abn",{p_abn:v});
     if(error||!data){msg.textContent=t("i.abn_err");abnAsk=false;return}
@@ -4951,6 +4958,10 @@ function leaveGuest(m){if(saveTimer){clearTimeout(saveTimer);saveTimer=null}gues
 function renderGuestNote(){const g=guestLoad();$("gnote").hidden=!!session||!(g&&g.inv&&hasHours(g.inv))}
 /* after sign-up / log-in: the hours typed as a guest move into the account (only if its open invoice is still empty) */
 function mergeGuest(){const g=guestLoad();try{localStorage.removeItem("sb_guest")}catch(e){}renderGuestNote();
+  if(g&&P()){const p=P();let ch=false;["first","last","email","phone","addr","bsb","acc"].forEach(k=>{if(g[k]&&!p[k]){p[k]=g[k];ch=true}});
+    if(ch){p.name=fullName(p)||p.name;if(g.gstReg!=null)p.gstReg=!!g.gstReg}
+    if(g.abn&&!p.abnLocked&&!p.abn){p.abn=String(g.abn).replace(/\D/g,"").slice(0,11);ch=true}
+    if(ch)save()}
   if(!g||!g.inv||!hasHours(g.inv)||!P()||locked()||(P().inv&&hasHours(I())))return;
   const p=P();p.inv=migrateInv(clone(g.inv));p.inv.finished=false;
   ["rate","mode","unpaid","ph","ot","desc","period","clientAbn","clientEmail"].forEach(k=>{if(g[k]!=null)p[k]=g[k]});
