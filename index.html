@@ -1305,7 +1305,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <p id="gi_note" class="gnote" hidden data-i18n="gi.note">No account yet: your details stay on this phone. Your ABN is linked to your account when you create it.</p>
       <p class="muted" style="margin:0" data-i18n="i.intro">Everything marked “On invoice” is printed on your invoices. Fill it in once.</p>
       <div class="namegrid">
-        <div class="form"><label for="me_first" class="oninv" data-i18n="i.first">First name</label><input id="me_first" autocomplete="given-name" autocapitalize="words"></div>
+        <div class="form"><label for="me_first" class="oninv" data-i18n="i.first">First name(s)</label><input id="me_first" autocomplete="given-name" autocapitalize="words" maxlength="80" data-i18n-ph="i.first_ph" placeholder="e.g. Jack Thomas"></div>
         <div class="form"><label for="me_last" class="oninv" data-i18n="i.last">Last name</label><input id="me_last" autocomplete="family-name" autocapitalize="words"></div>
       </div>
       <label for="me_abn" class="oninv" data-i18n="i.abn">ABN</label>
@@ -1946,6 +1946,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "i.first_ph":"e.g. Jack Thomas",
+  "a.free_val2":"{used} used of {limit} · {left} left",
+  "a.zero_free":"No free invoices left",
   "bm.title":"How are you paid?","bm.hourly":"By the hour","bm.hourly_s":"hours × rate","bm.daily":"By the day","bm.daily_s":"days × day rate","bm.period":"Fixed amount","bm.period_s":"same amount each period","bm.period_week":"Fixed weekly","bm.period_fortnight":"Fixed fortnightly","bm.period_month":"Fixed monthly","bm.fixed":"Fixed price","bm.fixed_s":"per job or project","bm.d_rate":"Day rate ($/day)","bm.d_rate_ph":"e.g. 350","bm.desc_ph":"e.g. Services","bm.d_days":"Days worked (tap to add or remove)","bm.f_per":"Period billed","bm.f_from":"Start","bm.f_to":"End","bm.f_amt":"Agreed price ($)","bm.f_amt_week":"Amount for the week ($)","bm.f_amt_fortnight":"Amount for the fortnight ($)","bm.f_amt_month":"Amount for the month ($)","bm.f_desc_job":"What the job is","bm.f_desc_job_ph":"e.g. Website redesign, end-of-lease clean…","bm.f_desc_per_ph":"e.g. Weekly services","bm.f_note_per":"The amount doesn't depend on your hours: you bill the amount agreed for the period.","bm.f_note_job":"The price agreed with your client for this job. No hours needed.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Enter your day rate.","bm.need_days":"Tap at least one day you worked.","bm.need_amt":"Enter the amount to bill.","bm.bad_dates":"The end date is before the start date.",
   "gi.note":"No account yet: your details stay on this phone. Your ABN is linked to your account when you create it.","gi.abn_kept":"ABN noted. It will be linked to your account when you create it.",
   "g.title":"Create your free account","g.text":"Your invoice is almost ready. Create your free account to add your ABN and download the PDF. Your hours are kept.","g.l1":"3 free invoices, no card","g.l2":"Your ABN, BSB and GST on every invoice","g.l3":"Takes 1 minute","g.go":"Create my free account","g.login":"I already have an account","g.later":"Keep filling in my hours","g.top":"Create account","g.note":"Your hours are kept: create your account and they move into it.","g.saved":"Saved on this phone. Create your account to keep it for good.",
@@ -2203,7 +2206,7 @@ en:{
   "pv.mark":"PREVIEW",
   "pv.title":"Invoice preview",
   "bar.preview":"Preview",
-  "i.first":"First name","i.last":"Last name",
+  "i.first":"First name(s)","i.last":"Last name",
   "nav.app":"My invoices",
   "a.reset_confirm":"Tap again to reset {abn}",
   "a.reset_abn":"Reset ABN",
@@ -2315,6 +2318,9 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "i.first_ph":"ex. Thomas Jean-Claude",
+  "a.free_val2":"{used} utilisée(s) sur {limit} · {left} restante(s)",
+  "a.zero_free":"Plus aucune gratuite",
   "bm.title":"Comment tu es payé ?","bm.hourly":"À l'heure","bm.hourly_s":"heures × taux","bm.daily":"À la journée","bm.daily_s":"jours × tarif","bm.period":"Forfait","bm.period_s":"même montant à chaque période","bm.period_week":"Forfait semaine","bm.period_fortnight":"Forfait 2 semaines","bm.period_month":"Forfait mois","bm.fixed":"Prix fixe","bm.fixed_s":"par mission","bm.d_rate":"Tarif par jour ($/jour)","bm.d_rate_ph":"ex. 350","bm.desc_ph":"ex. Services","bm.d_days":"Jours travaillés (touche pour ajouter / retirer)","bm.f_per":"Période facturée","bm.f_from":"Début","bm.f_to":"Fin","bm.f_amt":"Prix convenu ($)","bm.f_amt_week":"Montant de la semaine ($)","bm.f_amt_fortnight":"Montant des 2 semaines ($)","bm.f_amt_month":"Montant du mois ($)","bm.f_desc_job":"Description de la mission","bm.f_desc_job_ph":"ex. Refonte du site web, ménage de fin de bail…","bm.f_desc_per_ph":"ex. Weekly services","bm.f_note_per":"Le montant ne dépend pas des heures : tu factures le forfait convenu pour la période.","bm.f_note_job":"Prix convenu avec le client pour cette mission. Les heures ne sont pas demandées.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Indique ton tarif par jour.","bm.need_days":"Touche au moins un jour travaillé.","bm.need_amt":"Indique le montant à facturer.","bm.bad_dates":"La date de fin est avant la date de début.",
   "gi.note":"Pas encore de compte : tes infos restent sur ce téléphone. Ton ABN sera lié à ton compte quand tu le créeras.","gi.abn_kept":"ABN noté. Il sera lié à ton compte quand tu le créeras.",
   "g.title":"Crée ton compte gratuit","g.text":"Ta facture est presque prête. Crée ton compte gratuit pour ajouter ton ABN et télécharger le PDF. Tes heures sont gardées.","g.l1":"3 factures gratuites, sans carte","g.l2":"Ton ABN, ton BSB et la GST sur chaque facture","g.l3":"Ça prend 1 minute","g.go":"Créer mon compte gratuit","g.login":"J'ai déjà un compte","g.later":"Continuer à remplir mes heures","g.top":"Créer un compte","g.note":"Tes heures sont gardées : crée ton compte et elles y sont transférées.","g.saved":"Gardé sur ce téléphone. Crée ton compte pour le garder pour de bon.",
@@ -2572,7 +2578,7 @@ fr:{
   "pv.mark":"APERÇU",
   "pv.title":"Aperçu de la facture",
   "bar.preview":"Aperçu",
-  "i.first":"Prénom","i.last":"Nom",
+  "i.first":"Prénom(s)","i.last":"Nom",
   "nav.app":"Mes factures",
   "a.reset_confirm":"Touche encore pour effacer {abn}",
   "a.reset_abn":"Réinitialiser l'ABN",
@@ -2678,6 +2684,7 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "i.first_ph":"ej. Juan Carlos",
   "bm.title":"¿Cómo te pagan?","bm.hourly":"Por hora","bm.hourly_s":"horas × tarifa","bm.daily":"Por día","bm.daily_s":"días × tarifa","bm.period":"Monto fijo","bm.period_s":"mismo monto cada periodo","bm.period_week":"Fijo semanal","bm.period_fortnight":"Fijo quincenal","bm.period_month":"Fijo mensual","bm.fixed":"Precio fijo","bm.fixed_s":"por trabajo","bm.d_rate":"Tarifa por día ($/día)","bm.d_rate_ph":"p. ej. 350","bm.desc_ph":"p. ej. Services","bm.d_days":"Días trabajados (toca para añadir o quitar)","bm.f_per":"Periodo facturado","bm.f_from":"Inicio","bm.f_to":"Fin","bm.f_amt":"Precio acordado ($)","bm.f_amt_week":"Monto de la semana ($)","bm.f_amt_fortnight":"Monto de la quincena ($)","bm.f_amt_month":"Monto del mes ($)","bm.f_desc_job":"Descripción del trabajo","bm.f_desc_job_ph":"p. ej. Rediseño web, limpieza de fin de contrato…","bm.f_desc_per_ph":"p. ej. Weekly services","bm.f_note_per":"El monto no depende de tus horas: facturas lo acordado para el periodo.","bm.f_note_job":"Precio acordado con tu cliente para este trabajo. No hacen falta horas.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Indica tu tarifa por día.","bm.need_days":"Toca al menos un día trabajado.","bm.need_amt":"Indica el monto a facturar.","bm.bad_dates":"La fecha de fin es anterior a la de inicio.",
   "gi.note":"Aún sin cuenta: tus datos se quedan en este móvil. Tu ABN se vinculará a tu cuenta cuando la crees.","gi.abn_kept":"ABN anotado. Se vinculará a tu cuenta cuando la crees.",
   "g.title":"Crea tu cuenta gratis","g.text":"Tu factura está casi lista. Crea tu cuenta gratis para añadir tu ABN y descargar el PDF. Tus horas se guardan.","g.l1":"3 facturas gratis, sin tarjeta","g.l2":"Tu ABN, BSB y GST en cada factura","g.l3":"Lleva 1 minuto","g.go":"Crear mi cuenta gratis","g.login":"Ya tengo una cuenta","g.later":"Seguir llenando mis horas","g.top":"Crear cuenta","g.note":"Tus horas se guardan: crea tu cuenta y pasan a ella.","g.saved":"Guardado en este móvil. Crea tu cuenta para conservarlo.",
@@ -2835,7 +2842,7 @@ es:{
   "pv.mark":"VISTA PREVIA",
   "pv.title":"Vista previa de la factura",
   "bar.preview":"Vista previa",
-  "i.first":"Nombre",
+  "i.first":"Nombre(s)",
   "i.last":"Apellido",
   "nav.app":"Mis facturas",
   "fin.missing":"El servicio de facturas aún no está listo. Inténtalo más tarde.",
@@ -3139,6 +3146,7 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "i.first_ph":"es. Marco Antonio",
   "bm.title":"Come vieni pagato?","bm.hourly":"A ore","bm.hourly_s":"ore × tariffa","bm.daily":"A giornata","bm.daily_s":"giorni × tariffa","bm.period":"Importo fisso","bm.period_s":"stesso importo ogni periodo","bm.period_week":"Fisso settimanale","bm.period_fortnight":"Fisso quindicinale","bm.period_month":"Fisso mensile","bm.fixed":"Prezzo fisso","bm.fixed_s":"per lavoro","bm.d_rate":"Tariffa giornaliera ($/giorno)","bm.d_rate_ph":"es. 350","bm.desc_ph":"es. Services","bm.d_days":"Giorni lavorati (tocca per aggiungere / togliere)","bm.f_per":"Periodo fatturato","bm.f_from":"Inizio","bm.f_to":"Fine","bm.f_amt":"Prezzo concordato ($)","bm.f_amt_week":"Importo della settimana ($)","bm.f_amt_fortnight":"Importo delle 2 settimane ($)","bm.f_amt_month":"Importo del mese ($)","bm.f_desc_job":"Descrizione del lavoro","bm.f_desc_job_ph":"es. Rifacimento sito web, pulizia di fine contratto…","bm.f_desc_per_ph":"es. Weekly services","bm.f_note_per":"L'importo non dipende dalle ore: fatturi quanto concordato per il periodo.","bm.f_note_job":"Prezzo concordato con il cliente per questo lavoro. Le ore non servono.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Inserisci la tariffa giornaliera.","bm.need_days":"Tocca almeno un giorno lavorato.","bm.need_amt":"Inserisci l'importo da fatturare.","bm.bad_dates":"La data di fine è prima di quella di inizio.",
   "gi.note":"Ancora senza account: i tuoi dati restano su questo telefono. Il tuo ABN sarà collegato all'account quando lo crei.","gi.abn_kept":"ABN salvato. Sarà collegato al tuo account quando lo crei.",
   "g.title":"Crea il tuo account gratuito","g.text":"La tua fattura è quasi pronta. Crea l'account gratuito per aggiungere il tuo ABN e scaricare il PDF. Le tue ore restano salvate.","g.l1":"3 fatture gratis, senza carta","g.l2":"ABN, BSB e GST su ogni fattura","g.l3":"Ci vuole 1 minuto","g.go":"Crea il mio account gratuito","g.login":"Ho già un account","g.later":"Continua a inserire le ore","g.top":"Crea account","g.note":"Le tue ore restano salvate: crea l'account e passano lì.","g.saved":"Salvato su questo telefono. Crea l'account per conservarlo.",
@@ -3297,7 +3305,7 @@ it:{
   "pv.mark":"ANTEPRIMA",
   "pv.title":"Anteprima della fattura",
   "bar.preview":"Anteprima",
-  "i.first":"Nome",
+  "i.first":"Nome/i",
   "i.last":"Cognome",
   "nav.app":"Le mie fatture",
   "fin.missing":"Il servizio fatture non è ancora configurato. Riprova più tardi.",
@@ -3749,6 +3757,7 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "i.first_ph":"ex. João Pedro",
   "bm.title":"Como você é pago?","bm.hourly":"Por hora","bm.hourly_s":"horas × valor","bm.daily":"Por dia","bm.daily_s":"dias × diária","bm.period":"Valor fixo","bm.period_s":"mesmo valor a cada período","bm.period_week":"Fixo semanal","bm.period_fortnight":"Fixo quinzenal","bm.period_month":"Fixo mensal","bm.fixed":"Preço fixo","bm.fixed_s":"por serviço","bm.d_rate":"Diária ($/dia)","bm.d_rate_ph":"ex. 350","bm.desc_ph":"ex. Services","bm.d_days":"Dias trabalhados (toque para adicionar / tirar)","bm.f_per":"Período faturado","bm.f_from":"Início","bm.f_to":"Fim","bm.f_amt":"Preço combinado ($)","bm.f_amt_week":"Valor da semana ($)","bm.f_amt_fortnight":"Valor da quinzena ($)","bm.f_amt_month":"Valor do mês ($)","bm.f_desc_job":"Descrição do serviço","bm.f_desc_job_ph":"ex. Novo site, faxina de fim de contrato…","bm.f_desc_per_ph":"ex. Weekly services","bm.f_note_per":"O valor não depende das suas horas: você fatura o combinado para o período.","bm.f_note_job":"Preço combinado com o cliente para este serviço. Não precisa de horas.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Informe sua diária.","bm.need_days":"Toque em pelo menos um dia trabalhado.","bm.need_amt":"Informe o valor a faturar.","bm.bad_dates":"A data de fim é antes da data de início.",
   "gi.note":"Ainda sem conta: seus dados ficam neste celular. Seu ABN será vinculado à sua conta quando você criá-la.","gi.abn_kept":"ABN anotado. Ele será vinculado à sua conta quando você criá-la.",
   "g.title":"Crie sua conta grátis","g.text":"Sua fatura está quase pronta. Crie sua conta grátis para adicionar seu ABN e baixar o PDF. Suas horas ficam guardadas.","g.l1":"3 faturas grátis, sem cartão","g.l2":"Seu ABN, BSB e GST em cada fatura","g.l3":"Leva 1 minuto","g.go":"Criar minha conta grátis","g.login":"Já tenho uma conta","g.later":"Continuar preenchendo minhas horas","g.top":"Criar conta","g.note":"Suas horas ficam guardadas: crie sua conta e elas passam para ela.","g.saved":"Salvo neste celular. Crie sua conta para guardar de vez.",
@@ -3907,7 +3916,7 @@ pt:{
   "pv.mark":"PRÉVIA",
   "pv.title":"Prévia da fatura",
   "bar.preview":"Prévia",
-  "i.first":"Nome",
+  "i.first":"Nome(s)",
   "i.last":"Sobrenome",
   "nav.app":"Minhas faturas",
   "fin.missing":"O serviço de faturas ainda não está configurado. Tente mais tarde.",
@@ -4449,14 +4458,14 @@ const pauseOpts=v=>[0,15,30,45,60].map(m=>`<option value="${m}"${m==(v||0)?" sel
 
 /* ---------- state ---------- */
 let session=null,plan={premium:false,period_end:null,free_limit:3,free_used:0,is_admin:false};
-const freeLeft=()=>Math.max(0,(plan.free_limit||3)-(plan.free_used||0));
-const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit||3,free_used:+d.free_used||0,is_admin:!!d.is_admin,blocked:!!d.blocked,status:d.status||null}};
+const freeLeft=()=>Math.max(0,(plan.free_limit??3)-(plan.free_used||0));
+const setPlan=d=>{plan={premium:!!d.premium,period_end:d.period_end||null,free_limit:d.free_limit!=null&&isFinite(+d.free_limit)?Math.max(0,+d.free_limit):3,free_used:+d.free_used||0,is_admin:!!d.is_admin,blocked:!!d.blocked,status:d.status||null}};
 const stripeSub=()=>plan.premium&&["active","trialing","past_due"].includes(plan.status);
 const locked=()=>!!(P()&&P().inv&&P().inv.finished);
 const newId=()=>uid()+uid();
 let state={me:null,clients:[],sites:[]};
 const P=()=>state.me;const I=()=>state.me.inv;
-const FREE_LIMIT=()=>plan.free_limit||3;
+const FREE_LIMIT=()=>plan.free_limit??3;
 const BILLS=["hourly","daily","period","fixed"];
 const billOf=inv=>inv&&BILLS.includes(inv.bill)?inv.bill:"hourly";   /* invoices saved before the modes existed are hourly */
 const fxAmt=inv=>{const a=+(inv&&inv.fx&&inv.fx.amt);return a>0&&a<=1000000?a:0};
@@ -4852,7 +4861,7 @@ function renderMenu(){$("acctemail").textContent=session?session.email:"";$("m_h
   const ap=$("acctplan");ap.classList.toggle("pro",!!plan.premium);
   if(plan.premium){const until=!stripeSub()&&plan.period_end?t("m.pro_until2",{date:clean(new Date(plan.period_end).toLocaleDateString(loc()))}):"";
     ap.innerHTML=`<span class="mpro">${esc(t("plan.pro"))}<i class="mok" aria-hidden="true"></i></span>${until?`<small>${esc(until)}</small>`:""}`}
-  else{const n=freeLeft(),lim=FREE_LIMIT();ap.innerHTML=`<span class="mfree">${esc(t(n===1?"m2.free_1":n>0?"m2.free_n":"m2.free_0",{n}))}</span><span class="mbar" aria-hidden="true"><i style="width:${Math.max(0,Math.min(100,Math.round(n/lim*100)))}%"></i></span><small class="mbarn">${n} / ${lim}</small>`}
+  else{const n=freeLeft(),lim=FREE_LIMIT();ap.innerHTML=`<span class="mfree">${esc(t(n===1?"m2.free_1":n>0?"m2.free_n":"m2.free_0",{n}))}</span><span class="mbar" aria-hidden="true"><i style="width:${(lim>0?Math.max(0,Math.min(100,Math.round(n/lim*100))):0)}%"></i></span><small class="mbarn">${n} / ${lim}</small>`}
   const me=P()||{},ini=((me.first||"").trim()[0]||"")+((me.last||"").trim()[0]||"");
   $("m_init").textContent=(ini||(session&&session.email||"?").slice(0,2)).toUpperCase();$("m_avatar").classList.toggle("pro",!!plan.premium);
   $("m_premium").hidden=plan.premium;$("m_manage").hidden=!stripeSub();
@@ -5456,7 +5465,7 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
     if(out&&out.ok){
       const me={...(out.me||{})};if(!("gst_v" in me))me.gst=!!p.gstReg;   /* older server script: use the current setting */["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);
       const bytes=renderInvoice(JsPDF,me,out.inv||{});
-      if(out.free_left!=null)plan.free_used=(plan.free_limit||3)-(+out.free_left);
+      if(out.free_left!=null)plan.free_used=(plan.free_limit??3)-(+out.free_left);
       const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim(),src=out.inv||inv;
       const name=`${PT[invType(src)].file} Invoice${who?" "+who:""} ${dmy(src.start||inv.start).replace(/\//g,"-")} - ${dmy(src.end||inv.end).replace(/\//g,"-")}.pdf`;
       lastPdf={id:inv.id,bytes,name};
@@ -5467,7 +5476,7 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
       if(!curEntry())addToHistory();
       save();flushSave();renderAll();pdfMsg(t(again?"fin.again":"fin.done"));askReview(again);return}
     const st=out&&out.status;
-    if(st==="limit"){plan.free_used=plan.free_limit||3;showPremium("p.why_limit")}
+    if(st==="limit"){plan.free_used=Math.max(plan.free_used||0,plan.free_limit??3);showPremium("p.why_limit")}
     else if(st==="dup_no"){if(out.per_client&&p.lastInvBy){const k=cKey(inv.billto);p.lastInvBy[k]=Math.max(+p.lastInvBy[k]||0,+out.last_invno||0)}else{p.lastInvBy=null;p.lastInvNo=Math.max(+p.lastInvNo||0,+out.last_invno||0)}inv.invno=nextInvNo(inv.billto);renderWeek();save();pdfMsg(t("fin.dup_no",{no:inv.invno}))}
     else if(st==="blocked"){plan.blocked=true;pdfMsg(t("fin.blocked",{email:SUPPORT_EMAIL}))}
     else if(st==="abn_taken")pdfMsg(t("fin.abn_taken"));
@@ -5650,7 +5659,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
       <div><dt>${esc(t("a.f_seen"))}</dt><dd>${esc(isOn(d.last_seen)?t("a.online"):(d.last_seen?d8t(d.last_seen):t("a.never_seen")))}</dd></div>
       <div><dt>${esc(t("a.f_joined"))}</dt><dd>${esc(d8t(d.created_at))}</dd></div>
       <div><dt>${esc(t("a.f_last"))}</dt><dd>${esc(d.last_sign_in_at?d8t(d.last_sign_in_at):t("a.never"))}</dd></div>
-      <div><dt>${esc(t("a.f_free"))}</dt><dd>${esc(t("a.free_val",{used:d.free_used,limit:d.free_limit}))}</dd></div>
+      <div><dt>${esc(t("a.f_free"))}</dt><dd>${esc(t("a.free_val2",{used:d.free_used,limit:d.free_limit,left:Math.max(0,d.free_limit-d.free_used)}))}</dd></div>
       <div><dt>${esc(t("a.f_saved"))}</dt><dd>${esc(String(d.saved))}</dd></div>
     </dl>
     <h4>${esc(t("a.s_premium"))}</h4>
@@ -5659,6 +5668,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
       <button type="button" class="primary" id="md_give">${esc(t(on?"a.update":"a.give"))}</button>${on?`<button type="button" id="md_rem">${esc(t("a.remove"))}</button>`:""}</div>`}
     <h4>${esc(t("a.s_free"))}</h4>
     <div class="abtns"><button type="button" data-bonus="1">+1</button><button type="button" data-bonus="3">+3</button><button type="button" data-bonus="5">+5</button><button type="button" id="md_reset">${esc(t("a.reset_count"))}</button></div>
+    <div class="abtns"><button type="button" class="warn" data-bonus="-1"${d.free_limit>0?"":" disabled"}>−1</button><button type="button" class="warn" data-bonus="-3"${d.free_limit>0?"":" disabled"}>−3</button><button type="button" class="warn" id="md_zero"${d.free_limit>d.free_used?"":" disabled"}>${esc(t("a.zero_free"))}</button></div>
     <h4>${esc(t("a.s_account"))}</h4>
     ${me?`<p class="note">${esc(t("a.self_note"))}</p>`:`<div class="form"><input id="md_reason" maxlength="200" placeholder="${esc(t("a.reason_ph"))}"${d.blocked?" hidden":""}>
       <div class="abtns"><button type="button" id="md_block" class="${d.blocked?"":"warn"}">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="danger">${esc(t("a.delete"))}</button></div>
@@ -5675,6 +5685,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
   const rem=box.querySelector("#md_rem");if(rem)rem.onclick=()=>act("admin_set_premium",{p_user:d.user_id,p_on:false,p_days:null},rem);
   box.querySelectorAll("[data-bonus]").forEach(b=>b.onclick=()=>act("admin_set_bonus",{p_user:d.user_id,p_add:+b.dataset.bonus,p_reset:false},b));
   box.querySelector("#md_reset").onclick=e=>act("admin_set_bonus",{p_user:d.user_id,p_add:null,p_reset:true},e.currentTarget);
+  const zr=box.querySelector("#md_zero");if(zr)zr.onclick=()=>act("admin_set_bonus",{p_user:d.user_id,p_add:-Math.max(0,(+d.free_limit||0)-(+d.free_used||0)),p_reset:false},zr);
   const two=(btn,label,fn)=>{btn.onclick=()=>{if(!btn.classList.contains("armed")){btn.classList.add("armed");btn.textContent=label;setTimeout(()=>{if(btn.isConnected&&btn.classList.contains("armed")){btn.classList.remove("armed");renderMember()}},6000);return}fn()}};
   const blk=box.querySelector("#md_block");if(blk)blk.onclick=()=>act("admin_set_blocked",{p_user:d.user_id,p_on:!d.blocked,p_reason:d.blocked?null:(box.querySelector("#md_reason").value.trim()||null)},blk);
   const ab=box.querySelector("#md_abn");if(ab)two(ab,t("a.reset_confirm",{abn:fmtAbn(d.abn)}),()=>act("admin_reset_abn",{p_user:d.user_id},ab));
