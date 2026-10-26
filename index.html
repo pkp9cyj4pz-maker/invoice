@@ -1292,6 +1292,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .bmper{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--field);font-weight:700}
 .bmper b{color:var(--muted);font-weight:600}
 @media (max-width:360px){.bmrow{grid-template-columns:1fr}.bmchip{font-size:.7rem}}
+.qrnote{margin:12px 0 0}.qrnote .linkbtn{font-weight:700}
 </style>
 </head>
 <body>
@@ -1380,6 +1381,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
     <section id="p_preview" hidden data-i18n-title="pv.title">
       <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice. Finish the invoice to get the real PDF.</p>
       <div id="pv_pages" class="pvpages"></div>
+      <p class="note qrnote" id="pv_qr" hidden><span data-i18n="qr.note">On the free plan, a small SubbieBill verification code is printed at the bottom of your invoices. Premium removes it.</span> <button type="button" class="linkbtn qrprem" data-i18n="qr.cta">Remove it with Premium</button></p>
     </section>
 
     <section id="p_review" hidden data-i18n-title="rv.title">
@@ -1509,6 +1511,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <ul class="feat tyfeat">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1"></span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2"></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f6">Clean invoices: no SubbieBill code at the bottom</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p3"></span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f4"></span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f5"></span></li>
@@ -1529,6 +1532,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <ul class="feat" style="margin-bottom:16px">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1">Unlimited invoices</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2">History of every invoice, with totals per year</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f6">Clean invoices: no SubbieBill code at the bottom</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f4">Invoices emailed to your client, with a copy to you</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f5">See what's paid and what's overdue</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f3">Download any past invoice again · cancel anytime</span></li>
@@ -1687,6 +1691,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.f3">Overtime, public holidays and GST worked out</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.f4">Saved clients, sites and drafts</span></li>
         </ul>
+        <p class="plim" data-i18n="price.free_qr">A small SubbieBill verification code at the bottom of each invoice.</p>
         <p class="plim" data-i18n="price.free_lim">Your first 3 invoices kept in your History. Deleting one doesn't give back a free invoice.</p>
         <button type="button" data-auth="signup" data-i18n="price.free_cta">Start for free</button>
       </div>
@@ -1700,6 +1705,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p3">Download any past invoice again</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p5">Invoices emailed to your client, with a copy to you</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p6">See what's paid and what's overdue</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p7">Clean invoices: no SubbieBill code at the bottom</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p4">Cancel anytime</span></li>
         </ul>
         <button type="button" data-auth="signup" data-i18n="price.pro_cta">Start free, upgrade anytime</button>
@@ -1719,7 +1725,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
     <details><summary data-i18n="faq.q7">How do I download or share my PDF?</summary><p data-i18n="faq.a7">Tap Finish invoice, check the summary, then Finish and download PDF. The PDF goes to your downloads. On most phones, Share PDF sends it straight to Mail, Messages or WhatsApp. Download again works as long as the invoice is open, and from your History with Premium.</p></details>
     <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there.</p></details>
     <details><summary data-i18n="faq.q9">How do I change an invoice?</summary><p data-i18n="faq.a9">Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.</p></details>
-    <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking.</p></details>
+    <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking. On Free, a small SubbieBill verification code is printed at the bottom of each invoice; Premium invoices don't have it.</p></details>
     <details><summary data-i18n="faq.q3">Who can see my bank details?</summary><p data-i18n="faq.a3">You, and the SubbieBill administrator when helping with your account. Your details are tied to your account, protected by your password and sent over an encrypted connection. Your clients only see them on the invoices you send.</p></details>
     <details><summary data-i18n="faq.q4">Can I cancel Premium?</summary><p data-i18n="faq.a4">Yes, anytime. You go back to Free: your History stays in your account and comes back if you return to Premium.</p></details>
   </section>
@@ -1946,6 +1952,12 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "price.p7":"Clean invoices: no SubbieBill code at the bottom",
+  "p.why_qr":"Premium removes the SubbieBill code from your invoices, and unlocks everything below.",
+  "qr.cta":"Remove it with Premium",
+  "qr.note":"On the free plan, a small SubbieBill verification code is printed at the bottom of your invoices. Premium removes it.",
+  "price.free_qr":"A small SubbieBill verification code at the bottom of each invoice.",
+  "p.f6":"Clean invoices: no SubbieBill code at the bottom",
   "i.first_ph":"e.g. Jack Thomas",
   "a.free_val2":"{used} used of {limit} · {left} left",
   "a.zero_free":"No free invoices left",
@@ -1997,7 +2009,7 @@ en:{
   "a.seen24":"Visited in 24 h",
   "a.online_n":"Online now",
   "a.online":"Online now",
-  "faq.a10":"Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking.",
+  "faq.a10":"Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking. On Free, a small SubbieBill verification code is printed at the bottom of each invoice; Premium invoices don't have it.",
   "faq.q10":"What's the difference between Free and Premium?",
   "faq.a9":"Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.",
   "faq.q9":"How do I change an invoice?",
@@ -2224,7 +2236,7 @@ en:{
   "days.mode_times":"Start – finish",
   "days.mode_aria":"How you enter your hours",
   "save.auto_pro":"Saved automatically to your history ✓",
-  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You've used your 3 free invoices. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap to confirm","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of {limit} free invoices left","quota.none":"No free invoices left","fin.locked":"Invoice finished on {date}. The PDF is ready to send.","fin.next":"Start the next invoice","fin.edit":"Edit","fin.done":"Invoice finished. The PDF is in your downloads.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Your details aren't complete yet: see what's missing below.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
+  "auth.pass_ph_login":"Your password","save.locked":"Automatic history · Premium","p.why_save":"With Premium, every invoice you fill in is saved to your history automatically.","p.why_limit":"You have no free invoices left. Upgrade to Premium to keep invoicing.","bar.finish":"Finish invoice","bar.confirm":"Tap to confirm","bar.redownload":"Download again","bar.working":"Creating your invoice…","quota.left":"{n} of {limit} free invoices left","quota.none":"No free invoices left","fin.locked":"Invoice finished on {date}. The PDF is ready to send.","fin.next":"Start the next invoice","fin.edit":"Edit","fin.done":"Invoice finished. The PDF is in your downloads.","fin.again":"Downloaded again.","fin.abn_taken":"This ABN is already used by another SubbieBill account.","fin.abn_invalid":"This ABN isn't valid. Check it in My details.","fin.details":"Your details aren't complete yet: see what's missing below.","fin.server":"Couldn't reach the invoice server. Check your connection and try again.","fin.auth":"Your session expired. Log in again.","fin.bad":"Something in this invoice isn't valid. Check your hours and rates.","st.abn_taken":"This ABN is already used by another account. Your changes aren't saved.","i.abn_bad":"This ABN doesn't look right (11 digits).","m.admin":"Admin","m.admin_sub":"stats and members","a.title":"Admin","a.users":"Members","a.new7":"New this week","a.active7":"Active this week","a.premium":"Premium","a.paid":"Paying (Stripe)","a.invoices":"Invoices finished","a.inv30":"Invoices, last 30 days","a.total":"Total invoiced","a.atlimit":"Free users at the limit","a.search_lbl":"Members","a.search":"Search email, name or ABN","a.give":"Give Premium","a.remove":"Remove Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · given","a.src_free":"Free","a.joined":"Joined {date}","a.inv_n":"{n} invoice(s)","a.admin_tag":"admin","a.err":"Admin access only.","a.stripe_note":"Paid through Stripe. Cancel the subscription in Stripe to remove it.","a.done":"Updated.","a.more":"Load more","a.none":"No members found.",
   days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
   "doc.title":"Invoice App for ABN Workers & Subcontractors in Australia · SubbieBill",
   "lang.label":"Language",
@@ -2270,7 +2282,7 @@ en:{
   "err.created_confirm":"Account created. Open the confirmation email, then log in.","err.offline":"No connection. Try again.",
   "err.service":"Can't reach the service. Check your connection and reload.","err.load":"Couldn't load your account. Reload the page.",
   "err.forgot":"Email {email} from the address on your account.",
-  "foot.tag":"Invoicing for ABN workers and subcontractors in Australia.","foot.q":"Questions?","lg.terms":"Terms","lo.cancel2":"Cancel","mail.resend_btn":"Send to client again","snd.bad":"This email address doesn't look right.","snd.cc":"You get a copy at {email}. If your client replies, it comes to you.","snd.again":"Send again","snd.go":"Send","snd.label":"Client email","snd.client":"your client","snd.txt":"SubbieBill emails invoice {no} to {client} with the PDF attached.","snd.title":"Email to client","mail.need_field":"Enter your client's email to send the invoice.","pay.sent":"Sent","mail.fail":"Couldn't send the email. Try again in a moment, or use Download PDF and send it yourself.","mail.rate":"You've reached today's limit of 20 emails. Try again tomorrow, or use Download PDF and send it yourself.","mail.need_email":"Add your client's email first (Client email, under the invoice details).","mail.sent_on":"✓ Emailed to {email} · {date}","mail.sent_nocc":"Sent to {email}.","mail.sent":"Sent to {email}. A copy is in your inbox.","mail.sending":"Sending…","mail.confirm":"Send to {email}?","pw.show":"Show password","pw.hide":"Hide password","mail.preparing":"Preparing…","mail.opened":"Your email app is open with the message and a link to the PDF. Check it and tap Send.","mail.opened_noto":"Your email app is open with the message and a link to the PDF. Add your client's address and tap Send.","mail.nolink":"Couldn't create the PDF link. Choose Mail to send the PDF as an attachment.","h.free_t":"On Free","h.free_note":"your first 3 invoices are kept here. Deleting one doesn't give you back a free invoice.","h.free_perks":"Premium adds unlimited invoices, emailing invoices to your client and paid / overdue tracking.","h.see_pro":"See Premium","p.why_paid":"With Premium, mark invoices as paid and see at a glance what's overdue.","rs.link_bad":"This link has expired or was already used. Ask for a new one below.","rs.resend":"Send a new link","rs.intro3":"Choose your new password.","exp.title":"Expenses","exp.opt":"optional","exp.add":"+ Add an expense","exp.desc":"Expense","exp.desc_ph":"Fuel, materials, tolls…","exp.amt":"Amount in dollars","exp.remove":"Remove this expense","exp.note":"Each expense is added as a line on the invoice.","exp.note_gst":"Enter amounts excl. GST: GST (10%) is added on top, like your hours.","exp.empty":"Fuel, materials or tolls to charge back? Add them here.","rv.exp":"Expenses","rv.exp_v":"{n} line(s) · {amt}","meta.cemail":"Client email (optional)","mail.btn":"Email to client","mail.copied":"Client email copied ({email}). Choose Mail, then paste it in “To”.","mail.noemail":"Choose Mail. Tip: add your client's email in the invoice details for next time.","mail.again":"Tap “Email to client” again to send.","mail.attach":"PDF downloaded: attach it to the email that just opened.","mail.attach_noto":"PDF downloaded: attach it to the email, and add your client's address.","p.why_mail":"With Premium, SubbieBill emails the invoice to your client with the PDF attached, and you get a copy as proof.","pay.mark":"Mark as paid","pay.paid_on":"Paid {date}","pay.paid_short":"Paid ✓","pay.late":"Overdue","pay.unpaid":"Unpaid","h.sum_unpaid":"Still to be paid","h.sum_late":"{n} overdue","price.p5":"Invoices emailed to your client, with a copy to you","price.p6":"See what's paid and what's overdue","p.f4":"Invoices emailed to your client, with a copy to you","p.f5":"See what's paid and what's overdue","faq.a10":"Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking.","rs.title":"Reset your password","rs.intro1":"Enter your account email. We'll send you a link to choose a new password.","rs.intro2":"If {email} has an account, an email with a link is on its way. Open it on this device and tap the link.","rs.send":"Send me a link","rs.new":"New password","rs.new2":"Confirm new password","rs.save":"Save my new password","rs.back":"Back to log in","rs.wait":"Please wait a minute before asking for a new link.","rs.sent_again":"New link sent.","rs.same":"Choose a password different from your old one.","rs.done":"Password changed. You're logged in.","i.abn_check":"Check your ABN: {abn}. Is this correct?","i.abn_yes":"Yes, continue","i.abn_edit":"Edit","i.abn_bad":"This ABN doesn't look valid","ph.gst":"incl. GST","demo.eye":"The real app","demo.sub2":"This is the screen you use every week. Change a start or finish time and the total updates.","demo.p1":"Start and finish for each day","demo.p2":"Your rate, worked out to the cent","demo.p3":"One tap for the PDF invoice","demo.note":"Example only: nothing is saved here.","demo.aria2":"Interactive example of the SubbieBill hours screen","ln.aria":"Main","ln.features":"Features","ln.pricing":"Pricing","ln.how":"How it works","ln.faq":"FAQ","hero.cta2":"Get started free","hero.eyebrow":"Invoicing for ABN workers and subcontractors","hero.t1":"Your work in. Invoice out.","hero.t2":"In 30 seconds.","ben.aria":"Why SubbieBill","ben.1t":"Save time every week","ben.1d":"Enter your work once. The maths is done for you.","ben.2t":"Professional PDF invoices","ben.2d":"With your ABN, BSB, account number and GST.","ben.3t":"Works on your phone","ben.3d":"At work, at home or on a computer. Nothing to install.","ben.4t":"Your details stay private","ben.4d":"Saved to your account and protected by your password.","show.title":"Your work in, a real invoice out","show.sub":"This is what you get: the screen you fill in on your phone, and the PDF your client receives.","show.c1":"Your week, on your phone","show.c2":"The PDF invoice (real example)","show.c3":"Dark mode included","au.title":"Built for Australian subbies","au.1t":"ABN and GST ready","au.1d":"Tax invoice with GST (10%) when you're registered, “No GST” invoice when you're not.","au.2t":"Australian dollars","au.2d":"Every amount in AUD, to the cent, with your BSB and account number.","au.3t":"Real support","au.3d":"A question? Write to support@subbiebill.com.","tpc.title":"Reviews","tpc.h":"Using SubbieBill?","tpc.p":"Tell other subbies what you think on Trustpilot. Honest reviews help us improve.","tpc.btn":"Leave a review on Trustpilot","fin2.h":"Ready to send your next invoice in 30 seconds?","fo.product":"Product","fo.guides":"Guides","fo.legal":"Legal","fo.made":"Made for ABN workers in Australia","hero.lede":"Paid by the hour, by the day or a fixed price? SubbieBill turns it into a professional PDF invoice, with your ABN, BSB and GST worked out.","lst.sure":"Remove?","tpr.ask":"Happy with SubbieBill? A quick review really helps.","tpr.go":"Leave a review","tpr.no":"Not now","tpr.foot":"Reviews on Trustpilot","lg.guides":"Guides:","lg.refunds":"Refunds","lg.privacy":"Privacy","lg.agree":"By creating an account, you agree to our","lg.terms_long":"Terms of Service","lg.and":"and","lg.privacy_long":"Privacy Policy",
+  "foot.tag":"Invoicing for ABN workers and subcontractors in Australia.","foot.q":"Questions?","lg.terms":"Terms","lo.cancel2":"Cancel","mail.resend_btn":"Send to client again","snd.bad":"This email address doesn't look right.","snd.cc":"You get a copy at {email}. If your client replies, it comes to you.","snd.again":"Send again","snd.go":"Send","snd.label":"Client email","snd.client":"your client","snd.txt":"SubbieBill emails invoice {no} to {client} with the PDF attached.","snd.title":"Email to client","mail.need_field":"Enter your client's email to send the invoice.","pay.sent":"Sent","mail.fail":"Couldn't send the email. Try again in a moment, or use Download PDF and send it yourself.","mail.rate":"You've reached today's limit of 20 emails. Try again tomorrow, or use Download PDF and send it yourself.","mail.need_email":"Add your client's email first (Client email, under the invoice details).","mail.sent_on":"✓ Emailed to {email} · {date}","mail.sent_nocc":"Sent to {email}.","mail.sent":"Sent to {email}. A copy is in your inbox.","mail.sending":"Sending…","mail.confirm":"Send to {email}?","pw.show":"Show password","pw.hide":"Hide password","mail.preparing":"Preparing…","mail.opened":"Your email app is open with the message and a link to the PDF. Check it and tap Send.","mail.opened_noto":"Your email app is open with the message and a link to the PDF. Add your client's address and tap Send.","mail.nolink":"Couldn't create the PDF link. Choose Mail to send the PDF as an attachment.","h.free_t":"On Free","h.free_note":"your first 3 invoices are kept here. Deleting one doesn't give you back a free invoice.","h.free_perks":"Premium adds unlimited invoices, emailing invoices to your client and paid / overdue tracking.","h.see_pro":"See Premium","p.why_paid":"With Premium, mark invoices as paid and see at a glance what's overdue.","rs.link_bad":"This link has expired or was already used. Ask for a new one below.","rs.resend":"Send a new link","rs.intro3":"Choose your new password.","exp.title":"Expenses","exp.opt":"optional","exp.add":"+ Add an expense","exp.desc":"Expense","exp.desc_ph":"Fuel, materials, tolls…","exp.amt":"Amount in dollars","exp.remove":"Remove this expense","exp.note":"Each expense is added as a line on the invoice.","exp.note_gst":"Enter amounts excl. GST: GST (10%) is added on top, like your hours.","exp.empty":"Fuel, materials or tolls to charge back? Add them here.","rv.exp":"Expenses","rv.exp_v":"{n} line(s) · {amt}","meta.cemail":"Client email (optional)","mail.btn":"Email to client","mail.copied":"Client email copied ({email}). Choose Mail, then paste it in “To”.","mail.noemail":"Choose Mail. Tip: add your client's email in the invoice details for next time.","mail.again":"Tap “Email to client” again to send.","mail.attach":"PDF downloaded: attach it to the email that just opened.","mail.attach_noto":"PDF downloaded: attach it to the email, and add your client's address.","p.why_mail":"With Premium, SubbieBill emails the invoice to your client with the PDF attached, and you get a copy as proof.","pay.mark":"Mark as paid","pay.paid_on":"Paid {date}","pay.paid_short":"Paid ✓","pay.late":"Overdue","pay.unpaid":"Unpaid","h.sum_unpaid":"Still to be paid","h.sum_late":"{n} overdue","price.p5":"Invoices emailed to your client, with a copy to you","price.p6":"See what's paid and what's overdue","p.f4":"Invoices emailed to your client, with a copy to you","p.f5":"See what's paid and what's overdue","faq.a10":"Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking. On Free, a small SubbieBill verification code is printed at the bottom of each invoice; Premium invoices don't have it.","rs.title":"Reset your password","rs.intro1":"Enter your account email. We'll send you a link to choose a new password.","rs.intro2":"If {email} has an account, an email with a link is on its way. Open it on this device and tap the link.","rs.send":"Send me a link","rs.new":"New password","rs.new2":"Confirm new password","rs.save":"Save my new password","rs.back":"Back to log in","rs.wait":"Please wait a minute before asking for a new link.","rs.sent_again":"New link sent.","rs.same":"Choose a password different from your old one.","rs.done":"Password changed. You're logged in.","i.abn_check":"Check your ABN: {abn}. Is this correct?","i.abn_yes":"Yes, continue","i.abn_edit":"Edit","i.abn_bad":"This ABN doesn't look valid","ph.gst":"incl. GST","demo.eye":"The real app","demo.sub2":"This is the screen you use every week. Change a start or finish time and the total updates.","demo.p1":"Start and finish for each day","demo.p2":"Your rate, worked out to the cent","demo.p3":"One tap for the PDF invoice","demo.note":"Example only: nothing is saved here.","demo.aria2":"Interactive example of the SubbieBill hours screen","ln.aria":"Main","ln.features":"Features","ln.pricing":"Pricing","ln.how":"How it works","ln.faq":"FAQ","hero.cta2":"Get started free","hero.eyebrow":"Invoicing for ABN workers and subcontractors","hero.t1":"Your work in. Invoice out.","hero.t2":"In 30 seconds.","ben.aria":"Why SubbieBill","ben.1t":"Save time every week","ben.1d":"Enter your work once. The maths is done for you.","ben.2t":"Professional PDF invoices","ben.2d":"With your ABN, BSB, account number and GST.","ben.3t":"Works on your phone","ben.3d":"At work, at home or on a computer. Nothing to install.","ben.4t":"Your details stay private","ben.4d":"Saved to your account and protected by your password.","show.title":"Your work in, a real invoice out","show.sub":"This is what you get: the screen you fill in on your phone, and the PDF your client receives.","show.c1":"Your week, on your phone","show.c2":"The PDF invoice (real example)","show.c3":"Dark mode included","au.title":"Built for Australian subbies","au.1t":"ABN and GST ready","au.1d":"Tax invoice with GST (10%) when you're registered, “No GST” invoice when you're not.","au.2t":"Australian dollars","au.2d":"Every amount in AUD, to the cent, with your BSB and account number.","au.3t":"Real support","au.3d":"A question? Write to support@subbiebill.com.","tpc.title":"Reviews","tpc.h":"Using SubbieBill?","tpc.p":"Tell other subbies what you think on Trustpilot. Honest reviews help us improve.","tpc.btn":"Leave a review on Trustpilot","fin2.h":"Ready to send your next invoice in 30 seconds?","fo.product":"Product","fo.guides":"Guides","fo.legal":"Legal","fo.made":"Made for ABN workers in Australia","hero.lede":"Paid by the hour, by the day or a fixed price? SubbieBill turns it into a professional PDF invoice, with your ABN, BSB and GST worked out.","lst.sure":"Remove?","tpr.ask":"Happy with SubbieBill? A quick review really helps.","tpr.go":"Leave a review","tpr.no":"Not now","tpr.foot":"Reviews on Trustpilot","lg.guides":"Guides:","lg.refunds":"Refunds","lg.privacy":"Privacy","lg.agree":"By creating an account, you agree to our","lg.terms_long":"Terms of Service","lg.and":"and","lg.privacy_long":"Privacy Policy",
   "top.free":"Free","top.premium":"Premium","top.history":"History","top.menu":"Menu","sheet.close":"Close",
   "onb.title":"Welcome to SubbieBill","onb.sub":"Three steps and your first invoice is ready.","onb.s1":"Your details (just once)","onb.fill":"Fill in","onb.s2":"Who you bill","onb.s3":"What you bill (hours, days or fixed price)",
   "per.aria":"Invoice period","per.week":"Week","per.fortnight":"Fortnight","per.month":"Month",
@@ -2318,6 +2330,12 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "price.p7":"Factures épurées : sans le code SubbieBill en bas",
+  "p.why_qr":"Premium retire le code SubbieBill de tes factures et débloque tout ce qui suit.",
+  "qr.cta":"Le retirer avec Premium",
+  "qr.note":"En gratuit, un petit code de vérification SubbieBill est imprimé en bas de tes factures. Premium le retire.",
+  "price.free_qr":"Un petit code de vérification SubbieBill en bas de chaque facture.",
+  "p.f6":"Factures épurées : sans le code SubbieBill en bas",
   "i.first_ph":"ex. Thomas Jean-Claude",
   "a.free_val2":"{used} utilisée(s) sur {limit} · {left} restante(s)",
   "a.zero_free":"Plus aucune gratuite",
@@ -2369,7 +2387,7 @@ fr:{
   "a.seen24":"Venus en 24 h",
   "a.online_n":"En ligne maintenant",
   "a.online":"En ligne",
-  "faq.a10":"Gratuit : 3 factures terminées avec tous les outils, gardées dans ton historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées, historique de toutes tes factures avec les totaux par année, envoi des factures au client par email et suivi des factures payées ou en retard.",
+  "faq.a10":"Gratuit : 3 factures terminées avec tous les outils, gardées dans ton historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées, historique de toutes tes factures avec les totaux par année, envoi des factures au client par email et suivi des factures payées ou en retard. En gratuit, un petit code de vérification SubbieBill est imprimé en bas de chaque facture ; les factures Premium n'en ont pas.",
   "faq.q10":"Quelle différence entre Gratuit et Premium ?",
   "faq.a9":"Tant qu'elle n'est pas terminée, tu changes tout : ça s'enregistre tout seul. Une facture terminée est verrouillée pour que tes comptes restent clairs. Pour corriger une erreur, ouvre-la et touche Modifier : corrige-la et termine-la à nouveau. Elle garde le même numéro et tu obtiens un nouveau PDF à envoyer. En gratuit, la terminer à nouveau utilise une de tes factures gratuites.",
   "faq.q9":"Comment modifier une facture ?",
@@ -2596,7 +2614,7 @@ fr:{
   "days.mode_times":"Début – fin",
   "days.mode_aria":"Comment tu saisis tes heures",
   "save.auto_pro":"Enregistrée automatiquement dans ton historique ✓",
-  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu as utilisé tes 3 factures gratuites. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"Factures gratuites restantes : {n} sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
+  "auth.pass_ph_login":"Ton mot de passe","save.locked":"Historique automatique · Premium","p.why_save":"Avec Premium, chaque facture que tu remplis s'enregistre toute seule dans ton historique.","p.why_limit":"Tu n'as plus de facture gratuite. Passe en Premium pour continuer à facturer.","bar.finish":"Terminer la facture","bar.confirm":"Confirmer ?","bar.redownload":"Retélécharger","bar.working":"Création de ta facture…","quota.left":"Factures gratuites restantes : {n} sur {limit}","quota.none":"Plus de facture gratuite","fin.locked":"Facture terminée le {date}. Le PDF est prêt à envoyer.","fin.next":"Commencer la facture suivante","fin.edit":"Modifier","fin.done":"Facture terminée. Le PDF est dans tes téléchargements.","fin.again":"Facture retéléchargée.","fin.abn_taken":"Cet ABN est déjà utilisé par un autre compte SubbieBill.","fin.abn_invalid":"Cet ABN n'est pas valide. Vérifie-le dans Mes infos.","fin.details":"Tes infos ne sont pas complètes : regarde ce qui manque en bas.","fin.server":"Impossible de joindre le serveur de factures. Vérifie ta connexion et réessaie.","fin.auth":"Ta session a expiré. Reconnecte-toi.","fin.bad":"Quelque chose n'est pas valide dans cette facture. Vérifie tes heures et tes taux.","st.abn_taken":"Cet ABN est déjà utilisé par un autre compte. Tes changements ne sont pas enregistrés.","i.abn_bad":"Cet ABN ne semble pas correct (11 chiffres).","m.admin":"Admin","m.admin_sub":"statistiques et membres","a.title":"Admin","a.users":"Membres","a.new7":"Nouveaux cette semaine","a.active7":"Actifs cette semaine","a.premium":"Premium","a.paid":"Payants (Stripe)","a.invoices":"Factures terminées","a.inv30":"Factures, 30 derniers jours","a.total":"Total facturé","a.atlimit":"Gratuits à la limite","a.search_lbl":"Membres","a.search":"Chercher email, nom ou ABN","a.give":"Donner Premium","a.remove":"Retirer Premium","a.src_stripe":"Premium · Stripe","a.src_manual":"Premium · offert","a.src_free":"Gratuit","a.joined":"Inscrit le {date}","a.inv_n":"{n} facture(s)","a.admin_tag":"admin","a.err":"Accès réservé à l'admin.","a.stripe_note":"Payé via Stripe. Annule l'abonnement dans Stripe pour le retirer.","a.done":"Mis à jour.","a.more":"Voir plus","a.none":"Aucun membre trouvé.",
   days:["dim","lun","mar","mer","jeu","ven","sam"],
   "doc.title":"SubbieBill · La facture des indépendants et sous-traitants sous ABN",
   "lang.label":"Langue",
@@ -2642,7 +2660,7 @@ fr:{
   "err.created_confirm":"Compte créé. Ouvre l'email de confirmation puis connecte-toi.","err.offline":"Pas de connexion. Réessaie.",
   "err.service":"Impossible de joindre le service. Vérifie ta connexion puis recharge.","err.load":"Impossible de charger ton compte. Recharge la page.",
   "err.forgot":"Écris à {email} avec l'email de ton compte.",
-  "foot.tag":"La facture des indépendants et sous-traitants sous ABN en Australie.","foot.q":"Une question ?","lg.terms":"Conditions","lo.cancel2":"Annuler","mail.resend_btn":"Renvoyer au client","snd.bad":"Cette adresse email ne semble pas correcte.","snd.cc":"Tu reçois une copie sur {email}. Si ton client répond, la réponse arrive chez toi.","snd.again":"Renvoyer","snd.go":"Envoyer","snd.label":"Email du client","snd.client":"ton client","snd.txt":"SubbieBill envoie la facture n° {no} à {client} avec le PDF en pièce jointe.","snd.title":"Envoyer au client","mail.need_field":"Entre l'email du client pour lui envoyer la facture.","pay.sent":"Envoyée","mail.fail":"Impossible d'envoyer l'email. Réessaie dans un instant, ou utilise Télécharger le PDF et envoie-le toi-même.","mail.rate":"Tu as atteint la limite de 20 emails aujourd'hui. Réessaie demain, ou utilise Télécharger le PDF et envoie-le toi-même.","mail.need_email":"Ajoute d'abord l'email du client (Email du client, sous les infos de la facture).","mail.sent_on":"✓ Envoyée à {email} · {date}","mail.sent_nocc":"Envoyée à {email}.","mail.sent":"Envoyée à {email}. Une copie est dans ta boîte mail.","mail.sending":"Envoi…","mail.confirm":"Envoyer à {email} ?","pw.show":"Afficher le mot de passe","pw.hide":"Masquer le mot de passe","mail.preparing":"Préparation…","mail.opened":"Ton app mail est ouverte avec le message et le lien du PDF. Vérifie et touche Envoyer.","mail.opened_noto":"Ton app mail est ouverte avec le message et le lien du PDF. Ajoute l'adresse du client et touche Envoyer.","mail.nolink":"Impossible de créer le lien du PDF. Choisis Mail pour l'envoyer en pièce jointe.","h.free_t":"En gratuit,","h.free_note":"tes 3 premières factures sont gardées ici. En supprimer une ne te rend pas de facture gratuite.","h.free_perks":"Premium ajoute les factures illimitées, l'envoi au client par email et le suivi des factures payées ou en retard.","h.see_pro":"Voir Premium","p.why_paid":"Avec Premium, marque tes factures comme payées et vois d'un coup d'œil celles en retard.","rs.link_bad":"Ce lien a expiré ou a déjà servi. Demandes-en un nouveau ci-dessous.","rs.resend":"Renvoyer un lien","rs.intro3":"Choisis ton nouveau mot de passe.","exp.title":"Frais","exp.opt":"facultatif","exp.add":"+ Ajouter un frais","exp.desc":"Frais","exp.desc_ph":"Essence, matériel, péage…","exp.amt":"Montant en dollars","exp.remove":"Retirer ce frais","exp.note":"Chaque frais est ajouté comme une ligne sur la facture.","exp.note_gst":"Montants hors GST : la GST (10 %) s'ajoute par-dessus, comme pour tes heures.","exp.empty":"Essence, matériel ou péage à refacturer ? Ajoute-les ici.","rv.exp":"Frais","rv.exp_v":"{n} ligne(s) · {amt}","meta.cemail":"Email du client (facultatif)","mail.btn":"Envoyer au client","mail.copied":"Email du client copié ({email}). Choisis Mail, puis colle-le dans « À ».","mail.noemail":"Choisis Mail. Astuce : ajoute l'email du client dans les détails de la facture pour la prochaine fois.","mail.again":"Touche encore « Envoyer au client » pour envoyer.","mail.attach":"PDF téléchargé : joins-le à l'email qui vient de s'ouvrir.","mail.attach_noto":"PDF téléchargé : joins-le à l'email et ajoute l'adresse du client.","p.why_mail":"Avec Premium, SubbieBill envoie la facture à ton client avec le PDF en pièce jointe, et tu reçois une copie comme preuve.","pay.mark":"Marquer payée","pay.paid_on":"Payée le {date}","pay.paid_short":"Payée ✓","pay.late":"En retard","pay.unpaid":"Pas payée","h.sum_unpaid":"Reste à encaisser","h.sum_late":"{n} en retard","price.p5":"Factures envoyées au client par email, avec copie pour toi","price.p6":"Suivi des factures payées et en retard","p.f4":"Factures envoyées au client par email, avec copie pour toi","p.f5":"Suivi des factures payées et en retard","faq.a10":"Gratuit : 3 factures terminées avec tous les outils, gardées dans ton historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées, historique de toutes tes factures avec les totaux par année, envoi des factures au client par email et suivi des factures payées ou en retard.","rs.title":"Nouveau mot de passe","rs.intro1":"Entre l'email de ton compte. On t'envoie un lien pour choisir un nouveau mot de passe.","rs.intro2":"Si {email} a un compte, un email avec un lien arrive. Ouvre-le sur cet appareil et touche le lien.","rs.send":"M'envoyer un lien","rs.new":"Nouveau mot de passe","rs.new2":"Confirme le nouveau mot de passe","rs.save":"Enregistrer mon nouveau mot de passe","rs.back":"Retour à la connexion","rs.wait":"Attends une minute avant de demander un nouveau lien.","rs.sent_again":"Nouveau lien envoyé.","rs.same":"Choisis un mot de passe différent de l'ancien.","rs.done":"Mot de passe changé. Tu es connecté.","i.abn_check":"Vérifie ton ABN : {abn}. Est-ce correct ?","i.abn_yes":"Oui, continuer","i.abn_edit":"Modifier","i.abn_bad":"Cet ABN ne semble pas valide","ph.gst":"GST incluse","demo.eye":"La vraie appli","demo.sub2":"C'est l'écran que tu utilises chaque semaine. Change une heure de début ou de fin, le total se met à jour.","demo.p1":"Début et fin pour chaque jour","demo.p2":"Ton taux, calculé au centime","demo.p3":"Un geste pour la facture PDF","demo.note":"Exemple seulement : rien n'est enregistré ici.","demo.aria2":"Exemple interactif de l'écran des heures de SubbieBill","ln.aria":"Navigation","ln.features":"Fonctionnalités","ln.pricing":"Tarifs","ln.how":"Comment ça marche","ln.faq":"FAQ","hero.cta2":"Commencer gratuitement","hero.eyebrow":"La facture des indépendants et sous-traitants sous ABN","hero.t1":"Ton travail. Ta facture.","hero.t2":"En 30 secondes.","ben.aria":"Pourquoi SubbieBill","ben.1t":"Du temps gagné chaque semaine","ben.1d":"Tu entres ton travail une fois, les calculs se font tout seuls.","ben.2t":"Des factures PDF pro","ben.2d":"Avec ton ABN, ton BSB, ton numéro de compte et la GST.","ben.3t":"Sur ton téléphone","ben.3d":"Au travail, chez toi ou sur ordinateur. Rien à installer.","ben.4t":"Tes infos restent privées","ben.4d":"Enregistrées sur ton compte et protégées par ton mot de passe.","show.title":"Ton travail, une vraie facture","show.sub":"Voici ce que tu obtiens : l'écran que tu remplis sur ton téléphone, et le PDF que reçoit ton client.","show.c1":"Ta semaine, sur ton téléphone","show.c2":"La facture PDF (vrai exemple)","show.c3":"Mode sombre inclus","au.title":"Fait pour les subbies en Australie","au.1t":"ABN et GST","au.1d":"Tax invoice avec GST (10 %) si tu es inscrit, facture « No GST » sinon.","au.2t":"Dollars australiens","au.2d":"Tous les montants en AUD, au centime près, avec ton BSB et ton numéro de compte.","au.3t":"Un vrai support","au.3d":"Une question ? Écris à support@subbiebill.com.","tpc.title":"Avis","tpc.h":"Tu utilises SubbieBill ?","tpc.p":"Dis ce que tu en penses sur Trustpilot. Les avis honnêtes nous aident à nous améliorer.","tpc.btn":"Laisser un avis sur Trustpilot","fin2.h":"Prêt à envoyer ta prochaine facture en 30 secondes ?","fo.product":"Produit","fo.guides":"Guides (en anglais)","fo.legal":"Mentions légales","fo.made":"Fait pour ceux qui bossent sous ABN en Australie","hero.lede":"Payé à l'heure, à la journée ou au forfait ? SubbieBill en fait une facture PDF professionnelle, avec ton ABN, ton BSB et la GST calculée.","lst.sure":"Supprimer ?","tpr.ask":"Tu aimes SubbieBill ? Un petit avis nous aide vraiment.","tpr.go":"Laisser un avis","tpr.no":"Plus tard","tpr.foot":"Avis sur Trustpilot","lg.guides":"Guides (en anglais) :","lg.refunds":"Remboursements","lg.privacy":"Confidentialité","lg.agree":"En créant un compte, tu acceptes nos","lg.terms_long":"conditions d'utilisation","lg.and":"et notre","lg.privacy_long":"politique de confidentialité",
+  "foot.tag":"La facture des indépendants et sous-traitants sous ABN en Australie.","foot.q":"Une question ?","lg.terms":"Conditions","lo.cancel2":"Annuler","mail.resend_btn":"Renvoyer au client","snd.bad":"Cette adresse email ne semble pas correcte.","snd.cc":"Tu reçois une copie sur {email}. Si ton client répond, la réponse arrive chez toi.","snd.again":"Renvoyer","snd.go":"Envoyer","snd.label":"Email du client","snd.client":"ton client","snd.txt":"SubbieBill envoie la facture n° {no} à {client} avec le PDF en pièce jointe.","snd.title":"Envoyer au client","mail.need_field":"Entre l'email du client pour lui envoyer la facture.","pay.sent":"Envoyée","mail.fail":"Impossible d'envoyer l'email. Réessaie dans un instant, ou utilise Télécharger le PDF et envoie-le toi-même.","mail.rate":"Tu as atteint la limite de 20 emails aujourd'hui. Réessaie demain, ou utilise Télécharger le PDF et envoie-le toi-même.","mail.need_email":"Ajoute d'abord l'email du client (Email du client, sous les infos de la facture).","mail.sent_on":"✓ Envoyée à {email} · {date}","mail.sent_nocc":"Envoyée à {email}.","mail.sent":"Envoyée à {email}. Une copie est dans ta boîte mail.","mail.sending":"Envoi…","mail.confirm":"Envoyer à {email} ?","pw.show":"Afficher le mot de passe","pw.hide":"Masquer le mot de passe","mail.preparing":"Préparation…","mail.opened":"Ton app mail est ouverte avec le message et le lien du PDF. Vérifie et touche Envoyer.","mail.opened_noto":"Ton app mail est ouverte avec le message et le lien du PDF. Ajoute l'adresse du client et touche Envoyer.","mail.nolink":"Impossible de créer le lien du PDF. Choisis Mail pour l'envoyer en pièce jointe.","h.free_t":"En gratuit,","h.free_note":"tes 3 premières factures sont gardées ici. En supprimer une ne te rend pas de facture gratuite.","h.free_perks":"Premium ajoute les factures illimitées, l'envoi au client par email et le suivi des factures payées ou en retard.","h.see_pro":"Voir Premium","p.why_paid":"Avec Premium, marque tes factures comme payées et vois d'un coup d'œil celles en retard.","rs.link_bad":"Ce lien a expiré ou a déjà servi. Demandes-en un nouveau ci-dessous.","rs.resend":"Renvoyer un lien","rs.intro3":"Choisis ton nouveau mot de passe.","exp.title":"Frais","exp.opt":"facultatif","exp.add":"+ Ajouter un frais","exp.desc":"Frais","exp.desc_ph":"Essence, matériel, péage…","exp.amt":"Montant en dollars","exp.remove":"Retirer ce frais","exp.note":"Chaque frais est ajouté comme une ligne sur la facture.","exp.note_gst":"Montants hors GST : la GST (10 %) s'ajoute par-dessus, comme pour tes heures.","exp.empty":"Essence, matériel ou péage à refacturer ? Ajoute-les ici.","rv.exp":"Frais","rv.exp_v":"{n} ligne(s) · {amt}","meta.cemail":"Email du client (facultatif)","mail.btn":"Envoyer au client","mail.copied":"Email du client copié ({email}). Choisis Mail, puis colle-le dans « À ».","mail.noemail":"Choisis Mail. Astuce : ajoute l'email du client dans les détails de la facture pour la prochaine fois.","mail.again":"Touche encore « Envoyer au client » pour envoyer.","mail.attach":"PDF téléchargé : joins-le à l'email qui vient de s'ouvrir.","mail.attach_noto":"PDF téléchargé : joins-le à l'email et ajoute l'adresse du client.","p.why_mail":"Avec Premium, SubbieBill envoie la facture à ton client avec le PDF en pièce jointe, et tu reçois une copie comme preuve.","pay.mark":"Marquer payée","pay.paid_on":"Payée le {date}","pay.paid_short":"Payée ✓","pay.late":"En retard","pay.unpaid":"Pas payée","h.sum_unpaid":"Reste à encaisser","h.sum_late":"{n} en retard","price.p5":"Factures envoyées au client par email, avec copie pour toi","price.p6":"Suivi des factures payées et en retard","p.f4":"Factures envoyées au client par email, avec copie pour toi","p.f5":"Suivi des factures payées et en retard","faq.a10":"Gratuit : 3 factures terminées avec tous les outils, gardées dans ton historique. Premium (39 $ par an ou 4,99 $ par mois) : factures illimitées, historique de toutes tes factures avec les totaux par année, envoi des factures au client par email et suivi des factures payées ou en retard. En gratuit, un petit code de vérification SubbieBill est imprimé en bas de chaque facture ; les factures Premium n'en ont pas.","rs.title":"Nouveau mot de passe","rs.intro1":"Entre l'email de ton compte. On t'envoie un lien pour choisir un nouveau mot de passe.","rs.intro2":"Si {email} a un compte, un email avec un lien arrive. Ouvre-le sur cet appareil et touche le lien.","rs.send":"M'envoyer un lien","rs.new":"Nouveau mot de passe","rs.new2":"Confirme le nouveau mot de passe","rs.save":"Enregistrer mon nouveau mot de passe","rs.back":"Retour à la connexion","rs.wait":"Attends une minute avant de demander un nouveau lien.","rs.sent_again":"Nouveau lien envoyé.","rs.same":"Choisis un mot de passe différent de l'ancien.","rs.done":"Mot de passe changé. Tu es connecté.","i.abn_check":"Vérifie ton ABN : {abn}. Est-ce correct ?","i.abn_yes":"Oui, continuer","i.abn_edit":"Modifier","i.abn_bad":"Cet ABN ne semble pas valide","ph.gst":"GST incluse","demo.eye":"La vraie appli","demo.sub2":"C'est l'écran que tu utilises chaque semaine. Change une heure de début ou de fin, le total se met à jour.","demo.p1":"Début et fin pour chaque jour","demo.p2":"Ton taux, calculé au centime","demo.p3":"Un geste pour la facture PDF","demo.note":"Exemple seulement : rien n'est enregistré ici.","demo.aria2":"Exemple interactif de l'écran des heures de SubbieBill","ln.aria":"Navigation","ln.features":"Fonctionnalités","ln.pricing":"Tarifs","ln.how":"Comment ça marche","ln.faq":"FAQ","hero.cta2":"Commencer gratuitement","hero.eyebrow":"La facture des indépendants et sous-traitants sous ABN","hero.t1":"Ton travail. Ta facture.","hero.t2":"En 30 secondes.","ben.aria":"Pourquoi SubbieBill","ben.1t":"Du temps gagné chaque semaine","ben.1d":"Tu entres ton travail une fois, les calculs se font tout seuls.","ben.2t":"Des factures PDF pro","ben.2d":"Avec ton ABN, ton BSB, ton numéro de compte et la GST.","ben.3t":"Sur ton téléphone","ben.3d":"Au travail, chez toi ou sur ordinateur. Rien à installer.","ben.4t":"Tes infos restent privées","ben.4d":"Enregistrées sur ton compte et protégées par ton mot de passe.","show.title":"Ton travail, une vraie facture","show.sub":"Voici ce que tu obtiens : l'écran que tu remplis sur ton téléphone, et le PDF que reçoit ton client.","show.c1":"Ta semaine, sur ton téléphone","show.c2":"La facture PDF (vrai exemple)","show.c3":"Mode sombre inclus","au.title":"Fait pour les subbies en Australie","au.1t":"ABN et GST","au.1d":"Tax invoice avec GST (10 %) si tu es inscrit, facture « No GST » sinon.","au.2t":"Dollars australiens","au.2d":"Tous les montants en AUD, au centime près, avec ton BSB et ton numéro de compte.","au.3t":"Un vrai support","au.3d":"Une question ? Écris à support@subbiebill.com.","tpc.title":"Avis","tpc.h":"Tu utilises SubbieBill ?","tpc.p":"Dis ce que tu en penses sur Trustpilot. Les avis honnêtes nous aident à nous améliorer.","tpc.btn":"Laisser un avis sur Trustpilot","fin2.h":"Prêt à envoyer ta prochaine facture en 30 secondes ?","fo.product":"Produit","fo.guides":"Guides (en anglais)","fo.legal":"Mentions légales","fo.made":"Fait pour ceux qui bossent sous ABN en Australie","hero.lede":"Payé à l'heure, à la journée ou au forfait ? SubbieBill en fait une facture PDF professionnelle, avec ton ABN, ton BSB et la GST calculée.","lst.sure":"Supprimer ?","tpr.ask":"Tu aimes SubbieBill ? Un petit avis nous aide vraiment.","tpr.go":"Laisser un avis","tpr.no":"Plus tard","tpr.foot":"Avis sur Trustpilot","lg.guides":"Guides (en anglais) :","lg.refunds":"Remboursements","lg.privacy":"Confidentialité","lg.agree":"En créant un compte, tu acceptes nos","lg.terms_long":"conditions d'utilisation","lg.and":"et notre","lg.privacy_long":"politique de confidentialité",
   "top.free":"Gratuit","top.premium":"Premium","top.history":"Historique","top.menu":"Menu","sheet.close":"Fermer",
   "onb.title":"Bienvenue sur SubbieBill","onb.sub":"Trois étapes et ta première facture est prête.","onb.s1":"Tes infos (une seule fois)","onb.fill":"Remplir","onb.s2":"À qui tu factures","onb.s3":"Ce que tu factures (heures, jours ou forfait)",
   "per.aria":"Durée de la facture","per.week":"Semaine","per.fortnight":"2 semaines","per.month":"Mois",
@@ -2684,6 +2702,12 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "price.p7":"Facturas limpias: sin el código SubbieBill abajo",
+  "p.why_qr":"Premium quita el código SubbieBill de tus facturas y desbloquea todo lo de abajo.",
+  "qr.cta":"Quitarlo con Premium",
+  "qr.note":"En el plan gratis, se imprime un pequeño código de verificación SubbieBill al pie de tus facturas. Premium lo quita.",
+  "price.free_qr":"Un pequeño código de verificación SubbieBill al pie de cada factura.",
+  "p.f6":"Facturas limpias: sin el código SubbieBill abajo",
   "i.first_ph":"ej. Juan Carlos",
   "bm.title":"¿Cómo te pagan?","bm.hourly":"Por hora","bm.hourly_s":"horas × tarifa","bm.daily":"Por día","bm.daily_s":"días × tarifa","bm.period":"Monto fijo","bm.period_s":"mismo monto cada periodo","bm.period_week":"Fijo semanal","bm.period_fortnight":"Fijo quincenal","bm.period_month":"Fijo mensual","bm.fixed":"Precio fijo","bm.fixed_s":"por trabajo","bm.d_rate":"Tarifa por día ($/día)","bm.d_rate_ph":"p. ej. 350","bm.desc_ph":"p. ej. Services","bm.d_days":"Días trabajados (toca para añadir o quitar)","bm.f_per":"Periodo facturado","bm.f_from":"Inicio","bm.f_to":"Fin","bm.f_amt":"Precio acordado ($)","bm.f_amt_week":"Monto de la semana ($)","bm.f_amt_fortnight":"Monto de la quincena ($)","bm.f_amt_month":"Monto del mes ($)","bm.f_desc_job":"Descripción del trabajo","bm.f_desc_job_ph":"p. ej. Rediseño web, limpieza de fin de contrato…","bm.f_desc_per_ph":"p. ej. Weekly services","bm.f_note_per":"El monto no depende de tus horas: facturas lo acordado para el periodo.","bm.f_note_job":"Precio acordado con tu cliente para este trabajo. No hacen falta horas.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Indica tu tarifa por día.","bm.need_days":"Toca al menos un día trabajado.","bm.need_amt":"Indica el monto a facturar.","bm.bad_dates":"La fecha de fin es anterior a la de inicio.",
   "gi.note":"Aún sin cuenta: tus datos se quedan en este móvil. Tu ABN se vinculará a tu cuenta cuando la crees.","gi.abn_kept":"ABN anotado. Se vinculará a tu cuenta cuando la crees.",
@@ -2702,7 +2726,7 @@ es:{
   "_name":"Español",
   "_short":"ES",
   "_locale":"es-419",
-  "faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, guardadas en tu historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas, historial de todas tus facturas con totales por año, envío de facturas al cliente por email y seguimiento de facturas pagadas o vencidas.",
+  "faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, guardadas en tu historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas, historial de todas tus facturas con totales por año, envío de facturas al cliente por email y seguimiento de facturas pagadas o vencidas. En el plan gratis, se imprime un pequeño código de verificación SubbieBill al pie de cada factura; las facturas Premium no lo llevan.",
   "faq.q10":"¿Qué diferencia hay entre Gratis y Premium?",
   "faq.a9":"Mientras no esté terminada, cambia lo que quieras: se guarda sola. Una factura terminada queda bloqueada para que tus cuentas estén claras. Para corregir un error, ábrela y toca Modificar: corrígela y termínala otra vez. Conserva el mismo número y obtienes un PDF nuevo para enviar. En Gratis, terminarla otra vez usa una de tus facturas gratuitas.",
   "faq.q9":"¿Cómo modifico una factura?",
@@ -2862,7 +2886,7 @@ es:{
   "auth.pass_ph_login":"Tu contraseña",
   "save.locked":"Historial automático · Premium",
   "p.why_save":"Con Premium, cada factura que llenas se guarda sola en tu historial.",
-  "p.why_limit":"Usaste tus 3 facturas gratuitas. Pásate a Premium para seguir facturando.",
+  "p.why_limit":"Ya no te quedan facturas gratuitas. Pásate a Premium para seguir facturando.",
   "bar.finish":"Terminar factura",
   "bar.confirm":"Toca para confirmar",
   "bar.redownload":"Descargar otra vez",
@@ -2985,7 +3009,7 @@ es:{
   "err.load":"No se pudo cargar tu cuenta. Recarga la página.",
   "err.forgot":"Escribe a {email} desde la dirección de tu cuenta.",
   "foot.tag":"Facturación para trabajadores y subcontratistas con ABN en Australia.",
-  "foot.q":"¿Preguntas?","lg.terms":"Condiciones","lo.cancel2":"Cancelar","mail.resend_btn":"Reenviar al cliente","snd.bad":"Esta dirección de email no parece correcta.","snd.cc":"Recibes una copia en {email}. Si tu cliente responde, te llega a ti.","snd.again":"Reenviar","snd.go":"Enviar","snd.label":"Email del cliente","snd.client":"tu cliente","snd.txt":"SubbieBill envía la factura {no} a {client} con el PDF adjunto.","snd.title":"Enviar al cliente","mail.need_field":"Escribe el email del cliente para enviarle la factura.","pay.sent":"Enviada","mail.fail":"No se pudo enviar el email. Inténtalo en un momento o usa Descargar PDF y envíalo tú.","mail.rate":"Llegaste al límite de 20 emails hoy. Inténtalo mañana o usa Descargar PDF y envíalo tú.","mail.need_email":"Primero agrega el email del cliente (Email del cliente, bajo los datos de la factura).","mail.sent_on":"✓ Enviada a {email} · {date}","mail.sent_nocc":"Enviada a {email}.","mail.sent":"Enviada a {email}. Tienes una copia en tu correo.","mail.sending":"Enviando…","mail.confirm":"¿Enviar a {email}?","pw.show":"Mostrar contraseña","pw.hide":"Ocultar contraseña","mail.preparing":"Preparando…","mail.opened":"Tu app de correo está abierta con el mensaje y el enlace al PDF. Revísalo y toca Enviar.","mail.opened_noto":"Tu app de correo está abierta con el mensaje y el enlace al PDF. Agrega la dirección del cliente y toca Enviar.","mail.nolink":"No se pudo crear el enlace del PDF. Elige Mail para enviarlo como adjunto.","h.free_t":"En Gratis,","h.free_note":"tus 3 primeras facturas se guardan aquí. Eliminar una no te devuelve una factura gratis.","h.free_perks":"Premium agrega facturas ilimitadas, envío al cliente por email y seguimiento de facturas pagadas o vencidas.","h.see_pro":"Ver Premium","p.why_paid":"Con Premium, marca tus facturas como pagadas y ve de un vistazo cuáles están vencidas.","rs.link_bad":"Este enlace caducó o ya se usó. Pide uno nuevo abajo.","rs.resend":"Enviar otro enlace","rs.intro3":"Elige tu nueva contraseña.","exp.title":"Gastos","exp.opt":"opcional","exp.add":"+ Agregar un gasto","exp.desc":"Gasto","exp.desc_ph":"Gasolina, materiales, peajes…","exp.amt":"Monto en dólares","exp.remove":"Quitar este gasto","exp.note":"Cada gasto se agrega como una línea en la factura.","exp.note_gst":"Montos sin GST: el GST (10 %) se suma encima, como tus horas.","exp.empty":"¿Gasolina, materiales o peajes por cobrar? Agrégalos aquí.","rv.exp":"Gastos","rv.exp_v":"{n} línea(s) · {amt}","meta.cemail":"Email del cliente (opcional)","mail.btn":"Enviar al cliente","mail.copied":"Email del cliente copiado ({email}). Elige Mail y pégalo en «Para».","mail.noemail":"Elige Mail. Consejo: agrega el email del cliente en los datos de la factura para la próxima vez.","mail.again":"Toca otra vez «Enviar al cliente» para enviar.","mail.attach":"PDF descargado: adjúntalo al email que se acaba de abrir.","mail.attach_noto":"PDF descargado: adjúntalo al email y agrega la dirección del cliente.","p.why_mail":"Con Premium, SubbieBill envía la factura a tu cliente con el PDF adjunto, y tú recibes una copia como prueba.","pay.mark":"Marcar pagada","pay.paid_on":"Pagada el {date}","pay.paid_short":"Pagada ✓","pay.late":"Vencida","pay.unpaid":"Sin pagar","h.sum_unpaid":"Pendiente de cobro","h.sum_late":"{n} vencida(s)","price.p5":"Facturas enviadas al cliente por email, con copia para ti","price.p6":"Seguimiento de facturas pagadas y vencidas","p.f4":"Facturas enviadas al cliente por email, con copia para ti","p.f5":"Seguimiento de facturas pagadas y vencidas","faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, guardadas en tu historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas, historial de todas tus facturas con totales por año, envío de facturas al cliente por email y seguimiento de facturas pagadas o vencidas.","rs.title":"Nueva contraseña","rs.intro1":"Escribe el email de tu cuenta. Te enviamos un enlace para elegir una nueva contraseña.","rs.intro2":"Si {email} tiene una cuenta, va en camino un email con un enlace. Ábrelo en este dispositivo y toca el enlace.","rs.send":"Enviarme un enlace","rs.new":"Nueva contraseña","rs.new2":"Confirma la nueva contraseña","rs.save":"Guardar mi nueva contraseña","rs.back":"Volver a iniciar sesión","rs.wait":"Espera un minuto antes de pedir un enlace nuevo.","rs.sent_again":"Enlace nuevo enviado.","rs.same":"Elige una contraseña distinta de la anterior.","rs.done":"Contraseña cambiada. Ya iniciaste sesión.","i.abn_check":"Revisa tu ABN: {abn}. ¿Es correcto?","i.abn_yes":"Sí, continuar","i.abn_edit":"Editar","i.abn_bad":"Este ABN no parece válido","ph.gst":"GST incluido","demo.eye":"La app real","demo.sub2":"Esta es la pantalla que usas cada semana. Cambia una hora de inicio o fin y el total se actualiza.","demo.p1":"Inicio y fin de cada día","demo.p2":"Tu tarifa, calculada al céntimo","demo.p3":"Un toque para la factura PDF","demo.note":"Solo es un ejemplo: aquí no se guarda nada.","demo.aria2":"Ejemplo interactivo de la pantalla de horas de SubbieBill","ln.aria":"Navegación","ln.features":"Funciones","ln.pricing":"Precios","ln.how":"Cómo funciona","ln.faq":"Preguntas","hero.cta2":"Empezar gratis","hero.eyebrow":"Facturación para trabajadores y subcontratistas con ABN","hero.t1":"Tu trabajo. Tu factura.","hero.t2":"En 30 segundos.","ben.aria":"Por qué SubbieBill","ben.1t":"Ahorra tiempo cada semana","ben.1d":"Pones tu trabajo una vez y los cálculos se hacen solos.","ben.2t":"Facturas PDF profesionales","ben.2d":"Con tu ABN, tu BSB, tu número de cuenta y el GST.","ben.3t":"Funciona en tu teléfono","ben.3d":"En el trabajo, en casa o en el ordenador. Nada que instalar.","ben.4t":"Tus datos son privados","ben.4d":"Guardados en tu cuenta y protegidos por tu contraseña.","show.title":"Tu trabajo, una factura real","show.sub":"Esto es lo que obtienes: la pantalla que rellenas en tu teléfono y el PDF que recibe tu cliente.","show.c1":"Tu semana, en tu teléfono","show.c2":"La factura PDF (ejemplo real)","show.c3":"Modo oscuro incluido","au.title":"Hecho para subcontratistas en Australia","au.1t":"ABN y GST","au.1d":"Tax invoice con GST (10 %) si estás registrado, factura «No GST» si no.","au.2t":"Dólares australianos","au.2d":"Todos los importes en AUD, al céntimo, con tu BSB y tu número de cuenta.","au.3t":"Soporte real","au.3d":"¿Una pregunta? Escribe a support@subbiebill.com.","tpc.title":"Reseñas","tpc.h":"¿Usas SubbieBill?","tpc.p":"Cuenta lo que piensas en Trustpilot. Las reseñas honestas nos ayudan a mejorar.","tpc.btn":"Dejar una reseña en Trustpilot","fin2.h":"¿Listo para enviar tu próxima factura en 30 segundos?","fo.product":"Producto","fo.guides":"Guías (en inglés)","fo.legal":"Legal","fo.made":"Hecho para quienes trabajan con ABN en Australia","hero.lede":"¿Cobras por hora, por día o un precio fijo? SubbieBill lo convierte en una factura PDF profesional, con tu ABN, tu BSB y el GST calculado.","lst.sure":"¿Quitar?","tpr.ask":"¿Te gusta SubbieBill? Una reseña rápida nos ayuda mucho.","tpr.go":"Dejar una reseña","tpr.no":"Ahora no","tpr.foot":"Reseñas en Trustpilot","lg.guides":"Guías (en inglés):","lg.refunds":"Reembolsos","lg.privacy":"Privacidad","lg.agree":"Al crear una cuenta, aceptas nuestras","lg.terms_long":"condiciones de uso","lg.and":"y nuestra","lg.privacy_long":"política de privacidad",
+  "foot.q":"¿Preguntas?","lg.terms":"Condiciones","lo.cancel2":"Cancelar","mail.resend_btn":"Reenviar al cliente","snd.bad":"Esta dirección de email no parece correcta.","snd.cc":"Recibes una copia en {email}. Si tu cliente responde, te llega a ti.","snd.again":"Reenviar","snd.go":"Enviar","snd.label":"Email del cliente","snd.client":"tu cliente","snd.txt":"SubbieBill envía la factura {no} a {client} con el PDF adjunto.","snd.title":"Enviar al cliente","mail.need_field":"Escribe el email del cliente para enviarle la factura.","pay.sent":"Enviada","mail.fail":"No se pudo enviar el email. Inténtalo en un momento o usa Descargar PDF y envíalo tú.","mail.rate":"Llegaste al límite de 20 emails hoy. Inténtalo mañana o usa Descargar PDF y envíalo tú.","mail.need_email":"Primero agrega el email del cliente (Email del cliente, bajo los datos de la factura).","mail.sent_on":"✓ Enviada a {email} · {date}","mail.sent_nocc":"Enviada a {email}.","mail.sent":"Enviada a {email}. Tienes una copia en tu correo.","mail.sending":"Enviando…","mail.confirm":"¿Enviar a {email}?","pw.show":"Mostrar contraseña","pw.hide":"Ocultar contraseña","mail.preparing":"Preparando…","mail.opened":"Tu app de correo está abierta con el mensaje y el enlace al PDF. Revísalo y toca Enviar.","mail.opened_noto":"Tu app de correo está abierta con el mensaje y el enlace al PDF. Agrega la dirección del cliente y toca Enviar.","mail.nolink":"No se pudo crear el enlace del PDF. Elige Mail para enviarlo como adjunto.","h.free_t":"En Gratis,","h.free_note":"tus 3 primeras facturas se guardan aquí. Eliminar una no te devuelve una factura gratis.","h.free_perks":"Premium agrega facturas ilimitadas, envío al cliente por email y seguimiento de facturas pagadas o vencidas.","h.see_pro":"Ver Premium","p.why_paid":"Con Premium, marca tus facturas como pagadas y ve de un vistazo cuáles están vencidas.","rs.link_bad":"Este enlace caducó o ya se usó. Pide uno nuevo abajo.","rs.resend":"Enviar otro enlace","rs.intro3":"Elige tu nueva contraseña.","exp.title":"Gastos","exp.opt":"opcional","exp.add":"+ Agregar un gasto","exp.desc":"Gasto","exp.desc_ph":"Gasolina, materiales, peajes…","exp.amt":"Monto en dólares","exp.remove":"Quitar este gasto","exp.note":"Cada gasto se agrega como una línea en la factura.","exp.note_gst":"Montos sin GST: el GST (10 %) se suma encima, como tus horas.","exp.empty":"¿Gasolina, materiales o peajes por cobrar? Agrégalos aquí.","rv.exp":"Gastos","rv.exp_v":"{n} línea(s) · {amt}","meta.cemail":"Email del cliente (opcional)","mail.btn":"Enviar al cliente","mail.copied":"Email del cliente copiado ({email}). Elige Mail y pégalo en «Para».","mail.noemail":"Elige Mail. Consejo: agrega el email del cliente en los datos de la factura para la próxima vez.","mail.again":"Toca otra vez «Enviar al cliente» para enviar.","mail.attach":"PDF descargado: adjúntalo al email que se acaba de abrir.","mail.attach_noto":"PDF descargado: adjúntalo al email y agrega la dirección del cliente.","p.why_mail":"Con Premium, SubbieBill envía la factura a tu cliente con el PDF adjunto, y tú recibes una copia como prueba.","pay.mark":"Marcar pagada","pay.paid_on":"Pagada el {date}","pay.paid_short":"Pagada ✓","pay.late":"Vencida","pay.unpaid":"Sin pagar","h.sum_unpaid":"Pendiente de cobro","h.sum_late":"{n} vencida(s)","price.p5":"Facturas enviadas al cliente por email, con copia para ti","price.p6":"Seguimiento de facturas pagadas y vencidas","p.f4":"Facturas enviadas al cliente por email, con copia para ti","p.f5":"Seguimiento de facturas pagadas y vencidas","faq.a10":"Gratis: 3 facturas terminadas con todas las herramientas, guardadas en tu historial. Premium ($39 al año o $4.99 al mes): facturas ilimitadas, historial de todas tus facturas con totales por año, envío de facturas al cliente por email y seguimiento de facturas pagadas o vencidas. En el plan gratis, se imprime un pequeño código de verificación SubbieBill al pie de cada factura; las facturas Premium no lo llevan.","rs.title":"Nueva contraseña","rs.intro1":"Escribe el email de tu cuenta. Te enviamos un enlace para elegir una nueva contraseña.","rs.intro2":"Si {email} tiene una cuenta, va en camino un email con un enlace. Ábrelo en este dispositivo y toca el enlace.","rs.send":"Enviarme un enlace","rs.new":"Nueva contraseña","rs.new2":"Confirma la nueva contraseña","rs.save":"Guardar mi nueva contraseña","rs.back":"Volver a iniciar sesión","rs.wait":"Espera un minuto antes de pedir un enlace nuevo.","rs.sent_again":"Enlace nuevo enviado.","rs.same":"Elige una contraseña distinta de la anterior.","rs.done":"Contraseña cambiada. Ya iniciaste sesión.","i.abn_check":"Revisa tu ABN: {abn}. ¿Es correcto?","i.abn_yes":"Sí, continuar","i.abn_edit":"Editar","i.abn_bad":"Este ABN no parece válido","ph.gst":"GST incluido","demo.eye":"La app real","demo.sub2":"Esta es la pantalla que usas cada semana. Cambia una hora de inicio o fin y el total se actualiza.","demo.p1":"Inicio y fin de cada día","demo.p2":"Tu tarifa, calculada al céntimo","demo.p3":"Un toque para la factura PDF","demo.note":"Solo es un ejemplo: aquí no se guarda nada.","demo.aria2":"Ejemplo interactivo de la pantalla de horas de SubbieBill","ln.aria":"Navegación","ln.features":"Funciones","ln.pricing":"Precios","ln.how":"Cómo funciona","ln.faq":"Preguntas","hero.cta2":"Empezar gratis","hero.eyebrow":"Facturación para trabajadores y subcontratistas con ABN","hero.t1":"Tu trabajo. Tu factura.","hero.t2":"En 30 segundos.","ben.aria":"Por qué SubbieBill","ben.1t":"Ahorra tiempo cada semana","ben.1d":"Pones tu trabajo una vez y los cálculos se hacen solos.","ben.2t":"Facturas PDF profesionales","ben.2d":"Con tu ABN, tu BSB, tu número de cuenta y el GST.","ben.3t":"Funciona en tu teléfono","ben.3d":"En el trabajo, en casa o en el ordenador. Nada que instalar.","ben.4t":"Tus datos son privados","ben.4d":"Guardados en tu cuenta y protegidos por tu contraseña.","show.title":"Tu trabajo, una factura real","show.sub":"Esto es lo que obtienes: la pantalla que rellenas en tu teléfono y el PDF que recibe tu cliente.","show.c1":"Tu semana, en tu teléfono","show.c2":"La factura PDF (ejemplo real)","show.c3":"Modo oscuro incluido","au.title":"Hecho para subcontratistas en Australia","au.1t":"ABN y GST","au.1d":"Tax invoice con GST (10 %) si estás registrado, factura «No GST» si no.","au.2t":"Dólares australianos","au.2d":"Todos los importes en AUD, al céntimo, con tu BSB y tu número de cuenta.","au.3t":"Soporte real","au.3d":"¿Una pregunta? Escribe a support@subbiebill.com.","tpc.title":"Reseñas","tpc.h":"¿Usas SubbieBill?","tpc.p":"Cuenta lo que piensas en Trustpilot. Las reseñas honestas nos ayudan a mejorar.","tpc.btn":"Dejar una reseña en Trustpilot","fin2.h":"¿Listo para enviar tu próxima factura en 30 segundos?","fo.product":"Producto","fo.guides":"Guías (en inglés)","fo.legal":"Legal","fo.made":"Hecho para quienes trabajan con ABN en Australia","hero.lede":"¿Cobras por hora, por día o un precio fijo? SubbieBill lo convierte en una factura PDF profesional, con tu ABN, tu BSB y el GST calculado.","lst.sure":"¿Quitar?","tpr.ask":"¿Te gusta SubbieBill? Una reseña rápida nos ayuda mucho.","tpr.go":"Dejar una reseña","tpr.no":"Ahora no","tpr.foot":"Reseñas en Trustpilot","lg.guides":"Guías (en inglés):","lg.refunds":"Reembolsos","lg.privacy":"Privacidad","lg.agree":"Al crear una cuenta, aceptas nuestras","lg.terms_long":"condiciones de uso","lg.and":"y nuestra","lg.privacy_long":"política de privacidad",
   "top.free":"Gratis",
   "top.premium":"Premium",
   "top.history":"Historial",
@@ -3146,6 +3170,12 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "price.p7":"Fatture pulite: senza il codice SubbieBill in fondo",
+  "p.why_qr":"Premium toglie il codice SubbieBill dalle tue fatture e sblocca tutto quello che trovi qui sotto.",
+  "qr.cta":"Toglilo con Premium",
+  "qr.note":"Nel piano gratuito, in fondo alle fatture viene stampato un piccolo codice di verifica SubbieBill. Premium lo toglie.",
+  "price.free_qr":"Un piccolo codice di verifica SubbieBill in fondo a ogni fattura.",
+  "p.f6":"Fatture pulite: senza il codice SubbieBill in fondo",
   "i.first_ph":"es. Marco Antonio",
   "bm.title":"Come vieni pagato?","bm.hourly":"A ore","bm.hourly_s":"ore × tariffa","bm.daily":"A giornata","bm.daily_s":"giorni × tariffa","bm.period":"Importo fisso","bm.period_s":"stesso importo ogni periodo","bm.period_week":"Fisso settimanale","bm.period_fortnight":"Fisso quindicinale","bm.period_month":"Fisso mensile","bm.fixed":"Prezzo fisso","bm.fixed_s":"per lavoro","bm.d_rate":"Tariffa giornaliera ($/giorno)","bm.d_rate_ph":"es. 350","bm.desc_ph":"es. Services","bm.d_days":"Giorni lavorati (tocca per aggiungere / togliere)","bm.f_per":"Periodo fatturato","bm.f_from":"Inizio","bm.f_to":"Fine","bm.f_amt":"Prezzo concordato ($)","bm.f_amt_week":"Importo della settimana ($)","bm.f_amt_fortnight":"Importo delle 2 settimane ($)","bm.f_amt_month":"Importo del mese ($)","bm.f_desc_job":"Descrizione del lavoro","bm.f_desc_job_ph":"es. Rifacimento sito web, pulizia di fine contratto…","bm.f_desc_per_ph":"es. Weekly services","bm.f_note_per":"L'importo non dipende dalle ore: fatturi quanto concordato per il periodo.","bm.f_note_job":"Prezzo concordato con il cliente per questo lavoro. Le ore non servono.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Inserisci la tariffa giornaliera.","bm.need_days":"Tocca almeno un giorno lavorato.","bm.need_amt":"Inserisci l'importo da fatturare.","bm.bad_dates":"La data di fine è prima di quella di inizio.",
   "gi.note":"Ancora senza account: i tuoi dati restano su questo telefono. Il tuo ABN sarà collegato all'account quando lo crei.","gi.abn_kept":"ABN salvato. Sarà collegato al tuo account quando lo crei.",
@@ -3165,7 +3195,7 @@ it:{
   "_short":"IT",
   "_locale":"it-IT",
   "days":["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"],
-  "faq.a10":"Gratis: 3 fatture finite con tutti gli strumenti, conservate nella tua Cronologia. Premium (39 $ all'anno o 4,99 $ al mese): fatture illimitate, Cronologia di tutte le fatture con i totali annuali, invio delle fatture al cliente via email e controllo delle fatture pagate o scadute.",
+  "faq.a10":"Gratis: 3 fatture finite con tutti gli strumenti, conservate nella tua Cronologia. Premium (39 $ all'anno o 4,99 $ al mese): fatture illimitate, Cronologia di tutte le fatture con i totali annuali, invio delle fatture al cliente via email e controllo delle fatture pagate o scadute. Nel piano gratuito, in fondo a ogni fattura c'è un piccolo codice di verifica SubbieBill; le fatture Premium non ce l'hanno.",
   "faq.q10":"Che differenza c'è tra Gratis e Premium?",
   "faq.a9":"Finché non la finisci, puoi cambiare tutto: si salva da sola. Una fattura finita è bloccata, così i tuoi registri restano in ordine. Per correggere un errore, aprila e tocca Modifica: correggila e finiscila di nuovo. Mantiene lo stesso numero e ottieni un nuovo PDF da inviare. Con Gratis, finirla di nuovo usa una delle tue fatture gratuite.",
   "faq.q9":"Come modifico una fattura?",
@@ -3325,7 +3355,7 @@ it:{
   "auth.pass_ph_login":"La tua password",
   "save.locked":"Cronologia automatica · Premium",
   "p.why_save":"Con Premium, ogni fattura che compili si salva da sola nella Cronologia.",
-  "p.why_limit":"Hai usato le tue 3 fatture gratuite. Passa a Premium per continuare a fatturare.",
+  "p.why_limit":"Non hai più fatture gratuite. Passa a Premium per continuare a fatturare.",
   "bar.finish":"Finisci la fattura",
   "bar.confirm":"Confermi?",
   "bar.redownload":"Riscarica",
@@ -3757,6 +3787,12 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "price.p7":"Faturas limpas: sem o código SubbieBill no rodapé",
+  "p.why_qr":"O Premium remove o código SubbieBill das suas faturas e libera tudo abaixo.",
+  "qr.cta":"Remover com o Premium",
+  "qr.note":"No plano grátis, um pequeno código de verificação SubbieBill é impresso no rodapé das suas faturas. O Premium remove.",
+  "price.free_qr":"Um pequeno código de verificação SubbieBill no rodapé de cada fatura.",
+  "p.f6":"Faturas limpas: sem o código SubbieBill no rodapé",
   "i.first_ph":"ex. João Pedro",
   "bm.title":"Como você é pago?","bm.hourly":"Por hora","bm.hourly_s":"horas × valor","bm.daily":"Por dia","bm.daily_s":"dias × diária","bm.period":"Valor fixo","bm.period_s":"mesmo valor a cada período","bm.period_week":"Fixo semanal","bm.period_fortnight":"Fixo quinzenal","bm.period_month":"Fixo mensal","bm.fixed":"Preço fixo","bm.fixed_s":"por serviço","bm.d_rate":"Diária ($/dia)","bm.d_rate_ph":"ex. 350","bm.desc_ph":"ex. Services","bm.d_days":"Dias trabalhados (toque para adicionar / tirar)","bm.f_per":"Período faturado","bm.f_from":"Início","bm.f_to":"Fim","bm.f_amt":"Preço combinado ($)","bm.f_amt_week":"Valor da semana ($)","bm.f_amt_fortnight":"Valor da quinzena ($)","bm.f_amt_month":"Valor do mês ($)","bm.f_desc_job":"Descrição do serviço","bm.f_desc_job_ph":"ex. Novo site, faxina de fim de contrato…","bm.f_desc_per_ph":"ex. Weekly services","bm.f_note_per":"O valor não depende das suas horas: você fatura o combinado para o período.","bm.f_note_job":"Preço combinado com o cliente para este serviço. Não precisa de horas.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Informe sua diária.","bm.need_days":"Toque em pelo menos um dia trabalhado.","bm.need_amt":"Informe o valor a faturar.","bm.bad_dates":"A data de fim é antes da data de início.",
   "gi.note":"Ainda sem conta: seus dados ficam neste celular. Seu ABN será vinculado à sua conta quando você criá-la.","gi.abn_kept":"ABN anotado. Ele será vinculado à sua conta quando você criá-la.",
@@ -3776,7 +3812,7 @@ pt:{
   "_short":"PT",
   "_locale":"pt-BR",
   "days":["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-  "faq.a10":"Grátis: 3 faturas finalizadas com todas as ferramentas, guardadas no seu Histórico. Premium ($ 39 por ano ou $ 4,99 por mês, em dólares australianos): faturas ilimitadas, Histórico de todas as faturas com totais anuais, envio das faturas ao cliente por email e acompanhamento das faturas pagas ou vencidas.",
+  "faq.a10":"Grátis: 3 faturas finalizadas com todas as ferramentas, guardadas no seu Histórico. Premium ($ 39 por ano ou $ 4,99 por mês, em dólares australianos): faturas ilimitadas, Histórico de todas as faturas com totais anuais, envio das faturas ao cliente por email e acompanhamento das faturas pagas ou vencidas. No plano grátis, um pequeno código de verificação SubbieBill aparece no rodapé de cada fatura; as faturas Premium não têm.",
   "faq.q10":"Qual a diferença entre Grátis e Premium?",
   "faq.a9":"Enquanto você não finaliza, pode mudar tudo: ela salva sozinha. Uma fatura finalizada fica bloqueada, para manter seus registros em ordem. Para corrigir um erro, abra-a e toque em Editar: corrija e finalize de novo. Ela mantém o mesmo número e você recebe um novo PDF para enviar. No Grátis, finalizar de novo usa uma das suas faturas grátis.",
   "faq.q9":"Como edito uma fatura?",
@@ -3936,7 +3972,7 @@ pt:{
   "auth.pass_ph_login":"Sua senha",
   "save.locked":"Histórico automático · Premium",
   "p.why_save":"Com Premium, cada fatura que você preenche é salva sozinha no Histórico.",
-  "p.why_limit":"Você usou suas 3 faturas grátis. Passe para Premium para continuar faturando.",
+  "p.why_limit":"Você não tem mais faturas grátis. Passe para Premium para continuar faturando.",
   "bar.finish":"Finalizar fatura",
   "bar.confirm":"Toque para confirmar",
   "bar.redownload":"Baixar de novo",
@@ -5211,6 +5247,895 @@ const pdayName = (iso) => (P_ISO.test(String(iso || "")) ? P_DAYS[new Date(iso +
 const pfmtAbn = (v) => { const d = String(v || "").replace(/\D/g, ""); return d.length === 11 ? `${d.slice(0, 2)} ${d.slice(2, 5)} ${d.slice(5, 8)} ${d.slice(8)}` : String(v || ""); };
 const ptxt = (v) => String(v ?? "").replace(/[^\x20-\x7E -ÿ–—‘’“”•€]/g, "").slice(0, 200);
 
+/* QR code encoder: QRCode for JavaScript, (c) 2009 Kazuhiko Arase, MIT licence (http://www.d-project.com/) */
+const qrMatrix=(()=>{const M={};
+M.QRMode=(function(){return {
+MODE_NUMBER :       1 << 0,
+MODE_ALPHA_NUM :    1 << 1,
+MODE_8BIT_BYTE :    1 << 2,
+MODE_KANJI :        1 << 3
+};
+})();
+M.QRErrorCorrectLevel=(function(){return {
+L : 1,
+M : 0,
+Q : 3,
+H : 2
+};
+})();
+M.QRMaskPattern=(function(){return {
+PATTERN000 : 0,
+PATTERN001 : 1,
+PATTERN010 : 2,
+PATTERN011 : 3,
+PATTERN100 : 4,
+PATTERN101 : 5,
+PATTERN110 : 6,
+PATTERN111 : 7
+};
+})();
+M.QRMath=(function(){var QRMath = {
+glog : function(n) {
+if (n < 1) {
+throw new Error("glog(" + n + ")");
+}
+return QRMath.LOG_TABLE[n];
+},
+gexp : function(n) {
+while (n < 0) {
+n += 255;
+}
+while (n >= 256) {
+n -= 255;
+}
+return QRMath.EXP_TABLE[n];
+},
+EXP_TABLE : new Array(256),
+LOG_TABLE : new Array(256)
+};
+for (var i = 0; i < 8; i++) {
+QRMath.EXP_TABLE[i] = 1 << i;
+}
+for (var i = 8; i < 256; i++) {
+QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4]
+^ QRMath.EXP_TABLE[i - 5]
+^ QRMath.EXP_TABLE[i - 6]
+^ QRMath.EXP_TABLE[i - 8];
+}
+for (var i = 0; i < 255; i++) {
+QRMath.LOG_TABLE[QRMath.EXP_TABLE[i] ] = i;
+}
+return QRMath;
+})();
+M.QRPolynomial=(function(){var QRMath = M.QRMath;
+function QRPolynomial(num, shift) {
+if (num.length === undefined) {
+throw new Error(num.length + "/" + shift);
+}
+var offset = 0;
+while (offset < num.length && num[offset] === 0) {
+offset++;
+}
+this.num = new Array(num.length - offset + shift);
+for (var i = 0; i < num.length - offset; i++) {
+this.num[i] = num[i + offset];
+}
+}
+QRPolynomial.prototype = {
+get : function(index) {
+return this.num[index];
+},
+getLength : function() {
+return this.num.length;
+},
+multiply : function(e) {
+var num = new Array(this.getLength() + e.getLength() - 1);
+for (var i = 0; i < this.getLength(); i++) {
+for (var j = 0; j < e.getLength(); j++) {
+num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i) ) + QRMath.glog(e.get(j) ) );
+}
+}
+return new QRPolynomial(num, 0);
+},
+mod : function(e) {
+if (this.getLength() - e.getLength() < 0) {
+return this;
+}
+var ratio = QRMath.glog(this.get(0) ) - QRMath.glog(e.get(0) );
+var num = new Array(this.getLength() );
+for (var i = 0; i < this.getLength(); i++) {
+num[i] = this.get(i);
+}
+for (var x = 0; x < e.getLength(); x++) {
+num[x] ^= QRMath.gexp(QRMath.glog(e.get(x) ) + ratio);
+}
+return new QRPolynomial(num, 0).mod(e);
+}
+};
+return QRPolynomial;
+})();
+M.QRUtil=(function(){var QRMode = M.QRMode;
+var QRPolynomial = M.QRPolynomial;
+var QRMath = M.QRMath;
+var QRMaskPattern = M.QRMaskPattern;
+var QRUtil = {
+PATTERN_POSITION_TABLE : [
+[],
+[6, 18],
+[6, 22],
+[6, 26],
+[6, 30],
+[6, 34],
+[6, 22, 38],
+[6, 24, 42],
+[6, 26, 46],
+[6, 28, 50],
+[6, 30, 54],
+[6, 32, 58],
+[6, 34, 62],
+[6, 26, 46, 66],
+[6, 26, 48, 70],
+[6, 26, 50, 74],
+[6, 30, 54, 78],
+[6, 30, 56, 82],
+[6, 30, 58, 86],
+[6, 34, 62, 90],
+[6, 28, 50, 72, 94],
+[6, 26, 50, 74, 98],
+[6, 30, 54, 78, 102],
+[6, 28, 54, 80, 106],
+[6, 32, 58, 84, 110],
+[6, 30, 58, 86, 114],
+[6, 34, 62, 90, 118],
+[6, 26, 50, 74, 98, 122],
+[6, 30, 54, 78, 102, 126],
+[6, 26, 52, 78, 104, 130],
+[6, 30, 56, 82, 108, 134],
+[6, 34, 60, 86, 112, 138],
+[6, 30, 58, 86, 114, 142],
+[6, 34, 62, 90, 118, 146],
+[6, 30, 54, 78, 102, 126, 150],
+[6, 24, 50, 76, 102, 128, 154],
+[6, 28, 54, 80, 106, 132, 158],
+[6, 32, 58, 84, 110, 136, 162],
+[6, 26, 54, 82, 110, 138, 166],
+[6, 30, 58, 86, 114, 142, 170]
+],
+G15 : (1 << 10) | (1 << 8) | (1 << 5) | (1 << 4) | (1 << 2) | (1 << 1) | (1 << 0),
+G18 : (1 << 12) | (1 << 11) | (1 << 10) | (1 << 9) | (1 << 8) | (1 << 5) | (1 << 2) | (1 << 0),
+G15_MASK : (1 << 14) | (1 << 12) | (1 << 10)    | (1 << 4) | (1 << 1),
+getBCHTypeInfo : function(data) {
+var d = data << 10;
+while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+d ^= (QRUtil.G15 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) ) );
+}
+return ( (data << 10) | d) ^ QRUtil.G15_MASK;
+},
+getBCHTypeNumber : function(data) {
+var d = data << 12;
+while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+d ^= (QRUtil.G18 << (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) ) );
+}
+return (data << 12) | d;
+},
+getBCHDigit : function(data) {
+var digit = 0;
+while (data !== 0) {
+digit++;
+data >>>= 1;
+}
+return digit;
+},
+getPatternPosition : function(typeNumber) {
+return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+},
+getMask : function(maskPattern, i, j) {
+switch (maskPattern) {
+case QRMaskPattern.PATTERN000 : return (i + j) % 2 === 0;
+case QRMaskPattern.PATTERN001 : return i % 2 === 0;
+case QRMaskPattern.PATTERN010 : return j % 3 === 0;
+case QRMaskPattern.PATTERN011 : return (i + j) % 3 === 0;
+case QRMaskPattern.PATTERN100 : return (Math.floor(i / 2) + Math.floor(j / 3) ) % 2 === 0;
+case QRMaskPattern.PATTERN101 : return (i * j) % 2 + (i * j) % 3 === 0;
+case QRMaskPattern.PATTERN110 : return ( (i * j) % 2 + (i * j) % 3) % 2 === 0;
+case QRMaskPattern.PATTERN111 : return ( (i * j) % 3 + (i + j) % 2) % 2 === 0;
+default :
+throw new Error("bad maskPattern:" + maskPattern);
+}
+},
+getErrorCorrectPolynomial : function(errorCorrectLength) {
+var a = new QRPolynomial([1], 0);
+for (var i = 0; i < errorCorrectLength; i++) {
+a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0) );
+}
+return a;
+},
+getLengthInBits : function(mode, type) {
+if (1 <= type && type < 10) {
+switch(mode) {
+case QRMode.MODE_NUMBER     : return 10;
+case QRMode.MODE_ALPHA_NUM  : return 9;
+case QRMode.MODE_8BIT_BYTE  : return 8;
+case QRMode.MODE_KANJI      : return 8;
+default :
+throw new Error("mode:" + mode);
+}
+} else if (type < 27) {
+switch(mode) {
+case QRMode.MODE_NUMBER     : return 12;
+case QRMode.MODE_ALPHA_NUM  : return 11;
+case QRMode.MODE_8BIT_BYTE  : return 16;
+case QRMode.MODE_KANJI      : return 10;
+default :
+throw new Error("mode:" + mode);
+}
+} else if (type < 41) {
+switch(mode) {
+case QRMode.MODE_NUMBER     : return 14;
+case QRMode.MODE_ALPHA_NUM  : return 13;
+case QRMode.MODE_8BIT_BYTE  : return 16;
+case QRMode.MODE_KANJI      : return 12;
+default :
+throw new Error("mode:" + mode);
+}
+} else {
+throw new Error("type:" + type);
+}
+},
+getLostPoint : function(qrCode) {
+var moduleCount = qrCode.getModuleCount();
+var lostPoint = 0;
+var row = 0;
+var col = 0;
+for (row = 0; row < moduleCount; row++) {
+for (col = 0; col < moduleCount; col++) {
+var sameCount = 0;
+var dark = qrCode.isDark(row, col);
+for (var r = -1; r <= 1; r++) {
+if (row + r < 0 || moduleCount <= row + r) {
+continue;
+}
+for (var c = -1; c <= 1; c++) {
+if (col + c < 0 || moduleCount <= col + c) {
+continue;
+}
+if (r === 0 && c === 0) {
+continue;
+}
+if (dark === qrCode.isDark(row + r, col + c) ) {
+sameCount++;
+}
+}
+}
+if (sameCount > 5) {
+lostPoint += (3 + sameCount - 5);
+}
+}
+}
+for (row = 0; row < moduleCount - 1; row++) {
+for (col = 0; col < moduleCount - 1; col++) {
+var count = 0;
+if (qrCode.isDark(row,     col    ) ) count++;
+if (qrCode.isDark(row + 1, col    ) ) count++;
+if (qrCode.isDark(row,     col + 1) ) count++;
+if (qrCode.isDark(row + 1, col + 1) ) count++;
+if (count === 0 || count === 4) {
+lostPoint += 3;
+}
+}
+}
+for (row = 0; row < moduleCount; row++) {
+for (col = 0; col < moduleCount - 6; col++) {
+if (qrCode.isDark(row, col) &&
+!qrCode.isDark(row, col + 1) &&
+qrCode.isDark(row, col + 2) &&
+qrCode.isDark(row, col + 3) &&
+qrCode.isDark(row, col + 4) &&
+!qrCode.isDark(row, col + 5) &&
+qrCode.isDark(row, col + 6) ) {
+lostPoint += 40;
+}
+}
+}
+for (col = 0; col < moduleCount; col++) {
+for (row = 0; row < moduleCount - 6; row++) {
+if (qrCode.isDark(row, col) &&
+!qrCode.isDark(row + 1, col) &&
+qrCode.isDark(row + 2, col) &&
+qrCode.isDark(row + 3, col) &&
+qrCode.isDark(row + 4, col) &&
+!qrCode.isDark(row + 5, col) &&
+qrCode.isDark(row + 6, col) ) {
+lostPoint += 40;
+}
+}
+}
+var darkCount = 0;
+for (col = 0; col < moduleCount; col++) {
+for (row = 0; row < moduleCount; row++) {
+if (qrCode.isDark(row, col) ) {
+darkCount++;
+}
+}
+}
+var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+lostPoint += ratio * 10;
+return lostPoint;
+}
+};
+return QRUtil;
+})();
+M.QR8bitByte=(function(){var QRMode = M.QRMode;
+function QR8bitByte(data) {
+this.mode = QRMode.MODE_8BIT_BYTE;
+this.data = data;
+}
+QR8bitByte.prototype = {
+getLength : function() {
+return this.data.length;
+},
+write : function(buffer) {
+for (var i = 0; i < this.data.length; i++) {
+buffer.put(this.data.charCodeAt(i), 8);
+}
+}
+};
+return QR8bitByte;
+})();
+M.QRBitBuffer=(function(){function QRBitBuffer() {
+this.buffer = [];
+this.length = 0;
+}
+QRBitBuffer.prototype = {
+get : function(index) {
+var bufIndex = Math.floor(index / 8);
+return ( (this.buffer[bufIndex] >>> (7 - index % 8) ) & 1) == 1;
+},
+put : function(num, length) {
+for (var i = 0; i < length; i++) {
+this.putBit( ( (num >>> (length - i - 1) ) & 1) == 1);
+}
+},
+getLengthInBits : function() {
+return this.length;
+},
+putBit : function(bit) {
+var bufIndex = Math.floor(this.length / 8);
+if (this.buffer.length <= bufIndex) {
+this.buffer.push(0);
+}
+if (bit) {
+this.buffer[bufIndex] |= (0x80 >>> (this.length % 8) );
+}
+this.length++;
+}
+};
+return QRBitBuffer;
+})();
+M.QRRSBlock=(function(){var QRErrorCorrectLevel = M.QRErrorCorrectLevel;
+function QRRSBlock(totalCount, dataCount) {
+this.totalCount = totalCount;
+this.dataCount  = dataCount;
+}
+QRRSBlock.RS_BLOCK_TABLE = [
+[1, 26, 19],
+[1, 26, 16],
+[1, 26, 13],
+[1, 26, 9],
+[1, 44, 34],
+[1, 44, 28],
+[1, 44, 22],
+[1, 44, 16],
+[1, 70, 55],
+[1, 70, 44],
+[2, 35, 17],
+[2, 35, 13],
+[1, 100, 80],
+[2, 50, 32],
+[2, 50, 24],
+[4, 25, 9],
+[1, 134, 108],
+[2, 67, 43],
+[2, 33, 15, 2, 34, 16],
+[2, 33, 11, 2, 34, 12],
+[2, 86, 68],
+[4, 43, 27],
+[4, 43, 19],
+[4, 43, 15],
+[2, 98, 78],
+[4, 49, 31],
+[2, 32, 14, 4, 33, 15],
+[4, 39, 13, 1, 40, 14],
+[2, 121, 97],
+[2, 60, 38, 2, 61, 39],
+[4, 40, 18, 2, 41, 19],
+[4, 40, 14, 2, 41, 15],
+[2, 146, 116],
+[3, 58, 36, 2, 59, 37],
+[4, 36, 16, 4, 37, 17],
+[4, 36, 12, 4, 37, 13],
+[2, 86, 68, 2, 87, 69],
+[4, 69, 43, 1, 70, 44],
+[6, 43, 19, 2, 44, 20],
+[6, 43, 15, 2, 44, 16],
+[4, 101, 81],
+[1, 80, 50, 4, 81, 51],
+[4, 50, 22, 4, 51, 23],
+[3, 36, 12, 8, 37, 13],
+[2, 116, 92, 2, 117, 93],
+[6, 58, 36, 2, 59, 37],
+[4, 46, 20, 6, 47, 21],
+[7, 42, 14, 4, 43, 15],
+[4, 133, 107],
+[8, 59, 37, 1, 60, 38],
+[8, 44, 20, 4, 45, 21],
+[12, 33, 11, 4, 34, 12],
+[3, 145, 115, 1, 146, 116],
+[4, 64, 40, 5, 65, 41],
+[11, 36, 16, 5, 37, 17],
+[11, 36, 12, 5, 37, 13],
+[5, 109, 87, 1, 110, 88],
+[5, 65, 41, 5, 66, 42],
+[5, 54, 24, 7, 55, 25],
+[11, 36, 12],
+[5, 122, 98, 1, 123, 99],
+[7, 73, 45, 3, 74, 46],
+[15, 43, 19, 2, 44, 20],
+[3, 45, 15, 13, 46, 16],
+[1, 135, 107, 5, 136, 108],
+[10, 74, 46, 1, 75, 47],
+[1, 50, 22, 15, 51, 23],
+[2, 42, 14, 17, 43, 15],
+[5, 150, 120, 1, 151, 121],
+[9, 69, 43, 4, 70, 44],
+[17, 50, 22, 1, 51, 23],
+[2, 42, 14, 19, 43, 15],
+[3, 141, 113, 4, 142, 114],
+[3, 70, 44, 11, 71, 45],
+[17, 47, 21, 4, 48, 22],
+[9, 39, 13, 16, 40, 14],
+[3, 135, 107, 5, 136, 108],
+[3, 67, 41, 13, 68, 42],
+[15, 54, 24, 5, 55, 25],
+[15, 43, 15, 10, 44, 16],
+[4, 144, 116, 4, 145, 117],
+[17, 68, 42],
+[17, 50, 22, 6, 51, 23],
+[19, 46, 16, 6, 47, 17],
+[2, 139, 111, 7, 140, 112],
+[17, 74, 46],
+[7, 54, 24, 16, 55, 25],
+[34, 37, 13],
+[4, 151, 121, 5, 152, 122],
+[4, 75, 47, 14, 76, 48],
+[11, 54, 24, 14, 55, 25],
+[16, 45, 15, 14, 46, 16],
+[6, 147, 117, 4, 148, 118],
+[6, 73, 45, 14, 74, 46],
+[11, 54, 24, 16, 55, 25],
+[30, 46, 16, 2, 47, 17],
+[8, 132, 106, 4, 133, 107],
+[8, 75, 47, 13, 76, 48],
+[7, 54, 24, 22, 55, 25],
+[22, 45, 15, 13, 46, 16],
+[10, 142, 114, 2, 143, 115],
+[19, 74, 46, 4, 75, 47],
+[28, 50, 22, 6, 51, 23],
+[33, 46, 16, 4, 47, 17],
+[8, 152, 122, 4, 153, 123],
+[22, 73, 45, 3, 74, 46],
+[8, 53, 23, 26, 54, 24],
+[12, 45, 15, 28, 46, 16],
+[3, 147, 117, 10, 148, 118],
+[3, 73, 45, 23, 74, 46],
+[4, 54, 24, 31, 55, 25],
+[11, 45, 15, 31, 46, 16],
+[7, 146, 116, 7, 147, 117],
+[21, 73, 45, 7, 74, 46],
+[1, 53, 23, 37, 54, 24],
+[19, 45, 15, 26, 46, 16],
+[5, 145, 115, 10, 146, 116],
+[19, 75, 47, 10, 76, 48],
+[15, 54, 24, 25, 55, 25],
+[23, 45, 15, 25, 46, 16],
+[13, 145, 115, 3, 146, 116],
+[2, 74, 46, 29, 75, 47],
+[42, 54, 24, 1, 55, 25],
+[23, 45, 15, 28, 46, 16],
+[17, 145, 115],
+[10, 74, 46, 23, 75, 47],
+[10, 54, 24, 35, 55, 25],
+[19, 45, 15, 35, 46, 16],
+[17, 145, 115, 1, 146, 116],
+[14, 74, 46, 21, 75, 47],
+[29, 54, 24, 19, 55, 25],
+[11, 45, 15, 46, 46, 16],
+[13, 145, 115, 6, 146, 116],
+[14, 74, 46, 23, 75, 47],
+[44, 54, 24, 7, 55, 25],
+[59, 46, 16, 1, 47, 17],
+[12, 151, 121, 7, 152, 122],
+[12, 75, 47, 26, 76, 48],
+[39, 54, 24, 14, 55, 25],
+[22, 45, 15, 41, 46, 16],
+[6, 151, 121, 14, 152, 122],
+[6, 75, 47, 34, 76, 48],
+[46, 54, 24, 10, 55, 25],
+[2, 45, 15, 64, 46, 16],
+[17, 152, 122, 4, 153, 123],
+[29, 74, 46, 14, 75, 47],
+[49, 54, 24, 10, 55, 25],
+[24, 45, 15, 46, 46, 16],
+[4, 152, 122, 18, 153, 123],
+[13, 74, 46, 32, 75, 47],
+[48, 54, 24, 14, 55, 25],
+[42, 45, 15, 32, 46, 16],
+[20, 147, 117, 4, 148, 118],
+[40, 75, 47, 7, 76, 48],
+[43, 54, 24, 22, 55, 25],
+[10, 45, 15, 67, 46, 16],
+[19, 148, 118, 6, 149, 119],
+[18, 75, 47, 31, 76, 48],
+[34, 54, 24, 34, 55, 25],
+[20, 45, 15, 61, 46, 16]
+];
+QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+if (rsBlock === undefined) {
+throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+}
+var length = rsBlock.length / 3;
+var list = [];
+for (var i = 0; i < length; i++) {
+var count = rsBlock[i * 3 + 0];
+var totalCount = rsBlock[i * 3 + 1];
+var dataCount  = rsBlock[i * 3 + 2];
+for (var j = 0; j < count; j++) {
+list.push(new QRRSBlock(totalCount, dataCount) );
+}
+}
+return list;
+};
+QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+switch(errorCorrectLevel) {
+case QRErrorCorrectLevel.L :
+return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+case QRErrorCorrectLevel.M :
+return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+case QRErrorCorrectLevel.Q :
+return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+case QRErrorCorrectLevel.H :
+return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+default :
+return undefined;
+}
+};
+return QRRSBlock;
+})();
+M.index=(function(){var QR8bitByte = M.QR8bitByte;
+var QRUtil = M.QRUtil;
+var QRPolynomial = M.QRPolynomial;
+var QRRSBlock = M.QRRSBlock;
+var QRBitBuffer = M.QRBitBuffer;
+function QRCode(typeNumber, errorCorrectLevel) {
+this.typeNumber = typeNumber;
+this.errorCorrectLevel = errorCorrectLevel;
+this.modules = null;
+this.moduleCount = 0;
+this.dataCache = null;
+this.dataList = [];
+}
+QRCode.prototype = {
+addData : function(data) {
+var newData = new QR8bitByte(data);
+this.dataList.push(newData);
+this.dataCache = null;
+},
+isDark : function(row, col) {
+if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+throw new Error(row + "," + col);
+}
+return this.modules[row][col];
+},
+getModuleCount : function() {
+return this.moduleCount;
+},
+make : function() {
+if (this.typeNumber < 1 ){
+var typeNumber = 1;
+for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+var buffer = new QRBitBuffer();
+var totalDataCount = 0;
+for (var i = 0; i < rsBlocks.length; i++) {
+totalDataCount += rsBlocks[i].dataCount;
+}
+for (var x = 0; x < this.dataList.length; x++) {
+var data = this.dataList[x];
+buffer.put(data.mode, 4);
+buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+data.write(buffer);
+}
+if (buffer.getLengthInBits() <= totalDataCount * 8)
+break;
+}
+this.typeNumber = typeNumber;
+}
+this.makeImpl(false, this.getBestMaskPattern() );
+},
+makeImpl : function(test, maskPattern) {
+this.moduleCount = this.typeNumber * 4 + 17;
+this.modules = new Array(this.moduleCount);
+for (var row = 0; row < this.moduleCount; row++) {
+this.modules[row] = new Array(this.moduleCount);
+for (var col = 0; col < this.moduleCount; col++) {
+this.modules[row][col] = null;//(col + row) % 3;
+}
+}
+this.setupPositionProbePattern(0, 0);
+this.setupPositionProbePattern(this.moduleCount - 7, 0);
+this.setupPositionProbePattern(0, this.moduleCount - 7);
+this.setupPositionAdjustPattern();
+this.setupTimingPattern();
+this.setupTypeInfo(test, maskPattern);
+if (this.typeNumber >= 7) {
+this.setupTypeNumber(test);
+}
+if (this.dataCache === null) {
+this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+}
+this.mapData(this.dataCache, maskPattern);
+},
+setupPositionProbePattern : function(row, col)  {
+for (var r = -1; r <= 7; r++) {
+if (row + r <= -1 || this.moduleCount <= row + r) continue;
+for (var c = -1; c <= 7; c++) {
+if (col + c <= -1 || this.moduleCount <= col + c) continue;
+if ( (0 <= r && r <= 6 && (c === 0 || c === 6) ) ||
+(0 <= c && c <= 6 && (r === 0 || r === 6) ) ||
+(2 <= r && r <= 4 && 2 <= c && c <= 4) ) {
+this.modules[row + r][col + c] = true;
+} else {
+this.modules[row + r][col + c] = false;
+}
+}
+}
+},
+getBestMaskPattern : function() {
+var minLostPoint = 0;
+var pattern = 0;
+for (var i = 0; i < 8; i++) {
+this.makeImpl(true, i);
+var lostPoint = QRUtil.getLostPoint(this);
+if (i === 0 || minLostPoint >  lostPoint) {
+minLostPoint = lostPoint;
+pattern = i;
+}
+}
+return pattern;
+},
+createMovieClip : function(target_mc, instance_name, depth) {
+var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+var cs = 1;
+this.make();
+for (var row = 0; row < this.modules.length; row++) {
+var y = row * cs;
+for (var col = 0; col < this.modules[row].length; col++) {
+var x = col * cs;
+var dark = this.modules[row][col];
+if (dark) {
+qr_mc.beginFill(0, 100);
+qr_mc.moveTo(x, y);
+qr_mc.lineTo(x + cs, y);
+qr_mc.lineTo(x + cs, y + cs);
+qr_mc.lineTo(x, y + cs);
+qr_mc.endFill();
+}
+}
+}
+return qr_mc;
+},
+setupTimingPattern : function() {
+for (var r = 8; r < this.moduleCount - 8; r++) {
+if (this.modules[r][6] !== null) {
+continue;
+}
+this.modules[r][6] = (r % 2 === 0);
+}
+for (var c = 8; c < this.moduleCount - 8; c++) {
+if (this.modules[6][c] !== null) {
+continue;
+}
+this.modules[6][c] = (c % 2 === 0);
+}
+},
+setupPositionAdjustPattern : function() {
+var pos = QRUtil.getPatternPosition(this.typeNumber);
+for (var i = 0; i < pos.length; i++) {
+for (var j = 0; j < pos.length; j++) {
+var row = pos[i];
+var col = pos[j];
+if (this.modules[row][col] !== null) {
+continue;
+}
+for (var r = -2; r <= 2; r++) {
+for (var c = -2; c <= 2; c++) {
+if (Math.abs(r) === 2 ||
+Math.abs(c) === 2 ||
+(r === 0 && c === 0) ) {
+this.modules[row + r][col + c] = true;
+} else {
+this.modules[row + r][col + c] = false;
+}
+}
+}
+}
+}
+},
+setupTypeNumber : function(test) {
+var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+var mod;
+for (var i = 0; i < 18; i++) {
+mod = (!test && ( (bits >> i) & 1) === 1);
+this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+}
+for (var x = 0; x < 18; x++) {
+mod = (!test && ( (bits >> x) & 1) === 1);
+this.modules[x % 3 + this.moduleCount - 8 - 3][Math.floor(x / 3)] = mod;
+}
+},
+setupTypeInfo : function(test, maskPattern) {
+var data = (this.errorCorrectLevel << 3) | maskPattern;
+var bits = QRUtil.getBCHTypeInfo(data);
+var mod;
+for (var v = 0; v < 15; v++) {
+mod = (!test && ( (bits >> v) & 1) === 1);
+if (v < 6) {
+this.modules[v][8] = mod;
+} else if (v < 8) {
+this.modules[v + 1][8] = mod;
+} else {
+this.modules[this.moduleCount - 15 + v][8] = mod;
+}
+}
+for (var h = 0; h < 15; h++) {
+mod = (!test && ( (bits >> h) & 1) === 1);
+if (h < 8) {
+this.modules[8][this.moduleCount - h - 1] = mod;
+} else if (h < 9) {
+this.modules[8][15 - h - 1 + 1] = mod;
+} else {
+this.modules[8][15 - h - 1] = mod;
+}
+}
+this.modules[this.moduleCount - 8][8] = (!test);
+},
+mapData : function(data, maskPattern) {
+var inc = -1;
+var row = this.moduleCount - 1;
+var bitIndex = 7;
+var byteIndex = 0;
+for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+if (col === 6) col--;
+while (true) {
+for (var c = 0; c < 2; c++) {
+if (this.modules[row][col - c] === null) {
+var dark = false;
+if (byteIndex < data.length) {
+dark = ( ( (data[byteIndex] >>> bitIndex) & 1) === 1);
+}
+var mask = QRUtil.getMask(maskPattern, row, col - c);
+if (mask) {
+dark = !dark;
+}
+this.modules[row][col - c] = dark;
+bitIndex--;
+if (bitIndex === -1) {
+byteIndex++;
+bitIndex = 7;
+}
+}
+}
+row += inc;
+if (row < 0 || this.moduleCount <= row) {
+row -= inc;
+inc = -inc;
+break;
+}
+}
+}
+}
+};
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+QRCode.createData = function(typeNumber, errorCorrectLevel, dataList) {
+var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+var buffer = new QRBitBuffer();
+for (var i = 0; i < dataList.length; i++) {
+var data = dataList[i];
+buffer.put(data.mode, 4);
+buffer.put(data.getLength(), QRUtil.getLengthInBits(data.mode, typeNumber) );
+data.write(buffer);
+}
+var totalDataCount = 0;
+for (var x = 0; x < rsBlocks.length; x++) {
+totalDataCount += rsBlocks[x].dataCount;
+}
+if (buffer.getLengthInBits() > totalDataCount * 8) {
+throw new Error("code length overflow. (" +
+buffer.getLengthInBits() +
+">" +
+totalDataCount * 8 +
+")");
+}
+if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+buffer.put(0, 4);
+}
+while (buffer.getLengthInBits() % 8 !== 0) {
+buffer.putBit(false);
+}
+while (true) {
+if (buffer.getLengthInBits() >= totalDataCount * 8) {
+break;
+}
+buffer.put(QRCode.PAD0, 8);
+if (buffer.getLengthInBits() >= totalDataCount * 8) {
+break;
+}
+buffer.put(QRCode.PAD1, 8);
+}
+return QRCode.createBytes(buffer, rsBlocks);
+};
+QRCode.createBytes = function(buffer, rsBlocks) {
+var offset = 0;
+var maxDcCount = 0;
+var maxEcCount = 0;
+var dcdata = new Array(rsBlocks.length);
+var ecdata = new Array(rsBlocks.length);
+for (var r = 0; r < rsBlocks.length; r++) {
+var dcCount = rsBlocks[r].dataCount;
+var ecCount = rsBlocks[r].totalCount - dcCount;
+maxDcCount = Math.max(maxDcCount, dcCount);
+maxEcCount = Math.max(maxEcCount, ecCount);
+dcdata[r] = new Array(dcCount);
+for (var i = 0; i < dcdata[r].length; i++) {
+dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+}
+offset += dcCount;
+var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+var modPoly = rawPoly.mod(rsPoly);
+ecdata[r] = new Array(rsPoly.getLength() - 1);
+for (var x = 0; x < ecdata[r].length; x++) {
+var modIndex = x + modPoly.getLength() - ecdata[r].length;
+ecdata[r][x] = (modIndex >= 0)? modPoly.get(modIndex) : 0;
+}
+}
+var totalCodeCount = 0;
+for (var y = 0; y < rsBlocks.length; y++) {
+totalCodeCount += rsBlocks[y].totalCount;
+}
+var data = new Array(totalCodeCount);
+var index = 0;
+for (var z = 0; z < maxDcCount; z++) {
+for (var s = 0; s < rsBlocks.length; s++) {
+if (z < dcdata[s].length) {
+data[index++] = dcdata[s][z];
+}
+}
+}
+for (var xx = 0; xx < maxEcCount; xx++) {
+for (var t = 0; t < rsBlocks.length; t++) {
+if (xx < ecdata[t].length) {
+data[index++] = ecdata[t][xx];
+}
+}
+}
+return data;
+};
+return QRCode;
+})();
+return text=>{const q=new M.index(-1,M.QRErrorCorrectLevel.M);q.addData(text);q.make();const n=q.getModuleCount(),m=[];for(let r=0;r<n;r++){const row=[];for(let c=0;c<n;c++)row.push(q.isDark(r,c)?1:0);m.push(row)}return m}})();
 function renderInvoice(JsPDF, me, inv) {
   const doc = new JsPDF({ unit: "mm", format: "a4" });
   doc.setProperties({ title: `Invoice ${ptxt(inv.invno)}`, creator: "SubbieBill" });
@@ -5309,6 +6234,18 @@ function drawInvoice(doc, me, inv) {
   const pay = `Please pay ${pmoney(calc.total / 100)} by ${pdmy(inv.due)}${me.bsb || me.acc ? " to the account above" : ""}. Reference: Invoice ${ptxt(inv.invno)}.`;
   doc.splitTextToSize(pay, R - L).forEach((t) => { doc.text(t, L, y); y += 4.6; });
 
+  // free plan: small verification code, bottom right (the server adds inv.vcode only on the free plan)
+  const vc = String(inv.vcode || "");
+  if (/^[0-9A-Z]{4}-[0-9A-Z]{4}$/.test(vc) && typeof qrMatrix === "function") {
+    if (y > 266) newPage();
+    const m = qrMatrix("https://subbiebill.com/v?c=" + vc), n = m.length, s = 13, k = s / n, qx = R - s, qy = 270.5;
+    doc.setFillColor(92, 100, 96);
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (m[r][c]) doc.rect(qx + c * k, qy + r * k, k + 0.03, k + 0.03, "F");
+    font("normal", 7); col(MUT);
+    doc.text("Verify at subbiebill.com/v", qx - 3, qy + 6.2, { align: "right" });
+    doc.text("Code " + vc, qx - 3, qy + 9.7, { align: "right" });
+  }
+
   const pages = doc.getNumberOfPages();
   for (let i = 1; i <= pages; i++) { doc.setPage(i); font("normal", 7.5); col(MUT); hline(285, LINE, 0.25);
     doc.text(`${title} ${ptxt(inv.invno)} · ${ptxt(me.name)}`, L, 289.5); if (pages > 1) doc.text(`Page ${i} of ${pages}`, R, 289.5, { align: "right" }); }
@@ -5351,13 +6288,14 @@ function watermark(canvas, label) {
 function previewInvoice(o) {
   const p = P(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: !!p.gstReg };
   const inv = clone(I()); if (!locked()) settleDates(inv);
-  showPreview(ME2, inv, { mark: true, back: o && o.back });
+  const free = isGuest() || !plan.premium; if (free && !inv.vcode) inv.vcode = "XXXX-XXXX"; if (!free) delete inv.vcode;
+  showPreview(ME2, inv, { mark: true, back: o && o.back, qr: free });
 }
 let pvBack = null;   /* "admin": closing the preview goes back to the admin panel where it was */
 function showPreview(me, inv, opts) {
   opts = opts || {};
   const doc = new CanvasDoc(Math.min(6, Math.max(3.5, (window.devicePixelRatio || 1) * 2.4)));
-  drawInvoice(doc, me, inv);
+  drawInvoice(doc, me, inv); $("pv_qr").hidden = !opts.qr;
   const label = t("pv.mark"), box = $("pv_pages"); box.innerHTML = "";
   doc.pages.forEach((cv, i) => { if (opts.mark) watermark(cv, label); cv.className = "pvpage"; cv.setAttribute("role", "img"); cv.setAttribute("aria-label", `${t("pv.title")} ${i + 1}/${doc.pages.length}`);
     cv.addEventListener("contextmenu", (e) => e.preventDefault()); box.appendChild(cv); });
@@ -5445,12 +6383,14 @@ function openReview(){const inv=I(),p=P(),c=invCalc(inv,meNow()),d=inv.rows.filt
   <div class="rvtot">${c.taxable?`<div><span>${esc(t("rv.sub"))}</span><b>${esc(money(c.sub/100))}</b></div><div><span>${esc(t("rv.gst"))}</span><b>${esc(money(c.gst/100))}</b></div>`:""}
     <div class="rvgrand"><span>${esc(t("rv.total"))} (AUD)</span><b>${esc(money(c.total/100))}</b></div>
     ${c.taxable?"":`<p class="note">${esc(t(c.reg?"rv.nogst2":"rv.nogst"))}</p>`}</div>
-  <p class="note rvafter">${esc(t(plan.premium?"rv.after_pro":"rv.after"))}${plan.premium?"":" <b>"+esc(t("rv.free",{n:freeLeft()}))+"</b>"}</p>`;
+  <p class="note rvafter">${esc(t(plan.premium?"rv.after_pro":"rv.after"))}${plan.premium?"":" <b>"+esc(t("rv.free",{n:freeLeft()}))+"</b>"}</p>
+  ${plan.premium?"":`<p class="note qrnote">${esc(t("qr.note"))} <button type="button" class="linkbtn qrprem">${esc(t("qr.cta"))}</button></p>`}`;
   openSheet("p_review")}
 $("rv_body").addEventListener("click",e=>{const b=e.target.closest("[data-rvchg]");if(!b)return;const k=b.dataset.rvchg;
   if(k==="infos"){openSheet("p_infos");return}closeSheet();
   if(k==="billto"){const f=$("billto").hidden?$("billto_new"):$("billto");f.scrollIntoView({block:"center"});f.focus();return}
   const d=document.querySelector(".invmeta");d.open=true;d.scrollIntoView({block:"center"});$("issue").focus()});
+document.addEventListener("click",e=>{if(!e.target.closest(".qrprem"))return;if(isGuest()){openSheet("p_gsign");return}showPremium("p.why_qr")});
 $("rv_go").onclick=()=>{closeSheet();if(finishReady())doFinish()};
 $("rv_pv").onclick=()=>previewInvoice({back:"review"});
 $("pdfbtn").onclick=()=>{if(isGuest()){gping("finish");openSheet("p_gsign");return}if(finishing)return;if(locked()){doFinish();return}if(finishReady())openReview()};

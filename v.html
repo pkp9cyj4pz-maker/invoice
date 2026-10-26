@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta name="color-scheme" content="dark">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Verify an invoice · SubbieBill</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Check that an invoice made with SubbieBill matches the original: issuer, ABN, client, dates and total.">
+<link rel="canonical" href="https://subbiebill.com/v">
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+Cg==">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#15201B">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@900&display=swap">
+<style>
+:root{--bg:#EDEFEA;--paper:#FFFFFF;--ink:#15201B;--muted:#5D6963;--line:#D5DAD3;--accent:#E8590C;--accent-strong:#C24A08;--panel:#15201B;--on-panel:#F3F6F2;
+--head:"Big Shoulders Display","Archivo Narrow","Arial Narrow",sans-serif;--body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif}
+@media all{:root{--bg:#0F1613;--paper:#18221D;--ink:#EEF2EF;--muted:#9AA6A0;--line:#2C3832;--accent:#FF7A2F;--accent-strong:#FF9554;--panel:#1C2822}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding:env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0)}
+a{color:var(--accent-strong);text-underline-offset:3px}
+a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+.wrap{max-width:760px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
+.brand{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font:900 1.5rem/1 var(--head);letter-spacing:.01em}
+.brand img{width:32px;height:32px;border-radius:8px}
+.back{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-weight:700;font-size:.92rem;white-space:nowrap}
+nav{display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px;margin:6px 0 18px}
+nav a{flex:1;text-align:center;padding:9px 6px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:700;font-size:.92rem}
+nav a[aria-current=page]{background:var(--panel);color:var(--on-panel)}
+@media all{nav a[aria-current=page]{background:var(--ink);color:var(--bg)}}
+main{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 20px 26px}
+h1{font:900 clamp(2.3rem,10vw,3.2rem)/1 var(--head);margin:0 0 6px;letter-spacing:.005em}
+.upd{color:var(--muted);font-size:.88rem;margin:0 0 16px}
+.lead{font-size:1.04rem}
+h2{font-size:1.08rem;margin:26px 0 6px;line-height:1.3}
+p{margin:0 0 10px}ul,ol{margin:0 0 10px;padding-left:22px}li{margin:4px 0}
+@media (max-width:420px){.bk2{display:none}}
+footer{color:var(--muted);font-size:.88rem;padding:20px 0 34px;display:flex;flex-direction:column;gap:4px}
+footer .links a{margin-right:14px}
+@media print{body{background:#fff}header,nav,footer .links{display:none}main{border:none;padding:0}}
+
+:root{color-scheme:dark}
+.res{border-radius:14px;padding:14px 16px;margin:0 0 16px;display:flex;gap:12px;align-items:center;border:1px solid var(--line)}
+.res b{display:block;font-size:1.08rem}.res span{color:var(--muted);font-size:.92rem}
+.ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.15rem;flex:none}
+.ok{background:rgba(74,190,120,.12);border-color:rgba(74,190,120,.45)}.ok .ic{background:#4ABE78;color:#0D1311}
+.bad{background:rgba(255,122,47,.10);border-color:rgba(255,122,47,.45)}.bad .ic{background:var(--accent);color:#0D1311}
+dl{margin:0 0 16px;border:1px solid var(--line);border-radius:14px;padding:2px 16px}
+dl div{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}dl div:last-child{border:0}
+dt{color:var(--muted)}dd{margin:0;font-weight:700;text-align:right;overflow-wrap:anywhere}.tot dd{color:var(--accent);font-size:1.25rem}
+.warn{background:rgba(245,196,81,.08);border:1px solid rgba(245,196,81,.35);border-radius:14px;padding:12px 15px;font-size:.95rem;margin:0 0 16px}
+.warn b{color:#F5C451}
+form{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+input{flex:1 1 180px;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:700 1.1rem/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;padding:0 14px;text-transform:uppercase}
+input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+button{min-height:48px;border-radius:12px;border:0;background:var(--accent);color:#0D1311;font:700 1rem var(--body);padding:0 20px;cursor:pointer}
+.small{color:var(--muted);font-size:.88rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a class="brand" href="./"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+Cg==" alt="">SubbieBill</a><a class="back" href="./">← Back<span class="bk2">&nbsp;to SubbieBill</span></a></header>
+
+<main>
+<h1>Verify an invoice</h1>
+<p class="upd">Check that an invoice made with SubbieBill matches the original.</p>
+<div id="out" aria-live="polite"></div>
+<form id="f" autocomplete="off"><label for="c" class="small" style="flex-basis:100%">Code printed at the bottom of the invoice</label><input id="c" name="c" maxlength="9" placeholder="XXXX-XXXX" inputmode="text" autocapitalize="characters" spellcheck="false" aria-describedby="hint"><button type="submit">Verify</button></form>
+<p class="small" id="hint">Bank details and contact details are never shown on this page.</p>
+</main>
+<footer><span>SubbieBill · Invoicing for ABN workers and subcontractors in Australia</span><span>ABN 50 115 971 254</span><span>Contact: <a href="mailto:support@subbiebill.com">support@subbiebill.com</a></span><span class="links"><a href="terms.html">Terms of Service</a> <a href="refunds.html">Refund Policy</a> <a href="privacy.html">Privacy Policy</a></span></footer>
+</div>
+<script>
+(function(){
+var URL="https://snfcqaubjscxgxjyugas.supabase.co/rest/v1/rpc/verify_invoice",KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
+var out=document.getElementById("out"),inp=document.getElementById("c");
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function dmy(s){var m=/^(\d{4})-(\d{2})-(\d{2})/.exec(String(s||""));return m?m[3]+"/"+m[2]+"/"+m[1]:""}
+function abn(s){var d=String(s||"").replace(/\D/g,"");return d.length===11?d.slice(0,2)+" "+d.slice(2,5)+" "+d.slice(5,8)+" "+d.slice(8):d}
+function money(v){return "$"+Number(v||0).toLocaleString("en-AU",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function norm(s){var c=String(s||"").toUpperCase().replace(/[^A-Z0-9]/g,"");return c.length===8?c.slice(0,4)+"-"+c.slice(4):String(s||"").toUpperCase()}
+function box(cls,ic,t,sub){return '<div class="res '+cls+'"><div class="ic" aria-hidden="true">'+ic+'</div><div><b>'+esc(t)+'</b><span>'+esc(sub)+'</span></div></div>'}
+function row(k,v,c){return v?'<div'+(c?' class="'+c+'"':'')+'><dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd></div>':""}
+function show(r,code){
+  if(r&&r.ok){
+    var per=r.start&&r.end?dmy(r.start)+" – "+dmy(r.end):"";
+    out.innerHTML=box("ok","✓","Genuine invoice","Issued through SubbieBill on "+(dmy(r.issue)||dmy(r.created_at)))+
+      '<dl>'+row("Invoice","No. "+r.invno)+row("From",r.name)+row("ABN",abn(r.abn))+row("Billed to",r.billto)+row("Period",per)+row("Due",dmy(r.due))+
+      row(r.taxable?"Total (AUD, incl. GST)":"Total (AUD)",money(r.total),"tot")+'</dl>'+
+      '<p class="warn"><b>Does your copy show something different?</b> If the amount, ABN, client or dates on the PDF you received don\'t match this page, the file was changed after it was issued.</p>';
+  }else if(r&&r.status==="deleted"){
+    out.innerHTML=box("bad","!","Invoice withdrawn","The issuer deleted the invoice with code "+code+". Ask them for an up-to-date invoice.");
+  }else if(r&&r.status==="none"){
+    out.innerHTML=box("bad","?","No invoice found","No SubbieBill invoice uses the code "+code+". Check the code, or ask the issuer for the original invoice.");
+  }else if(r&&r.status==="bad"){
+    out.innerHTML=box("bad","?","This code doesn't look right","A code has 8 letters and numbers, like 7KQ4-M2XD.");
+  }else{
+    out.innerHTML=box("bad","!","Couldn't check right now","Please check your connection and try again.");
+  }
+}
+function check(code){code=norm(code);inp.value=code;out.innerHTML='<p class="small">Checking…</p>';
+  fetch(URL,{method:"POST",headers:{"apikey":KEY,"Content-Type":"application/json"},body:JSON.stringify({p_code:code})})
+   .then(function(x){return x.ok?x.json():null}).then(function(r){show(r,code)}).catch(function(){show(null,code)});
+  try{history.replaceState(null,"","?c="+encodeURIComponent(code))}catch(e){}}
+document.getElementById("f").addEventListener("submit",function(e){e.preventDefault();if(inp.value.trim())check(inp.value)});
+var q=new URLSearchParams(location.search).get("c");if(q)check(q);else inp.focus();
+})();
+</script>
+</body>
+</html>
