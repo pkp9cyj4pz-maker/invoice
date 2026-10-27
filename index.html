@@ -1214,7 +1214,7 @@ html::before{content:"";position:fixed;left:0;right:0;top:0;height:env(safe-area
 /* top of the page: the status-bar area is painted the same colour as the hero, so there is no darker band */
 html:has(#landing:not([hidden])){background:var(--hero-bg)}
 html:has(#landing:not([hidden])) body{background:linear-gradient(var(--hero-bg),var(--hero-bg)) top/100% calc(env(safe-area-inset-top,0px) + 120px) no-repeat,var(--bg)}
-html::before{height:max(env(safe-area-inset-top,0px),1px)}
+html::before{display:none}
 
 /* ===== palette tokens (one source for every colour) ===== */
 :root{--gold:#F5C542;--gold-2:#D99A1E;--gold-hi:#FFE9A3;--gold-edge:#C98A12;--on-gold:#3A2500;
