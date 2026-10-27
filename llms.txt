@@ -16,11 +16,11 @@ Works in any browser, on phone or computer. Nothing to install. Interface in Eng
 - Expense lines (fuel, materials, tolls) on the invoice
 - Unique invoice numbers, due dates, client ABN
 - Saved clients, work locations and drafts
-- Premium: clean invoices without the verification code, history of every invoice with yearly totals, re-download any invoice, email invoices to the client, paid / overdue tracking
+- Premium: history of every invoice with yearly totals, re-download any invoice, email invoices to the client, paid / overdue tracking
 
 ## Pricing (AUD)
 
-- Free: 3 finished invoices with every tool, kept in the History, no card needed. Free invoices carry a small verification code (QR) at the bottom; anyone with it can check the invoice at https://subbiebill.com/v
+- Free: 3 finished invoices with every tool, kept in the History, no card needed
 - Premium: $4.99 a month or $39 a year, cancel anytime. Online payment is open now (secure checkout by Stripe)
 
 ## Referral program

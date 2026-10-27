@@ -1420,6 +1420,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .otpbox span.cur:empty::after{content:"";width:2px;height:1.3em;background:var(--accent);border-radius:1px;animation:otpblink 1s steps(1) infinite}
 @keyframes otpblink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.otpbox span.cur:empty::after{animation:none}}
+.noqr .qrnote,.noqr [data-i18n="price.free_qr"],.noqr li:has(>[data-i18n="p.f6"]),.noqr li:has(>[data-i18n="price.p7"]){display:none!important}
 </style>
 </head>
 <body>
@@ -1864,7 +1865,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
     <details><summary data-i18n="faq.q7">How do I download or share my PDF?</summary><p data-i18n="faq.a7">Tap Finish invoice, check the summary, then Finish and download PDF. The PDF goes to your downloads. On most phones, Share PDF sends it straight to Mail, Messages or WhatsApp. Download again works as long as the invoice is open, and from your History with Premium.</p></details>
     <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there. You can download all your finished invoices (ZIP) at any time from your History, even without Premium.</p></details>
     <details><summary data-i18n="faq.q9">How do I change an invoice?</summary><p data-i18n="faq.a9">Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.</p></details>
-    <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking. On Free, a small SubbieBill verification code is printed at the bottom of each invoice; Premium invoices don't have it.</p></details>
+    <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking.</p></details>
     <details><summary data-i18n="faq.q3">Who can see my bank details?</summary><p data-i18n="faq.a3">You, and the SubbieBill administrator when helping with your account. Your details are tied to your account, protected by your password and sent over an encrypted connection. Your clients only see them on the invoices you send.</p></details>
     <details><summary data-i18n="faq.q4">Can I cancel Premium?</summary><p data-i18n="faq.a4">Yes, anytime. You go back to Free: every finished invoice stays in your account, and you can still open, re-download or download them all (ZIP) at any time.</p></details>
   </section>
@@ -4638,6 +4639,9 @@ function renderLangUI(){
   $("langseg").innerHTML=LANGS.map(l=>`<label><input type="radio" name="langsel" value="${l}"${l===lang?" checked":""}> <span lang="${l}" title="${I18N[l]._name}">${flag(l)}<small>${I18N[l]._name}</small></span></label>`).join("");
 }
 let curSheet=null;
+/* verification QR code on free invoices: switched off for now (set to true to bring it back) */
+const QR_ON=false;
+if(!QR_ON){document.documentElement.classList.add("noqr");const A={"en": " On Free, a small SubbieBill verification code is printed at the bottom of each invoice; Premium invoices don't have it.", "fr": " En gratuit, un petit code de vérification SubbieBill est imprimé en bas de chaque facture ; les factures Premium n'en ont pas.", "es": " En el plan gratis, se imprime un pequeño código de verificación SubbieBill al pie de cada factura; las facturas Premium no lo llevan.", "it": " Nel piano gratuito, in fondo a ogni fattura c'è un piccolo codice di verifica SubbieBill; le fatture Premium non ce l'hanno.", "pt": " No plano grátis, um pequeno código de verificação SubbieBill aparece no rodapé de cada fatura; as faturas Premium não têm."};Object.keys(A).forEach(l=>{const d=I18N[l];if(d&&d["faq.a10"])d["faq.a10"]=d["faq.a10"].replace(A[l],"")})}
 function setLang(l,opts){opts=opts||{};if(!I18N[l])l="en";const changed=l!==lang;lang=l;
   try{localStorage.setItem("sb_lang",l)}catch(e){}
   applyStatic();renderLangUI();renderDemo();setAuthMode(authMode);renderAnn();requestAnimationFrame(fitTop);
@@ -6454,7 +6458,7 @@ function drawInvoice(doc, me, inv) {
   doc.splitTextToSize(pay, R - L).forEach((t) => { doc.text(t, L, y); y += 4.6; });
 
   // free plan: small verification code, bottom right (the server adds inv.vcode only on the free plan)
-  const vc = String(inv.vcode || "");
+  const vc = QR_ON ? String(inv.vcode || "") : "";
   if (/^[0-9A-Z]{4}-[0-9A-Z]{4}$/.test(vc) && typeof qrMatrix === "function") {
     if (y > 266) newPage();
     const m = qrMatrix("https://subbiebill.com/v?c=" + vc), n = m.length, s = 13, k = s / n, qx = R - s, qy = 270.5;
@@ -6507,7 +6511,7 @@ function watermark(canvas, label) {
 function previewInvoice(o) {
   const p = P(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: !!p.gstReg };
   const inv = clone(I()); if (!locked()) settleDates(inv);
-  const free = isGuest() || !plan.premium; if (free && !inv.vcode) inv.vcode = "XXXX-XXXX"; if (!free) delete inv.vcode;
+  const free = QR_ON && (isGuest() || !plan.premium); if (free && !inv.vcode) inv.vcode = "XXXX-XXXX"; if (!free) delete inv.vcode;
   showPreview(ME2, inv, { mark: true, back: o && o.back, qr: free });
 }
 let pvBack = null;   /* "admin": closing the preview goes back to the admin panel where it was */
@@ -6603,7 +6607,7 @@ function openReview(){const inv=I(),p=P(),c=invCalc(inv,meNow()),d=inv.rows.filt
     <div class="rvgrand"><span>${esc(t("rv.total"))} (AUD)</span><b>${esc(money(c.total/100))}</b></div>
     ${c.taxable?"":`<p class="note">${esc(t(c.reg?"rv.nogst2":"rv.nogst"))}</p>`}</div>
   <p class="note rvafter">${esc(t(plan.premium?"rv.after_pro":"rv.after"))}${plan.premium?"":" <b>"+esc(t("rv.free",{n:freeLeft()}))+"</b>"}</p>
-  ${plan.premium?"":`<p class="note qrnote">${esc(t("qr.note"))} <button type="button" class="linkbtn qrprem">${esc(t("qr.cta"))}</button></p>`}`;
+  ${plan.premium||!QR_ON?"":`<p class="note qrnote">${esc(t("qr.note"))} <button type="button" class="linkbtn qrprem">${esc(t("qr.cta"))}</button></p>`}`;
   openSheet("p_review")}
 $("rv_body").addEventListener("click",e=>{const b=e.target.closest("[data-rvchg]");if(!b)return;const k=b.dataset.rvchg;
   if(k==="infos"){openSheet("p_infos");return}closeSheet();
