@@ -6933,7 +6933,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
     <div class="abtns"><button type="button" data-bonus="1">+1</button><button type="button" data-bonus="3">+3</button><button type="button" data-bonus="5">+5</button><button type="button" id="md_reset">${esc(t("a.reset_count"))}</button></div>
     <div class="abtns"><button type="button" class="warn" data-bonus="-1"${d.free_limit>0?"":" disabled"}>−1</button><button type="button" class="warn" data-bonus="-3"${d.free_limit>0?"":" disabled"}>−3</button><button type="button" class="warn" id="md_zero"${d.free_limit>d.free_used?"":" disabled"}>${esc(t("a.zero_free"))}</button></div>
     <h4>${esc(t("a.s_remind"))}</h4>
-    <div id="md_rem" class="amrem"><span class="muted">…</span></div>
+    <div id="md_remind" class="amrem"><span class="muted">…</span></div>
     <h4>${esc(t("a.s_account"))}</h4>
     ${me?`<p class="note">${esc(t("a.self_note"))}</p>`:`<div class="form"><input id="md_reason" maxlength="200" placeholder="${esc(t("a.reason_ph"))}"${d.blocked?" hidden":""}>
       <div class="abtns"><button type="button" id="md_block" class="${d.blocked?"":"warn"}">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="danger">${esc(t("a.delete"))}</button></div>
@@ -7022,11 +7022,11 @@ async function saveRemind(){$("rm_msg").textContent="";try{const {data:r,error}=
 $("rm_on").addEventListener("change",saveRemind);$("rm_day").addEventListener("change",saveRemind);
 document.addEventListener("click",e=>{if(e.target.closest('[data-open="p_remind"]'))loadRemind()});
 
-async function memberRemind(id,set){const box=$("md_rem");if(!box)return;
+async function memberRemind(id,set){const box=$("md_remind");if(!box)return;
   let r;try{const res=await sb.rpc("admin_reminder",set==null?{p_user:id}:{p_user:id,p_on:set});r=res.data;if(res.error)throw 0}catch(e){box.innerHTML=`<span class="err">${esc(t("a.err"))}</span>`;return}
-  if(!r||!r.ok||!admCur||admCur.user_id!==id||!$("md_rem"))return;
+  if(!r||!r.ok||!admCur||admCur.user_id!==id||!$("md_remind"))return;
   const st=r.on?t("a.rem_on",{day:rmDayName(r.day||5)}):(r.admin_off?t("a.rem_admin_off"):t("a.rem_user_off"));
-  $("md_rem").innerHTML=`<p class="amremst"><span class="badge${r.on?" pro":""}">${esc(st)}</span>${r.last?` <small class="muted">${esc(t("a.rem_last",{d:d8t(r.last)}))}</small>`:""}</p>
+  $("md_remind").innerHTML=`<p class="amremst"><span class="badge${r.on?" pro":""}">${esc(st)}</span>${r.last?` <small class="muted">${esc(t("a.rem_last",{d:d8t(r.last)}))}</small>`:""}</p>
     <div class="abtns">${r.admin_off||!r.on?`<button type="button" class="primary" id="md_rem_on">${esc(t("a.rem_turn_on"))}</button>`:`<button type="button" class="warn" id="md_rem_off">${esc(t("a.rem_turn_off"))}</button>`}</div>`;
   const on=$("md_rem_on"),off=$("md_rem_off");if(on)on.onclick=()=>{on.disabled=true;memberRemind(id,true)};if(off)off.onclick=()=>{off.disabled=true;memberRemind(id,false)}}
 async function loadRemGlobal(){const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
