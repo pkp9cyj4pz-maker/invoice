@@ -1436,11 +1436,37 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .alchip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--field);font-size:.9rem;font-weight:600;color:var(--ink)}
 .alchip .alflag{display:inline-flex;width:20px;height:14px;border-radius:3px;overflow:hidden}.alchip .alflag svg,.alchip .alflag img{width:100%;height:100%;display:block}
 .alchip.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--field));color:var(--ink);box-shadow:0 0 0 1px var(--accent)}
+.ann2{width:100%;--c:#FF6F1F;--cs:rgba(255,111,31,.14);position:relative;display:flex;gap:12px;align-items:flex-start;max-width:1080px;margin:10px auto 0;padding:14px 44px 14px 14px;border-radius:16px;
+ background:linear-gradient(135deg,var(--cs),rgba(255,255,255,0) 55%),#151A18;border:1px solid color-mix(in srgb,var(--c) 40%,#26302B);box-shadow:0 14px 30px -18px rgba(0,0,0,.8),inset 3px 0 0 var(--c);overflow:hidden;font-family:var(--body)}
+.ann2::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(closest-side,var(--cs),transparent);pointer-events:none}
+.ann2 .ai{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--cs);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 35%,transparent)}
+.ann2 .ai svg{width:20px;height:20px}
+.ann2 .ab{flex:1;min-width:0}
+.ann2 .at{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 4px}
+.ann2 .ap{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c);background:var(--cs);border-radius:999px;padding:3px 8px}
+.ann2 .ad{font-size:11.5px;color:#A0AAA5}
+.ann2 h4{margin:0 0 3px;font-size:15.5px;line-height:1.3;color:#F4F7F5;font-weight:800}
+.ann2 p{margin:0;font-size:13.5px;line-height:1.45;color:#B7C0BB}
+.ann2 .ac{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:8px 13px;border-radius:10px;background:var(--c);color:#15201B;font-weight:800;font-size:13px;text-decoration:none}
+.ann2 .ax{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:9px;border:0;background:transparent;color:#7E8984;font-size:18px;display:grid;place-items:center;min-height:0;padding:0}
+.ann2.info{--c:#9CC3FF;--cs:rgba(156,195,255,.13)}
+.ann2.promo{--c:#F5C542;--cs:rgba(245,197,66,.14)}.ann2.promo .ac{background:linear-gradient(180deg,#FFE9A3,#F5C542 55%,#D99A1E);color:#3A2500}
+.ann2.alert{--c:#F97066;--cs:rgba(249,112,102,.13)}
+@media(min-width:900px){.ann2{align-items:center;padding:14px 52px 14px 16px}.ann2 .ab{display:flex;align-items:center;gap:18px}.ann2 .ab>div{flex:1}.ann2 .ac{margin-top:0;white-space:nowrap}}
+
+.annbarw{max-width:1080px;margin:10px auto 0}
+.anngrid{display:grid;grid-template-columns:1fr;gap:14px}@media(min-width:700px){.anngrid{grid-template-columns:1fr 1fr}}
+.annlg{font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.annprev{border:1px dashed var(--line);border-radius:14px;padding:12px;margin-top:6px}
+.annprevh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.annpl{display:inline-flex}.annpl label{padding:6px 12px;font-size:.85rem}
+#ann_preview .ann2{margin:0}
+.ann2 button.ac{border:0;cursor:pointer;min-height:0;font-family:inherit}.ann2 button.ac:disabled,.ann2 .ax:disabled{opacity:1;cursor:default}
 </style>
 </head>
 <body>
 
-<div id="annbar" class="annbar" hidden role="status"><p id="anntext"></p><button id="annx" type="button" data-i18n-aria="a.ann_close" aria-label="Close">×</button></div>
+<div id="annbar" class="annbarw" hidden></div>
 <div id="sheetov" class="ov" hidden>
   <div class="sheetbox" role="dialog" aria-modal="true" aria-labelledby="sheettitle">
     <div class="sheethead"><button id="sheetback" class="sheetback" type="button" hidden data-i18n-aria="s2.back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><h2 id="sheettitle"></h2><button id="sheetclose" type="button" data-i18n="sheet.close">Close</button></div>
@@ -1508,8 +1534,40 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <div id="adm_ann" class="apane form" hidden>
         <p class="note" style="margin:0" data-i18n="a.ann_intro">A banner shown at the top of the site, for everyone (logged in or not).</p>
         <label class="chk"><input type="checkbox" id="ann_on"> <span data-i18n="a.ann_on">Show the message</span></label>
-        <label for="ann_en" data-i18n="a.ann_en">Message in English</label><textarea id="ann_en" rows="2" maxlength="300"></textarea>
-        <label for="ann_fr" data-i18n="a.ann_fr">Message in French</label><textarea id="ann_fr" rows="2" maxlength="300"></textarea>
+        <label for="ann_type" data-i18n="a.ann_type">Type</label>
+        <select id="ann_type"><option value="new" data-i18n="a.ann_t_new">New</option><option value="promo" data-i18n="a.ann_t_promo">Offer</option><option value="alert" data-i18n="a.ann_t_alert">Important</option><option value="info" data-i18n="a.ann_t_info">Info</option></select>
+        <div class="anngrid">
+          <div class="form"><b class="annlg">English</b>
+            <label for="ann_ti_en" data-i18n="a.ann_title">Title</label><input id="ann_ti_en" maxlength="120">
+            <label for="ann_en" data-i18n="a.ann_text">Text</label><textarea id="ann_en" rows="3" maxlength="300"></textarea>
+            <label for="ann_bt_en" data-i18n="a.ann_btn">Button text (optional)</label><input id="ann_bt_en" maxlength="40">
+            <label for="ann_tg_en" data-i18n="a.ann_tag">Short note next to the label (optional)</label><input id="ann_tg_en" maxlength="40" data-i18n-ph="a.ann_tag_ph">
+          </div>
+          <div class="form"><b class="annlg">Français</b>
+            <label for="ann_ti_fr" data-i18n="a.ann_title">Title</label><input id="ann_ti_fr" maxlength="120">
+            <label for="ann_fr" data-i18n="a.ann_text">Text</label><textarea id="ann_fr" rows="3" maxlength="300"></textarea>
+            <label for="ann_bt_fr" data-i18n="a.ann_btn">Button text (optional)</label><input id="ann_bt_fr" maxlength="40">
+            <label for="ann_tg_fr" data-i18n="a.ann_tag">Short note next to the label (optional)</label><input id="ann_tg_fr" maxlength="40" data-i18n-ph="a.ann_tag_ph">
+          </div>
+        </div>
+        <label for="ann_target" data-i18n="a.ann_target">The button takes people to</label>
+        <select id="ann_target">
+          <option value="none" data-i18n="a.ann_g_none">No button</option>
+          <option value="signup" data-i18n="a.ann_g_signup">Create an invoice / sign up</option>
+          <option value="premium" data-i18n="a.ann_g_premium">Premium</option>
+          <option value="ref" data-i18n="a.ann_g_ref">Invite a friend (referral)</option>
+          <option value="remind" data-i18n="a.ann_g_remind">Weekly reminder settings</option>
+          <option value="infos" data-i18n="a.ann_g_infos">My details</option>
+          <option value="hist" data-i18n="a.ann_g_hist">History</option>
+          <option value="pricing" data-i18n="a.ann_g_pricing">Pricing (home page)</option>
+          <option value="help" data-i18n="a.ann_g_help">Help page</option>
+          <option value="url" data-i18n="a.ann_g_url">A link (https://…)</option>
+        </select>
+        <input id="ann_url" type="url" inputmode="url" placeholder="https://subbiebill.com/…" hidden maxlength="300">
+        <label for="ann_end" data-i18n="a.ann_end">Hide it automatically after (optional)</label>
+        <input id="ann_end" type="date">
+        <div class="annprev"><div class="annprevh"><b data-i18n="a.ann_prev">Preview</b><div class="seg annpl"><label><input type="radio" name="annpl" value="fr" checked> FR</label><label><input type="radio" name="annpl" value="en"> EN</label></div></div><div id="ann_preview"></div></div>
+        <p class="err" id="ann_err" role="alert"></p>
         <button class="primary" id="ann_save" type="button" data-i18n="a.ann_save">Save the message</button>
         <div id="adm_remg" class="aremg">
           <h4 data-i18n="a.rem_g_t">Weekly reminder emails</h4>
@@ -2115,6 +2173,38 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.ann_bad_url":"The link must start with https://",
+  "a.ann_need_btn":"Add the button text (or choose « No button »).",
+  "a.ann_need":"Add a title or a text.",
+  "a.ann_prev_empty":"Write a title or a text to see the preview.",
+  "a.ann_prev":"Preview",
+  "a.ann_end":"Hide it automatically after (optional)",
+  "a.ann_g_url":"A link (https://…)",
+  "a.ann_g_help":"Help page",
+  "a.ann_g_pricing":"Pricing (home page)",
+  "a.ann_g_hist":"History",
+  "a.ann_g_infos":"My details",
+  "a.ann_g_remind":"Weekly reminder settings",
+  "a.ann_g_ref":"Invite a friend (referral)",
+  "a.ann_g_premium":"Premium",
+  "a.ann_g_signup":"Create an invoice / sign up",
+  "a.ann_g_none":"No button",
+  "a.ann_target":"The button takes people to",
+  "a.ann_tag_ph":"e.g. tonight 10–11 pm",
+  "a.ann_tag":"Short note next to the label (optional)",
+  "a.ann_btn":"Button text (optional)",
+  "a.ann_text":"Text",
+  "a.ann_title":"Title",
+  "a.ann_t_info":"Info (blue)",
+  "a.ann_t_alert":"Important (red)",
+  "a.ann_t_promo":"Offer (gold)",
+  "a.ann_t_new":"New (orange)",
+  "a.ann_type":"Type",
+  "ann.until":"until {d}",
+  "ann.t_alert":"Important",
+  "ann.t_promo":"Offer",
+  "ann.t_info":"Info",
+  "ann.t_new":"New",
   "auth.lang_note":"You can change it anytime in Settings. Your invoices are always in English.",
   "auth.lang":"Your language",
   "a.rem_g_n":"{n} member(s) receive them",
@@ -2522,6 +2612,38 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.ann_bad_url":"Le lien doit commencer par https://",
+  "a.ann_need_btn":"Ajoute le texte du bouton (ou choisis « Pas de bouton »).",
+  "a.ann_need":"Ajoute un titre ou un texte.",
+  "a.ann_prev_empty":"Écris un titre ou un texte pour voir l'aperçu.",
+  "a.ann_prev":"Aperçu",
+  "a.ann_end":"La cacher automatiquement après le (facultatif)",
+  "a.ann_g_url":"Un lien (https://…)",
+  "a.ann_g_help":"Page d'aide",
+  "a.ann_g_pricing":"Tarifs (page d'accueil)",
+  "a.ann_g_hist":"Historique",
+  "a.ann_g_infos":"Mes infos",
+  "a.ann_g_remind":"Réglage du rappel hebdo",
+  "a.ann_g_ref":"Inviter un ami (parrainage)",
+  "a.ann_g_premium":"Premium",
+  "a.ann_g_signup":"Créer une facture / s'inscrire",
+  "a.ann_g_none":"Pas de bouton",
+  "a.ann_target":"Le bouton mène à",
+  "a.ann_tag_ph":"ex. ce soir 22 h – 23 h",
+  "a.ann_tag":"Petite note à côté de l'étiquette (facultatif)",
+  "a.ann_btn":"Texte du bouton (facultatif)",
+  "a.ann_text":"Texte",
+  "a.ann_title":"Titre",
+  "a.ann_t_info":"Info (bleu)",
+  "a.ann_t_alert":"Important (rouge)",
+  "a.ann_t_promo":"Offre (doré)",
+  "a.ann_t_new":"Nouveau (orange)",
+  "a.ann_type":"Type",
+  "ann.until":"jusqu'au {d}",
+  "ann.t_alert":"Important",
+  "ann.t_promo":"Offre",
+  "ann.t_info":"Info",
+  "ann.t_new":"Nouveau",
   "auth.lang_note":"Tu pourras la changer à tout moment dans Paramètres. Tes factures sont toujours en anglais.",
   "auth.lang":"Ta langue",
   "a.rem_g_n":"{n} membre(s) les reçoivent",
@@ -7006,10 +7128,34 @@ $("adm_csv_users").onclick=e=>exportCsv("users",e.currentTarget);$("adm_csv_inv"
 /* announcement banner */
 let ann=null;
 async function loadAnn(){if(!sb)return;try{const {data,error}=await sb.rpc("get_announcement");if(!error&&data){ann=data;renderAnn()}}catch(e){}}
-function renderAnn(){const bar=$("annbar");if(!ann||!ann.on){bar.hidden=true;return}const txt=(ann[lang]||ann.en||"").trim();
+const ANN_IC={new:'<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.5v.5"/>',
+  promo:'<rect x="3.5" y="9" width="17" height="11" rx="2"/><path d="M3.5 13h17M12 9v11M12 9c-1.5-3-5-4-5-1.5S10 9 12 9zM12 9c1.5-3 5-4 5-1.5S14 9 12 9z"/>',
+  alert:'<path d="M12 3.5l9.5 16.5h-19z"/><path d="M12 10v4.5M12 17.5v.5"/>'};
+const ANN_TYPES=["new","info","promo","alert"];
+const tl=(lg,k,v)=>{let s=(I18N[lg]&&I18N[lg][k])||I18N.en[k]||k;if(v)Object.keys(v).forEach(x=>{s=s.replace("{"+x+"}",v[x])});return s};
+function annData(a,lg){if(!a)return null;const fr=lg==="fr";
+  const title=String((fr?a.title_fr:a.title_en)||a.title_en||"").trim(),text=String((fr?a.fr:a.en)||a.en||a.fr||"").trim();
+  const btn=String((fr?a.btn_fr:a.btn_en)||a.btn_en||"").trim(),tag=String((fr?a.tag_fr:a.tag_en)||a.tag_en||"").trim();
+  const ty=ANN_TYPES.includes(a.type)?a.type:"new";let note=tag;
+  if(!note&&/^\d{4}-\d{2}-\d{2}$/.test(String(a.end||""))){const d=new Date(a.end+"T12:00:00");note=tl(fr?"fr":"en","ann.until",{d:clean(d.toLocaleDateString(fr?"fr-FR":"en-AU",{day:"numeric",month:"short"})).replace(/\.$/,"")})}
+  return {ty,title,text,btn:a.target&&a.target!=="none"?btn:"",note,pill:tl(fr?"fr":"en","ann.t_"+ty)}}
+function annCard(a,lg,preview){const d=annData(a,lg);if(!d||(!d.title&&!d.text))return"";
+  return `<div class="ann2 ${d.ty}" role="status"><div class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ANN_IC[d.ty]}</svg></div><div class="ab"><div><div class="at"><span class="ap">${esc(d.pill)}</span>${d.note?`<span class="ad">${esc(d.note)}</span>`:""}</div>${d.title?`<h4>${esc(d.title)}</h4>`:""}${d.text?`<p>${esc(d.text)}</p>`:""}</div>${d.btn?`<button type="button" class="ac"${preview?" disabled":""} data-anngo>${esc(d.btn)} →</button>`:""}</div><button type="button" class="ax" aria-label="${esc(t("a.ann_close"))}"${preview?" disabled":""} data-annx>×</button></div>`}
+function annExpired(a){if(!a||!/^\d{4}-\d{2}-\d{2}$/.test(String(a.end||"")))return false;return todayIso()>a.end}
+function renderAnn(){const bar=$("annbar");if(!ann||!ann.on||annExpired(ann)){bar.hidden=true;return}
   let gone=null;try{gone=localStorage.getItem("sb_ann_x")}catch(e){}
-  bar.hidden=!txt||gone===String(ann.id);$("anntext").textContent=txt}
-$("annx").onclick=()=>{try{localStorage.setItem("sb_ann_x",String(ann&&ann.id))}catch(e){}$("annbar").hidden=true};
+  const html=annCard(ann,lang==="fr"?"fr":"en",false);bar.innerHTML=html;bar.hidden=!html||gone===String(ann.id)}
+function annGo(a){const g=a&&a.target;if(!g||g==="none")return;
+  if(g==="url"){if(/^https:\/\//.test(a.url||""))window.open(a.url,"_blank","noopener");return}
+  if(g==="help"){window.open("help.html","_blank","noopener");return}
+  if(g==="pricing"){if(session&&view==="app"){view="home";renderAll()}const p=$("pricing");if(p)p.scrollIntoView({behavior:"smooth",block:"start"});return}
+  if(g==="signup"){if(session){goApp();return}enterGuest();return}
+  if(!session||isGuest()){if(g==="premium"){showPremium(null);return}goAuth("signup");return}
+  if(g==="premium"){showPremium(null);return}if(g==="ref"){openSheet("p_ref");return}if(g==="remind"){openSheet("p_remind");loadRemind();return}
+  if(g==="infos"){openSheet("p_infos");return}if(g==="hist"){openSheet("p_hist");return}}
+$("annbar").addEventListener("click",e=>{if(e.target.closest("[data-annx]")){try{localStorage.setItem("sb_ann_x",String(ann&&ann.id))}catch(x){}$("annbar").hidden=true;return}
+  if(e.target.closest("[data-anngo]"))annGo(ann)});
 
 /* ---------- weekly reminder (user) ---------- */
 const rmDayName=d=>clean(new Date(Date.UTC(2026,9,25+d,12)).toLocaleDateString(loc(),{weekday:"long",timeZone:"UTC"})).replace(/^./,c=>c.toUpperCase());
@@ -7032,10 +7178,22 @@ async function memberRemind(id,set){const box=$("md_remind");if(!box)return;
 async function loadRemGlobal(){const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
   $("remg_on").checked=!!r.on;$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(e){$("remg_n").textContent=t("a.err")}}
 $("remg_on").addEventListener("change",async e=>{const on=e.target.checked;e.target.disabled=true;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{p_on:on});if(error||!r||!r.ok)throw 0;$("adm_msg").textContent=t("a.done");$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(x){admErr();e.target.checked=!on}e.target.disabled=false});
-async function loadAnnForm(){loadRemGlobal();await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_en").value=a.en||"";$("ann_fr").value=a.fr||""}
+function annForm(){const v=id=>$(id).value.trim();return {on:$("ann_on").checked,type:$("ann_type").value,title_en:v("ann_ti_en"),title_fr:v("ann_ti_fr"),en:v("ann_en"),fr:v("ann_fr"),
+  btn_en:v("ann_bt_en"),btn_fr:v("ann_bt_fr"),tag_en:v("ann_tg_en"),tag_fr:v("ann_tg_fr"),target:$("ann_target").value,url:v("ann_url"),end:$("ann_end").value}}
+function annPreview(){const a=annForm(),pl=(document.querySelector('input[name="annpl"]:checked')||{}).value||"fr";$("ann_url").hidden=a.target!=="url";
+  const h=annCard({...a,on:true},pl,true);$("ann_preview").innerHTML=h||`<p class="note" style="margin:0">${esc(t("a.ann_prev_empty"))}</p>`}
+async function loadAnnForm(){loadRemGlobal();await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_type").value=ANN_TYPES.includes(a.type)?a.type:"new";
+  const s=(id,v)=>{$(id).value=v||""};s("ann_ti_en",a.title_en);s("ann_ti_fr",a.title_fr);s("ann_en",a.en);s("ann_fr",a.fr);s("ann_bt_en",a.btn_en);s("ann_bt_fr",a.btn_fr);s("ann_tg_en",a.tag_en);s("ann_tg_fr",a.tag_fr);
+  $("ann_target").value=a.target||"none";s("ann_url",a.url);s("ann_end",a.end);$("ann_err").textContent="";annPreview()}
+["ann_on","ann_type","ann_ti_en","ann_ti_fr","ann_en","ann_fr","ann_bt_en","ann_bt_fr","ann_tg_en","ann_tg_fr","ann_target","ann_url","ann_end"].forEach(id=>{$(id).addEventListener("input",annPreview);$(id).addEventListener("change",annPreview)});
+document.querySelectorAll('input[name="annpl"]').forEach(r=>r.addEventListener("change",annPreview));
 $("ann_save").onclick=async e=>{const btn=e.currentTarget;btn.disabled=true;
-  const {error}=await sb.rpc("admin_set_announcement",{p_on:$("ann_on").checked,p_en:$("ann_en").value.trim(),p_fr:$("ann_fr").value.trim()});
-  btn.disabled=false;if(error){admErr();return}$("adm_msg").textContent=t("a.done");try{localStorage.removeItem("sb_ann_x")}catch(x){}await loadAnn()};
+  const a=annForm();$("ann_err").textContent="";
+  if(a.on&&!a.title_en&&!a.en&&!a.title_fr&&!a.fr){btn.disabled=false;$("ann_err").textContent=t("a.ann_need");return}
+  if(a.target==="url"&&!/^https:\/\/\S{3,}$/.test(a.url)){btn.disabled=false;$("ann_err").textContent=t("a.ann_bad_url");return}
+  if(a.target!=="none"&&!a.btn_en&&!a.btn_fr){btn.disabled=false;$("ann_err").textContent=t("a.ann_need_btn");return}
+  const {data:r,error}=await sb.rpc("admin_set_announcement2",{p:a});
+  btn.disabled=false;if(error||!r||!r.ok){if(r&&r.status==="bad_url")$("ann_err").textContent=t("a.ann_bad_url");else admErr();return}$("adm_msg").textContent=t("a.done");try{localStorage.removeItem("sb_ann_x")}catch(x){}await loadAnn()};
 
 
 /* show / hide password: an eye button inside every password field */
