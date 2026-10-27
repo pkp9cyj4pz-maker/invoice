@@ -1421,6 +1421,21 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 @keyframes otpblink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.otpbox span.cur:empty::after{animation:none}}
 .noqr .qrnote,.noqr [data-i18n="price.free_qr"],.noqr li:has(>[data-i18n="p.f6"]),.noqr li:has(>[data-i18n="price.p7"]){display:none!important}
+.rmrow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--field);cursor:pointer}
+.rmrow span{display:flex;flex-direction:column;gap:2px}.rmrow b{color:var(--ink);font-size:1rem}.rmrow small{color:var(--muted);font-weight:400}
+.tgl{appearance:none;-webkit-appearance:none;flex:none;width:52px;height:32px;min-height:0;padding:0;border-radius:999px;background:var(--line);border:0;position:relative;cursor:pointer;transition:background .2s}
+.tgl::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.4);transition:transform .2s}
+.tgl:checked{background:var(--accent)}.tgl:checked::after{transform:translateX(20px)}.tgl:disabled{opacity:.45}
+.rmadm{color:var(--accent-strong)}
+.amremst{margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.aremg{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.aremg h4{margin:0 0 4px}
+.authlang{display:flex;flex-direction:column;gap:8px;margin:4px 0 2px}
+.authlang .lbl{font-weight:700;font-size:.92rem;color:var(--muted)}
+.authlang small{color:var(--muted);font-size:.8rem;line-height:1.35}
+.alchips{display:flex;flex-wrap:wrap;gap:6px}
+.alchip{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:var(--field);font-size:.9rem;font-weight:600;color:var(--ink)}
+.alchip .alflag{display:inline-flex;width:20px;height:14px;border-radius:3px;overflow:hidden}.alchip .alflag svg,.alchip .alflag img{width:100%;height:100%;display:block}
+.alchip.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--field));color:var(--ink);box-shadow:0 0 0 1px var(--accent)}
 </style>
 </head>
 <body>
@@ -1496,6 +1511,11 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
         <label for="ann_en" data-i18n="a.ann_en">Message in English</label><textarea id="ann_en" rows="2" maxlength="300"></textarea>
         <label for="ann_fr" data-i18n="a.ann_fr">Message in French</label><textarea id="ann_fr" rows="2" maxlength="300"></textarea>
         <button class="primary" id="ann_save" type="button" data-i18n="a.ann_save">Save the message</button>
+        <div id="adm_remg" class="aremg">
+          <h4 data-i18n="a.rem_g_t">Weekly reminder emails</h4>
+          <label class="chk"><input type="checkbox" id="remg_on"> <span data-i18n="a.rem_g_on">Send the reminders (Friday, 3 pm Sydney by default)</span></label>
+          <p class="note" id="remg_n"></p>
+        </div>
       </div>
     </section>
 
@@ -1571,9 +1591,19 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
         <button class="mitem m2" type="button" data-open="p_infos"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><span class="m2txt"><b data-i18n="s2.infos">My details</b><small data-i18n="s2.infos_sub">Name, ABN, bank and contact details</small></span></button>
         <button class="mitem m2" type="button" data-open="p_account" id="m_account"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></span><span class="m2txt"><b data-i18n="m.account2">Email and password</b><small data-i18n="m.account2_sub">change your login details</small></span></button>
         <button class="mitem m2" type="button" data-open="p_lists"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.8c1.6.8 2.7 2.5 3 5.2"/></svg></span><span class="m2txt"><b data-i18n="s2.lists">Clients and job sites</b><small data-i18n="s2.lists_sub">Manage your clients and sites</small></span></button>
+        <button class="mitem m2" type="button" data-open="p_remind"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></svg></span><span class="m2txt"><b data-i18n="rm.title">Weekly reminder</b><small data-i18n="rm.sub">An email if your week isn't invoiced yet</small></span></button>
         <button class="mitem m2" type="button" data-open="p_lang"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg></span><span class="m2txt"><b data-i18n="s2.lang">Language</b><small data-i18n="s2.lang_sub">Choose the app language</small></span></button>
         <a class="mitem m2" id="m_help" href="help.html" target="_blank" rel="noopener"><span class="m2ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.3-2.5 3.8"/><circle cx="12" cy="17.2" r=".6" fill="currentColor"/></svg></span><span class="m2txt"><b data-i18n="s2.help">Help and contact</b><small data-i18n="s2.help_sub">Step-by-step guide and support</small></span></a>
       </nav>
+    </section>
+
+    <section id="p_remind" class="form" hidden data-i18n-title="rm.title">
+      <label class="rmrow"><span><b data-i18n="rm.on">Email me a reminder</b><small data-i18n="rm.sub">An email if your week isn't invoiced yet</small></span><input type="checkbox" id="rm_on" class="tgl" role="switch"></label>
+      <label for="rm_day" data-i18n="rm.day">Day</label>
+      <select id="rm_day"></select>
+      <p class="note" data-i18n="rm.note">Only if this week's invoice isn't finished yet, around 3 pm (Sydney time). Every email has a link to stop them.</p>
+      <p class="note rmadm" id="rm_adm" hidden data-i18n="rm.admin_off">Reminders are turned off for this account. Write to support@subbiebill.com to turn them back on.</p>
+      <p class="note" id="rm_msg" role="status"></p>
     </section>
 
     <section id="p_lang" hidden data-i18n-title="s2.lang">
@@ -1900,6 +1930,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <input id="authpass" type="password" autocomplete="current-password" data-i18n-ph="auth.pass_ph">
       <div id="authpass2wrap" class="form" hidden><label for="authpass2" data-i18n="auth.pass2">Confirm password</label>
       <input id="authpass2" type="password" autocomplete="new-password"></div>
+      <div id="authlang" class="authlang"><span class="lbl" id="authlang_lbl" data-i18n="auth.lang">Your language</span><div class="alchips" role="radiogroup" aria-labelledby="authlang_lbl"></div><small data-i18n="auth.lang_note">You can change it anytime in Settings. Your invoices are always in English.</small></div>
       <p id="authabn" class="authabn"><span class="abnico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span id="authabn_t"></span></p>
       <button class="primary" id="authsubmit" type="submit"></button>
       <p id="autherr" class="err" role="alert"></p>
@@ -2084,6 +2115,25 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "auth.lang_note":"You can change it anytime in Settings. Your invoices are always in English.",
+  "auth.lang":"Your language",
+  "a.rem_g_n":"{n} member(s) receive them",
+  "a.rem_g_on":"Send the reminders (Friday, 3 pm Sydney by default)",
+  "a.rem_g_t":"Weekly reminder emails",
+  "a.rem_last":"last sent {d}",
+  "a.rem_turn_on":"Send it to them",
+  "a.rem_turn_off":"Stop sending it",
+  "a.rem_admin_off":"Turned off by you",
+  "a.rem_user_off":"Turned off by the member",
+  "a.rem_on":"Receives it · {day}",
+  "a.s_remind":"Weekly reminder",
+  "rm.saved":"Saved",
+  "rm.admin_off":"Reminders are turned off for this account. Write to support@subbiebill.com to turn them back on.",
+  "rm.note":"Only if this week's invoice isn't finished yet, around 3 pm (Sydney time). Every email has a link to stop them.",
+  "rm.day":"Day",
+  "rm.on":"Email me a reminder",
+  "rm.sub":"An email if your week isn't invoiced yet",
+  "rm.title":"Weekly reminder",
   "trust.one":"Secure payment by Stripe · cancel anytime",
   "hv.c1s":"Invoice created automatically",
   "hv.c1":"PDF ready",
@@ -2472,6 +2522,25 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "auth.lang_note":"Tu pourras la changer à tout moment dans Paramètres. Tes factures sont toujours en anglais.",
+  "auth.lang":"Ta langue",
+  "a.rem_g_n":"{n} membre(s) les reçoivent",
+  "a.rem_g_on":"Envoyer les rappels (vendredi 15 h, heure de Sydney, par défaut)",
+  "a.rem_g_t":"Rappels hebdo par mail",
+  "a.rem_last":"dernier envoi le {d}",
+  "a.rem_turn_on":"Lui envoyer",
+  "a.rem_turn_off":"Ne plus lui envoyer",
+  "a.rem_admin_off":"Coupé par toi",
+  "a.rem_user_off":"Coupé par le membre",
+  "a.rem_on":"Le reçoit · {day}",
+  "a.s_remind":"Rappel hebdo",
+  "rm.saved":"Enregistré",
+  "rm.admin_off":"Les rappels sont désactivés pour ce compte. Écris à support@subbiebill.com pour les réactiver.",
+  "rm.note":"Seulement si ta facture de la semaine n'est pas encore terminée, vers 15 h (heure de Sydney). Chaque mail contient un lien pour ne plus en recevoir.",
+  "rm.day":"Jour",
+  "rm.on":"M'envoyer un rappel par mail",
+  "rm.sub":"Un mail si ta semaine n'est pas encore facturée",
+  "rm.title":"Rappel hebdo",
   "trust.one":"Paiement sécurisé par Stripe · résiliable à tout moment",
   "hv.c1s":"Facture générée automatiquement",
   "hv.c1":"PDF prêt",
@@ -2854,6 +2923,15 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "auth.lang_note":"Puedes cambiarlo cuando quieras en Ajustes. Tus facturas siempre están en inglés.",
+  "auth.lang":"Tu idioma",
+  "rm.saved":"Guardado",
+  "rm.admin_off":"Los recordatorios están desactivados para esta cuenta. Escribe a support@subbiebill.com para reactivarlos.",
+  "rm.note":"Solo si la factura de la semana aún no está terminada, hacia las 15 h (hora de Sídney). Cada email tiene un enlace para dejar de recibirlos.",
+  "rm.day":"Día",
+  "rm.on":"Enviarme un recordatorio por email",
+  "rm.sub":"Un email si tu semana aún no está facturada",
+  "rm.title":"Recordatorio semanal",
   "trust.one":"Pago seguro con Stripe · cancela cuando quieras",
   "hv.c1s":"Factura generada automáticamente",
   "hv.c1":"PDF listo",
@@ -3332,6 +3410,15 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "auth.lang_note":"Puoi cambiarla quando vuoi in Impostazioni. Le fatture sono sempre in inglese.",
+  "auth.lang":"La tua lingua",
+  "rm.saved":"Salvato",
+  "rm.admin_off":"I promemoria sono disattivati per questo account. Scrivi a support@subbiebill.com per riattivarli.",
+  "rm.note":"Solo se la fattura della settimana non è ancora finita, verso le 15 (ora di Sydney). Ogni email ha un link per non riceverne più.",
+  "rm.day":"Giorno",
+  "rm.on":"Inviami un promemoria via email",
+  "rm.sub":"Un'email se la settimana non è ancora fatturata",
+  "rm.title":"Promemoria settimanale",
   "trust.one":"Pagamento sicuro con Stripe · disdici quando vuoi",
   "hv.c1s":"Fattura creata automaticamente",
   "hv.c1":"PDF pronto",
@@ -3959,6 +4046,15 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "auth.lang_note":"Você pode mudar quando quiser em Configurações. Suas faturas são sempre em inglês.",
+  "auth.lang":"Seu idioma",
+  "rm.saved":"Salvo",
+  "rm.admin_off":"Os lembretes estão desativados nesta conta. Escreva para support@subbiebill.com para reativá-los.",
+  "rm.note":"Só se a fatura da semana ainda não estiver finalizada, por volta das 15 h (horário de Sydney). Cada email tem um link para parar de receber.",
+  "rm.day":"Dia",
+  "rm.on":"Me enviar um lembrete por email",
+  "rm.sub":"Um email se a sua semana ainda não foi faturada",
+  "rm.title":"Lembrete semanal",
   "trust.one":"Pagamento seguro pela Stripe · cancele quando quiser",
   "hv.c1s":"Fatura gerada automaticamente",
   "hv.c1":"PDF pronto",
@@ -4946,7 +5042,7 @@ $("thisweek").onclick=()=>openPeriod(invType(I()),todayIso());
 
 /* ---------- sheets ---------- */
 let sheetFrom="",sheetBackTo="";const backOf={};
-function openSheet(id,opts){closeMenu();if(isGuest()&&!["p_gsign","p_preview","p_lists","p_infos","p_install"].includes(id))id="p_gsign";if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
+function openSheet(id,opts){closeMenu();if(isGuest()&&!["p_gsign","p_preview","p_lists","p_infos","p_install"].includes(id))id="p_gsign";if(!(opts&&opts.viaBack))backOf[id]=(["p_settings","p_infos","p_account","p_lists","p_lang","p_ref","p_remind"].includes(id))?sheetFrom:"";sheetBackTo=backOf[id]||"";sheetFrom="";$("sheetback").hidden=!sheetBackTo;curSheet=id;document.querySelectorAll("#sheetov section").forEach(s=>s.hidden=s.id!==id);
   $("sheettitle").textContent=t($(id).dataset.i18nTitle);$("sheetov").hidden=false;document.body.style.overflow="hidden";document.querySelector("#sheetov .sheetbox").scrollTop=0;
   if(id==="p_hist")renderHist();if(id==="p_lists")renderLists();if(id==="p_ref")renderRef();if(id==="p_account")renderAccount();if(id==="p_premium")renderPremium();
   if(id==="p_infos"){$("gi_note").hidden=!isGuest();ME.filter(k=>k!=="name").forEach(k=>$("me_"+k).value=P()[k]||"");$("me_first").value=P().first||"";$("me_last").value=P().last||"";$("me_abn").value=fmtAbn(P().abn);$("abn_msg").textContent="";$("abn_msg").classList.remove("okmsg");["bsb","acc","email"].forEach(k=>$(k+"_msg").textContent="");renderAbn();renderGstReg();renderMissing()}
@@ -5152,7 +5248,11 @@ function setAuthMode(m){authMode=m;try{renderRefNote()}catch(e){}{const ti=!$("c
   $("tab_login").classList.toggle("on",m==="login");$("tab_signup").classList.toggle("on",m==="signup");
   $("tab_login").setAttribute("aria-selected",String(m==="login"));$("tab_signup").setAttribute("aria-selected",String(m==="signup"));
   if(!$("authsubmit").disabled)$("authsubmit").textContent=t(m==="login"?"auth.submit_login":"auth.submit_signup");
-  $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass").placeholder=t(m==="login"?"auth.pass_ph_login":"auth.pass_ph");$("authpass2wrap").hidden=m==="login";$("authabn").hidden=m==="login"}
+  $("authpass").autocomplete=m==="login"?"current-password":"new-password";$("authpass").placeholder=t(m==="login"?"auth.pass_ph_login":"auth.pass_ph");$("authpass2wrap").hidden=m==="login";$("authabn").hidden=m==="login";$("authlang").hidden=m==="login";renderAuthLang()}
+
+function renderAuthLang(){const box=document.querySelector("#authlang .alchips");if(!box)return;
+  box.innerHTML=LANGS.map(l=>`<button type="button" role="radio" aria-checked="${l===lang}" class="alchip${l===lang?" on":""}" data-alang="${l}" lang="${l}"><span class="alflag">${flag(l)}</span><span>${esc(I18N[l]._name)}</span></button>`).join("")}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-alang]");if(!b||b.dataset.alang===lang)return;setLang(b.dataset.alang);renderAuthLang()});
 function goAuth(m){$("auth").classList.remove("fold");setAuthMode(m);$("autherr").textContent="";$("auth").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});setTimeout(()=>$("authemail").focus({preventScroll:true}),350)}
 function goApp(){view="app";closeMenu();renderAll();window.scrollTo(0,0)}
 document.querySelectorAll("[data-auth]").forEach(b=>b.onclick=()=>{if(session){goApp();return}if(b.dataset.auth==="signup"&&!b.closest("#auth")&&!refStored()){enterGuest();return}goAuth(b.dataset.auth)});
@@ -6792,7 +6892,7 @@ $("adm_more").onclick=()=>loadAdmin(false,false);
 
 /* member card */
 async function openMember(id){const {data:d,error}=await sb.rpc("admin_user_detail",{p_user:id});
-  if(error||!d||!d.ok){admErr();return}admCur=d;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=true);$("adm_detail").hidden=false;renderMember();memberRef(id);$("adm_detail").scrollIntoView({block:"start"})}
+  if(error||!d||!d.ok){admErr();return}admCur=d;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=true);$("adm_detail").hidden=false;renderMember();memberRef(id);memberRemind(id);$("adm_detail").scrollIntoView({block:"start"})}
 async function memberRef(id){try{const {data:r}=await sb.rpc("admin_user_referrals",{p_user:id});if(!r||!r.ok||!admCur||admCur.user_id!==id)return;
   const st=x=>t("a.ref_"+x.status)+(x.reason?" · "+t("a.ref_why_"+x.reason):"");
   const by=r.by?`<p><b>${esc(t("a.ref_by"))}</b> ${esc(r.by.email)} — ${esc(st(r.by))}</p>`:"";
@@ -6832,6 +6932,8 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
     <h4>${esc(t("a.s_free"))}</h4>
     <div class="abtns"><button type="button" data-bonus="1">+1</button><button type="button" data-bonus="3">+3</button><button type="button" data-bonus="5">+5</button><button type="button" id="md_reset">${esc(t("a.reset_count"))}</button></div>
     <div class="abtns"><button type="button" class="warn" data-bonus="-1"${d.free_limit>0?"":" disabled"}>−1</button><button type="button" class="warn" data-bonus="-3"${d.free_limit>0?"":" disabled"}>−3</button><button type="button" class="warn" id="md_zero"${d.free_limit>d.free_used?"":" disabled"}>${esc(t("a.zero_free"))}</button></div>
+    <h4>${esc(t("a.s_remind"))}</h4>
+    <div id="md_rem" class="amrem"><span class="muted">…</span></div>
     <h4>${esc(t("a.s_account"))}</h4>
     ${me?`<p class="note">${esc(t("a.self_note"))}</p>`:`<div class="form"><input id="md_reason" maxlength="200" placeholder="${esc(t("a.reason_ph"))}"${d.blocked?" hidden":""}>
       <div class="abtns"><button type="button" id="md_block" class="${d.blocked?"":"warn"}">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="danger">${esc(t("a.delete"))}</button></div>
@@ -6908,7 +7010,29 @@ function renderAnn(){const bar=$("annbar");if(!ann||!ann.on){bar.hidden=true;ret
   let gone=null;try{gone=localStorage.getItem("sb_ann_x")}catch(e){}
   bar.hidden=!txt||gone===String(ann.id);$("anntext").textContent=txt}
 $("annx").onclick=()=>{try{localStorage.setItem("sb_ann_x",String(ann&&ann.id))}catch(e){}$("annbar").hidden=true};
-async function loadAnnForm(){await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_en").value=a.en||"";$("ann_fr").value=a.fr||""}
+
+/* ---------- weekly reminder (user) ---------- */
+const rmDayName=d=>clean(new Date(Date.UTC(2026,9,25+d,12)).toLocaleDateString(loc(),{weekday:"long",timeZone:"UTC"})).replace(/^./,c=>c.toUpperCase());
+function rmFill(r){const sel=$("rm_day");sel.innerHTML=[1,2,3,4,5,6,7].map(d=>`<option value="${d}">${esc(rmDayName(d))}</option>`).join("");
+  if(r){$("rm_on").checked=!!r.on;sel.value=String(r.day||5);$("rm_adm").hidden=!r.admin_off;$("rm_on").disabled=!!r.admin_off;sel.disabled=!!r.admin_off||!r.on}}
+async function loadRemind(){$("rm_msg").textContent="";rmFill(null);if(!sb||!session||isGuest())return;
+  try{const {data:r,error}=await sb.rpc("my_reminder");if(!error&&r&&r.ok)rmFill(r)}catch(e){}}
+async function saveRemind(){$("rm_msg").textContent="";try{const {data:r,error}=await sb.rpc("set_my_reminder",{p_on:$("rm_on").checked,p_day:+$("rm_day").value});
+  if(error||!r||!r.ok){$("rm_msg").textContent=t("a.err");return}rmFill(r);$("rm_msg").textContent=t("rm.saved")}catch(e){$("rm_msg").textContent=t("a.err")}}
+$("rm_on").addEventListener("change",saveRemind);$("rm_day").addEventListener("change",saveRemind);
+document.addEventListener("click",e=>{if(e.target.closest('[data-open="p_remind"]'))loadRemind()});
+
+async function memberRemind(id,set){const box=$("md_rem");if(!box)return;
+  let r;try{const res=await sb.rpc("admin_reminder",set==null?{p_user:id}:{p_user:id,p_on:set});r=res.data;if(res.error)throw 0}catch(e){box.innerHTML=`<span class="err">${esc(t("a.err"))}</span>`;return}
+  if(!r||!r.ok||!admCur||admCur.user_id!==id||!$("md_rem"))return;
+  const st=r.on?t("a.rem_on",{day:rmDayName(r.day||5)}):(r.admin_off?t("a.rem_admin_off"):t("a.rem_user_off"));
+  $("md_rem").innerHTML=`<p class="amremst"><span class="badge${r.on?" pro":""}">${esc(st)}</span>${r.last?` <small class="muted">${esc(t("a.rem_last",{d:d8t(r.last)}))}</small>`:""}</p>
+    <div class="abtns">${r.admin_off||!r.on?`<button type="button" class="primary" id="md_rem_on">${esc(t("a.rem_turn_on"))}</button>`:`<button type="button" class="warn" id="md_rem_off">${esc(t("a.rem_turn_off"))}</button>`}</div>`;
+  const on=$("md_rem_on"),off=$("md_rem_off");if(on)on.onclick=()=>{on.disabled=true;memberRemind(id,true)};if(off)off.onclick=()=>{off.disabled=true;memberRemind(id,false)}}
+async function loadRemGlobal(){const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
+  $("remg_on").checked=!!r.on;$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(e){$("remg_n").textContent=t("a.err")}}
+$("remg_on").addEventListener("change",async e=>{const on=e.target.checked;e.target.disabled=true;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{p_on:on});if(error||!r||!r.ok)throw 0;$("adm_msg").textContent=t("a.done");$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(x){admErr();e.target.checked=!on}e.target.disabled=false});
+async function loadAnnForm(){loadRemGlobal();await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_en").value=a.en||"";$("ann_fr").value=a.fr||""}
 $("ann_save").onclick=async e=>{const btn=e.currentTarget;btn.disabled=true;
   const {error}=await sb.rpc("admin_set_announcement",{p_on:$("ann_on").checked,p_en:$("ann_en").value.trim(),p_fr:$("ann_fr").value.trim()});
   btn.disabled=false;if(error){admErr();return}$("adm_msg").textContent=t("a.done");try{localStorage.removeItem("sb_ann_x")}catch(x){}await loadAnn()};
