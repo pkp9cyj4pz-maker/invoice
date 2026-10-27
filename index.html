@@ -1409,6 +1409,17 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 @media (max-width:899px){.hv2{height:390px}.landing .hero{padding-bottom:20px}.landing .demosec{margin-top:32px}}
 #auth.fold{display:none}
 .trust1{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 4px;color:var(--muted);font-size:.92rem;text-align:center}.trust1 svg{flex:none;color:var(--accent)}
+.otp{position:relative;margin:2px 0 4px}
+.otp .otpin{position:absolute;inset:0;width:100%;height:100%;min-height:0;opacity:.01;color:transparent;caret-color:transparent;background:transparent;border:0;font-size:16px;letter-spacing:0;z-index:2;cursor:text;-webkit-text-fill-color:transparent}
+.otp .otpin:focus{outline:none}
+.otpbox{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.otp.wide .otpbox{grid-template-columns:repeat(auto-fit,minmax(30px,1fr));gap:6px}
+.otpbox span{display:grid;place-items:center;aspect-ratio:5/6;max-height:64px;border-radius:12px;border:1.5px solid var(--line);background:var(--field);font-family:var(--mono);font-size:1.55rem;font-weight:600;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+.otpbox span.on{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.otpbox span.cur{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.otpbox span.cur:empty::after{content:"";width:2px;height:1.3em;background:var(--accent);border-radius:1px;animation:otpblink 1s steps(1) infinite}
+@keyframes otpblink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.otpbox span.cur:empty::after{animation:none}}
 </style>
 </head>
 <body>
@@ -1585,7 +1596,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <div id="ac_e2" class="form" hidden>
         <p id="ac_codeintro" class="accode"></p>
         <label for="ac_code" data-i18n="code.label">Confirmation code</label>
-        <input id="ac_code" class="mono codeinput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="••••••">
+        <div class="otp" data-for="ac_code"><input id="ac_code" class="mono codeinput otpin" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" spellcheck="false" autocapitalize="off"><div class="otpbox" aria-hidden="true"></div></div>
         <button class="primary" id="ac_verify" type="button" data-i18n="ac.verify">Confirm</button>
         <p class="muted acsmall" data-i18n="code.spam">Can't find it? Check your spam or promotions folder.</p>
         <button class="linkbtn" id="ac_cancel" type="button" data-i18n="ac.cancel">Cancel</button>
@@ -1918,7 +1929,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
     <form id="codeform" class="form codeform" novalidate hidden>
       <p class="codeintro" id="codeintro"></p>
       <label for="authcode" data-i18n="code.label">Confirmation code</label>
-      <input id="authcode" class="mono codeinput" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" placeholder="••••••">
+      <div class="otp" data-for="authcode"><input id="authcode" class="mono codeinput otpin" inputmode="numeric" autocomplete="one-time-code" maxlength="10" pattern="[0-9]*" spellcheck="false" autocapitalize="off"><div class="otpbox" aria-hidden="true"></div></div>
       <button class="primary" id="codesubmit" type="submit" data-i18n="code.verify">Confirm my email</button>
       <p id="codeerr" class="err" role="alert"></p>
       <div class="coderow"><button id="coderesend" class="linkbtn" type="button" data-i18n="code.resend">Send a new code</button><button id="codeback" class="linkbtn" type="button" data-i18n="code.back">Change email</button></div>
@@ -5192,7 +5203,7 @@ let acNew="",acStep=0;
 const lc=x=>String(x||"").trim().toLowerCase();
 function acMsg(id,txt,ok){const e=$(id);e.textContent=txt||"";e.classList.toggle("okmsg",!!ok)}
 function acShow(st){acStep=st;$("ac_e1").hidden=st!==0;$("ac_e2").hidden=st===0;
-  if(st){$("ac_codeintro").textContent=t("ac.code_cur",{email:(session&&session.email)||"",nemail:acNew});$("ac_code").value="";setTimeout(()=>$("ac_code").focus(),50)}}
+  if(st){$("ac_codeintro").textContent=t("ac.code_cur",{email:(session&&session.email)||"",nemail:acNew});$("ac_code").value="";otpDraw($("ac_code"));setTimeout(()=>$("ac_code").focus(),50)}}
 function renderAccount(){$("ac_cur").innerHTML=esc(t("ac.current"))+" <b>"+esc(session?session.email:"")+"</b>";
   if(!acNew){acShow(0);$("ac_email").value="";$("ac_email2").value="";acMsg("ac_emsg","")}else acShow(1);
   $("ac_pass").value="";$("ac_pass2").value="";acMsg("ac_pmsg","")}
@@ -5326,7 +5337,7 @@ $("authform").addEventListener("submit",async e=>{e.preventDefault();const err=$
   finally{btn.disabled=false;setAuthMode(authMode)}});
 /* email confirmation by code (Supabase "Confirm signup" template shows the code) */
 let codeEmail="",resendAt=0;
-function showCode(email,resend){codeEmail=email;$("authform").hidden=true;$("codeform").hidden=false;$("codeerr").textContent="";$("authcode").value="";
+function showCode(email,resend){codeEmail=email;$("authform").hidden=true;$("codeform").hidden=false;$("codeerr").textContent="";$("authcode").value="";otpDraw($("authcode"));
   document.querySelector("#auth .tabs").hidden=true;$("authtitle").textContent=t("code.title");
   $("codeintro").textContent=t("code.intro",{email});setTimeout(()=>$("authcode").focus(),100);
   if(resend){resendAt=0;resendCode(true)}else{resendAt=Date.now()+60000;tickResend()}}
@@ -5340,6 +5351,12 @@ async function resendCode(silent){if(Date.now()<resendAt)return;resendAt=Date.no
 $("coderesend").onclick=()=>resendCode(false);
 $("codeback").onclick=()=>{hideCode();$("authemail").focus()};
 $("authcode").addEventListener("input",e=>{const v=e.target.value.replace(/\D/g,"");if(v!==e.target.value)e.target.value=v});
+/* code boxes: purely visual, the real input underneath keeps autofill / paste / backspace */
+function otpDraw(inp){const w=inp.closest(".otp");if(!w)return;const box=w.querySelector(".otpbox"),v=inp.value.replace(/\D/g,""),n=Math.max(6,v.length),foc=document.activeElement===inp;
+  let h="";for(let i=0;i<n;i++)h+=`<span class="${i<v.length?"on":""}${foc&&(i===v.length||(v.length>=n&&i===n-1))?" cur":""}">${v[i]||""}</span>`;
+  box.innerHTML=h;w.classList.toggle("wide",n>6)}
+document.querySelectorAll(".otpin").forEach(inp=>{["input","focus","blur","keyup","select"].forEach(ev=>inp.addEventListener(ev,()=>otpDraw(inp)));otpDraw(inp)});
+
 $("codeform").addEventListener("submit",async e=>{e.preventDefault();const code=$("authcode").value.replace(/\D/g,""),err=$("codeerr");err.textContent="";
   if(code.length<6){err.textContent=t("code.short");return}
   const btn=$("codesubmit");btn.disabled=true;btn.textContent=t("auth.wait");
