@@ -10,13 +10,13 @@
 <link rel="canonical" href="https://subbiebill.com/v">
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+Cg==">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#15201B">
+<meta name="theme-color" content="#0C0F0E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@900&display=swap">
 <style>
 :root{--bg:#EDEFEA;--paper:#FFFFFF;--ink:#15201B;--muted:#5D6963;--line:#D5DAD3;--accent:#E8590C;--accent-strong:#C24A08;--panel:#15201B;--on-panel:#F3F6F2;
 --head:"Big Shoulders Display","Archivo Narrow","Arial Narrow",sans-serif;--body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif}
-@media all{:root{--bg:#0F1613;--paper:#18221D;--ink:#EEF2EF;--muted:#9AA6A0;--line:#2C3832;--accent:#FF7A2F;--accent-strong:#FF9554;--panel:#1C2822}}
+@media all{:root{--bg:#0C0F0E;--paper:#151A18;--ink:#F4F7F5;--muted:#A0AAA5;--line:#26302B;--accent:#FF6F1F;--accent-strong:#FF8A45;--panel:#171D1A}}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding:env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0)}
 a{color:var(--accent-strong);text-underline-offset:3px}
@@ -57,6 +57,8 @@ input{flex:1 1 180px;min-height:48px;border-radius:12px;border:1px solid var(--l
 input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
 button{min-height:48px;border-radius:12px;border:0;background:var(--accent);color:#0D1311;font:700 1rem var(--body);padding:0 20px;cursor:pointer}
 .small{color:var(--muted);font-size:.88rem}
+.revd{border:1px solid var(--line);border-radius:14px;padding:12px 15px;margin:0 0 16px;font-size:.95rem}.revd b{display:block;margin-bottom:2px}.revd span{color:var(--muted)}
+.revd ul{list-style:none;margin:10px 0 0;padding:0}.revd li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:.9rem}.revd li span{color:var(--muted)}.revd li.cur span,.revd li.cur b{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -86,7 +88,11 @@ function row(k,v,c){return v?'<div'+(c?' class="'+c+'"':'')+'><dt>'+esc(k)+'</dt
 function show(r,code){
   if(r&&r.ok){
     var per=r.start&&r.end?dmy(r.start)+" – "+dmy(r.end):"";
-    out.innerHTML=box("ok","✓","Genuine invoice","Issued through SubbieBill on "+(dmy(r.issue)||dmy(r.created_at)))+
+    var vs=r.versions||[],rev=vs.length>1;
+    var revbox=rev?'<div class="revd"><b>'+(r.scanned_is_latest?"This invoice was revised":"This code belongs to an earlier version")+'</b><span>'+
+      (r.scanned_is_latest?"The issuer corrected it on "+dmy(r.revised_at||r.created_at)+". The details below are the current version.":"The issuer corrected this invoice on "+dmy(r.revised_at||r.created_at)+". The details below are the current version, which replaces the one you have.")+'</span>'+
+      '<ul>'+vs.map(function(v,i){return '<li'+(v.current?' class="cur"':'')+'><span>'+(v.current?"Current version":"Earlier version")+' · issued '+esc(dmy(v.issued))+(v.scanned?" · your code":"")+'</span><b>'+esc(money(v.total))+'</b></li>'}).join("")+'</ul></div>':"";
+    out.innerHTML=(rev&&!r.scanned_is_latest?box("bad","↻","Revised invoice","A newer version replaces the one you scanned."):box("ok","✓",rev?"Genuine invoice · revised":"Genuine invoice","Issued through SubbieBill on "+(dmy(r.issue)||dmy(r.created_at))))+revbox+
       '<dl>'+row("Invoice","No. "+r.invno)+row("From",r.name)+row("ABN",abn(r.abn))+row("Billed to",r.billto)+row("Period",per)+row("Due",dmy(r.due))+
       row(r.taxable?"Total (AUD, incl. GST)":"Total (AUD)",money(r.total),"tot")+'</dl>'+
       '<p class="warn"><b>Does your copy show something different?</b> If the amount, ABN, client or dates on the PDF you received don\'t match this page, the file was changed after it was issued.</p>';

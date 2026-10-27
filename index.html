@@ -8,7 +8,7 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="SubbieBill">
-<meta name="theme-color" content="#15201B">
+<meta name="theme-color" content="#0C0F0E">
 <title>Invoice App for ABN Workers & Subcontractors in Australia · SubbieBill</title>
 <meta name="description" content="Free invoice app for ABN workers and subcontractors in Australia. Bill by the hour, by the day or a fixed price and get a professional PDF invoice with your ABN, BSB and GST worked out in 30 seconds.">
 <meta property="og:type" content="website">
@@ -47,10 +47,10 @@
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media all{:root{
-  --bg:#0F1613; --paper:#18221D; --ink:#EEF2EF; --panel:#1C2822; --panel-2:#26342D; --on-panel:#F2F5F1; --on-panel-mute:#A9B5AE;
-  --muted:#9AA6A0; --line:#2C3832; --field:#1F2A24;
-  --accent:#FF7A2F; --accent-strong:#FF9554; --on-accent:#15201B; --accent-soft:#3A2618;
-  --green:#5CC98A; --green-soft:#183326; color-scheme:dark}}
+  --bg:#0C0F0E; --paper:#151A18; --ink:#F4F7F5; --panel:#171D1A; --panel-2:#1F2723; --on-panel:#F2F5F1; --on-panel-mute:#A9B5AE;
+  --muted:#A0AAA5; --line:#26302B; --field:#181F1C;
+  --accent:#FF6F1F; --accent-strong:#FF8A45; --on-accent:#15201B; --accent-soft:#3A2618;
+  --green:#5CC98A; --green-soft:#183326; --hero-bg:#0C0F0E; --hero-ink:#FFFFFF; color-scheme:dark}}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:12px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;padding:env(safe-area-inset-top,0px) 16px 0}
@@ -698,14 +698,14 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 .ptotal b{display:block;color:var(--hivis);font-family:var(--mono);font-size:16px}
 .ptotal small{font-size:8.5px;color:#A9B7AF}
 .pbtn{background:var(--orange);color:#fff;border-radius:9px;padding:9px 10px;font-weight:800;font-size:10.5px;white-space:nowrap}
-.phone.dark .pscreen{background:#0F1613;color:#EEF2EF}
-.phone.dark .pweek,.phone.dark .pdays li{background:#18221D;border-color:#2C3832}
-.phone.dark .pdays li{border-left-color:#EEF2EF}
-.phone.dark .pdays li.off{background:transparent;border-left-color:#2C3832}
-.phone.dark .pdays .pd b,.phone.dark .pweek b{color:#EEF2EF}
-.phone.dark .pdays .pd,.phone.dark .pdays .ph,.phone.dark .pweek small{color:#9AA6A0}
-.phone.dark .pmenu{background:linear-gradient(#EEF2EF,#EEF2EF) center 7px/10px 1.6px no-repeat,linear-gradient(#EEF2EF,#EEF2EF) center 10.2px/10px 1.6px no-repeat,linear-gradient(#EEF2EF,#EEF2EF) center 13.4px/10px 1.6px no-repeat,#18221D;border-color:#2C3832}
-.phone.dark .ptotal{background:#1C2822}
+.phone.dark .pscreen{background:#0C0F0E;color:#F4F7F5}
+.phone.dark .pweek,.phone.dark .pdays li{background:#151A18;border-color:#26302B}
+.phone.dark .pdays li{border-left-color:#F4F7F5}
+.phone.dark .pdays li.off{background:transparent;border-left-color:#26302B}
+.phone.dark .pdays .pd b,.phone.dark .pweek b{color:#F4F7F5}
+.phone.dark .pdays .pd,.phone.dark .pdays .ph,.phone.dark .pweek small{color:#A0AAA5}
+.phone.dark .pmenu{background:linear-gradient(#F4F7F5,#F4F7F5) center 7px/10px 1.6px no-repeat,linear-gradient(#F4F7F5,#F4F7F5) center 10.2px/10px 1.6px no-repeat,linear-gradient(#F4F7F5,#F4F7F5) center 13.4px/10px 1.6px no-repeat,#151A18;border-color:#26302B}
+.phone.dark .ptotal{background:#171D1A}
 /* the real invoice picture */
 .invcard{margin:0;background:#fff;border-radius:12px;box-shadow:0 24px 50px -18px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.06);overflow:hidden}
 .invcard img{display:block;width:100%;height:auto}
@@ -933,7 +933,7 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 .pstat.sent{background:color-mix(in srgb,var(--blue-strong) 25%,transparent);color:var(--blue)}
 
 /* finished invoice card: neutral, like the other cards */
-.lockbar{background:var(--paper,#18221D);border:1px solid var(--line)}
+.lockbar{background:var(--paper,#151A18);border:1px solid var(--line)}
 .lockbar #locktxt{color:var(--ink);display:flex;gap:8px;align-items:flex-start}
 .lockbar #locktxt::before{content:"";flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;background:var(--green-strong) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/13px no-repeat}
 .lockbar .mailsent{color:var(--muted);font-weight:600}
@@ -1293,6 +1293,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .bmper b{color:var(--muted);font-weight:600}
 @media (max-width:360px){.bmrow{grid-template-columns:1fr}.bmchip{font-size:.7rem}}
 .qrnote{margin:12px 0 0}.qrnote .linkbtn{font-weight:700}
+.hexport{margin:4px 0 12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--field);display:flex;flex-direction:column;gap:8px}.hexport .note,#p_account .exmsg{margin:0}
+.expbtn{min-height:44px}
+.hero h1>span:first-child{background-image:none;-webkit-text-fill-color:#FFFFFF;color:#FFFFFF}
 </style>
 </head>
 <body>
@@ -1375,6 +1378,11 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <div id="histsum" class="histsum" hidden></div>
       <p id="histcount" class="muted" style="margin:0 0 4px"></p>
       <div id="histfree" class="hfree" hidden><p><b data-i18n="h.free_t">On Free</b> <span data-i18n="h.free_note">your first 3 invoices are kept here. Deleting one doesn't give you back a free invoice.</span></p><p class="hperks" data-i18n="h.free_perks">Premium adds unlimited invoices, emailing invoices to your client and paid / overdue tracking.</p><button id="hist_pro" type="button" class="primary" data-i18n="h.see_pro">See Premium</button></div>
+      <div class="hexport" id="hexport" hidden>
+        <p class="note" data-i18n="ex.note">Your finished invoices stay in your account. You can download them all at any time, even without Premium.</p>
+        <button type="button" class="expbtn" data-i18n="ex.btn">Download all my invoices (ZIP)</button>
+        <p class="note exmsg" role="status"></p>
+      </div>
       <ul id="histlist" class="hist"></ul>
     </section>
 
@@ -1477,6 +1485,10 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <input id="ac_pass2" type="password" autocomplete="new-password">
       <button class="primary" id="ac_psave" type="button" data-i18n="ac.psave">Change my password</button>
       <p id="ac_pmsg" class="err" role="status"></p>
+      <h3 class="achead acsep" data-i18n="ex.h">My invoices</h3>
+      <p class="note" data-i18n="ex.note">Your finished invoices stay in your account. You can download them all at any time, even without Premium.</p>
+      <button type="button" class="expbtn" data-i18n="ex.btn">Download all my invoices (ZIP)</button>
+      <p class="note exmsg" role="status"></p>
     </section>
 
     <section id="p_ref" hidden data-i18n-title="ref.title">
@@ -1713,7 +1725,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       </div>
     </div>
     <div class="trust"><svg class="trustico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2.5"/></svg><div><strong data-i18n="trust.t">Secure payment with Stripe</strong><span data-i18n="trust.d">Stripe is the payment platform used by millions of businesses worldwide.</span><ul class="trustl"><li data-i18n="trust.l1">Your payment is 100% secure. Your card details go straight to Stripe: SubbieBill never sees or stores them.</li><li data-i18n="trust.l2">Your account switches to Premium straight after payment.</li><li data-i18n="trust.l3">Cancel anytime in a few taps from your account. No lock-in.</li></ul></div></div>
-    <p class="fine" data-i18n="price.fine">Prices in Australian dollars. One free allowance per ABN. If you stop Premium, you go back to Free: your History stays in your account and comes back with Premium.</p>
+    <p class="fine" data-i18n="price.fine">Prices in Australian dollars. One free allowance per ABN. If you stop Premium, you go back to Free: every finished invoice stays in your account and you can download them all at any time.</p>
   </section>
 
   <section class="sec faq" id="faq" aria-labelledby="faq_t">
@@ -1723,11 +1735,11 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
     <details><summary data-i18n="faq.q2">How does GST work?</summary><p data-i18n="faq.a2">Tell SubbieBill once, in My details, whether you're registered for GST. Registered: your invoices add GST (10%) on top of your hours, and you can switch it off for an invoice where it doesn't apply. Not registered: no GST is added. Registration is compulsory once your GST turnover reaches $75,000 a year. Check with your accountant if you're unsure.</p></details>
     <details><summary data-i18n="faq.q6">Invoice or Tax invoice: what's the difference?</summary><p data-i18n="faq.a6">A “Tax invoice” is for businesses registered for GST: it shows the GST (10%) separately, as the ATO requires. If you're not registered, SubbieBill makes an “Invoice” that says no GST has been charged, because a business that isn't registered must not call its invoice a tax invoice. For tax invoices of $1,000 or more, the client's name or ABN must appear: SubbieBill always prints the client's name.</p></details>
     <details><summary data-i18n="faq.q7">How do I download or share my PDF?</summary><p data-i18n="faq.a7">Tap Finish invoice, check the summary, then Finish and download PDF. The PDF goes to your downloads. On most phones, Share PDF sends it straight to Mail, Messages or WhatsApp. Download again works as long as the invoice is open, and from your History with Premium.</p></details>
-    <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there.</p></details>
+    <details><summary data-i18n="faq.q8">Where are my invoices saved?</summary><p data-i18n="faq.a8">In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there. You can download all your finished invoices (ZIP) at any time from your History, even without Premium.</p></details>
     <details><summary data-i18n="faq.q9">How do I change an invoice?</summary><p data-i18n="faq.a9">Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.</p></details>
     <details><summary data-i18n="faq.q10">What's the difference between Free and Premium?</summary><p data-i18n="faq.a10">Free: 3 finished invoices with every tool included, kept in your History. Premium ($39 a year or $4.99 a month): unlimited invoices, a History of every invoice with yearly totals, emailing invoices to your client, and paid / overdue tracking. On Free, a small SubbieBill verification code is printed at the bottom of each invoice; Premium invoices don't have it.</p></details>
     <details><summary data-i18n="faq.q3">Who can see my bank details?</summary><p data-i18n="faq.a3">You, and the SubbieBill administrator when helping with your account. Your details are tied to your account, protected by your password and sent over an encrypted connection. Your clients only see them on the invoices you send.</p></details>
-    <details><summary data-i18n="faq.q4">Can I cancel Premium?</summary><p data-i18n="faq.a4">Yes, anytime. You go back to Free: your History stays in your account and comes back if you return to Premium.</p></details>
+    <details><summary data-i18n="faq.q4">Can I cancel Premium?</summary><p data-i18n="faq.a4">Yes, anytime. You go back to Free: every finished invoice stays in your account, and you can still open, re-download or download them all (ZIP) at any time.</p></details>
   </section>
 
   <section class="trio" aria-label="SubbieBill for Australian subcontractors">
@@ -1952,6 +1964,13 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "ex.err":"Couldn't prepare the download. Check your connection and try again.",
+  "ex.none":"You don't have any finished invoice yet.",
+  "ex.done":"Done: {n} invoice(s) downloaded.",
+  "ex.working":"Preparing your invoices…",
+  "ex.btn":"Download all my invoices (ZIP)",
+  "ex.note":"Your finished invoices stay in your account. You can download them all at any time, even without Premium.",
+  "ex.h":"My invoices",
   "price.p7":"Clean invoices: no SubbieBill code at the bottom",
   "p.why_qr":"Premium removes the SubbieBill code from your invoices, and unlocks everything below.",
   "qr.cta":"Remove it with Premium",
@@ -2013,7 +2032,7 @@ en:{
   "faq.q10":"What's the difference between Free and Premium?",
   "faq.a9":"Until you finish it, change anything: it saves by itself. A finished invoice is locked so your records stay straight. To fix a mistake, open it and tap Edit: correct it and finish it again. It keeps the same number and you get a new PDF to send. On Free, finishing it again uses one of your free invoices.",
   "faq.q9":"How do I change an invoice?",
-  "faq.a8":"In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there.",
+  "faq.a8":"In your SubbieBill account, online, not only on your phone: log in on any device and your details and drafts are there. Drafts save as you type. On Free, your first 3 finished invoices are kept in your History. With Premium, every invoice is kept there. You can download all your finished invoices (ZIP) at any time from your History, even without Premium.",
   "faq.q8":"Where are my invoices saved?",
   "faq.a7":"Tap Finish invoice, check the summary, then Finish and download PDF. The PDF goes to your downloads. On most phones, Share PDF sends it straight to Mail, Messages or WhatsApp. Download again works as long as the invoice is open, and from your History with Premium.",
   "faq.q7":"How do I download or share my PDF?",
@@ -2267,12 +2286,12 @@ en:{
   "price.pro":"Premium","price.pro_tag":"Yearly: save $20","price.pro_amt":"$39","price.pro_per":" / year","price.pro_alt":"or $4.99 a month",
   "price.p1":"Unlimited invoices","price.p2":"History of every invoice, with totals per year","price.p3":"Download any past invoice again","price.p4":"Cancel anytime",
   "price.pro_cta":"Start free, upgrade anytime",
-  "price.fine":"Prices in Australian dollars. One free allowance per ABN. If you stop Premium, you go back to Free: your History stays in your account and comes back with Premium.","trust.t":"Secure payment with Stripe","trust.d":"Stripe is the payment platform used by millions of businesses worldwide.","trust.l1":"Your payment is 100% secure. Your card details go straight to Stripe: SubbieBill never sees or stores them.","trust.l2":"Your account switches to Premium straight after payment.","trust.l3":"Cancel anytime in a few taps from your account. No lock-in.",
+  "price.fine":"Prices in Australian dollars. One free allowance per ABN. If you stop Premium, you go back to Free: every finished invoice stays in your account and you can download them all at any time.","trust.t":"Secure payment with Stripe","trust.d":"Stripe is the payment platform used by millions of businesses worldwide.","trust.l1":"Your payment is 100% secure. Your card details go straight to Stripe: SubbieBill never sees or stores them.","trust.l2":"Your account switches to Premium straight after payment.","trust.l3":"Cancel anytime in a few taps from your account. No lock-in.",
   "faq.title":"Common questions",
   "faq.q1":"What's on the invoice?","faq.a1":"Your name, ABN, contact details, BSB and account number, the business you're billing, the invoice number, dates, the breakdown of your work (hours or days, day by day, or your fixed price) and the total in AUD.",
   "faq.q2":"How does GST work?","faq.a2":"Tell SubbieBill once, in My details, whether you're registered for GST. Registered: your invoices add GST (10%) on top of your amount, and you can switch it off for an invoice where it doesn't apply. Not registered: no GST is added. Registration is compulsory once your GST turnover reaches $75,000 a year. Check with your accountant if you're unsure.",
   "faq.q3":"Who can see my bank details?","faq.a3":"You, and the SubbieBill administrator when helping with your account. Your details are tied to your account, protected by your password and sent over an encrypted connection. Your clients only see them on the invoices you send.",
-  "faq.q4":"Can I cancel Premium?","faq.a4":"Yes, anytime. You go back to Free: your History stays in your account and comes back if you return to Premium.",
+  "faq.q4":"Can I cancel Premium?","faq.a4":"Yes, anytime. You go back to Free: every finished invoice stays in your account, and you can still open, re-download or download them all (ZIP) at any time.",
   "auth.title_signup":"Create your free account","auth.title_login":"Welcome back",
   "auth.tab_signup":"Sign up","auth.tab_login":"Log in","auth.email":"Email","auth.email_ph":"you@example.com",
   "auth.pass":"Password","auth.pass_ph":"8 characters minimum","auth.pass2":"Confirm password",
@@ -2330,6 +2349,13 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "ex.err":"Impossible de préparer le téléchargement. Vérifie ta connexion et réessaie.",
+  "ex.none":"Tu n'as pas encore de facture terminée.",
+  "ex.done":"C'est fait : {n} facture(s) téléchargée(s).",
+  "ex.working":"Préparation de tes factures…",
+  "ex.btn":"Télécharger toutes mes factures (ZIP)",
+  "ex.note":"Tes factures terminées restent sur ton compte. Tu peux toutes les télécharger à tout moment, même sans Premium.",
+  "ex.h":"Mes factures",
   "price.p7":"Factures épurées : sans le code SubbieBill en bas",
   "p.why_qr":"Premium retire le code SubbieBill de tes factures et débloque tout ce qui suit.",
   "qr.cta":"Le retirer avec Premium",
@@ -2391,7 +2417,7 @@ fr:{
   "faq.q10":"Quelle différence entre Gratuit et Premium ?",
   "faq.a9":"Tant qu'elle n'est pas terminée, tu changes tout : ça s'enregistre tout seul. Une facture terminée est verrouillée pour que tes comptes restent clairs. Pour corriger une erreur, ouvre-la et touche Modifier : corrige-la et termine-la à nouveau. Elle garde le même numéro et tu obtiens un nouveau PDF à envoyer. En gratuit, la terminer à nouveau utilise une de tes factures gratuites.",
   "faq.q9":"Comment modifier une facture ?",
-  "faq.a8":"Sur ton compte SubbieBill, en ligne, pas seulement sur ton téléphone : connecte-toi sur n'importe quel appareil et tu retrouves tes infos et tes brouillons. Les brouillons s'enregistrent pendant que tu tapes. En gratuit, tes 3 premières factures terminées sont gardées dans ton historique. Avec Premium, toutes tes factures y sont gardées.",
+  "faq.a8":"Sur ton compte SubbieBill, en ligne, pas seulement sur ton téléphone : connecte-toi sur n'importe quel appareil et tu retrouves tes infos et tes brouillons. Les brouillons s'enregistrent pendant que tu tapes. En gratuit, tes 3 premières factures terminées sont gardées dans ton historique. Avec Premium, toutes tes factures y sont gardées. Tu peux télécharger toutes tes factures terminées (ZIP) à tout moment depuis ton historique, même sans Premium.",
   "faq.q8":"Où sont enregistrées mes factures ?",
   "faq.a7":"Touche Terminer la facture, vérifie le résumé, puis Terminer et télécharger le PDF. Le PDF va dans tes téléchargements. Sur la plupart des téléphones, Partager le PDF l'envoie directement par Mail, Messages ou WhatsApp. Retélécharger marche tant que la facture est ouverte, et depuis ton historique avec Premium.",
   "faq.q7":"Comment télécharger ou partager mon PDF ?",
@@ -2645,12 +2671,12 @@ fr:{
   "price.pro":"Premium","price.pro_tag":"À l'année : 20 $ d'économie","price.pro_amt":"39 $","price.pro_per":" / an","price.pro_alt":"ou 4,99 $ par mois",
   "price.p1":"Factures illimitées","price.p2":"Historique de toutes tes factures, avec les totaux par année","price.p3":"Retélécharge n'importe quelle ancienne facture","price.p4":"Annulable à tout moment",
   "price.pro_cta":"Commencer, puis passer Premium",
-  "price.fine":"Prix en dollars australiens. Une offre gratuite par ABN. Si tu arrêtes Premium, tu repasses en gratuit : ton historique reste sur ton compte et revient avec Premium.","trust.t":"Paiement sécurisé avec Stripe","trust.d":"Stripe est la plateforme de paiement utilisée par des millions d'entreprises dans le monde.","trust.l1":"Ton paiement est 100 % sécurisé. Tes informations de carte vont directement chez Stripe : SubbieBill ne les voit jamais et ne les garde pas.","trust.l2":"Ton compte passe en Premium juste après le paiement.","trust.l3":"Résiliable à tout moment en quelques clics depuis ton compte. Sans engagement.",
+  "price.fine":"Prix en dollars australiens. Une offre gratuite par ABN. Si tu arrêtes Premium, tu repasses en gratuit : toutes tes factures terminées restent sur ton compte et tu peux les télécharger à tout moment.","trust.t":"Paiement sécurisé avec Stripe","trust.d":"Stripe est la plateforme de paiement utilisée par des millions d'entreprises dans le monde.","trust.l1":"Ton paiement est 100 % sécurisé. Tes informations de carte vont directement chez Stripe : SubbieBill ne les voit jamais et ne les garde pas.","trust.l2":"Ton compte passe en Premium juste après le paiement.","trust.l3":"Résiliable à tout moment en quelques clics depuis ton compte. Sans engagement.",
   "faq.title":"Questions fréquentes",
   "faq.q1":"Qu'y a-t-il sur la facture ?","faq.a1":"Ton nom, ton ABN, tes coordonnées, ton BSB et ton numéro de compte, l'entreprise à facturer, le numéro de facture, les dates, le détail de ton travail (heures ou jours, jour par jour, ou ton forfait) et le total en AUD. La facture est toujours en anglais, au format australien, même si tu utilises SubbieBill en français.",
   "faq.q2":"Comment marche la GST ?","faq.a2":"Indique une fois, dans Mes infos, si tu es inscrit à la GST. Inscrit : tes factures ajoutent la GST (10 %) à ton montant, et tu peux la désactiver pour une facture où elle ne s'applique pas. Non inscrit : aucune GST n'est ajoutée. L'inscription est obligatoire dès 75 000 $ de chiffre d'affaires GST par an. En cas de doute, demande à ton comptable.",
   "faq.q3":"Qui peut voir mes infos bancaires ?","faq.a3":"Toi, et l'administrateur de SubbieBill quand il aide sur ton compte. Tes infos sont liées à ton compte, protégées par ton mot de passe et envoyées par une connexion chiffrée. Tes clients ne les voient que sur les factures que tu leur envoies.",
-  "faq.q4":"Je peux arrêter Premium ?","faq.a4":"Oui, quand tu veux. Tu repasses en gratuit : ton historique reste sur ton compte et revient si tu repasses Premium.",
+  "faq.q4":"Je peux arrêter Premium ?","faq.a4":"Oui, quand tu veux. Tu repasses en gratuit : toutes tes factures terminées restent sur ton compte, et tu peux toujours les ouvrir, les retélécharger ou toutes les télécharger (ZIP) à tout moment.",
   "auth.title_signup":"Crée ton compte gratuit","auth.title_login":"Content de te revoir",
   "auth.tab_signup":"Créer un compte","auth.tab_login":"Se connecter","auth.email":"Email","auth.email_ph":"toi@exemple.com",
   "auth.pass":"Mot de passe","auth.pass_ph":"8 caractères minimum","auth.pass2":"Confirme le mot de passe",
@@ -2702,6 +2728,13 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "ex.err":"No se pudo preparar la descarga. Revisa tu conexión e inténtalo de nuevo.",
+  "ex.none":"Aún no tienes facturas terminadas.",
+  "ex.done":"Listo: {n} factura(s) descargada(s).",
+  "ex.working":"Preparando tus facturas…",
+  "ex.btn":"Descargar todas mis facturas (ZIP)",
+  "ex.note":"Tus facturas terminadas se quedan en tu cuenta. Puedes descargarlas todas cuando quieras, incluso sin Premium.",
+  "ex.h":"Mis facturas",
   "price.p7":"Facturas limpias: sin el código SubbieBill abajo",
   "p.why_qr":"Premium quita el código SubbieBill de tus facturas y desbloquea todo lo de abajo.",
   "qr.cta":"Quitarlo con Premium",
@@ -2730,7 +2763,7 @@ es:{
   "faq.q10":"¿Qué diferencia hay entre Gratis y Premium?",
   "faq.a9":"Mientras no esté terminada, cambia lo que quieras: se guarda sola. Una factura terminada queda bloqueada para que tus cuentas estén claras. Para corregir un error, ábrela y toca Modificar: corrígela y termínala otra vez. Conserva el mismo número y obtienes un PDF nuevo para enviar. En Gratis, terminarla otra vez usa una de tus facturas gratuitas.",
   "faq.q9":"¿Cómo modifico una factura?",
-  "faq.a8":"En tu cuenta de SubbieBill, en línea, no solo en tu teléfono: entra desde cualquier dispositivo y ahí están tus datos y tus borradores. Los borradores se guardan mientras escribes. En Gratis, tus 3 primeras facturas terminadas se guardan en tu historial. Con Premium, se guardan todas.",
+  "faq.a8":"En tu cuenta de SubbieBill, en línea, no solo en tu teléfono: entra desde cualquier dispositivo y ahí están tus datos y tus borradores. Los borradores se guardan mientras escribes. En Gratis, tus 3 primeras facturas terminadas se guardan en tu historial. Con Premium, se guardan todas. Puedes descargar todas tus facturas terminadas (ZIP) cuando quieras desde tu historial, incluso sin Premium.",
   "faq.q8":"¿Dónde se guardan mis facturas?",
   "faq.a7":"Toca Terminar factura, revisa el resumen y luego Terminar y descargar PDF. El PDF va a tus descargas. En la mayoría de los teléfonos, Compartir PDF lo envía directo por Mail, Mensajes o WhatsApp. Descargar otra vez funciona mientras la factura esté abierta, y desde tu historial con Premium.",
   "faq.q7":"¿Cómo descargo o comparto mi PDF?",
@@ -2974,7 +3007,7 @@ es:{
   "price.p3":"Descarga otra vez cualquier factura anterior",
   "price.p4":"Cancela cuando quieras",
   "price.pro_cta":"Empieza gratis, pásate cuando quieras",
-  "price.fine":"Precios en dólares australianos. Una oferta gratuita por ABN. Si dejas Premium, vuelves a Gratis: tu historial queda en tu cuenta y vuelve con Premium.","trust.t":"Pago seguro con Stripe","trust.d":"Stripe es la plataforma de pago que usan millones de empresas en todo el mundo.","trust.l1":"Tu pago es 100 % seguro. Los datos de tu tarjeta van directamente a Stripe: SubbieBill nunca los ve ni los guarda.","trust.l2":"Tu cuenta pasa a Premium justo después del pago.","trust.l3":"Cancela cuando quieras en unos toques desde tu cuenta. Sin permanencia.",
+  "price.fine":"Precios en dólares australianos. Una oferta gratuita por ABN. Si dejas Premium, vuelves a Gratis: todas tus facturas terminadas se quedan en tu cuenta y puedes descargarlas cuando quieras.","trust.t":"Pago seguro con Stripe","trust.d":"Stripe es la plataforma de pago que usan millones de empresas en todo el mundo.","trust.l1":"Tu pago es 100 % seguro. Los datos de tu tarjeta van directamente a Stripe: SubbieBill nunca los ve ni los guarda.","trust.l2":"Tu cuenta pasa a Premium justo después del pago.","trust.l3":"Cancela cuando quieras en unos toques desde tu cuenta. Sin permanencia.",
   "faq.title":"Preguntas frecuentes",
   "faq.q1":"¿Qué aparece en la factura?",
   "faq.a1":"Tu nombre, ABN, datos de contacto, BSB y número de cuenta, la empresa a la que facturas, el número de factura, las fechas, el detalle de tu trabajo (horas o días, día por día, o tu precio fijo) y el total en AUD. La factura siempre está en inglés, en formato australiano, aunque uses SubbieBill en español.",
@@ -2983,7 +3016,7 @@ es:{
   "faq.q3":"¿Quién puede ver mis datos bancarios?",
   "faq.a3":"Tú, y el administrador de SubbieBill cuando ayuda con tu cuenta. Tus datos están vinculados a tu cuenta, protegidos por tu contraseña y se envían por una conexión cifrada. Tus clientes solo los ven en las facturas que les envías.",
   "faq.q4":"¿Puedo cancelar Premium?",
-  "faq.a4":"Sí, cuando quieras. Vuelves a Gratis: tu historial queda en tu cuenta y vuelve si regresas a Premium.",
+  "faq.a4":"Sí, cuando quieras. Vuelves a Gratis: todas tus facturas terminadas se quedan en tu cuenta y puedes abrirlas, volver a descargarlas o descargarlas todas (ZIP) cuando quieras.",
   "auth.title_signup":"Crea tu cuenta gratis",
   "auth.title_login":"Qué bueno verte de nuevo",
   "auth.tab_signup":"Registrarse",
@@ -3170,6 +3203,13 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "ex.err":"Impossibile preparare il download. Controlla la connessione e riprova.",
+  "ex.none":"Non hai ancora fatture finite.",
+  "ex.done":"Fatto: {n} fattura/e scaricata/e.",
+  "ex.working":"Preparazione delle fatture…",
+  "ex.btn":"Scarica tutte le mie fatture (ZIP)",
+  "ex.note":"Le tue fatture finite restano nel tuo account. Puoi scaricarle tutte quando vuoi, anche senza Premium.",
+  "ex.h":"Le mie fatture",
   "price.p7":"Fatture pulite: senza il codice SubbieBill in fondo",
   "p.why_qr":"Premium toglie il codice SubbieBill dalle tue fatture e sblocca tutto quello che trovi qui sotto.",
   "qr.cta":"Toglilo con Premium",
@@ -3199,7 +3239,7 @@ it:{
   "faq.q10":"Che differenza c'è tra Gratis e Premium?",
   "faq.a9":"Finché non la finisci, puoi cambiare tutto: si salva da sola. Una fattura finita è bloccata, così i tuoi registri restano in ordine. Per correggere un errore, aprila e tocca Modifica: correggila e finiscila di nuovo. Mantiene lo stesso numero e ottieni un nuovo PDF da inviare. Con Gratis, finirla di nuovo usa una delle tue fatture gratuite.",
   "faq.q9":"Come modifico una fattura?",
-  "faq.a8":"Nel tuo account SubbieBill, online, non solo sul telefono: accedi da qualsiasi dispositivo e ritrovi i tuoi dati e le bozze. Le bozze si salvano mentre scrivi. Con Gratis, le tue prime 3 fatture finite restano nella Cronologia. Con Premium, ci restano tutte.",
+  "faq.a8":"Nel tuo account SubbieBill, online, non solo sul telefono: accedi da qualsiasi dispositivo e ritrovi i tuoi dati e le bozze. Le bozze si salvano mentre scrivi. Con Gratis, le tue prime 3 fatture finite restano nella Cronologia. Con Premium, ci restano tutte. Puoi scaricare tutte le fatture finite (ZIP) quando vuoi dalla tua Cronologia, anche senza Premium.",
   "faq.q8":"Dove vengono salvate le mie fatture?",
   "faq.a7":"Tocca Finisci la fattura, controlla il riepilogo, poi Finisci e scarica il PDF. Il PDF va nei tuoi download. Puoi scaricarlo di nuovo finché la fattura è aperta, e dalla Cronologia.",
   "faq.q7":"Come scarico o condivido il PDF?",
@@ -3442,7 +3482,7 @@ it:{
   "price.p3":"Scarica di nuovo qualsiasi vecchia fattura",
   "price.p4":"Disdici quando vuoi",
   "price.pro_cta":"Inizia gratis, passa a Premium quando vuoi",
-  "price.fine":"Prezzi in dollari australiani. Un'offerta gratuita per ABN. Se interrompi Premium, torni a Gratis: la tua Cronologia resta nel tuo account e torna con Premium.",
+  "price.fine":"Prezzi in dollari australiani. Un'offerta gratuita per ABN. Se interrompi Premium, torni al piano gratuito: tutte le fatture finite restano nel tuo account e puoi scaricarle quando vuoi.",
   "trust.t":"Pagamento sicuro con Stripe",
   "trust.d":"Stripe è la piattaforma di pagamento usata da milioni di aziende nel mondo.",
   "trust.l1":"Il tuo pagamento è sicuro al 100%. I dati della carta vanno direttamente a Stripe: SubbieBill non li vede né li conserva.",
@@ -3456,7 +3496,7 @@ it:{
   "faq.q3":"Chi può vedere i miei dati bancari?",
   "faq.a3":"Tu, e l'amministratore di SubbieBill quando ti aiuta con il tuo account. I tuoi dati sono legati al tuo account, protetti dalla password e inviati su una connessione cifrata. I tuoi clienti li vedono solo sulle fatture che invii.",
   "faq.q4":"Posso disdire Premium?",
-  "faq.a4":"Sì, quando vuoi. Torni a Gratis: la tua Cronologia resta nel tuo account e torna se riprendi Premium.",
+  "faq.a4":"Sì, quando vuoi. Torni a Gratis: tutte le fatture finite restano nel tuo account e puoi sempre aprirle, riscaricarle o scaricarle tutte (ZIP).",
   "auth.title_signup":"Crea il tuo account gratuito",
   "auth.title_login":"Bentornato",
   "auth.tab_signup":"Registrati",
@@ -3787,6 +3827,13 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "ex.err":"Não foi possível preparar o download. Verifique a conexão e tente de novo.",
+  "ex.none":"Você ainda não tem faturas finalizadas.",
+  "ex.done":"Pronto: {n} fatura(s) baixada(s).",
+  "ex.working":"Preparando suas faturas…",
+  "ex.btn":"Baixar todas as minhas faturas (ZIP)",
+  "ex.note":"Suas faturas finalizadas ficam na sua conta. Você pode baixar todas a qualquer momento, mesmo sem Premium.",
+  "ex.h":"Minhas faturas",
   "price.p7":"Faturas limpas: sem o código SubbieBill no rodapé",
   "p.why_qr":"O Premium remove o código SubbieBill das suas faturas e libera tudo abaixo.",
   "qr.cta":"Remover com o Premium",
@@ -3816,7 +3863,7 @@ pt:{
   "faq.q10":"Qual a diferença entre Grátis e Premium?",
   "faq.a9":"Enquanto você não finaliza, pode mudar tudo: ela salva sozinha. Uma fatura finalizada fica bloqueada, para manter seus registros em ordem. Para corrigir um erro, abra-a e toque em Editar: corrija e finalize de novo. Ela mantém o mesmo número e você recebe um novo PDF para enviar. No Grátis, finalizar de novo usa uma das suas faturas grátis.",
   "faq.q9":"Como edito uma fatura?",
-  "faq.a8":"Na sua conta SubbieBill, online, não só no celular: entre de qualquer aparelho e encontre seus dados e rascunhos. Os rascunhos são salvos enquanto você digita. No Grátis, suas 3 primeiras faturas finalizadas ficam no Histórico. No Premium, todas ficam.",
+  "faq.a8":"Na sua conta SubbieBill, online, não só no celular: entre de qualquer aparelho e encontre seus dados e rascunhos. Os rascunhos são salvos enquanto você digita. No Grátis, suas 3 primeiras faturas finalizadas ficam no Histórico. No Premium, todas ficam. Você pode baixar todas as faturas finalizadas (ZIP) a qualquer momento no seu Histórico, mesmo sem Premium.",
   "faq.q8":"Onde minhas faturas ficam salvas?",
   "faq.a7":"Toque em Finalizar fatura, confira o resumo e depois em Finalizar e baixar PDF. O PDF vai para seus downloads. Você pode baixá-lo de novo enquanto a fatura estiver aberta, e pelo Histórico.",
   "faq.q7":"Como baixo ou compartilho o PDF?",
@@ -4059,7 +4106,7 @@ pt:{
   "price.p3":"Baixe de novo qualquer fatura antiga",
   "price.p4":"Cancele quando quiser",
   "price.pro_cta":"Comece grátis, passe para Premium quando quiser",
-  "price.fine":"Preços em dólares australianos. Uma oferta grátis por ABN. Se você parar o Premium, volta ao Grátis: seu Histórico fica na sua conta e volta com o Premium.",
+  "price.fine":"Preços em dólares australianos. Uma oferta grátis por ABN. Se você parar o Premium, volta ao plano grátis: todas as faturas finalizadas ficam na sua conta e você pode baixá-las a qualquer momento.",
   "trust.t":"Pagamento seguro com Stripe",
   "trust.d":"Stripe é a plataforma de pagamento usada por milhões de empresas no mundo.",
   "trust.l1":"Seu pagamento é 100% seguro. Os dados do cartão vão direto para a Stripe: o SubbieBill não vê nem guarda.",
@@ -4073,7 +4120,7 @@ pt:{
   "faq.q3":"Quem pode ver meus dados bancários?",
   "faq.a3":"Você, e o administrador do SubbieBill quando ajuda com sua conta. Seus dados ficam ligados à sua conta, protegidos pela senha e enviados por conexão criptografada. Seus clientes só os veem nas faturas que você envia.",
   "faq.q4":"Posso cancelar o Premium?",
-  "faq.a4":"Sim, quando quiser. Você volta ao Grátis: seu Histórico fica na sua conta e volta se você retomar o Premium.",
+  "faq.a4":"Sim, quando quiser. Você volta ao Grátis: todas as faturas finalizadas ficam na sua conta e você pode abri-las, baixá-las de novo ou baixar todas (ZIP) a qualquer momento.",
   "auth.title_signup":"Crie sua conta grátis",
   "auth.title_login":"Que bom te ver de novo",
   "auth.tab_signup":"Cadastrar",
@@ -4866,6 +4913,7 @@ function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.
   const fin=list.filter(e=>e.inv&&e.inv.finished),unp=fin.filter(e=>!e.paid),late=unp.filter(isLate),unpAmt=unp.reduce((s,e)=>s+cents2(e),0);
   $("histsum").innerHTML=`<div><span>${esc(t("h.sum_all"))}</span><b>${esc(money(all/100))}</b></div><div><span>${esc(t("h.sum_year",{y:yr}))}</span><b>${esc(money(thisYr/100))}</b></div><div><span>${esc(t("h.sum_hours"))}</span><b>${esc(dur(hrsAll))}</b></div>`+
     (plan.premium&&fin.length?`<div class="${late.length?"late":""}"><span>${esc(t("h.sum_unpaid"))}</span><b>${esc(money(unpAmt/100))}</b>${late.length?`<small>${esc(t("h.sum_late",{n:late.length}))}</small>`:""}</div>`:"");
+  $("hexport").hidden=!session||isGuest();
   if(!list.length){ul.innerHTML=`<li><span class="muted">${esc(t("h.empty"))}</span></li>`;return}
   list.forEach(e=>{const inv=e.inv,li=document.createElement("li");if(e.id===p.curSaved)li.className="cur";
     li.innerHTML=`<button class="hopen" type="button"><span class="hrange">${rangeText(inv.start,inv.end)}</span>
@@ -6136,6 +6184,37 @@ return data;
 return QRCode;
 })();
 return text=>{const q=new M.index(-1,M.QRErrorCorrectLevel.M);q.addData(text);q.make();const n=q.getModuleCount(),m=[];for(let r=0;r<n;r++){const row=[];for(let c=0;c<n;c++)row.push(q.isDark(r,c)?1:0);m.push(row)}return m}})();
+
+/* ---------- download all my finished invoices as one ZIP (anyone with an account, Premium or not) ---------- */
+const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC_T[(c^b[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function makeZip(files){   /* "stored" ZIP (PDFs are already compressed) */
+  const enc=new TextEncoder(),d=new Date(),dt=((d.getHours()<<11)|(d.getMinutes()<<5)|(d.getSeconds()>>1))&0xFFFF,dd=(((d.getFullYear()-1980)<<9)|((d.getMonth()+1)<<5)|d.getDate())&0xFFFF;
+  const parts=[],cen=[];let off=0;
+  files.forEach(f=>{const nm=enc.encode(f.name),crc=crc32(f.bytes),sz=f.bytes.length;
+    const h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(10,dt,true);h.setUint16(12,dd,true);
+    h.setUint32(14,crc,true);h.setUint32(18,sz,true);h.setUint32(22,sz,true);h.setUint16(26,nm.length,true);h.setUint16(28,0,true);
+    parts.push(new Uint8Array(h.buffer),nm,f.bytes);
+    const c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(12,dt,true);c.setUint16(14,dd,true);
+    c.setUint32(16,crc,true);c.setUint32(20,sz,true);c.setUint32(24,sz,true);c.setUint16(28,nm.length,true);c.setUint32(42,off,true);
+    cen.push(new Uint8Array(c.buffer),nm);off+=30+nm.length+sz});
+  const csz=cen.reduce((s,x)=>s+x.length,0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,csz,true);e.setUint32(16,off,true);
+  return new Blob([...parts,...cen,new Uint8Array(e.buffer)],{type:"application/zip"})}
+let exporting=false;
+async function exportAll(btn){if(exporting||!sb||!session||isGuest())return;const box=btn.parentNode,msg=box.querySelector(".exmsg");
+  exporting=true;document.querySelectorAll(".expbtn").forEach(b=>b.disabled=true);msg.textContent=t("ex.working");
+  try{const JsPDF=await loadJsPDF();const {data,error}=await sb.rpc("list_my_invoices");
+    if(error||!data||!data.ok){msg.textContent=t("ex.err");return}
+    const list=data.invoices||[];if(!list.length){msg.textContent=t("ex.none");return}
+    const used={},files=[];
+    for(const r of list){const inv=r.inv||{},me=r.me||{};
+      const base=`Invoice ${String(inv.invno||"").replace(/[^\w-]+/g,"")||"x"} - ${String(inv.billto||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim().slice(0,40)||"client"} - ${dmy(inv.start).replace(/\//g,"-")}`;
+      let name=base+".pdf",k=2;while(used[name])name=`${base} (${k++}).pdf`;used[name]=1;
+      files.push({name,bytes:renderInvoice(JsPDF,me,inv)});await new Promise(r=>setTimeout(r,0))}
+    saveBlob(makeZip(files),`SubbieBill invoices ${todayIso()}.zip`);msg.textContent=t("ex.done",{n:files.length})}
+  catch(e){msg.textContent=t("ex.err")}
+  finally{exporting=false;document.querySelectorAll(".expbtn").forEach(b=>b.disabled=false)}}
+document.addEventListener("click",e=>{const b=e.target.closest(".expbtn");if(b)exportAll(b)});
 function renderInvoice(JsPDF, me, inv) {
   const doc = new JsPDF({ unit: "mm", format: "a4" });
   doc.setProperties({ title: `Invoice ${ptxt(inv.invno)}`, creator: "SubbieBill" });
@@ -6337,7 +6416,7 @@ $("lock_next").addEventListener("click",()=>hideReview(false));
 $("lock_next").onclick=()=>{const inv=I(),ty=invType(inv);openPeriod(ty,periodShift(ty,inv.start,1))};
 /* edit a finished invoice: it reopens with the same number; the finished copy is withdrawn on the server.
    Free: finishing it again uses one more free invoice, so we say so first. */
-async function unlockInv(){const inv=I(),old=inv.id;delete inv.sent;
+async function unlockInv(){const inv=I(),old=inv.id;delete inv.sent;inv.revOf=old;   /* the server links the corrected version to this one */
   try{if(sb&&session)await sb.rpc("delete_my_invoice",{p_draft_id:old})}catch(e){}
   inv.finished=null;inv.id=newId();lastPdf=null;closeSheet();renderAll();save();flushSave();pdfMsg(t("fin.unlocked"))}
 $("lock_edit").onclick=()=>{if(!locked())return;if(plan.premium){unlockInv();return}
