@@ -16,7 +16,8 @@ Works in any browser, on phone or computer. Nothing to install. Interface in Eng
 - Expense lines (fuel, materials, tolls) on the invoice
 - Unique invoice numbers, due dates, client ABN
 - Saved clients, work locations and drafts
-- Premium: history of every invoice with yearly totals, re-download any invoice, email invoices to the client, paid / overdue tracking
+- History: filter by client, and an estimate of how much to put aside for tax this financial year (GST collected + income tax at a chosen %)
+- Premium: history of every invoice with yearly totals, re-download any invoice, email invoices to the client, paid / overdue tracking, your own logo on the invoice and a choice of title colour
 
 ## Pricing (AUD)
 
@@ -45,6 +46,7 @@ SubbieBill is not accounting software: no bank reconciliation, BAS lodgement or 
 - [Free timesheet template for subcontractors](https://subbiebill.com/timesheet-template.html)
 - [How to get an ABN in Australia](https://subbiebill.com/how-to-get-an-abn.html)
 - [How much should a subcontractor charge per hour?](https://subbiebill.com/subcontractor-hourly-rate.html)
+- [How much tax do I pay on ABN income? (2026–27 calculator)](https://subbiebill.com/abn-tax-calculator.html)
 - [SubbieBill vs Excel vs Xero](https://subbiebill.com/subbiebill-vs-excel-vs-xero.html)
 
 ## Contact
