@@ -1535,6 +1535,8 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <div id="adm_ann" class="apane form" hidden>
         <p class="note" style="margin:0" data-i18n="a.ann_intro">A banner shown at the top of the site, for everyone (logged in or not).</p>
         <label class="chk"><input type="checkbox" id="ann_on"> <span data-i18n="a.ann_on">Show the message</span></label>
+        <label for="ann_tpl" data-i18n="a.ann_tpl">Start from a ready-made message</label>
+        <select id="ann_tpl"></select>
         <label for="ann_type" data-i18n="a.ann_type">Type</label>
         <select id="ann_type"><option value="new" data-i18n="a.ann_t_new">New</option><option value="promo" data-i18n="a.ann_t_promo">Offer</option><option value="alert" data-i18n="a.ann_t_alert">Important</option><option value="info" data-i18n="a.ann_t_info">Info</option></select>
         <div class="anngrid">
@@ -2174,6 +2176,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.ann_tpl_done":"Template loaded: check it, then Save.",
+  "a.ann_tpl_pick":"Choose a template…",
+  "a.ann_tpl":"Start from a ready-made message",
   "a.ann_bad_url":"The link must start with https://",
   "a.ann_need_btn":"Add the button text (or choose « No button »).",
   "a.ann_need":"Add a title or a text.",
@@ -2613,6 +2618,9 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.ann_tpl_done":"Modèle chargé : vérifie-le, puis Enregistrer.",
+  "a.ann_tpl_pick":"Choisir un modèle…",
+  "a.ann_tpl":"Partir d'un message prêt à l'emploi",
   "a.ann_bad_url":"Le lien doit commencer par https://",
   "a.ann_need_btn":"Ajoute le texte du bouton (ou choisis « Pas de bouton »).",
   "a.ann_need":"Ajoute un titre ou un texte.",
@@ -7183,7 +7191,15 @@ function annForm(){const v=id=>$(id).value.trim();return {on:$("ann_on").checked
   btn_en:v("ann_bt_en"),btn_fr:v("ann_bt_fr"),tag_en:v("ann_tg_en"),tag_fr:v("ann_tg_fr"),target:$("ann_target").value,url:v("ann_url"),end:$("ann_end").value}}
 function annPreview(){const a=annForm(),pl=(document.querySelector('input[name="annpl"]:checked')||{}).value||"fr";$("ann_url").hidden=a.target!=="url";
   const h=annCard({...a,on:true},pl,true);$("ann_preview").innerHTML=h||`<p class="note" style="margin:0">${esc(t("a.ann_prev_empty"))}</p>`}
-async function loadAnnForm(){loadRemGlobal();await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_type").value=ANN_TYPES.includes(a.type)?a.type:"new";
+const ANN_TPL=[{"k": "remind", "label_fr": "Nouveauté · Rappel hebdo", "label_en": "New · Weekly reminder", "type": "new", "target": "remind", "title_fr": "Le rappel hebdo est arrivé", "fr": "Un petit mail le vendredi si ta facture de la semaine n'est pas encore faite. Tu choisis le jour dans Paramètres.", "btn_fr": "Régler mon rappel", "title_en": "Meet the weekly reminder", "en": "A short email on Friday if this week's invoice isn't done yet. Pick your day in Settings.", "btn_en": "Set my reminder"}, {"k": "modes", "label_fr": "Nouveauté · 4 façons de facturer", "label_en": "New · 4 ways to bill", "type": "new", "target": "signup", "title_fr": "À l'heure, à la journée ou au forfait", "fr": "Facture des heures, des jours, un montant fixe par semaine ou un prix fixe par mission.", "btn_fr": "Faire une facture", "title_en": "By the hour, the day or a fixed price", "en": "Bill hours, days, a fixed weekly amount or a fixed price for a job.", "btn_en": "Make an invoice"}, {"k": "ref", "label_fr": "Offre · Parrainage", "label_en": "Offer · Referral", "type": "promo", "target": "ref", "title_fr": "Parraine un ami, gagne 1 mois de Premium", "fr": "Il reçoit 1 facture gratuite en plus, et toi 1 mois de Premium dès qu'il s'abonne.", "btn_fr": "Inviter un ami", "title_en": "Invite a friend, get 1 month of Premium", "en": "They get 1 extra free invoice, and you get a month of Premium when they subscribe.", "btn_en": "Invite a friend"}, {"k": "premium", "label_fr": "Offre · Premium", "label_en": "Offer · Premium", "type": "promo", "target": "premium", "title_fr": "Facture sans limite avec Premium", "fr": "Factures illimitées, envoi au client par email et suivi des factures payées. 39 $ par an ou 4,99 $ par mois.", "btn_fr": "Voir Premium", "title_en": "Invoice without limits with Premium", "en": "Unlimited invoices, email them to your client and track what's paid. $39 a year or $4.99 a month.", "btn_en": "See Premium"}, {"k": "zip", "label_fr": "Info · Télécharger toutes ses factures", "label_en": "Info · Download all invoices", "type": "info", "target": "hist", "title_fr": "Toutes tes factures en un fichier", "fr": "Télécharge toutes tes factures terminées d'un coup (ZIP) depuis ton historique, même sans Premium.", "btn_fr": "Ouvrir l'historique", "title_en": "All your invoices in one file", "en": "Download every finished invoice at once (ZIP) from your History, even without Premium.", "btn_en": "Open History"}, {"k": "eofy", "label_fr": "Info · Fin d'année fiscale (30 juin)", "label_en": "Info · End of financial year (30 June)", "type": "info", "target": "hist", "end": "auto_eofy", "title_fr": "Fin de l'année fiscale le 30 juin", "fr": "Pense à garder une copie de toutes tes factures pour ta déclaration : télécharge-les en un clic depuis ton historique.", "btn_fr": "Télécharger mes factures", "title_en": "End of financial year on 30 June", "en": "Keep a copy of all your invoices for your tax return: download them in one tap from your History.", "btn_en": "Download my invoices"}, {"k": "details", "label_fr": "Info · Vérifier ses infos", "label_en": "Info · Check your details", "type": "info", "target": "infos", "title_fr": "Tes infos sont à jour ?", "fr": "Vérifie ton BSB, ton numéro de compte et ton adresse : ils sont imprimés sur chaque facture.", "btn_fr": "Vérifier mes infos", "title_en": "Are your details up to date?", "en": "Check your BSB, account number and address: they're printed on every invoice.", "btn_en": "Check my details"}, {"k": "maint", "label_fr": "Important · Maintenance", "label_en": "Important · Maintenance", "type": "alert", "target": "none", "tag_fr": "ce soir 22 h – 23 h", "tag_en": "tonight 10–11 pm", "title_fr": "Maintenance rapide", "fr": "SubbieBill peut être indisponible quelques minutes. Tes données ne risquent rien.", "title_en": "Quick maintenance", "en": "SubbieBill may be unavailable for a few minutes. Your data is safe."}, {"k": "issue", "label_fr": "Important · Problème en cours", "label_en": "Important · Ongoing issue", "type": "alert", "target": "help", "title_fr": "Petit souci en cours", "fr": "Certaines fonctions peuvent être lentes en ce moment. On s'en occupe, merci pour ta patience.", "btn_fr": "Contacter le support", "title_en": "We're fixing a small issue", "en": "Some features may be slow right now. We're on it, thanks for your patience.", "btn_en": "Contact support"}, {"k": "help", "label_fr": "Info · Aide pas à pas", "label_en": "Info · Step-by-step help", "type": "info", "target": "help", "title_fr": "Besoin d'un coup de main ?", "fr": "Le guide pas à pas t'explique tout, de la création du compte à l'envoi de ta facture.", "btn_fr": "Ouvrir le guide", "title_en": "Need a hand?", "en": "The step-by-step guide walks you through everything, from sign-up to sending your invoice.", "btn_en": "Open the guide"}];
+function annTplFill(){const sel=$("ann_tpl");const fr=lang==="fr";sel.innerHTML=`<option value="">${esc(t("a.ann_tpl_pick"))}</option>`+ANN_TPL.map(x=>`<option value="${x.k}">${esc(fr?x.label_fr:x.label_en)}</option>`).join("")}
+function annTplApply(k){const x=ANN_TPL.find(y=>y.k===k);if(!x)return;const s=(id,v)=>{$(id).value=v||""};
+  $("ann_type").value=x.type;s("ann_ti_en",x.title_en);s("ann_ti_fr",x.title_fr);s("ann_en",x.en);s("ann_fr",x.fr);s("ann_bt_en",x.btn_en);s("ann_bt_fr",x.btn_fr);s("ann_tg_en",x.tag_en);s("ann_tg_fr",x.tag_fr);
+  $("ann_target").value=x.target||"none";s("ann_url","");
+  let end="";if(x.end==="auto_eofy"){const d=new Date(),y=d.getMonth()>5?d.getFullYear()+1:d.getFullYear();end=`${y}-06-30`}s("ann_end",end);
+  $("ann_on").checked=true;$("ann_err").textContent="";$("adm_msg").textContent=t("a.ann_tpl_done");annPreview()}
+$("ann_tpl").addEventListener("change",e=>{annTplApply(e.target.value);e.target.value=""});
+async function loadAnnForm(){loadRemGlobal();annTplFill();await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_type").value=ANN_TYPES.includes(a.type)?a.type:"new";
   const s=(id,v)=>{$(id).value=v||""};s("ann_ti_en",a.title_en);s("ann_ti_fr",a.title_fr);s("ann_en",a.en);s("ann_fr",a.fr);s("ann_bt_en",a.btn_en);s("ann_bt_fr",a.btn_fr);s("ann_tg_en",a.tag_en);s("ann_tg_fr",a.tag_fr);
   $("ann_target").value=a.target||"none";s("ann_url",a.url);s("ann_end",a.end);$("ann_err").textContent="";annPreview()}
 ["ann_on","ann_type","ann_ti_en","ann_ti_fr","ann_en","ann_fr","ann_bt_en","ann_bt_fr","ann_tg_en","ann_tg_fr","ann_target","ann_url","ann_end"].forEach(id=>{$(id).addEventListener("input",annPreview);$(id).addEventListener("change",annPreview)});
