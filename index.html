@@ -912,7 +912,16 @@ body:has(#landing:not([hidden])) .langbtn svg{color:var(--hero-mute)}
 @media (max-width:360px){.top .brand img{width:32px;height:32px}.top:has(#topr:not([hidden])) .brand{flex:none}.top:has(#btn_gopro:not([hidden])) #topr{gap:4px}}
 
 .hfree{background:var(--field);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:6px 0 10px;display:flex;flex-direction:column;gap:6px}
-.hfree p{margin:0;font-size:.9rem}.hfree .hperks{color:var(--muted)}.hfree button{align-self:flex-start;min-height:44px}
+.hfree p{margin:0;font-size:.9rem}
+#histfree.hfree{background:none;border:0;padding:0;gap:6px}
+#histfree .hfrow{display:flex;align-items:center;gap:12px;width:100%;min-height:0;padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:var(--field);color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+#histfree .hfrow:hover{border-color:color-mix(in srgb,var(--gold) 50%,var(--line))}
+#histfree .hfico{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(180deg,#FFE9A3,#F5C542 55%,#D99A1E);color:#3A2500}
+#histfree .hftx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+#histfree .hftx b{font-size:.92rem;font-weight:800}
+#histfree .hftx small{font-size:.78rem;color:var(--muted);line-height:1.3}
+#histfree .hfchev{flex:none;color:var(--muted)}
+#histfree .hfnote{font-size:.76rem;color:var(--muted);padding:0 4px}
 .hact .hpaid.pl::after{content:"PREMIUM";margin-left:6px;font-size:.6rem;font-weight:900;letter-spacing:.08em;background:var(--hivis);color:#15201B;border-radius:999px;padding:2px 5px;vertical-align:1px}
 
 .pwwrap{position:relative;display:block}
@@ -1518,15 +1527,6 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .ildel{color:var(--red);border-color:color-mix(in srgb,var(--red) 40%,var(--line));background:transparent}
 .ilogo .note{margin:0}
 .ilogo.locked .ilprev{opacity:.55}
-.aside{border:1px solid color-mix(in srgb,var(--gold) 45%,var(--line));background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 9%,var(--field)),var(--field));border-radius:14px;padding:12px 14px;margin:0 0 10px;display:flex;flex-direction:column;gap:6px}
-.aside .ash{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.aside .ash span{font-weight:800;font-size:.92rem}
-.aside .ash b{font-family:var(--mono);font-size:1.35rem;color:var(--gold);white-space:nowrap;flex:none}
-.aside .asr b{white-space:nowrap}
-.aside .asr{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.88rem;color:var(--muted)}
-.aside .asr b{font-family:var(--mono);color:var(--ink);font-weight:600}
-.aside .asr select{min-height:32px;width:auto;padding:2px 8px;border-radius:8px;font-size:.85rem;margin-left:4px}
-.aside .asnote{margin:2px 0 0;font-size:.78rem;color:var(--muted);line-height:1.35}
 .tcol{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px;margin-top:2px}
 .tcol .flabel{margin:0}
 .tcsw{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;max-width:340px}
@@ -1541,6 +1541,34 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 #m_brand .m2prem[hidden]{display:none}
 .ilogo.flash{animation:ilflash 1.4s ease}
 @keyframes ilflash{0%,60%{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}100%{}}
+.aside{border:1px solid color-mix(in srgb,var(--gold) 40%,var(--line));background:linear-gradient(160deg,color-mix(in srgb,var(--gold) 10%,var(--paper)),var(--paper) 70%);border-radius:14px;margin:0 0 12px}
+.aside .asd>summary{list-style:none;cursor:pointer;padding:10px 12px 10px 14px}.aside .asd>summary::-webkit-details-marker{display:none}
+.aside .astt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.aside .asfy{align-self:flex-start;border:0!important;padding:0!important;color:var(--muted)!important;font-weight:600!important}
+.aside .aschev{flex:none;color:var(--muted);transition:transform .2s}.aside .asd[open] .aschev{transform:rotate(180deg)}
+.aside .asbody{display:flex;flex-direction:column;gap:10px;padding:0 14px 12px}
+.aside .ash{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.aside .asl{font-size:.76rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.aside .asfy{font-size:.74rem;font-weight:700;padding:3px 9px;border-radius:999px;border:1px solid color-mix(in srgb,var(--gold) 45%,var(--line));color:var(--gold);white-space:nowrap}
+.aside .asbig{font-family:var(--mono);font-size:1.3rem;font-weight:700;line-height:1;color:var(--gold);white-space:nowrap}
+.aside .aslist{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.aside .asr{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;font-size:.9rem;color:var(--muted);border-bottom:1px solid var(--line)}
+.aside .asr em{font-style:normal;font-size:.78rem;font-weight:700;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;padding:1px 6px;margin-left:4px}
+.aside .asr b{font-family:var(--mono);color:var(--ink);font-weight:600;white-space:nowrap}
+.aside .asrate{display:flex;flex-direction:column;gap:6px;font-size:.86rem;color:var(--muted)}
+.aside .asseg{display:grid;grid-template-columns:repeat(5,1fr);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.aside .asseg button{min-height:34px;min-width:0;padding:0 6px;border:0;border-radius:8px;background:transparent;color:var(--muted);font:600 .82rem var(--mono);cursor:pointer}
+.aside .asseg button.on{background:var(--gold);color:#2A1E00}
+.aside .asnote{margin:0;font-size:.78rem;color:var(--muted);line-height:1.4}
+.aside .asnote a{color:var(--gold);font-weight:700;white-space:nowrap}
+/* history ZIP box */
+#hexport.hexport{flex-direction:row;align-items:center;gap:12px;padding:10px 12px;flex-wrap:wrap;border-radius:14px}
+#hexport .exico{flex:none;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}
+#hexport .extx{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+#hexport .extx b{font-size:.92rem}
+#hexport .extx small{font-size:.8rem;color:var(--muted);line-height:1.35}
+#hexport .expbtn{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;padding:0 12px;border-radius:10px;font-size:.86rem;font-weight:800}
+#hexport .exmsg:empty{display:none}#hexport .exmsg{flex:1 0 100%}
 </style>
 </head>
 <body>
@@ -1675,10 +1703,11 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <div id="histsum" class="histsum" hidden></div>
       <div id="aside" class="aside" hidden></div>
       <p id="histcount" class="muted" style="margin:0 0 4px"></p>
-      <div id="histfree" class="hfree" hidden><p><b data-i18n="h.free_t">On Free</b> <span data-i18n="h.free_note">your first 3 invoices are kept here. Deleting one doesn't give you back a free invoice.</span></p><p class="hperks" data-i18n="h.free_perks">Premium adds unlimited invoices, emailing invoices to your client and paid / overdue tracking.</p><button id="hist_pro" type="button" class="primary" data-i18n="h.see_pro">See Premium</button></div>
+      <div id="histfree" class="hfree" hidden><button id="hist_pro" type="button" class="hfrow"><span class="hfico" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5z"/></svg></span><span class="hftx"><b data-i18n="h.free_go">Go unlimited with Premium</b><small data-i18n="h.free_sub">Email to client, paid / overdue tracking, your logo</small></span><svg class="hfchev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button><p class="hfnote" data-i18n="h.free_del">Deleting an invoice doesn't give you back a free one.</p></div>
       <div class="hexport" id="hexport" hidden>
-        <p class="note" data-i18n="ex.note">Your finished invoices stay in your account. You can download them all at any time, even without Premium.</p>
-        <button type="button" class="expbtn" data-i18n="ex.btn">Download all my invoices (ZIP)</button>
+        <span class="exico" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+        <span class="extx"><b data-i18n="ex.t">Invoices saved</b><small data-i18n="ex.sub">Download them all anytime</small></span>
+        <button type="button" class="expbtn" data-i18n-aria="ex.btn" aria-label="Download all my invoices (ZIP)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg><span>ZIP</span></button>
         <p class="note exmsg" role="status"></p>
       </div>
       <ul id="histlist" class="hist"></ul>
@@ -2272,6 +2301,18 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "h.free_del":"Deleting an invoice doesn't give you back a free one.",
+  "h.free_sub":"Email to client, tracking, your logo",
+  "h.free_go":"Go unlimited with Premium",
+  "ex.btn2":"Download all (ZIP)",
+  "ex.sub":"Download them all anytime",
+  "ex.t":"Invoices saved",
+  "as.which":"Which rate for me?",
+  "as.note2":"Estimate from your finished invoices since 1 July (excl. GST). Not tax advice.",
+  "as.rate":"Tax rate",
+  "as.gst2":"GST to pay the ATO",
+  "as.fy":"FY {fy}",
+  "as.title2":"Put aside for tax",
   "s2.brand_sub":"Make your invoices look like your business",
   "s2.brand":"Logo and colour",
   "p.why_tcol":"With Premium, you choose the colour of your invoice title.",
@@ -2761,6 +2802,18 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "h.free_del":"Supprimer une facture ne te rend pas de facture gratuite.",
+  "h.free_sub":"Envoi par mail, suivi, ton logo",
+  "h.free_go":"Passe en illimité avec Premium",
+  "ex.btn2":"Tout télécharger (ZIP)",
+  "ex.sub":"Télécharge-les toutes quand tu veux",
+  "ex.t":"Factures sauvegardées",
+  "as.which":"Quel taux pour moi ?",
+  "as.note2":"Estimation sur tes factures terminées depuis le 1er juillet (hors GST). Pas un conseil fiscal.",
+  "as.rate":"Taux d'impôt",
+  "as.gst2":"GST à reverser à l'ATO",
+  "as.fy":"Année fiscale {fy}",
+  "as.title2":"À mettre de côté",
   "s2.brand_sub":"Tes factures aux couleurs de ton entreprise",
   "s2.brand":"Logo et couleur",
   "p.why_tcol":"Avec Premium, tu choisis la couleur du titre de tes factures.",
@@ -3244,6 +3297,18 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "h.free_del":"Eliminar una factura no te devuelve una gratis.",
+  "h.free_sub":"Envío por email, seguimiento, tu logo",
+  "h.free_go":"Pasa a ilimitado con Premium",
+  "ex.btn2":"Descargar todo (ZIP)",
+  "ex.sub":"Descárgalas todas cuando quieras",
+  "ex.t":"Facturas guardadas",
+  "as.which":"¿Qué tasa para mí?",
+  "as.note2":"Estimación con tus facturas terminadas desde el 1 de julio (sin GST). No es asesoría fiscal.",
+  "as.rate":"Tasa de impuesto",
+  "as.gst2":"GST a pagar a la ATO",
+  "as.fy":"Año fiscal {fy}",
+  "as.title2":"Para apartar",
   "s2.brand_sub":"Tus facturas con la imagen de tu negocio",
   "s2.brand":"Logo y color",
   "p.why_tcol":"Con Premium, eliges el color del título de tus facturas.",
@@ -3764,6 +3829,18 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "h.free_del":"Eliminare una fattura non te ne restituisce una gratuita.",
+  "h.free_sub":"Invio via email, controllo, il tuo logo",
+  "h.free_go":"Passa all'illimitato con Premium",
+  "ex.btn2":"Scarica tutto (ZIP)",
+  "ex.sub":"Scaricale tutte quando vuoi",
+  "ex.t":"Fatture salvate",
+  "as.which":"Quale aliquota per me?",
+  "as.note2":"Stima sulle fatture finite dal 1° luglio (GST esclusa). Non è un consiglio fiscale.",
+  "as.rate":"Aliquota",
+  "as.gst2":"GST da versare all'ATO",
+  "as.fy":"Anno fiscale {fy}",
+  "as.title2":"Da mettere da parte",
   "s2.brand_sub":"Le fatture con l'immagine della tua attività",
   "s2.brand":"Logo e colore",
   "p.why_tcol":"Con Premium scegli il colore del titolo delle tue fatture.",
@@ -4433,6 +4510,18 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "h.free_del":"Excluir uma fatura não devolve uma grátis.",
+  "h.free_sub":"Envio por email, controle, seu logo",
+  "h.free_go":"Fique ilimitado com o Premium",
+  "ex.btn2":"Baixar tudo (ZIP)",
+  "ex.sub":"Baixe todas quando quiser",
+  "ex.t":"Faturas salvas",
+  "as.which":"Qual taxa para mim?",
+  "as.note2":"Estimativa com as faturas finalizadas desde 1º de julho (sem GST). Não é consultoria fiscal.",
+  "as.rate":"Taxa de imposto",
+  "as.gst2":"GST a pagar à ATO",
+  "as.fy":"Ano fiscal {fy}",
+  "as.title2":"Para guardar",
   "s2.brand_sub":"Suas faturas com a cara do seu negócio",
   "s2.brand":"Logo e cor",
   "p.why_tcol":"Com o Premium, você escolhe a cor do título das suas faturas.",
@@ -5561,7 +5650,7 @@ function renderLists(){[["clients","list_clients","l.none_c"],["sites","list_sit
 /* history */
 
 /* ---------- amount to put aside (current Australian financial year, 1 July – 30 June) ---------- */
-const ASIDE_PCTS=[0,15,20,25,30,35];
+const ASIDE_PCTS=[15,20,25,30,35];let asideOpen=false;
 function fyStart(){const d=new Date(),y=d.getMonth()>=6?d.getFullYear():d.getFullYear()-1;return `${y}-07-01`}
 function renderAside(list){const box=$("aside");if(!box)return;const p=P(),st=fyStart(),en=`${+st.slice(0,4)+1}-06-30`;
   const fin=list.filter(e=>e.inv&&e.inv.finished&&String(e.inv.end||e.inv.start||"")>=st&&String(e.inv.end||e.inv.start||"")<=en);
@@ -5569,11 +5658,16 @@ function renderAside(list){const box=$("aside");if(!box)return;const p=P(),st=fy
   let sub=0,gst=0;fin.forEach(e=>{const c=invCalc(e.inv,meNow());sub+=c.sub;gst+=c.gst});
   const pct=ASIDE_PCTS.includes(+p.taxPct)?+p.taxPct:25,tax=Math.round(sub*pct/100),tot=gst+tax;
   const fy=`${st.slice(0,4)}–${en.slice(2,4)}`;
-  box.hidden=false;box.innerHTML=`<div class="ash"><span>${esc(t("as.title",{fy}))}</span><b>${esc(money(tot/100))}</b></div>
-    ${gst||p.gstReg?`<div class="asr"><span>${esc(t("as.gst"))}</span><b>${esc(money(gst/100))}</b></div>`:""}
-    <div class="asr"><span>${esc(t("as.tax"))} <select id="as_pct" aria-label="${esc(t("as.pct_lbl"))}">${ASIDE_PCTS.map(v=>`<option value="${v}"${v===pct?" selected":""}>${v} %</option>`).join("")}</select></span><b>${esc(money(tax/100))}</b></div>
-    <p class="asnote">${esc(t(gst?"as.note":"as.note_nogst"))}</p>`;
-  $("as_pct").onchange=e=>{p.taxPct=+e.target.value;save();renderHist()}}
+  const showG=!!(gst||p.gstReg);
+  box.hidden=false;box.innerHTML=`<details class="asd"${asideOpen?" open":""}><summary class="ash"><span class="astt"><span class="asl">${esc(t("as.title2"))}</span><span class="asfy">${esc(t("as.fy",{fy}))}</span></span><span class="asbig">${esc(money(tot/100))}</span><svg class="aschev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="asbody"><div class="aslist">
+      <div class="asr"><span>${esc(t("as.tax"))} <em>${pct} %</em></span><b>${esc(money(tax/100))}</b></div>
+      ${showG?`<div class="asr"><span>${esc(t("as.gst2"))}</span><b>${esc(money(gst/100))}</b></div>`:""}
+    </div>
+    <div class="asrate"><span id="as_lbl">${esc(t("as.rate"))}</span><div class="asseg" role="radiogroup" aria-labelledby="as_lbl">${ASIDE_PCTS.map(v=>`<button type="button" role="radio" aria-checked="${v===pct}" data-pct="${v}"${v===pct?' class="on"':""}>${v}%</button>`).join("")}</div></div>
+    <p class="asnote">${esc(t("as.note2"))} <a href="abn-tax-calculator.html" target="_blank" rel="noopener">${esc(t("as.which"))}</a></p></div></details>`;
+  box.querySelector(".asd").ontoggle=e=>{asideOpen=e.target.open};
+  box.querySelector(".asseg").onclick=e=>{const b=e.target.closest("[data-pct]");if(!b)return;p.taxPct=+b.dataset.pct;save();renderHist()}}
 let histCli="";
 function renderHist(){const p=P(),all0=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
   {const names={};all0.forEach(e=>{const n=String(e.inv&&e.inv.billto||"").trim();if(!n)return;const k=cKey(n);names[k]=names[k]||{n,c:0};names[k].c++});
@@ -5657,7 +5751,7 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"&&data.desc!=="Services"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
-  p.logo=typeof data.logo==="string"&&/^data:image\/(png|jpeg);base64,/.test(data.logo)&&data.logo.length<200000?data.logo:"";logoPreload(p.logo);p.tcol=TCOLS.includes(data.tcol)?data.tcol:"";p.taxPct=[0,15,20,25,30,35].includes(+data.taxPct)?+data.taxPct:25;p.first=data.first||"";p.last=data.last||"";p.bill=BILLS.includes(data.bill)?data.bill:"hourly";p.drate=+data.drate>0?+data.drate:null;p.ddesc=data.ddesc||"";p.pamt=+data.pamt>0?+data.pamt:null;p.pdesc=data.pdesc||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};p.clientEmail=data.clientEmail&&typeof data.clientEmail==="object"?data.clientEmail:{};
+  p.logo=typeof data.logo==="string"&&/^data:image\/(png|jpeg);base64,/.test(data.logo)&&data.logo.length<200000?data.logo:"";logoPreload(p.logo);p.tcol=TCOLS.includes(data.tcol)?data.tcol:"";p.taxPct=[15,20,25,30,35].includes(+data.taxPct)?+data.taxPct:25;p.first=data.first||"";p.last=data.last||"";p.bill=BILLS.includes(data.bill)?data.bill:"hourly";p.drate=+data.drate>0?+data.drate:null;p.ddesc=data.ddesc||"";p.pamt=+data.pamt>0?+data.pamt:null;p.pdesc=data.pdesc||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};p.clientEmail=data.clientEmail&&typeof data.clientEmail==="object"?data.clientEmail:{};
   p.lastInvNo=+(res&&res.last_invno)||0;p.lastInvBy=res&&res.last_invno_by&&typeof res.last_invno_by==="object"?res.last_invno_by:null;
   if(!p.first&&!p.last&&p.name){const w=p.name.trim().split(/\s+/);p.last=w.pop()||"";p.first=w.join(" ")}   /* older accounts: one "name" field */
   if(res&&"abn_locked" in res){p.abn=res.abn||"";p.abnLocked=!!res.abn_locked}else p.abnLocked=false;
