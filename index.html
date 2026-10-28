@@ -1463,6 +1463,12 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 #ann_preview .ann2{margin:0}
 .ann2 button.ac{border:0;cursor:pointer;min-height:0;font-family:inherit}.ann2 button.ac:disabled,.ann2 .ax:disabled{opacity:1;cursor:default}
 @media (max-width:899px){body:has(#landing:not([hidden])) header.top{padding-top:30px!important}}
+.ainvseg{margin:0 0 10px}
+.awip .awho{display:flex;align-items:center;gap:6px;font-size:.95rem;margin-bottom:2px;font-family:var(--body);font-weight:700}
+.awiptop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.awipbadge{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent-strong)}
+.awipbadge.empty{background:var(--field);color:var(--muted)}
+.atabs label{flex:1 0 auto;min-width:auto;padding:9px 10px}@media(max-width:380px){.atabs label{padding:9px 6px;font-size:.78rem}}
 </style>
 </head>
 <body>
@@ -1529,8 +1535,10 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       </div>
       <div id="adm_detail" class="apane" hidden></div>
       <div id="adm_inv" class="apane" hidden>
+        <div class="seg ainvseg" role="radiogroup"><label><input type="radio" name="ainvk" value="done" checked> <span data-i18n="a.inv_done">Finished</span></label><label><input type="radio" name="ainvk" value="wip"> <span data-i18n="a.inv_wip">In progress</span></label></div>
         <ul id="adm_invlist" class="alist"></ul>
         <button id="adm_invmore" type="button" hidden data-i18n="a.more">Load more</button>
+        <div id="adm_wip" hidden><p class="note" data-i18n="a.wip_note">The invoice each member is filling in right now (not finished yet). Read only.</p><ul id="adm_wiplist" class="alist"></ul><button id="adm_wipmore" type="button" hidden data-i18n="a.more">Load more</button></div>
       </div>
       <div id="adm_ann" class="apane form" hidden>
         <p class="note" style="margin:0" data-i18n="a.ann_intro">A banner shown at the top of the site, for everyone (logged in or not).</p>
@@ -2176,6 +2184,17 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.s_wip":"Invoice in progress",
+  "a.wip_none_member":"No invoice in progress.",
+  "a.wip_none":"No invoice in progress right now.",
+  "a.wip_member":"Member",
+  "a.wip_edited":"edited {d}",
+  "a.wip_empty":"Nothing filled yet",
+  "a.wip_amount":"Amount entered",
+  "a.wip_days":"{n} day(s) filled",
+  "a.wip_note":"The invoice each member is filling in right now (not finished yet). Read only.",
+  "a.inv_wip":"In progress",
+  "a.inv_done":"Finished",
   "a.ann_tpl_done":"Template loaded: check it, then Save.",
   "a.ann_tpl_pick":"Choose a template…",
   "a.ann_tpl":"Start from a ready-made message",
@@ -2618,6 +2637,17 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.s_wip":"Facture en cours",
+  "a.wip_none_member":"Pas de facture en cours.",
+  "a.wip_none":"Aucune facture en cours pour le moment.",
+  "a.wip_member":"Membre",
+  "a.wip_edited":"modifiée le {d}",
+  "a.wip_empty":"Rien de rempli",
+  "a.wip_amount":"Montant saisi",
+  "a.wip_days":"{n} jour(s) rempli(s)",
+  "a.wip_note":"La facture que chaque membre est en train de remplir (pas encore terminée). Lecture seule.",
+  "a.inv_wip":"En cours",
+  "a.inv_done":"Terminées",
   "a.ann_tpl_done":"Modèle chargé : vérifie-le, puis Enregistrer.",
   "a.ann_tpl_pick":"Choisir un modèle…",
   "a.ann_tpl":"Partir d'un message prêt à l'emploi",
@@ -2905,7 +2935,7 @@ fr:{
   "a.t_ann":"Message",
   "a.t_inv":"Factures",
   "a.t_users":"Membres",
-  "a.t_ov":"Vue d'ensemble",
+  "a.t_ov":"Résumé",
   "a.tabs":"Sections admin",
   "fin.blocked":"Ce compte est suspendu. Contacte {email}.",
   "ph.em":"Lundi de Pâques",
@@ -6973,7 +7003,7 @@ const odot=v=>isOn(v)?`<span class="odot" role="img" aria-label="${esc(t("a.onli
 const admErr=()=>{$("adm_msg").textContent=t("a.err")};
 function admShow(tab){admTab=tab;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=k!==tab);$("adm_detail").hidden=true;$("adm_msg").textContent="";
   document.querySelectorAll('input[name="atab"]').forEach(x=>x.checked=x.value===tab);
-  if(tab==="ov")loadOverview();if(tab==="users")loadAdmin(false,true);if(tab==="inv")loadRecent(true);if(tab==="ann")loadAnnForm()}
+  if(tab==="ov")loadOverview();if(tab==="users")loadAdmin(false,true);if(tab==="inv"){const d=document.querySelector('input[name="ainvk"][value="done"]');if(d)d.checked=true;$("adm_wip").hidden=true;$("adm_invlist").hidden=false;loadRecent(true)}if(tab==="ann")loadAnnForm()}
 document.querySelectorAll('input[name="atab"]').forEach(x=>x.onchange=e=>admShow(e.target.value));
 async function loadAdmin(reset,clearList){if(reset){admShow("ov");return}
   const msg=$("adm_msg");msg.textContent="";const my=++admReq;
@@ -7023,7 +7053,7 @@ $("adm_more").onclick=()=>loadAdmin(false,false);
 
 /* member card */
 async function openMember(id){const {data:d,error}=await sb.rpc("admin_user_detail",{p_user:id});
-  if(error||!d||!d.ok){admErr();return}admCur=d;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=true);$("adm_detail").hidden=false;renderMember();memberRef(id);memberRemind(id);$("adm_detail").scrollIntoView({block:"start"})}
+  if(error||!d||!d.ok){admErr();return}admCur=d;["ov","users","inv","ann"].forEach(k=>$("adm_"+k).hidden=true);$("adm_detail").hidden=false;renderMember();memberRef(id);memberRemind(id);memberDraft(id);$("adm_detail").scrollIntoView({block:"start"})}
 async function memberRef(id){try{const {data:r}=await sb.rpc("admin_user_referrals",{p_user:id});if(!r||!r.ok||!admCur||admCur.user_id!==id)return;
   const st=x=>t("a.ref_"+x.status)+(x.reason?" · "+t("a.ref_why_"+x.reason):"");
   const by=r.by?`<p><b>${esc(t("a.ref_by"))}</b> ${esc(r.by.email)} — ${esc(st(r.by))}</p>`:"";
@@ -7069,6 +7099,8 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
     ${me?`<p class="note">${esc(t("a.self_note"))}</p>`:`<div class="form"><input id="md_reason" maxlength="200" placeholder="${esc(t("a.reason_ph"))}"${d.blocked?" hidden":""}>
       <div class="abtns"><button type="button" id="md_block" class="${d.blocked?"":"warn"}">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="danger">${esc(t("a.delete"))}</button></div>
       ${d.blocked&&d.blocked_reason?`<p class="note">${esc(t("a.reason_is",{r:d.blocked_reason}))}</p>`:""}</div>`}
+    <h4>${esc(t("a.s_wip"))}</h4>
+    <div id="md_wip"><span class="muted">…</span></div>
     <h4>${esc(t("a.s_invoices",{n:d.invoices.length}))}</h4>
     <ul class="alist ainv">${d.invoices.length?d.invoices.map(v=>invLi(v,false)).join(""):`<li class="muted">${esc(t("a.no_inv"))}</li>`}</ul>`;
   box.querySelector(".auemail").textContent=d.email||"";
@@ -7199,6 +7231,37 @@ function annTplApply(k){const x=ANN_TPL.find(y=>y.k===k);if(!x)return;const s=(i
   let end="";if(x.end==="auto_eofy"){const d=new Date(),y=d.getMonth()>5?d.getFullYear()+1:d.getFullYear();end=`${y}-06-30`}s("ann_end",end);
   $("ann_on").checked=true;$("ann_err").textContent="";$("adm_msg").textContent=t("a.ann_tpl_done");annPreview()}
 $("ann_tpl").addEventListener("change",e=>{annTplApply(e.target.value);e.target.value=""});
+
+/* ---------- admin: invoices in progress ---------- */
+let wipOffset=0;
+function wipSum(inv){const x=clone(inv);migrateInv(x);const b=billOf(x),rows=(x.rows||[]);
+  const filled=b==="hourly"?rows.filter(r=>+r.hours>0).length:b==="daily"?rows.filter(r=>r.day).length:0;
+  return {x,b,filled,total:invTotal(x),work:workText(x),has:hasHours(x)}}
+function wipLi(v,withWho){const inv=v.inv||{},s=wipSum(inv),x=s.x,per=x.start?rangeText(x.start,x.end):"",mode=t("bm."+(s.b==="period"?"period":s.b));
+  const fill=s.b==="hourly"||s.b==="daily"?t("a.wip_days",{n:s.filled}):(s.has?t("a.wip_amount"):t("a.wip_empty"));
+  return `<li class="ainvrow awip"><span class="aumain">${withWho?`<strong class="awho">${odot(v.last_seen)}${esc(v.name||v.email||"")}</strong>`:""}
+    <span class="awiptop"><strong>${esc(money(s.total))}</strong><span class="awipbadge${s.has?"":" empty"}">${esc(s.has?fill:t("a.wip_empty"))}</span></span>
+    <span class="aumeta">${esc(per)} · ${esc(mode)}${s.has?" · "+esc(s.work):""}</span>
+    <span class="aumeta">${x.billto?esc(x.billto)+" · ":""}${esc(t("h.inv",{no:x.invno||"?"}))} · ${esc(t("a.wip_edited",{d:d8t(v.updated_at)}))}</span></span>
+    <span class="ainvbtns"><button type="button" class="adl-btn aeye" data-wpv="${esc(v.user_id||"")}" aria-label="${esc(t("a.view"))}" title="${esc(t("a.view"))}"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>${withWho?`<button type="button" class="adl-btn" data-wopen="${esc(v.user_id||"")}">${esc(t("a.wip_member"))}</button>`:""}</span></li>`}
+const wipCache={};
+function bindWip(box){box.querySelectorAll("[data-wpv]").forEach(b=>b.onclick=()=>{const v=wipCache[b.dataset.wpv];if(!v)return;const x=clone(v.inv||{});migrateInv(x);showPreview(v.me||{},x,{mark:true,back:"admin"})});
+  box.querySelectorAll("[data-wopen]").forEach(b=>b.onclick=()=>openMember(b.dataset.wopen))}
+async function loadWip(reset){if(reset){wipOffset=0;$("adm_wiplist").innerHTML=""}
+  const {data:rows,error}=await sb.rpc("admin_drafts",{p_limit:30,p_offset:wipOffset});if(error||!Array.isArray(rows)){admErr();return}
+  rows.forEach(v=>{wipCache[v.user_id]=v});
+  const shown=rows.filter(v=>wipSum(v.inv||{}).has);
+  if(!wipOffset&&!shown.length)$("adm_wiplist").innerHTML=`<li class="muted">${esc(t("a.wip_none"))}</li>`;
+  $("adm_wiplist").insertAdjacentHTML("beforeend",shown.map(v=>wipLi(v,true)).join(""));bindWip($("adm_wiplist"));
+  wipOffset+=rows.length;$("adm_wipmore").hidden=rows.length<30}
+$("adm_wipmore").onclick=()=>loadWip(false);
+document.querySelectorAll('input[name="ainvk"]').forEach(r=>r.addEventListener("change",()=>{const w=r.value==="wip"&&r.checked;if(!r.checked)return;
+  $("adm_wip").hidden=!w;$("adm_invlist").hidden=w;$("adm_invmore").hidden=w||$("adm_invmore").hidden;if(w)loadWip(true);else loadRecent(true)}));
+async function memberDraft(id){const box=$("md_wip");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_member_draft",{p_user:id});if(error||!r||!r.ok)throw 0;
+  if(!admCur||admCur.user_id!==id||!$("md_wip"))return;
+  if(!r.inv||!wipSum(r.inv).has||(r.inv&&r.inv.finished)){$("md_wip").innerHTML=`<p class="muted" style="margin:0">${esc(t("a.wip_none_member"))}</p>`;return}
+  wipCache[id]={user_id:id,me:r.me,inv:r.inv,updated_at:r.updated_at};$("md_wip").innerHTML=`<ul class="alist ainv">${wipLi(wipCache[id],false)}</ul>`;bindWip($("md_wip"))}
+  catch(e){if($("md_wip"))$("md_wip").innerHTML=`<span class="err">${esc(t("a.err"))}</span>`}}
 async function loadAnnForm(){loadRemGlobal();annTplFill();await loadAnn();const a=ann||{};$("ann_on").checked=!!a.on;$("ann_type").value=ANN_TYPES.includes(a.type)?a.type:"new";
   const s=(id,v)=>{$(id).value=v||""};s("ann_ti_en",a.title_en);s("ann_ti_fr",a.title_fr);s("ann_en",a.en);s("ann_fr",a.fr);s("ann_bt_en",a.btn_en);s("ann_bt_fr",a.btn_fr);s("ann_tg_en",a.tag_en);s("ann_tg_fr",a.tag_fr);
   $("ann_target").value=a.target||"none";s("ann_url",a.url);s("ann_end",a.end);$("ann_err").textContent="";annPreview()}
