@@ -1469,6 +1469,41 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .awipbadge{font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent-strong)}
 .awipbadge.empty{background:var(--field);color:var(--muted)}
 .atabs label{flex:1 0 auto;min-width:auto;padding:9px 10px}@media(max-width:380px){.atabs label{padding:9px 6px;font-size:.78rem}}
+/* ===== admin member sheet ===== */
+#adm_detail .msec{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;display:flex;flex-direction:column;gap:10px}
+#adm_detail .msec>h4{margin:0;font-size:.78rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+#adm_detail .msec .note{margin:0}
+#adm_detail .adl{border-radius:16px}
+#adm_detail .mbtn,#adm_detail .mseg button,#adm_detail .admdur select,#adm_detail .admdur button{min-height:44px;border-radius:12px;font-size:.92rem;font-weight:700}
+#adm_detail .mbtn{background:var(--field);border:1px solid var(--line);color:var(--ink);padding:10px 14px;text-align:center}
+#adm_detail .mbtn:hover:not(:disabled){border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+#adm_detail .mbtn:disabled,#adm_detail .mseg button:disabled{opacity:.4}
+#adm_detail .mbtn.armed{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-strong)}
+#adm_detail .mdanger{color:var(--red);border-color:color-mix(in srgb,var(--red) 40%,var(--line));background:transparent}
+#adm_detail .mdanger.armed{background:color-mix(in srgb,var(--red) 14%,transparent);border-color:var(--red);color:var(--red)}
+#adm_detail .mfull{width:100%}
+#adm_detail .admdur{display:grid;grid-template-columns:1fr 1.3fr;gap:8px}
+#adm_detail .admdur select{width:100%;padding:8px 10px;background:var(--field);border:1px solid var(--line)}
+#adm_detail .mfree{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:baseline;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+#adm_detail .mfree b{grid-row:span 2;font-family:var(--mono);font-size:1.9rem;line-height:1;color:var(--ink)}
+#adm_detail .mfree span{font-weight:700}#adm_detail .mfree small{color:var(--muted)}
+#adm_detail .mrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+#adm_detail .mlbl{font-weight:600;color:var(--muted);font-size:.92rem}
+#adm_detail .mseg{display:flex;background:var(--field);border:1px solid var(--line);border-radius:12px;padding:3px;gap:3px}
+#adm_detail .mseg button{min-width:54px;min-height:38px;border:0;border-radius:9px;background:transparent;color:var(--ink);font-family:var(--mono)}
+#adm_detail .mseg button:hover:not(:disabled){background:var(--paper)}
+#adm_detail .mact2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#adm_detail .mstack{display:flex;flex-direction:column;gap:8px}
+#adm_detail .mstack .mbtn{width:100%}
+#adm_detail #md_reason{min-height:44px;border-radius:12px}
+#adm_detail .mremrow{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#adm_detail .mstat{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.92rem}
+#adm_detail .mstat i{width:9px;height:9px;border-radius:50%;background:var(--muted)}#adm_detail .mstat.on i{background:var(--green)}
+#adm_detail .mremlast{display:block;margin-top:-2px}
+#adm_detail .msec .alist{margin:0}
+@media(max-width:380px){#adm_detail .mact2{grid-template-columns:1fr}}
+#adm_detail .aref{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;border-top:1px solid var(--line)}
+#adm_detail .aref>*:first-child{margin-top:0}
 </style>
 </head>
 <body>
@@ -2184,6 +2219,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.free_sub":"Remove",
+  "a.free_add":"Add",
+  "a.free_left_lbl":"free invoice(s) left",
   "a.s_wip":"Invoice in progress",
   "a.wip_none_member":"No invoice in progress.",
   "a.wip_none":"No invoice in progress right now.",
@@ -2267,7 +2305,7 @@ en:{
   "p.f6":"Clean invoices: no SubbieBill code at the bottom",
   "i.first_ph":"e.g. Jack Thomas",
   "a.free_val2":"{used} used of {limit} · {left} left",
-  "a.zero_free":"No free invoices left",
+  "a.zero_free":"None left",
   "bm.title":"How are you paid?","bm.hourly":"By the hour","bm.hourly_s":"hours × rate","bm.daily":"By the day","bm.daily_s":"days × day rate","bm.period":"Fixed amount","bm.period_s":"same amount each period","bm.period_week":"Fixed weekly","bm.period_fortnight":"Fixed fortnightly","bm.period_month":"Fixed monthly","bm.fixed":"Fixed price","bm.fixed_s":"per job or project","bm.d_rate":"Day rate ($/day)","bm.d_rate_ph":"e.g. 350","bm.desc_ph":"e.g. Services","bm.d_days":"Days worked (tap to add or remove)","bm.f_per":"Period billed","bm.f_from":"Start","bm.f_to":"End","bm.f_amt":"Agreed price ($)","bm.f_amt_week":"Amount for the week ($)","bm.f_amt_fortnight":"Amount for the fortnight ($)","bm.f_amt_month":"Amount for the month ($)","bm.f_desc_job":"What the job is","bm.f_desc_job_ph":"e.g. Website redesign, end-of-lease clean…","bm.f_desc_per_ph":"e.g. Weekly services","bm.f_note_per":"The amount doesn't depend on your hours: you bill the amount agreed for the period.","bm.f_note_job":"The price agreed with your client for this job. No hours needed.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Enter your day rate.","bm.need_days":"Tap at least one day you worked.","bm.need_amt":"Enter the amount to bill.","bm.bad_dates":"The end date is before the start date.",
   "gi.note":"No account yet: your details stay on this phone. Your ABN is linked to your account when you create it.","gi.abn_kept":"ABN noted. It will be linked to your account when you create it.",
   "g.title":"Create your free account","g.text":"Your invoice is almost ready. Create your free account to add your ABN and download the PDF. Your hours are kept.","g.l1":"3 free invoices, no card","g.l2":"Your ABN, BSB and GST on every invoice","g.l3":"Takes 1 minute","g.go":"Create my free account","g.login":"I already have an account","g.later":"Keep filling in my hours","g.top":"Create account","g.note":"Your hours are kept: create your account and they move into it.","g.saved":"Saved on this phone. Create your account to keep it for good.",
@@ -2454,7 +2492,7 @@ en:{
   "a.reason_ph":"Reason (optional, shown to you only)",
   "a.self_note":"This is your own account: it can't be suspended or deleted.",
   "a.s_account":"Account",
-  "a.reset_count":"Reset counter",
+  "a.reset_count":"Give back 3 free",
   "a.s_free":"Free invoices",
   "a.s_premium":"Premium",
   "a.f_saved":"In history",
@@ -2637,6 +2675,9 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.free_sub":"Retirer",
+  "a.free_add":"Ajouter",
+  "a.free_left_lbl":"facture(s) gratuite(s) restante(s)",
   "a.s_wip":"Facture en cours",
   "a.wip_none_member":"Pas de facture en cours.",
   "a.wip_none":"Aucune facture en cours pour le moment.",
@@ -2720,7 +2761,7 @@ fr:{
   "p.f6":"Factures épurées : sans le code SubbieBill en bas",
   "i.first_ph":"ex. Thomas Jean-Claude",
   "a.free_val2":"{used} utilisée(s) sur {limit} · {left} restante(s)",
-  "a.zero_free":"Plus aucune gratuite",
+  "a.zero_free":"Aucune gratuite",
   "bm.title":"Comment tu es payé ?","bm.hourly":"À l'heure","bm.hourly_s":"heures × taux","bm.daily":"À la journée","bm.daily_s":"jours × tarif","bm.period":"Forfait","bm.period_s":"même montant à chaque période","bm.period_week":"Forfait semaine","bm.period_fortnight":"Forfait 2 semaines","bm.period_month":"Forfait mois","bm.fixed":"Prix fixe","bm.fixed_s":"par mission","bm.d_rate":"Tarif par jour ($/jour)","bm.d_rate_ph":"ex. 350","bm.desc_ph":"ex. Services","bm.d_days":"Jours travaillés (touche pour ajouter / retirer)","bm.f_per":"Période facturée","bm.f_from":"Début","bm.f_to":"Fin","bm.f_amt":"Prix convenu ($)","bm.f_amt_week":"Montant de la semaine ($)","bm.f_amt_fortnight":"Montant des 2 semaines ($)","bm.f_amt_month":"Montant du mois ($)","bm.f_desc_job":"Description de la mission","bm.f_desc_job_ph":"ex. Refonte du site web, ménage de fin de bail…","bm.f_desc_per_ph":"ex. Weekly services","bm.f_note_per":"Le montant ne dépend pas des heures : tu factures le forfait convenu pour la période.","bm.f_note_job":"Prix convenu avec le client pour cette mission. Les heures ne sont pas demandées.","bm.sum_d":"{d} · AUD","bm.sum_f":"{m} · AUD","bm.rv_d":"{d} × {r}","bm.need_drate":"Indique ton tarif par jour.","bm.need_days":"Touche au moins un jour travaillé.","bm.need_amt":"Indique le montant à facturer.","bm.bad_dates":"La date de fin est avant la date de début.",
   "gi.note":"Pas encore de compte : tes infos restent sur ce téléphone. Ton ABN sera lié à ton compte quand tu le créeras.","gi.abn_kept":"ABN noté. Il sera lié à ton compte quand tu le créeras.",
   "g.title":"Crée ton compte gratuit","g.text":"Ta facture est presque prête. Crée ton compte gratuit pour ajouter ton ABN et télécharger le PDF. Tes heures sont gardées.","g.l1":"3 factures gratuites, sans carte","g.l2":"Ton ABN, ton BSB et la GST sur chaque facture","g.l3":"Ça prend 1 minute","g.go":"Créer mon compte gratuit","g.login":"J'ai déjà un compte","g.later":"Continuer à remplir mes heures","g.top":"Créer un compte","g.note":"Tes heures sont gardées : crée ton compte et elles y sont transférées.","g.saved":"Gardé sur ce téléphone. Crée ton compte pour le garder pour de bon.",
@@ -2907,7 +2948,7 @@ fr:{
   "a.reason_ph":"Raison (facultatif, visible par toi seul)",
   "a.self_note":"C'est ton propre compte : il ne peut pas être suspendu ni supprimé.",
   "a.s_account":"Compte",
-  "a.reset_count":"Remettre à zéro",
+  "a.reset_count":"Redonner 3 gratuites",
   "a.s_free":"Factures gratuites",
   "a.s_premium":"Premium",
   "a.f_saved":"Dans l'historique",
@@ -7089,20 +7130,23 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
     <h4>${esc(t("a.s_premium"))}</h4>
     ${d.sub_status?subCard(d):""}
     ${stripe?`<p class="note">${esc(t("a.stripe_note"))}</p>`:`<div class="admdur"><select id="md_dur" aria-label="${esc(t("a.dur_lbl"))}">${[["7","a.d7"],["30","a.d30"],["90","a.d90"],["180","a.d180"],["365","a.d365"],["","a.dperm"]].map(([v,k])=>`<option value="${v}"${v==="30"?" selected":""}>${esc(t(k))}</option>`).join("")}</select>
-      <button type="button" class="primary" id="md_give">${esc(t(on?"a.update":"a.give"))}</button>${on?`<button type="button" id="md_rem">${esc(t("a.remove"))}</button>`:""}</div>`}
+      <button type="button" class="primary" id="md_give">${esc(t(on?"a.update":"a.give"))}</button></div>${on?`<button type="button" class="mbtn mfull" id="md_rem">${esc(t("a.remove"))}</button>`:""}`}
     <h4>${esc(t("a.s_free"))}</h4>
-    <div class="abtns"><button type="button" data-bonus="1">+1</button><button type="button" data-bonus="3">+3</button><button type="button" data-bonus="5">+5</button><button type="button" id="md_reset">${esc(t("a.reset_count"))}</button></div>
-    <div class="abtns"><button type="button" class="warn" data-bonus="-1"${d.free_limit>0?"":" disabled"}>−1</button><button type="button" class="warn" data-bonus="-3"${d.free_limit>0?"":" disabled"}>−3</button><button type="button" class="warn" id="md_zero"${d.free_limit>d.free_used?"":" disabled"}>${esc(t("a.zero_free"))}</button></div>
+    <div class="mfree"><b>${esc(String(Math.max(0,d.free_limit-d.free_used)))}</b><span>${esc(t("a.free_left_lbl"))}</span><small>${esc(t("a.free_val",{used:d.free_used,limit:d.free_limit}))}</small></div>
+    <div class="mrow"><span class="mlbl">${esc(t("a.free_add"))}</span><div class="mseg"><button type="button" data-bonus="1">+1</button><button type="button" data-bonus="3">+3</button><button type="button" data-bonus="5">+5</button></div></div>
+    <div class="mrow"><span class="mlbl">${esc(t("a.free_sub"))}</span><div class="mseg"><button type="button" data-bonus="-1"${d.free_limit>0?"":" disabled"}>−1</button><button type="button" data-bonus="-3"${d.free_limit>0?"":" disabled"}>−3</button></div></div>
+    <div class="mact2"><button type="button" class="mbtn" id="md_reset">${esc(t("a.reset_count"))}</button><button type="button" class="mbtn" id="md_zero"${d.free_limit>d.free_used?"":" disabled"}>${esc(t("a.zero_free"))}</button></div>
     <h4>${esc(t("a.s_remind"))}</h4>
     <div id="md_remind" class="amrem"><span class="muted">…</span></div>
     <h4>${esc(t("a.s_account"))}</h4>
     ${me?`<p class="note">${esc(t("a.self_note"))}</p>`:`<div class="form"><input id="md_reason" maxlength="200" placeholder="${esc(t("a.reason_ph"))}"${d.blocked?" hidden":""}>
-      <div class="abtns"><button type="button" id="md_block" class="${d.blocked?"":"warn"}">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="danger">${esc(t("a.delete"))}</button></div>
+      <div class="mstack"><button type="button" id="md_block" class="mbtn">${esc(t(d.blocked?"a.unblock":"a.block"))}</button>${d.abn?`<button type="button" id="md_abn" class="mbtn">${esc(t("a.reset_abn"))}</button>`:""}<button type="button" id="md_del" class="mbtn mdanger">${esc(t("a.delete"))}</button></div>
       ${d.blocked&&d.blocked_reason?`<p class="note">${esc(t("a.reason_is",{r:d.blocked_reason}))}</p>`:""}</div>`}
     <h4>${esc(t("a.s_wip"))}</h4>
     <div id="md_wip"><span class="muted">…</span></div>
     <h4>${esc(t("a.s_invoices",{n:d.invoices.length}))}</h4>
     <ul class="alist ainv">${d.invoices.length?d.invoices.map(v=>invLi(v,false)).join(""):`<li class="muted">${esc(t("a.no_inv"))}</li>`}</ul>`;
+  {const kids=[...box.children];let sec=null;kids.forEach(n=>{if(n.tagName==="H4"){sec=document.createElement("section");sec.className="msec";n.before(sec);sec.appendChild(n)}else if(sec&&!n.classList.contains("aback")&&!n.classList.contains("ahead")&&!n.classList.contains("adl"))sec.appendChild(n)})}
   box.querySelector(".auemail").textContent=d.email||"";
   const set=(k,v)=>{const el=box.querySelector(`[data-v="${k}"]`);if(el)el.textContent=v||"–"};
   set("name",d.name);set("abn",d.abn?fmtAbn(d.abn):"");set("phone",d.phone);set("contact_email",d.contact_email);set("addr",d.addr);set("bank",[d.bsb,d.acc].filter(Boolean).join(" · "));
@@ -7213,8 +7257,7 @@ async function memberRemind(id,set){const box=$("md_remind");if(!box)return;
   let r;try{const res=await sb.rpc("admin_reminder",set==null?{p_user:id}:{p_user:id,p_on:set});r=res.data;if(res.error)throw 0}catch(e){box.innerHTML=`<span class="err">${esc(t("a.err"))}</span>`;return}
   if(!r||!r.ok||!admCur||admCur.user_id!==id||!$("md_remind"))return;
   const st=r.on?t("a.rem_on",{day:rmDayName(r.day||5)}):(r.admin_off?t("a.rem_admin_off"):t("a.rem_user_off"));
-  $("md_remind").innerHTML=`<p class="amremst"><span class="badge${r.on?" pro":""}">${esc(st)}</span>${r.last?` <small class="muted">${esc(t("a.rem_last",{d:d8t(r.last)}))}</small>`:""}</p>
-    <div class="abtns">${r.admin_off||!r.on?`<button type="button" class="primary" id="md_rem_on">${esc(t("a.rem_turn_on"))}</button>`:`<button type="button" class="warn" id="md_rem_off">${esc(t("a.rem_turn_off"))}</button>`}</div>`;
+  $("md_remind").innerHTML=`<div class="mremrow"><span class="mstat${r.on?" on":""}"><i></i>${esc(st)}</span>${r.admin_off||!r.on?`<button type="button" class="mbtn" id="md_rem_on">${esc(t("a.rem_turn_on"))}</button>`:`<button type="button" class="mbtn" id="md_rem_off">${esc(t("a.rem_turn_off"))}</button>`}</div>${r.last?`<small class="muted mremlast">${esc(t("a.rem_last",{d:d8t(r.last)}))}</small>`:""}`;
   const on=$("md_rem_on"),off=$("md_rem_off");if(on)on.onclick=()=>{on.disabled=true;memberRemind(id,true)};if(off)off.onclick=()=>{off.disabled=true;memberRemind(id,false)}}
 async function loadRemGlobal(){const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
   $("remg_on").checked=!!r.on;$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(e){$("remg_n").textContent=t("a.err")}}
