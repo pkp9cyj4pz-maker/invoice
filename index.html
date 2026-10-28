@@ -1527,6 +1527,13 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .aside .asr b{font-family:var(--mono);color:var(--ink);font-weight:600}
 .aside .asr select{min-height:32px;width:auto;padding:2px 8px;border-radius:8px;font-size:.85rem;margin-left:4px}
 .aside .asnote{margin:2px 0 0;font-size:.78rem;color:var(--muted);line-height:1.35}
+.tcol{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px;margin-top:2px}
+.tcol .flabel{margin:0}
+.tcsw{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;max-width:340px}
+.tcsw button{width:100%;aspect-ratio:1;height:auto;min-height:0;padding:0;border-radius:50%;background:var(--c);border:2px solid transparent;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 22%,transparent);cursor:pointer}
+.tcsw button.on{border-color:var(--paper);box-shadow:0 0 0 2px var(--ink)}
+.tcdemo{align-self:flex-start;background:#fff;border-radius:10px;padding:8px 14px;font:800 1.15rem/1 Helvetica,Arial,sans-serif;letter-spacing:.01em}
+.ilogo.locked .tcsw button{opacity:.55}
 </style>
 </head>
 <body>
@@ -1568,6 +1575,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
           <div class="ilbtns"><button type="button" class="ilbtn" id="il_pick" data-i18n="lg2.pick">Add my logo</button><button type="button" class="ilbtn ildel" id="il_del" hidden data-i18n="lg2.del">Remove</button></div></div>
         <p class="note" id="il_note" data-i18n="lg2.note">PNG or JPG. It appears at the top right of your invoices.</p>
         <input type="file" id="il_file" accept="image/png,image/jpeg,image/webp" hidden>
+        <div class="tcol" id="tcol"><span class="flabel" id="tc_lbl" data-i18n="tc.title">Invoice title colour</span>
+          <div class="tcsw" id="tc_sw" role="radiogroup" aria-labelledby="tc_lbl"></div>
+          <div class="tcdemo" id="tc_demo">INVOICE</div></div>
       </div>
       <p id="i_missing" class="note imissing" role="status"></p>
       <button class="primary" type="button" data-close data-i18n="i.ok">Done</button>
@@ -1836,7 +1846,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <ul class="feat" style="margin-bottom:16px">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f1">Unlimited invoices</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f2">History of every invoice, with totals per year</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f7">Your own logo on your invoices</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f7">Your logo and title colour on your invoices</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f6">Clean invoices: no SubbieBill code at the bottom</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f4">Invoices emailed to your client, with a copy to you</span></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="p.f5">See what's paid and what's overdue</span></li>
@@ -2014,7 +2024,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p5">Invoices emailed to your client, with a copy to you</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p6">See what's paid and what's overdue</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p7">Clean invoices: no SubbieBill code at the bottom</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p8">Your own logo on your invoices</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p8">Your logo and title colour on your invoices</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span data-i18n="price.p4">Cancel anytime</span></li>
         </ul>
         <button type="button" data-auth="signup" data-i18n="price.pro_cta">Start free, upgrade anytime</button>
@@ -2254,14 +2264,24 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "p.why_tcol":"With Premium, you choose the colour of your invoice title.",
+  "tc.c7":"Purple",
+  "tc.c6":"Red",
+  "tc.c5":"Green",
+  "tc.c4":"Teal",
+  "tc.c3":"Blue",
+  "tc.c2":"Navy",
+  "tc.c1":"Black",
+  "tc.c0":"Orange (default)",
+  "tc.title":"Invoice title colour",
   "as.note_nogst":"Estimate from your finished invoices since 1 July. It's a guide, not tax advice: check the right rate with your accountant or the ATO.",
   "as.note":"Estimate from your finished invoices since 1 July (excl. GST). It's a guide, not tax advice: check the right rate with your accountant or the ATO.",
   "as.pct_lbl":"Share of your income to put aside",
   "as.tax":"Income tax estimate",
   "as.gst":"GST collected (to pay to the ATO)",
   "as.title":"Put aside for tax · FY {fy}",
-  "price.p8":"Your own logo on your invoices",
-  "p.f7":"Your own logo on your invoices",
+  "price.p8":"Your logo and title colour on your invoices",
+  "p.f7":"Your logo and title colour on your invoices",
   "p.why_logo":"With Premium, your own logo appears on every invoice.",
   "lg2.bad":"This image can't be used. Try a PNG or JPG.",
   "lg2.saved":"Logo saved. It will be on your next invoices.",
@@ -2731,14 +2751,24 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "p.why_tcol":"Avec Premium, tu choisis la couleur du titre de tes factures.",
+  "tc.c7":"Violet",
+  "tc.c6":"Rouge",
+  "tc.c5":"Vert",
+  "tc.c4":"Bleu canard",
+  "tc.c3":"Bleu",
+  "tc.c2":"Bleu marine",
+  "tc.c1":"Noir",
+  "tc.c0":"Orange (par défaut)",
+  "tc.title":"Couleur du titre de la facture",
   "as.note_nogst":"Estimation sur tes factures terminées depuis le 1er juillet. C'est un repère, pas un conseil fiscal : vérifie le bon taux avec ton comptable ou l'ATO.",
   "as.note":"Estimation sur tes factures terminées depuis le 1er juillet (hors GST). C'est un repère, pas un conseil fiscal : vérifie le bon taux avec ton comptable ou l'ATO.",
   "as.pct_lbl":"Part de tes revenus à mettre de côté",
   "as.tax":"Impôt estimé",
   "as.gst":"GST encaissée (à reverser à l'ATO)",
   "as.title":"À mettre de côté · année fiscale {fy}",
-  "price.p8":"Ton logo sur tes factures",
-  "p.f7":"Ton logo sur tes factures",
+  "price.p8":"Ton logo et ta couleur sur tes factures",
+  "p.f7":"Ton logo et ta couleur sur tes factures",
   "p.why_logo":"Avec Premium, ton logo apparaît sur chaque facture.",
   "lg2.bad":"Cette image ne peut pas être utilisée. Essaie un PNG ou un JPG.",
   "lg2.saved":"Logo enregistré. Il sera sur tes prochaines factures.",
@@ -3202,14 +3232,24 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "p.why_tcol":"Con Premium, eliges el color del título de tus facturas.",
+  "tc.c7":"Morado",
+  "tc.c6":"Rojo",
+  "tc.c5":"Verde",
+  "tc.c4":"Verde azulado",
+  "tc.c3":"Azul",
+  "tc.c2":"Azul marino",
+  "tc.c1":"Negro",
+  "tc.c0":"Naranja (por defecto)",
+  "tc.title":"Color del título de la factura",
   "as.note_nogst":"Estimación con tus facturas terminadas desde el 1 de julio. Es una guía, no asesoría fiscal: confirma la tasa con tu contador o la ATO.",
   "as.note":"Estimación con tus facturas terminadas desde el 1 de julio (sin GST). Es una guía, no asesoría fiscal: confirma la tasa con tu contador o la ATO.",
   "as.pct_lbl":"Parte de tus ingresos a apartar",
   "as.tax":"Impuesto estimado",
   "as.gst":"GST cobrado (a pagar a la ATO)",
   "as.title":"Para apartar · año fiscal {fy}",
-  "price.p8":"Tu logo en tus facturas",
-  "p.f7":"Tu logo en tus facturas",
+  "price.p8":"Tu logo y tu color en tus facturas",
+  "p.f7":"Tu logo y tu color en tus facturas",
   "p.why_logo":"Con Premium, tu logo aparece en cada factura.",
   "lg2.bad":"Esta imagen no sirve. Prueba con un PNG o JPG.",
   "lg2.saved":"Logo guardado. Estará en tus próximas facturas.",
@@ -3710,14 +3750,24 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "p.why_tcol":"Con Premium scegli il colore del titolo delle tue fatture.",
+  "tc.c7":"Viola",
+  "tc.c6":"Rosso",
+  "tc.c5":"Verde",
+  "tc.c4":"Ottanio",
+  "tc.c3":"Blu",
+  "tc.c2":"Blu navy",
+  "tc.c1":"Nero",
+  "tc.c0":"Arancione (predefinito)",
+  "tc.title":"Colore del titolo della fattura",
   "as.note_nogst":"Stima sulle fatture finite dal 1° luglio. È un riferimento, non un consiglio fiscale: verifica l'aliquota con il commercialista o l'ATO.",
   "as.note":"Stima sulle fatture finite dal 1° luglio (GST esclusa). È un riferimento, non un consiglio fiscale: verifica l'aliquota con il commercialista o l'ATO.",
   "as.pct_lbl":"Quota del reddito da mettere da parte",
   "as.tax":"Imposta stimata",
   "as.gst":"GST incassata (da versare all'ATO)",
   "as.title":"Da mettere da parte · anno fiscale {fy}",
-  "price.p8":"Il tuo logo sulle fatture",
-  "p.f7":"Il tuo logo sulle fatture",
+  "price.p8":"Il tuo logo e il tuo colore sulle fatture",
+  "p.f7":"Il tuo logo e il tuo colore sulle fatture",
   "p.why_logo":"Con Premium, il tuo logo appare su ogni fattura.",
   "lg2.bad":"Questa immagine non si può usare. Prova un PNG o JPG.",
   "lg2.saved":"Logo salvato. Sarà sulle prossime fatture.",
@@ -4367,14 +4417,24 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "p.why_tcol":"Com o Premium, você escolhe a cor do título das suas faturas.",
+  "tc.c7":"Roxo",
+  "tc.c6":"Vermelho",
+  "tc.c5":"Verde",
+  "tc.c4":"Azul-petróleo",
+  "tc.c3":"Azul",
+  "tc.c2":"Azul-marinho",
+  "tc.c1":"Preto",
+  "tc.c0":"Laranja (padrão)",
+  "tc.title":"Cor do título da fatura",
   "as.note_nogst":"Estimativa com as faturas finalizadas desde 1º de julho. É uma referência, não consultoria fiscal: confirme a taxa com seu contador ou a ATO.",
   "as.note":"Estimativa com as faturas finalizadas desde 1º de julho (sem GST). É uma referência, não consultoria fiscal: confirme a taxa com seu contador ou a ATO.",
   "as.pct_lbl":"Parte da sua renda a guardar",
   "as.tax":"Imposto estimado",
   "as.gst":"GST recebido (a pagar à ATO)",
   "as.title":"Para guardar · ano fiscal {fy}",
-  "price.p8":"Seu logo nas faturas",
-  "p.f7":"Seu logo nas faturas",
+  "price.p8":"Seu logo e sua cor nas faturas",
+  "p.f7":"Seu logo e sua cor nas faturas",
   "p.why_logo":"Com o Premium, seu logo aparece em cada fatura.",
   "lg2.bad":"Essa imagem não pode ser usada. Tente um PNG ou JPG.",
   "lg2.saved":"Logo salvo. Vai aparecer nas próximas faturas.",
@@ -5578,7 +5638,7 @@ function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
   const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"&&data.desc!=="Services"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
-  p.logo=typeof data.logo==="string"&&/^data:image\/(png|jpeg);base64,/.test(data.logo)&&data.logo.length<200000?data.logo:"";logoPreload(p.logo);p.taxPct=[0,15,20,25,30,35].includes(+data.taxPct)?+data.taxPct:25;p.first=data.first||"";p.last=data.last||"";p.bill=BILLS.includes(data.bill)?data.bill:"hourly";p.drate=+data.drate>0?+data.drate:null;p.ddesc=data.ddesc||"";p.pamt=+data.pamt>0?+data.pamt:null;p.pdesc=data.pdesc||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};p.clientEmail=data.clientEmail&&typeof data.clientEmail==="object"?data.clientEmail:{};
+  p.logo=typeof data.logo==="string"&&/^data:image\/(png|jpeg);base64,/.test(data.logo)&&data.logo.length<200000?data.logo:"";logoPreload(p.logo);p.tcol=TCOLS.includes(data.tcol)?data.tcol:"";p.taxPct=[0,15,20,25,30,35].includes(+data.taxPct)?+data.taxPct:25;p.first=data.first||"";p.last=data.last||"";p.bill=BILLS.includes(data.bill)?data.bill:"hourly";p.drate=+data.drate>0?+data.drate:null;p.ddesc=data.ddesc||"";p.pamt=+data.pamt>0?+data.pamt:null;p.pdesc=data.pdesc||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};p.clientEmail=data.clientEmail&&typeof data.clientEmail==="object"?data.clientEmail:{};
   p.lastInvNo=+(res&&res.last_invno)||0;p.lastInvBy=res&&res.last_invno_by&&typeof res.last_invno_by==="object"?res.last_invno_by:null;
   if(!p.first&&!p.last&&p.name){const w=p.name.trim().split(/\s+/);p.last=w.pop()||"";p.first=w.join(" ")}   /* older accounts: one "name" field */
   if(res&&"abn_locked" in res){p.abn=res.abn||"";p.abnLocked=!!res.abn_locked}else p.abnLocked=false;
@@ -6815,7 +6875,7 @@ async function exportAll(btn){if(exporting||!sb||!session||isGuest())return;cons
     if(error||!data||!data.ok){msg.textContent=t("ex.err");return}
     const list=data.invoices||[];if(!list.length){msg.textContent=t("ex.none");return}
     const used={},files=[];
-    for(const r of list){const inv=r.inv||{},me={...(r.me||{})};if(myLogo())me.logo=myLogo();
+    for(const r of list){const inv=r.inv||{},me={...(r.me||{})};if(myLogo())me.logo=myLogo();if(myTcol())me.tcol=myTcol();
       const base=`Invoice ${String(inv.invno||"").replace(/[^\w-]+/g,"")||"x"} - ${String(inv.billto||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim().slice(0,40)||"client"} - ${dmy(inv.start).replace(/\//g,"-")}`;
       let name=base+".pdf",k=2;while(used[name])name=`${base} (${k++}).pdf`;used[name]=1;
       files.push({name,bytes:renderInvoice(JsPDF,me,inv)});await new Promise(r=>setTimeout(r,0))}
@@ -6845,7 +6905,7 @@ function drawInvoice(doc, me, inv) {
   const STEP = 5.2, BOTTOM = 272;
 
   // title
-  font("bold", 22); col(ORANGE); doc.text(title, L, 24.7);
+  font("bold", 22); col(tcolRGB(me.tcol) || ORANGE); doc.text(title, L, 24.7);
   // Premium: the member's own logo, top right, fitted in 56 x 22 mm
   if (typeof me.logo === "string" && /^data:image\/(png|jpeg);base64,/.test(me.logo)) {
     const d = logoDims(me.logo); if (d) { const r = Math.min(56 / d.w, 22 / d.h), w = d.w * r, h = d.h * r;
@@ -6984,7 +7044,14 @@ const LOGO_IMG={},LOGO_DIM={};
 function logoPreload(src){if(!src||LOGO_IMG[src])return;const im=new Image();im.onload=()=>{LOGO_DIM[src]={w:im.naturalWidth,h:im.naturalHeight}};im.src=src;LOGO_IMG[src]=im}
 function logoDims(src){const d=LOGO_DIM[src];if(d)return d;const im=LOGO_IMG[src];return im&&im.naturalWidth?{w:im.naturalWidth,h:im.naturalHeight}:null}
 const myLogo=()=>plan.premium&&P()&&P().logo?P().logo:"";
-function renderLogoUI(){const p=P();if(!p||!$("ilogo"))return;const has=!!p.logo;
+/* ---------- Premium: invoice title colour (dark, print-safe presets only) ---------- */
+const TCOLS=["#D2691E","#1D2321","#1F3A68","#1E6FD9","#0E7C86","#1F7A4D","#B42318","#6B3FA0"];
+const tcolRGB=c=>typeof c==="string"&&TCOLS.includes(c)?[1,3,5].map(i=>parseInt(c.slice(i,i+2),16)):null;
+const myTcol=()=>plan.premium&&P()&&TCOLS.includes(P().tcol)?P().tcol:"";
+function renderTcol(){const p=P();if(!p||!$("tc_sw"))return;const cur=myTcol()||TCOLS[0];
+  $("tc_sw").innerHTML=TCOLS.map((c,i)=>`<button type="button" role="radio" aria-checked="${c===cur}" aria-label="${esc(t("tc.c"+i))}" title="${esc(t("tc.c"+i))}" data-tc="${c}" style="--c:${c}"${c===cur?' class="on"':""}></button>`).join("");
+  $("tc_demo").style.color=cur;$("tc_demo").textContent=p.gstReg?"TAX INVOICE":"INVOICE"}
+function renderLogoUI(){renderTcol();const p=P();if(!p||!$("ilogo"))return;const has=!!p.logo;
   $("il_prev").innerHTML=has?`<img src="${p.logo}" alt="">`:`<span class="muted">${esc(t("lg2.none"))}</span>`;
   $("il_pick").textContent=t(has?"lg2.change":"lg2.pick");$("il_del").hidden=!has;
   $("ilogo").classList.toggle("locked",!plan.premium);$("il_note").textContent=t(plan.premium?"lg2.note":"lg2.note_free")}
@@ -6998,8 +7065,10 @@ $("il_file").addEventListener("change",async e=>{const fl=e.target.files&&e.targ
   if(!/^image\/(png|jpeg|webp)$/.test(fl.type)){$("il_note").textContent=t("lg2.bad");return}
   try{const d=await logoFromFile(fl);P().logo=d;logoPreload(d);renderLogoUI();save();flushSave();$("il_note").textContent=t("lg2.saved")}catch(x){$("il_note").textContent=t("lg2.bad")}});
 $("il_del").onclick=()=>{P().logo="";renderLogoUI();save();flushSave()};
+$("tc_sw").addEventListener("click",e=>{const b=e.target.closest("[data-tc]");if(!b)return;if(isGuest()){openSheet("p_gsign");return}if(!plan.premium){showPremium("p.why_tcol");return}
+  P().tcol=b.dataset.tc===TCOLS[0]?"":b.dataset.tc;renderTcol();save()});
 function previewInvoice(o) {
-  const p = P(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: !!p.gstReg, logo: myLogo() };
+  const p = P(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: !!p.gstReg, logo: myLogo(), tcol: myTcol() };
   const inv = clone(I()); if (!locked()) settleDates(inv);
   const free = QR_ON && (isGuest() || !plan.premium); if (free && !inv.vcode) inv.vcode = "XXXX-XXXX"; if (!free) delete inv.vcode;
   showPreview(ME2, inv, { mark: true, back: o && o.back, qr: free });
@@ -7116,7 +7185,7 @@ async function doFinish(o){o=o||{};if(finishing)return;const p=P(),inv=I(),lk=lo
     const {data:out,error}=await sb.rpc("finish_invoice",{p_draft_id:inv.id,p_inv:clone(inv)});
     if(error){pdfMsg(/JWT|auth|401/i.test(error.message||"")?t("fin.auth"):t("fin.server"));return}
     if(out&&out.ok){
-      const me={...(out.me||{})};if(!("gst_v" in me))me.gst=!!p.gstReg;   /* older server script: use the current setting */["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);if(myLogo())me.logo=myLogo();
+      const me={...(out.me||{})};if(!("gst_v" in me))me.gst=!!p.gstReg;   /* older server script: use the current setting */["email","phone","addr","bsb","acc"].forEach(k=>{if(p[k])me[k]=p[k]});if(fullName(p))me.name=fullName(p);if(myLogo())me.logo=myLogo();if(myTcol())me.tcol=myTcol();
       const bytes=renderInvoice(JsPDF,me,out.inv||{});
       if(out.free_left!=null)plan.free_used=(plan.free_limit??3)-(+out.free_left);
       const who=(p.name||"").replace(/[\\/:*?"<>|]+/g,"").replace(/\s+/g," ").trim(),src=out.inv||inv;
