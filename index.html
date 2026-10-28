@@ -1504,6 +1504,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 @media(max-width:380px){#adm_detail .mact2{grid-template-columns:1fr}}
 #adm_detail .aref{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;margin-top:12px;border-top:1px solid var(--line)}
 #adm_detail .aref>*:first-child{margin-top:0}
+.hcli{display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.hcli label{font-weight:700;color:var(--muted);font-size:.92rem;flex:none}
+.hcli select{flex:1;min-height:44px;border-radius:12px}
 </style>
 </head>
 <body>
@@ -1624,6 +1627,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
     </section>
 
     <section id="p_hist" hidden data-i18n-title="h.title">
+      <div class="hcli" id="hcli" hidden><label for="hcli_sel" data-i18n="h.cli_lbl">Client</label><select id="hcli_sel"></select></div>
       <div id="histsum" class="histsum" hidden></div>
       <p id="histcount" class="muted" style="margin:0 0 4px"></p>
       <div id="histfree" class="hfree" hidden><p><b data-i18n="h.free_t">On Free</b> <span data-i18n="h.free_note">your first 3 invoices are kept here. Deleting one doesn't give you back a free invoice.</span></p><p class="hperks" data-i18n="h.free_perks">Premium adds unlimited invoices, emailing invoices to your client and paid / overdue tracking.</p><button id="hist_pro" type="button" class="primary" data-i18n="h.see_pro">See Premium</button></div>
@@ -2219,6 +2223,9 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "h.count_cli":"{n} invoice(s) for this client",
+  "h.cli_all":"All clients ({n})",
+  "h.cli_lbl":"Client",
   "a.free_sub":"Remove",
   "a.free_add":"Add",
   "a.free_left_lbl":"free invoice(s) left",
@@ -2675,6 +2682,9 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "h.count_cli":"{n} facture(s) pour ce client",
+  "h.cli_all":"Tous les clients ({n})",
+  "h.cli_lbl":"Client",
   "a.free_sub":"Retirer",
   "a.free_add":"Ajouter",
   "a.free_left_lbl":"facture(s) gratuite(s) restante(s)",
@@ -3125,6 +3135,9 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "h.count_cli":"{n} factura(s) para este cliente",
+  "h.cli_all":"Todos los clientes ({n})",
+  "h.cli_lbl":"Cliente",
   "auth.lang_note":"Puedes cambiarlo cuando quieras en Ajustes. Tus facturas siempre están en inglés.",
   "auth.lang":"Tu idioma",
   "rm.saved":"Guardado",
@@ -3612,6 +3625,9 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "h.count_cli":"{n} fattura/e per questo cliente",
+  "h.cli_all":"Tutti i clienti ({n})",
+  "h.cli_lbl":"Cliente",
   "auth.lang_note":"Puoi cambiarla quando vuoi in Impostazioni. Le fatture sono sempre in inglese.",
   "auth.lang":"La tua lingua",
   "rm.saved":"Salvato",
@@ -4248,6 +4264,9 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "h.count_cli":"{n} fatura(s) para este cliente",
+  "h.cli_all":"Todos os clientes ({n})",
+  "h.cli_lbl":"Cliente",
   "auth.lang_note":"Você pode mudar quando quiser em Configurações. Suas faturas são sempre em inglês.",
   "auth.lang":"Seu idioma",
   "rm.saved":"Salvo",
@@ -5263,7 +5282,8 @@ function closeMenu(){const m=$("menupop");if(!m||m.hidden)return;m.hidden=true;$
 $("menubd").addEventListener("click",e=>{e.stopPropagation();closeMenu()});
 $("menubd").addEventListener("touchmove",e=>e.preventDefault(),{passive:false});
 $("btn_menu").onclick=e=>{e.stopPropagation();$("menupop").hidden?openMenu():closeMenu()};
-document.addEventListener("click",e=>{if(!$("menupop").hidden&&!e.target.closest(".menuwrap"))closeMenu()});$("btn_hist").onclick=()=>openSheet("p_hist");
+document.addEventListener("click",e=>{if(!$("menupop").hidden&&!e.target.closest(".menuwrap"))closeMenu()});$("btn_hist").onclick=()=>openSheet("p_hist");$("hcli_sel").addEventListener("change",e=>{histCli=e.target.value;renderHist()});
+
 
 /* my details + settings */
 ME.filter(k=>k!=="abn"&&k!=="name").forEach(k=>$("me_"+k).addEventListener("input",e=>{P()[k]=e.target.value;renderOnboard();save()}));
@@ -5339,8 +5359,13 @@ function renderLists(){[["clients","list_clients","l.none_c"],["sites","list_sit
     li.querySelector("span").textContent=v;li.querySelector("button").onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure="1";b.textContent=t("lst.sure");b.classList.add("sure");setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent="×";b.classList.remove("sure")}},3000);return}state[k].splice(i,1);renderLists();renderWeek();renderDays();save()};ul.appendChild(li)})})}
 
 /* history */
-function renderHist(){const p=P(),list=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
-  $("histcount").textContent=plan.premium?t("h.count_pro",{n:list.length}):t("h.count_free",{n:list.length,limit:FREE_LIMIT()});
+let histCli="";
+function renderHist(){const p=P(),all0=(p.saved||[]).slice().sort((a,b)=>(b.inv.start||"")<(a.inv.start||"")?-1:1),ul=$("histlist");ul.innerHTML="";
+  {const names={};all0.forEach(e=>{const n=String(e.inv&&e.inv.billto||"").trim();if(!n)return;const k=cKey(n);names[k]=names[k]||{n,c:0};names[k].c++});
+   const keys=Object.keys(names).sort((a,b)=>names[a].n.localeCompare(names[b].n));if(histCli&&!names[histCli])histCli="";
+   $("hcli").hidden=keys.length<2;$("hcli_sel").innerHTML=`<option value="">${esc(t("h.cli_all",{n:all0.length}))}</option>`+keys.map(k=>`<option value="${esc(k)}"${k===histCli?" selected":""}>${esc(names[k].n)} (${names[k].c})</option>`).join("")}
+  const list=histCli?all0.filter(e=>cKey(e.inv&&e.inv.billto)===histCli):all0;
+  $("histcount").textContent=histCli?t("h.count_cli",{n:list.length}):plan.premium?t("h.count_pro",{n:list.length}):t("h.count_free",{n:list.length,limit:FREE_LIMIT()});
   $("histfree").hidden=!!plan.premium;
   /* totals: same calculation as each invoice (incl. GST when it applies) */
   const yr=String(new Date().getFullYear()),cents2=e=>invCalc(e.inv,meNow()).total;
