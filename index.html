@@ -1571,6 +1571,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 #hexport .exmsg:empty{display:none}#hexport .exmsg{flex:1 0 100%}
 .menupop>*{flex-shrink:0}
 .menupop{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.alang{flex:none;margin-left:6px;font:700 .62rem/1 var(--mono);letter-spacing:.04em;padding:3px 5px;border-radius:5px;border:1px solid var(--line);color:var(--muted);background:var(--field);vertical-align:1px}
 </style>
 </head>
 <body>
@@ -2303,6 +2304,8 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.lang_none":"Not set (English)",
+  "a.f_lang":"App language",
   "h.free_del":"Deleting an invoice doesn't give you back a free one.",
   "h.free_sub":"Email to client, tracking, your logo",
   "h.free_go":"Go unlimited with Premium",
@@ -2804,6 +2807,8 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.lang_none":"Pas choisie (anglais)",
+  "a.f_lang":"Langue de l'app",
   "h.free_del":"Supprimer une facture ne te rend pas de facture gratuite.",
   "h.free_sub":"Envoi par mail, suivi, ton logo",
   "h.free_go":"Passe en illimité avec Premium",
@@ -3299,6 +3304,8 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "a.lang_none":"Sin elegir (inglés)",
+  "a.f_lang":"Idioma de la app",
   "h.free_del":"Eliminar una factura no te devuelve una gratis.",
   "h.free_sub":"Envío por email, seguimiento, tu logo",
   "h.free_go":"Pasa a ilimitado con Premium",
@@ -3831,6 +3838,8 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "a.lang_none":"Non scelta (inglese)",
+  "a.f_lang":"Lingua dell'app",
   "h.free_del":"Eliminare una fattura non te ne restituisce una gratuita.",
   "h.free_sub":"Invio via email, controllo, il tuo logo",
   "h.free_go":"Passa all'illimitato con Premium",
@@ -4512,6 +4521,8 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "a.lang_none":"Não escolhido (inglês)",
+  "a.f_lang":"Idioma do app",
   "h.free_del":"Excluir uma fatura não devolve uma grátis.",
   "h.free_sub":"Envio por email, controle, seu logo",
   "h.free_go":"Fique ilimitado com o Premium",
@@ -7455,8 +7466,9 @@ $("adm_charts").addEventListener("focusin",e=>{const g=e.target.closest(".bar");
 function badgeOf(u){const manual=u.source==="manual",expired=manual&&!u.premium,stripe=u.source==="stripe";
   let b=t(stripe?"a.src_stripe":manual&&!expired?"a.src_manual":"a.src_free");
   if(manual&&!expired)b+=" · "+(u.until?t("a.until",{date:d8(u.until)}):t("a.perm"));if(expired)b+=" · "+t("a.expired");return b}
+const langTag=l=>I18N[l]?`<span class="alang" title="${esc(I18N[l]._name)}">${esc(I18N[l]._short||l.toUpperCase())}</span>`:"";
 function admRow(u){const li=document.createElement("li");li.className="arow";
-  li.innerHTML=`<button type="button" class="aopen"><span class="aumain"><span class="auline">${odot(u.last_seen)}<strong class="auemail"></strong></span><span class="auname"></span>
+  li.innerHTML=`<button type="button" class="aopen"><span class="aumain"><span class="auline">${odot(u.last_seen)}<strong class="auemail"></strong>${langTag(u.lang)}</span><span class="auname"></span>
     <span class="aumeta">${esc(seenTxt(u.last_seen))} · ${esc(t("a.joined",{date:d8t(u.created_at)}))}</span>
     <span class="aumeta">${esc(t("a.inv_n",{n:u.invoices}))}${u.abn?" · ABN "+esc(u.abn):""}</span></span>
     <span class="auact"><span class="badge${u.premium?" pro":""}">${esc(badgeOf(u))}${u.admin?" · "+esc(t("a.admin_tag")):""}</span>${u.blocked?`<span class="badge blk">${esc(t("a.blocked_tag"))}</span>`:""}<span class="chev" aria-hidden="true">›</span></span></button>`;
@@ -7495,6 +7507,7 @@ function renderMember(){const d=admCur,box=$("adm_detail"),stripe=d.source==="st
       <div><dt>${esc(t("a.f_addr"))}</dt><dd data-v="addr"></dd></div>
       <div><dt>BSB / ${esc(t("a.f_acc"))}</dt><dd data-v="bank"></dd></div>
       <div><dt>${esc(t("a.f_seen"))}</dt><dd>${esc(isOn(d.last_seen)?t("a.online"):(d.last_seen?d8t(d.last_seen):t("a.never_seen")))}</dd></div>
+      <div><dt>${esc(t("a.f_lang"))}</dt><dd>${esc(I18N[d.lang]?I18N[d.lang]._name:t("a.lang_none"))}</dd></div>
       <div><dt>${esc(t("a.f_joined"))}</dt><dd>${esc(d8t(d.created_at))}</dd></div>
       <div><dt>${esc(t("a.f_last"))}</dt><dd>${esc(d.last_sign_in_at?d8t(d.last_sign_in_at):t("a.never"))}</dd></div>
       <div><dt>${esc(t("a.f_free"))}</dt><dd>${esc(t("a.free_val2",{used:d.free_used,limit:d.free_limit,left:Math.max(0,d.free_limit-d.free_used)}))}</dd></div>
@@ -7573,9 +7586,9 @@ const csvCell=v=>{const s=v==null?"":String(v);return /[",\n;]/.test(s)?`"${s.re
 async function exportCsv(kind,btn){btn.disabled=true;$("adm_msg").textContent=t("a.exporting");
   try{let all=[],off=0;for(;;){const {data,error}=kind==="users"?await sb.rpc("admin_list_users",{p_search:"",p_limit:500,p_offset:off}):await sb.rpc("admin_recent_invoices",{p_limit:500,p_offset:off});
       if(error)throw error;all=all.concat(data);if(data.length<500)break;off+=500}
-    const head=kind==="users"?["email","name","abn","joined","last_login","last_visit","plan","premium_until","invoices","saved","blocked","bonus_free","admin"]
+    const head=kind==="users"?["email","name","abn","joined","last_login","last_visit","plan","premium_until","invoices","saved","blocked","bonus_free","admin","language"]
       :["finished_at","email","name","abn","invoice_no","period","start","end","client","hours","total_aud"];
-    const rows=kind==="users"?all.map(u=>[u.email,u.name,u.abn,u.created_at,u.last_sign_in_at,u.last_seen||"",u.premium?u.source:"free",u.until,u.invoices,u.saved,u.blocked?"yes":"no",u.bonus_free,u.admin?"yes":"no"])
+    const rows=kind==="users"?all.map(u=>[u.email,u.name,u.abn,u.created_at,u.last_sign_in_at,u.last_seen||"",u.premium?u.source:"free",u.until,u.invoices,u.saved,u.blocked?"yes":"no",u.bonus_free,u.admin?"yes":"no",u.lang||""])
       :all.map(v=>[v.created_at,v.email,v.name,v.abn,v.invno,v.period,v.start_date,v.end_date,v.billto,v.hours,v.total]);
     const csv="﻿"+[head].concat(rows).map(r=>r.map(csvCell).join(",")).join("\r\n");
     saveBlob(new Blob([csv],{type:"text/csv;charset=utf-8"}),`SubbieBill ${kind==="users"?"members":"invoices"} ${dmy(todayIso()).replace(/\//g,"-")}.csv`);
