@@ -1580,6 +1580,15 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .remofb{width:100%;min-height:0;text-align:left;display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font:inherit}
 .remofm{display:flex;align-items:center;gap:0;min-width:0}.remofm strong{font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .remofb small{color:var(--muted);font-size:.78rem}
+.amails{margin-top:18px;padding-top:14px;border-top:1px solid var(--line)}.amails h4{margin:0 0 8px}
+.mlrows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;background:var(--field);overflow:hidden}
+.mlrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-top:1px solid var(--line);cursor:pointer}
+.mlrow:first-child{border-top:0}.mlrow>span{display:flex;flex-direction:column;gap:1px;min-width:0}.mlrow b{font-size:.92rem;color:var(--ink);font-weight:700}.mlrow small{color:var(--muted);font-size:.8rem;line-height:1.35;font-weight:400}
+.mlrows>.note{margin:0;padding:8px 12px;border-top:1px solid var(--line)}
+.amails h4.mltest{margin-top:18px}
+.mlform{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.mlform input{grid-column:1/-1;min-height:46px}.mlform select{min-height:46px}.mlform button{grid-column:1/-1;min-height:48px}
+#ml_msg.ok{color:var(--green)}#ml_msg.err{color:var(--red)}
 </style>
 </head>
 <body>
@@ -1706,6 +1715,19 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
           <label class="chk"><input type="checkbox" id="remg_on"> <span data-i18n="a.rem_g_on">Send the reminders (Friday, 3 pm Sydney by default)</span></label>
           <p class="note" id="remg_n"></p>
           <details class="remoff" id="remoff"><summary><span data-i18n="a.roff_t">Unsubscribed members</span> <b id="remoff_n"></b></summary><ul id="remoff_list" class="remofl"></ul></details>
+        </div>
+        <div id="adm_mails" class="amails">
+          <h4 data-i18n="a.ml_t">Other automatic emails</h4>
+          <div id="ml_rows" class="mlrows"></div>
+          <h4 class="mltest" data-i18n="a.ml_test">Send a test email</h4>
+          <p class="note" data-i18n="a.ml_test_note">A sample with example data, marked [TEST]. Counts in the 90 emails a day.</p>
+          <div class="mlform">
+            <select id="ml_kind" aria-label="Email"></select>
+            <select id="ml_lang" aria-label="Language"><option value="fr">Français</option><option value="en">English</option><option value="es">Español</option><option value="it">Italiano</option><option value="pt">Português</option></select>
+            <input id="ml_to" type="email" inputmode="email" autocomplete="email" placeholder="email@example.com">
+            <button class="primary" id="ml_send" type="button" data-i18n="a.ml_send">Send the test</button>
+          </div>
+          <p class="note" id="ml_msg" role="status"></p>
         </div>
       </div>
     </section>
@@ -2313,6 +2335,31 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.ml_down":"The weekly-reminder function didn't answer. Redeploy it in Supabase.",
+  "a.ml_fail":"The email service refused the email. Check Resend.",
+  "a.ml_forbid":"Only an admin can send test emails.",
+  "a.ml_quota":"Daily limit of 90 emails reached. Try again tomorrow.",
+  "a.ml_bad":"Enter a valid email address.",
+  "a.ml_ok":"Sent to {to}. Check the inbox (and spam).",
+  "a.ml_sending":"Sending…",
+  "a.ml_send":"Send the test",
+  "a.ml_test_note":"A sample with example data, marked [TEST]. Counts in the 90 emails a day.",
+  "a.ml_test":"Send a test email",
+  "a.ml_nosql":"Run supabase_v29_mails_auto.sql in Supabase to use these emails.",
+  "a.ml_tipsoff":"{n} member(s) turned off tips emails.",
+  "a.ml_sent":"{n} sent in 7 days",
+  "a.ml_winback_d":"Once, after 30 days with no visit and no invoice",
+  "a.ml_winback":"We miss you",
+  "a.ml_fy_d":"24–30 June: yearly recap + download + tax calculator",
+  "a.ml_fy":"End of financial year",
+  "a.ml_lastfree_d":"Free account with 1 free invoice left (once)",
+  "a.ml_lastfree":"Last free invoice",
+  "a.ml_unpaid_d":"Premium: an invoice is past its due date and not marked paid",
+  "a.ml_unpaid":"Overdue invoice",
+  "a.ml_welcome_d":"Right after sign-up: first invoice in 3 steps",
+  "a.ml_welcome":"Welcome",
+  "a.ml_reminder":"Weekly reminder",
+  "a.ml_t":"Other automatic emails",
   "a.roff_admin":"Turned off by admin",
   "a.roff_user":"Unsubscribed (date unknown)",
   "a.roff_app":"Turned off in the app",
@@ -2822,6 +2869,31 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.ml_down":"La fonction weekly-reminder n'a pas répondu. Redéploie-la dans Supabase.",
+  "a.ml_fail":"Le service d'envoi a refusé le mail. Vérifie Resend.",
+  "a.ml_forbid":"Seul un admin peut envoyer des mails de test.",
+  "a.ml_quota":"Limite de 90 mails par jour atteinte. Réessaie demain.",
+  "a.ml_bad":"Entre une adresse email valide.",
+  "a.ml_ok":"Envoyé à {to}. Regarde la boîte de réception (et les spams).",
+  "a.ml_sending":"Envoi…",
+  "a.ml_send":"Envoyer le test",
+  "a.ml_test_note":"Un exemple avec des données fictives, marqué [TEST]. Compte dans les 90 mails par jour.",
+  "a.ml_test":"Envoyer un mail de test",
+  "a.ml_nosql":"Lance supabase_v29_mails_auto.sql dans Supabase pour utiliser ces mails.",
+  "a.ml_tipsoff":"{n} membre(s) ont coupé les mails conseils.",
+  "a.ml_sent":"{n} envoyé(s) en 7 jours",
+  "a.ml_winback_d":"Une fois, après 30 jours sans visite ni facture",
+  "a.ml_winback":"Tu nous manques",
+  "a.ml_fy_d":"Du 24 au 30 juin : récap de l'année + téléchargement + calculateur d'impôt",
+  "a.ml_fy":"Fin d'année fiscale",
+  "a.ml_lastfree_d":"Compte gratuit à 1 facture gratuite restante (une fois)",
+  "a.ml_lastfree":"Dernière facture gratuite",
+  "a.ml_unpaid_d":"Premium : une facture a dépassé son échéance sans être marquée payée",
+  "a.ml_unpaid":"Facture impayée",
+  "a.ml_welcome_d":"Juste après l'inscription : 1re facture en 3 étapes",
+  "a.ml_welcome":"Bienvenue",
+  "a.ml_reminder":"Rappel hebdo",
+  "a.ml_t":"Autres mails automatiques",
   "a.roff_admin":"Coupé par l'admin",
   "a.roff_user":"Désabonné (date inconnue)",
   "a.roff_app":"Coupé dans l'app",
@@ -7690,7 +7762,23 @@ async function loadRemOffs(){const ul=$("remoff_list");if(!ul)return;ul.innerHTM
   data.forEach(u=>{const li=document.createElement("li");const how=u.user_off?(u.via==="email"?t("a.roff_email"):u.via==="app"?t("a.roff_app"):t("a.roff_user")):t("a.roff_admin");
     li.innerHTML=`<button type="button" class="remofb"><span class="remofm"><strong></strong>${langTag(u.lang)}</span><small>${esc(how)}${u.off_at?" · "+esc(d8t(u.off_at)):""}</small></button>`;
     li.querySelector("strong").textContent=u.email||"";li.querySelector("button").onclick=()=>{admShow("users");openMember(u.user_id)};ul.appendChild(li)})}
-async function loadRemGlobal(){loadRemOffs();const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
+const ML_KINDS=["welcome","unpaid","lastfree","fy","winback"];
+async function loadMails(){const box=$("ml_rows");if(!box)return;
+  $("ml_kind").innerHTML=["reminder"].concat(ML_KINDS).map(k=>`<option value="${k}">${esc(t("a.ml_"+k))}</option>`).join("");
+  if(!$("ml_to").value&&session)$("ml_to").value=session.email||"";if(!$("ml_lang").dataset.set){$("ml_lang").value=I18N[lang]?lang:"fr";$("ml_lang").dataset.set=1}
+  const {data:r,error}=await sb.rpc("admin_mails",{});if(error||!r||!r.ok){box.innerHTML=`<p class="note">${esc(t("a.ml_nosql"))}</p>`;return}
+  box.innerHTML=ML_KINDS.map(k=>`<label class="mlrow"><span><b>${esc(t("a.ml_"+k))}</b><small>${esc(t("a.ml_"+k+"_d"))}${r.sent_7d&&r.sent_7d[k]?` · ${esc(t("a.ml_sent",{n:r.sent_7d[k]}))}`:""}</small></span><input type="checkbox" class="tgl" role="switch" data-ml="${k}"${r.mails[k]!==false?" checked":""}></label>`).join("")
+    +(r.tips_off?`<p class="note">${esc(t("a.ml_tipsoff",{n:r.tips_off}))}</p>`:"")}
+$("adm_mails").addEventListener("change",async e=>{const x=e.target.closest("[data-ml]");if(!x)return;x.disabled=true;
+  try{const {data:r,error}=await sb.rpc("admin_mails",{p_kind:x.dataset.ml,p_on:x.checked});if(error||!r||!r.ok)throw 0;$("adm_msg").textContent=t("a.done")}catch(z){admErr();x.checked=!x.checked}x.disabled=false});
+$("ml_send").onclick=async()=>{const b=$("ml_send"),to=$("ml_to").value.trim(),msg=$("ml_msg");msg.className="note";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(to)){msg.className="note err";msg.textContent=t("a.ml_bad");$("ml_to").focus();return}
+  b.disabled=true;msg.textContent=t("a.ml_sending");let st="";
+  try{const r=await sb.functions.invoke("weekly-reminder",{body:{kind:$("ml_kind").value,lang:$("ml_lang").value,to}});
+    st=r.data&&r.data.status;if(r.error){try{st=(await r.error.context.json()).status}catch(z){st="down"}}}catch(z){st="down"}
+  b.disabled=false;const ok=st==="sent";msg.className=ok?"note ok":"note err";
+  msg.textContent=t(ok?"a.ml_ok":st==="quota"?"a.ml_quota":st==="forbidden"?"a.ml_forbid":st==="send_failed"?"a.ml_fail":"a.ml_down",{to})};
+async function loadRemGlobal(){loadRemOffs();loadMails();const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
   $("remg_on").checked=!!r.on;$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(e){$("remg_n").textContent=t("a.err")}}
 $("remg_on").addEventListener("change",async e=>{const on=e.target.checked;e.target.disabled=true;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{p_on:on});if(error||!r||!r.ok)throw 0;$("adm_msg").textContent=t("a.done");$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(x){admErr();e.target.checked=!on}e.target.disabled=false});
 function annForm(){const v=id=>$(id).value.trim();return {on:$("ann_on").checked,type:$("ann_type").value,title_en:v("ann_ti_en"),title_fr:v("ann_ti_fr"),en:v("ann_en"),fr:v("ann_fr"),

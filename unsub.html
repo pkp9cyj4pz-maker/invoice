@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en-AU">
 <head>
-<meta name="color-scheme" content="dark">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
 <title>Reminder emails · SubbieBill</title>
 <meta name="robots" content="noindex">
 <meta name="description" content="Stop the SubbieBill weekly reminder emails.">
@@ -12,79 +12,88 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0C0F0E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=Big+Shoulders+Display:wght@900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=Big+Shoulders+Display:wght@900&display=swap">
 <style>
-:root{--bg:#EDEFEA;--paper:#FFFFFF;--ink:#15201B;--muted:#5D6963;--line:#D5DAD3;--accent:#E8590C;--accent-strong:#C24A08;--panel:#15201B;--on-panel:#F3F6F2;
---head:"Big Shoulders Display","Archivo Narrow","Arial Narrow",sans-serif;--body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif}
-@media all{:root{--bg:#0C0F0E;--paper:#151A18;--ink:#F4F7F5;--muted:#A0AAA5;--line:#26302B;--accent:#FF6F1F;--accent-strong:#FF8A45;--panel:#171D1A}}
+:root{--bg:#0C0F0E;--paper:#151A18;--panel:#171D1A;--line:#26302B;--ink:#F4F7F5;--muted:#A0AAA5;--accent:#FF6F1F;--accent2:#FF8A45;--green:#4ABE78;
+--head:"Big Shoulders Display","Archivo Narrow","Arial Narrow",sans-serif;--body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding:env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0)}
-a{color:var(--accent-strong);text-underline-offset:3px}
-a:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
-.wrap{max-width:760px;margin:0 auto}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0}
-.brand{display:flex;align-items:center;gap:8px;color:var(--ink);text-decoration:none;font:900 1.5rem/1 var(--head);letter-spacing:.01em}
-.brand img{width:32px;height:32px;border-radius:8px}
-.back{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--ink);text-decoration:none;font-weight:700;font-size:.92rem;white-space:nowrap}
-nav{display:flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px;margin:6px 0 18px}
-nav a{flex:1;text-align:center;padding:9px 6px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:700;font-size:.92rem}
-nav a[aria-current=page]{background:var(--panel);color:var(--on-panel)}
-@media all{nav a[aria-current=page]{background:var(--ink);color:var(--bg)}}
-main{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 20px 26px}
-h1{font:900 clamp(2.3rem,10vw,3.2rem)/1 var(--head);margin:0 0 6px;letter-spacing:.005em}
-.upd{color:var(--muted);font-size:.88rem;margin:0 0 16px}
-.lead{font-size:1.04rem}
-h2{font-size:1.08rem;margin:26px 0 6px;line-height:1.3}
-p{margin:0 0 10px}ul,ol{margin:0 0 10px;padding-left:22px}li{margin:4px 0}
-@media (max-width:420px){.bk2{display:none}}
-footer{color:var(--muted);font-size:.88rem;padding:20px 0 34px;display:flex;flex-direction:column;gap:4px}
-footer .links a{margin-right:14px}
-@media print{body{background:#fff}header,nav,footer .links{display:none}main{border:none;padding:0}}
-
-:root{color-scheme:dark}
-.res{border-radius:14px;padding:14px 16px;margin:0 0 16px;display:flex;gap:12px;align-items:center;border:1px solid var(--line)}
-.res b{display:block;font-size:1.08rem}.res span{color:var(--muted);font-size:.92rem}
-.ic{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1.15rem;flex:none}
-.ok{background:rgba(74,190,120,.12);border-color:rgba(74,190,120,.45)}.ok .ic{background:#4ABE78;color:#0D1311}
-.bad{background:rgba(255,122,47,.10);border-color:rgba(255,122,47,.45)}.bad .ic{background:var(--accent);color:#0D1311}
-dl{margin:0 0 16px;border:1px solid var(--line);border-radius:14px;padding:2px 16px}
-dl div{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line)}dl div:last-child{border:0}
-dt{color:var(--muted)}dd{margin:0;font-weight:700;text-align:right;overflow-wrap:anywhere}.tot dd{color:var(--accent);font-size:1.25rem}
-.warn{background:rgba(245,196,81,.08);border:1px solid rgba(245,196,81,.35);border-radius:14px;padding:12px 15px;font-size:.95rem;margin:0 0 16px}
-.warn b{color:#F5C451}
-form{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
-input{flex:1 1 180px;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:700 1.1rem/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;padding:0 14px;text-transform:uppercase}
-input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
-button{min-height:48px;border-radius:12px;border:0;background:var(--accent);color:#0D1311;font:700 1rem var(--body);padding:0 20px;cursor:pointer}
-.small{color:var(--muted);font-size:.88rem}
-.revd{border:1px solid var(--line);border-radius:14px;padding:12px 15px;margin:0 0 16px;font-size:.95rem}.revd b{display:block;margin-bottom:2px}.revd span{color:var(--muted)}
-.revd ul{list-style:none;margin:10px 0 0;padding:0}.revd li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:.9rem}.revd li span{color:var(--muted)}.revd li.cur span,.revd li.cur b{color:var(--ink)}
+body{margin:0;min-height:100dvh;background:radial-gradient(620px 420px at 50% -8%,rgba(255,111,31,.16),transparent 70%),var(--bg);color:var(--ink);font:16px/1.55 var(--body);
+  display:flex;flex-direction:column;padding:env(safe-area-inset-top,0) 16px env(safe-area-inset-bottom,0)}
+a{color:var(--accent2);text-underline-offset:3px}
+header{display:flex;align-items:center;justify-content:center;padding:22px 0 8px}
+.brand{display:flex;align-items:center;gap:9px;color:var(--ink);text-decoration:none;font:900 1.55rem/1 var(--head);letter-spacing:.01em}
+.brand img{width:34px;height:34px;border-radius:9px}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 0 28px}
+.card{width:100%;max-width:420px;background:linear-gradient(180deg,#18201C,var(--paper));border:1px solid var(--line);border-radius:24px;padding:34px 24px 26px;text-align:center;
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.ic{width:76px;height:76px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;position:relative}
+.ic svg{width:36px;height:36px}
+.ic.load{border:3px solid var(--line);border-top-color:var(--accent);animation:spin .8s linear infinite}
+.ic.ok{background:rgba(74,190,120,.14);color:var(--green);box-shadow:0 0 0 8px rgba(74,190,120,.06)}
+.ic.on{background:rgba(255,111,31,.14);color:var(--accent);box-shadow:0 0 0 8px rgba(255,111,31,.06)}
+.ic.bad{background:rgba(245,196,81,.12);color:#F5C451;box-shadow:0 0 0 8px rgba(245,196,81,.05)}
+.ic.pop{animation:pop .45s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+h1{font:900 clamp(2.1rem,9vw,2.6rem)/1.02 var(--head);margin:0 0 10px;letter-spacing:.005em}
+.sub{color:var(--muted);margin:0 auto 24px;max-width:320px}
+.btns{display:flex;flex-direction:column;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border-radius:14px;font:800 1rem var(--body);text-decoration:none;cursor:pointer;border:0;padding:0 18px}
+.btn.pri{background:var(--accent);color:#15201B}
+.btn.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sec:hover{border-color:#3A463F}
+.btn:disabled{opacity:.55;cursor:default}
+.note{margin:18px 0 0;font-size:.84rem;color:var(--muted)}
+.err{color:#F97066;font-size:.88rem;margin:10px 0 0;min-height:1.2em}
+footer{text-align:center;color:#6F7A75;font-size:.8rem;padding:0 0 26px;display:flex;flex-direction:column;gap:6px}
+footer .links{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 16px}footer a{color:#8D9893;text-decoration:none}footer a:hover{color:var(--ink)}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){.ic.load,.ic.pop{animation:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header><a class="brand" href="./"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+Cg==" alt="">SubbieBill</a><a class="back" href="./">← Back<span class="bk2">&nbsp;to SubbieBill</span></a></header>
-
-<main>
-<h1 id="h">Reminder emails</h1>
-<div id="out" aria-live="polite"><p class="small" id="wait">…</p></div>
-<p class="small" id="more"></p>
-</main>
-<footer><span>SubbieBill · Invoicing for ABN workers and subcontractors in Australia</span><span>ABN 50 115 971 254</span><span>Contact: <a href="mailto:support@subbiebill.com">support@subbiebill.com</a></span><span class="links"><a href="terms.html">Terms of Service</a> <a href="refunds.html">Refund Policy</a> <a href="privacy.html">Privacy Policy</a></span></footer>
-</div>
+<header><a class="brand" href="./"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CiAgPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTQiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTggMjdINDZWNTNMNDIgNTBMMzggNTNMMzQgNTBMMzAgNTNMMjYgNTBMMjIgNTNMMTggNTBaIiBmaWxsPSIjRkZGRkZGIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjM1IiB3aWR0aD0iMTgiIGhlaWdodD0iMy4yIiByeD0iMS42IiBmaWxsPSIjMUExRjFDIi8+CiAgPHJlY3QgeD0iMjMiIHk9IjQxLjUiIHdpZHRoPSIxMSIgaGVpZ2h0PSIzLjIiIHJ4PSIxLjYiIGZpbGw9IiMxQTFGMUMiLz4KICA8cGF0aCBkPSJNMTcuNSAyNy41QzE3LjUgMTguNiAyNCAxMi41IDMyIDEyLjVDNDAgMTIuNSA0Ni41IDE4LjYgNDYuNSAyNy41WiIgZmlsbD0iI0U4NTkwQyIvPgogIDxyZWN0IHg9IjI5LjYiIHk9IjEyLjUiIHdpZHRoPSI0LjgiIGhlaWdodD0iMTIiIHJ4PSIyLjQiIGZpbGw9IiNDMjQ3MEEiLz4KICA8cmVjdCB4PSIxMiIgeT0iMjUuNSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjUiIHJ4PSIyLjUiIGZpbGw9IiNFODU5MEMiLz4KPC9zdmc+Cg==" alt="">SubbieBill</a></header>
+<main><div class="card" aria-live="polite">
+  <div class="ic load" id="ic" aria-hidden="true"></div>
+  <h1 id="h">…</h1>
+  <p class="sub" id="sub"></p>
+  <div class="btns" id="btns" hidden>
+    <a class="btn pri" id="go" href="./"></a>
+    <button class="btn sec" id="re" type="button" hidden></button>
+  </div>
+  <p class="err" id="err" role="alert"></p>
+  <p class="note" id="note"></p>
+</div></main>
+<footer><span>SubbieBill · Invoicing for ABN workers in Australia · ABN 50 115 971 254</span><span class="links"><a href="mailto:support@subbiebill.com">support@subbiebill.com</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></span></footer>
 <script>
 (function(){
-var URL="https://snfcqaubjscxgxjyugas.supabase.co/rest/v1/rpc/reminder_unsubscribe",KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
-var fr=/^fr/i.test(navigator.language||""),T=fr?{h:"Rappels par mail",ok:"C'est fait",okd:"Tu ne recevras plus le rappel hebdo de SubbieBill.",bad:"Lien invalide",badd:"Ce lien ne fonctionne pas. Tu peux couper les rappels dans l'app : Paramètres → Rappel hebdo.",err:"Impossible pour le moment",errd:"Vérifie ta connexion et recharge la page.",more:"Tu peux les réactiver quand tu veux dans l'app : Paramètres → Rappel hebdo."}
- :{h:"Reminder emails",ok:"Done",okd:"You won't get the SubbieBill weekly reminder any more.",bad:"Invalid link",badd:"This link doesn't work. You can turn reminders off in the app: Settings → Weekly reminder.",err:"Couldn't do it right now",errd:"Check your connection and reload the page.",more:"You can turn them back on anytime in the app: Settings → Weekly reminder."};
-var out=document.getElementById("out");document.getElementById("h").textContent=T.h;if(fr)document.documentElement.lang="fr";
-function box(cls,ic,t,sub){out.innerHTML='<div class="res '+cls+'"><div class="ic" aria-hidden="true">'+ic+'</div><div><b></b><span></span></div></div>';out.querySelector("b").textContent=t;out.querySelector("span").textContent=sub}
-var tok=(new URLSearchParams(location.search).get("t")||"").toLowerCase();
-if(!/^[a-f0-9]{32}$/.test(tok)){box("bad","?",T.bad,T.badd);return}
-fetch(URL,{method:"POST",headers:{"apikey":KEY,"Content-Type":"application/json"},body:JSON.stringify({p_token:tok})})
- .then(function(x){return x.ok?x.json():null}).then(function(r){
-   if(r&&r.ok){box("ok","✓",T.ok,T.okd);document.getElementById("more").textContent=T.more}else if(r){box("bad","?",T.bad,T.badd)}else box("bad","!",T.err,T.errd)})
- .catch(function(){box("bad","!",T.err,T.errd)});
+var BASE="https://snfcqaubjscxgxjyugas.supabase.co/rest/v1/rpc/",KEY="sb_publishable_bwuS5mtQwibK76OlJh93tQ_pOh7rg6G";
+var D={
+ en:{tok:"You're unsubscribed",tokd:"You won't get SubbieBill tips any more (last free invoice, year-end recap, news). Important emails and your weekly reminder settings don't change.",treok:"Emails are back on",treokd:"You'll get SubbieBill tips again.",t:"Reminder emails",ok:"You're unsubscribed",okd:"You won't get the SubbieBill weekly reminder any more.",go:"Open SubbieBill",re:"I made a mistake, turn them back on",reok:"Reminders are back on",reokd:"You'll get your weekly reminder again. You can change the day in Settings → Weekly reminder.",note:"You can turn them back on anytime in the app: Settings → Weekly reminder.",bad:"This link doesn't work",badd:"You can turn reminders off in the app: Settings → Weekly reminder.",err:"Couldn't do it right now",errd:"Check your connection and try again.",retry:"Try again"},
+ fr:{tok:"Tu es désabonné",tokd:"Tu ne recevras plus les conseils de SubbieBill (dernière facture gratuite, récap de fin d'année, nouveautés). Les mails importants et ton rappel hebdo ne changent pas.",treok:"Mails réactivés",treokd:"Tu recevras à nouveau les conseils de SubbieBill.",t:"Rappels par mail",ok:"Tu es désabonné",okd:"Tu ne recevras plus le rappel hebdo de SubbieBill.",go:"Ouvrir SubbieBill",re:"Je me suis trompé, les réactiver",reok:"Rappels réactivés",reokd:"Tu recevras à nouveau ton rappel chaque semaine. Tu peux changer le jour dans Paramètres → Rappel hebdo.",note:"Tu peux les réactiver quand tu veux dans l'app : Paramètres → Rappel hebdo.",bad:"Ce lien ne fonctionne pas",badd:"Tu peux couper les rappels dans l'app : Paramètres → Rappel hebdo.",err:"Impossible pour le moment",errd:"Vérifie ta connexion et réessaie.",retry:"Réessayer"},
+ es:{tok:"Te has dado de baja",tokd:"Ya no recibirás los consejos de SubbieBill (última factura gratis, resumen de fin de año, novedades). Los emails importantes y tu recordatorio semanal no cambian.",treok:"Emails reactivados",treokd:"Volverás a recibir los consejos de SubbieBill.",t:"Recordatorios por email",ok:"Te has dado de baja",okd:"Ya no recibirás el recordatorio semanal de SubbieBill.",go:"Abrir SubbieBill",re:"Me equivoqué, reactivarlos",reok:"Recordatorios reactivados",reokd:"Volverás a recibir tu recordatorio semanal. Puedes cambiar el día en Ajustes → Recordatorio semanal.",note:"Puedes reactivarlos cuando quieras en la app: Ajustes → Recordatorio semanal.",bad:"Este enlace no funciona",badd:"Puedes desactivar los recordatorios en la app: Ajustes → Recordatorio semanal.",err:"No se pudo hacer ahora",errd:"Revisa tu conexión e inténtalo de nuevo.",retry:"Reintentar"},
+ it:{tok:"Disiscrizione fatta",tokd:"Non riceverai più i consigli di SubbieBill (ultima fattura gratuita, riepilogo di fine anno, novità). Le email importanti e il promemoria settimanale non cambiano.",treok:"Email riattivate",treokd:"Riceverai di nuovo i consigli di SubbieBill.",t:"Promemoria via email",ok:"Disiscrizione fatta",okd:"Non riceverai più il promemoria settimanale di SubbieBill.",go:"Apri SubbieBill",re:"Ho sbagliato, riattivali",reok:"Promemoria riattivati",reokd:"Riceverai di nuovo il promemoria ogni settimana. Puoi cambiare il giorno in Impostazioni → Promemoria settimanale.",note:"Puoi riattivarli quando vuoi nell'app: Impostazioni → Promemoria settimanale.",bad:"Questo link non funziona",badd:"Puoi disattivare i promemoria nell'app: Impostazioni → Promemoria settimanale.",err:"Impossibile al momento",errd:"Controlla la connessione e riprova.",retry:"Riprova"},
+ pt:{tok:"Você foi descadastrado",tokd:"Você não vai mais receber as dicas do SubbieBill (última fatura grátis, resumo de fim de ano, novidades). Os emails importantes e seu lembrete semanal não mudam.",treok:"Emails reativados",treokd:"Você vai receber as dicas do SubbieBill de novo.",t:"Lembretes por email",ok:"Você foi descadastrado",okd:"Você não vai mais receber o lembrete semanal do SubbieBill.",go:"Abrir o SubbieBill",re:"Me enganei, reativar",reok:"Lembretes reativados",reokd:"Você vai receber o lembrete semanal de novo. Pode mudar o dia em Configurações → Lembrete semanal.",note:"Você pode reativar quando quiser no app: Configurações → Lembrete semanal.",bad:"Este link não funciona",badd:"Você pode desativar os lembretes no app: Configurações → Lembrete semanal.",err:"Não foi possível agora",errd:"Verifique sua conexão e tente de novo.",retry:"Tentar de novo"}
+};
+var q=new URLSearchParams(location.search),l=(q.get("l")||"").toLowerCase();
+if(!D[l]){var nl=(navigator.language||"en").slice(0,2).toLowerCase();l=D[nl]?nl:"en"}
+var T=D[l],$=function(i){return document.getElementById(i)};
+document.documentElement.lang=l==="en"?"en-AU":l;document.title=T.t+" · SubbieBill";
+var SV={ok:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+ on:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
+ bad:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v5"/><path d="M12 16.5h.01"/><circle cx="12" cy="12" r="9"/></svg>'};
+function show(kind,h,sub,note){var ic=$("ic");ic.className="ic pop "+kind;ic.innerHTML=SV[kind];$("h").textContent=h;$("sub").textContent=sub;$("note").textContent=note||"";$("btns").hidden=false;$("go").textContent=T.go;$("err").textContent=""}
+function call(fn,tok,on){var body={p_token:tok};if(fn==="mail_tips_set")body.p_on=!!on;return fetch(BASE+fn,{method:"POST",headers:{"apikey":KEY,"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(x){return x.ok?x.json():null})}
+var tok=(q.get("t")||"").toLowerCase(),TIPS=q.get("k")==="tips";
+if(!/^[a-f0-9]{32}$/.test(tok)){show("bad",T.bad,T.badd);return}
+function unsub(){(TIPS?call("mail_tips_set",tok,false):call("reminder_unsubscribe",tok)).then(function(r){
+  if(r&&r.ok){if(TIPS)show("ok",T.tok,T.tokd);else show("ok",T.ok,T.okd,T.note);var b=$("re");b.hidden=false;b.textContent=T.re;b.disabled=false}
+  else if(r)show("bad",T.bad,T.badd);
+  else{show("bad",T.err,T.errd);var b=$("re");b.hidden=false;b.textContent=T.retry;b.onclick=function(){location.reload()}}
+ }).catch(function(){show("bad",T.err,T.errd);var b=$("re");b.hidden=false;b.textContent=T.retry;b.onclick=function(){location.reload()}})}
+$("re").onclick=function(){var b=$("re");b.disabled=true;(TIPS?call("mail_tips_set",tok,true):call("reminder_resubscribe",tok)).then(function(r){
+  if(r&&r.ok){if(TIPS)show("on",T.treok,T.treokd);else show("on",T.reok,T.reokd);b.hidden=true}else{b.disabled=false;$("err").textContent=T.errd}}).catch(function(){b.disabled=false;$("err").textContent=T.errd})};
+document.getElementById("h").textContent=T.t;unsub();
 })();
 </script>
 </body>
