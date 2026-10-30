@@ -1572,6 +1572,14 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .menupop>*{flex-shrink:0}
 .menupop{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .alang{flex:none;margin-left:6px;font:700 .62rem/1 var(--mono);letter-spacing:.04em;padding:3px 5px;border-radius:5px;border:1px solid var(--line);color:var(--muted);background:var(--field);vertical-align:1px}
+.remoff{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:var(--field)}
+.remoff>summary{cursor:pointer;padding:10px 12px;font-weight:700;font-size:.92rem;display:flex;align-items:center;gap:8px}
+.remoff>summary b{font:700 .8rem/1 var(--mono);padding:3px 7px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+.remofl{list-style:none;margin:0;padding:0 6px 6px;display:flex;flex-direction:column;gap:4px}
+.remofl li.muted{padding:4px 8px 8px;font-size:.88rem}
+.remofb{width:100%;min-height:0;text-align:left;display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;font:inherit}
+.remofm{display:flex;align-items:center;gap:0;min-width:0}.remofm strong{font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.remofb small{color:var(--muted);font-size:.78rem}
 </style>
 </head>
 <body>
@@ -1697,6 +1705,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
           <h4 data-i18n="a.rem_g_t">Weekly reminder emails</h4>
           <label class="chk"><input type="checkbox" id="remg_on"> <span data-i18n="a.rem_g_on">Send the reminders (Friday, 3 pm Sydney by default)</span></label>
           <p class="note" id="remg_n"></p>
+          <details class="remoff" id="remoff"><summary><span data-i18n="a.roff_t">Unsubscribed members</span> <b id="remoff_n"></b></summary><ul id="remoff_list" class="remofl"></ul></details>
         </div>
       </div>
     </section>
@@ -2304,6 +2313,12 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "a.roff_admin":"Turned off by admin",
+  "a.roff_user":"Unsubscribed (date unknown)",
+  "a.roff_app":"Turned off in the app",
+  "a.roff_email":"Unsubscribed from the email",
+  "a.roff_none":"Nobody has unsubscribed.",
+  "a.roff_t":"Unsubscribed members",
   "a.lang_none":"Not set (English)",
   "a.f_lang":"App language",
   "h.free_del":"Deleting an invoice doesn't give you back a free one.",
@@ -2807,6 +2822,12 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "a.roff_admin":"Coupé par l'admin",
+  "a.roff_user":"Désabonné (date inconnue)",
+  "a.roff_app":"Coupé dans l'app",
+  "a.roff_email":"Désabonné depuis le mail",
+  "a.roff_none":"Personne ne s'est désabonné.",
+  "a.roff_t":"Membres désabonnés",
   "a.lang_none":"Pas choisie (anglais)",
   "a.f_lang":"Langue de l'app",
   "h.free_del":"Supprimer une facture ne te rend pas de facture gratuite.",
@@ -3304,6 +3325,12 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "a.roff_admin":"Desactivado por el admin",
+  "a.roff_user":"Baja (fecha desconocida)",
+  "a.roff_app":"Desactivado en la app",
+  "a.roff_email":"Baja desde el email",
+  "a.roff_none":"Nadie se ha dado de baja.",
+  "a.roff_t":"Miembros dados de baja",
   "a.lang_none":"Sin elegir (inglés)",
   "a.f_lang":"Idioma de la app",
   "h.free_del":"Eliminar una factura no te devuelve una gratis.",
@@ -3838,6 +3865,12 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "a.roff_admin":"Disattivato dall'admin",
+  "a.roff_user":"Disiscritto (data sconosciuta)",
+  "a.roff_app":"Disattivato nell'app",
+  "a.roff_email":"Disiscritto dall'email",
+  "a.roff_none":"Nessuno si è disiscritto.",
+  "a.roff_t":"Membri disiscritti",
   "a.lang_none":"Non scelta (inglese)",
   "a.f_lang":"Lingua dell'app",
   "h.free_del":"Eliminare una fattura non te ne restituisce una gratuita.",
@@ -4521,6 +4554,12 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "a.roff_admin":"Desativado pelo admin",
+  "a.roff_user":"Descadastrou (data desconhecida)",
+  "a.roff_app":"Desativou no app",
+  "a.roff_email":"Descadastrou pelo email",
+  "a.roff_none":"Ninguém se descadastrou.",
+  "a.roff_t":"Membros descadastrados",
   "a.lang_none":"Não escolhido (inglês)",
   "a.f_lang":"Idioma do app",
   "h.free_del":"Excluir uma fatura não devolve uma grátis.",
@@ -7645,7 +7684,13 @@ async function memberRemind(id,set){const box=$("md_remind");if(!box)return;
   const st=r.on?t("a.rem_on",{day:rmDayName(r.day||5)}):(r.admin_off?t("a.rem_admin_off"):t("a.rem_user_off"));
   $("md_remind").innerHTML=`<div class="mremrow"><span class="mstat${r.on?" on":""}"><i></i>${esc(st)}</span>${r.admin_off||!r.on?`<button type="button" class="mbtn" id="md_rem_on">${esc(t("a.rem_turn_on"))}</button>`:`<button type="button" class="mbtn" id="md_rem_off">${esc(t("a.rem_turn_off"))}</button>`}</div>${r.last?`<small class="muted mremlast">${esc(t("a.rem_last",{d:d8t(r.last)}))}</small>`:""}`;
   const on=$("md_rem_on"),off=$("md_rem_off");if(on)on.onclick=()=>{on.disabled=true;memberRemind(id,true)};if(off)off.onclick=()=>{off.disabled=true;memberRemind(id,false)}}
-async function loadRemGlobal(){const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
+async function loadRemOffs(){const ul=$("remoff_list");if(!ul)return;ul.innerHTML="";$("remoff_n").textContent="";
+  const {data,error}=await sb.rpc("admin_reminder_offs");if(error||!Array.isArray(data)){ul.innerHTML=`<li class="muted">${esc(t("a.err"))}</li>`;return}
+  $("remoff_n").textContent=data.length;if(!data.length){ul.innerHTML=`<li class="muted">${esc(t("a.roff_none"))}</li>`;return}
+  data.forEach(u=>{const li=document.createElement("li");const how=u.user_off?(u.via==="email"?t("a.roff_email"):u.via==="app"?t("a.roff_app"):t("a.roff_user")):t("a.roff_admin");
+    li.innerHTML=`<button type="button" class="remofb"><span class="remofm"><strong></strong>${langTag(u.lang)}</span><small>${esc(how)}${u.off_at?" · "+esc(d8t(u.off_at)):""}</small></button>`;
+    li.querySelector("strong").textContent=u.email||"";li.querySelector("button").onclick=()=>{admShow("users");openMember(u.user_id)};ul.appendChild(li)})}
+async function loadRemGlobal(){loadRemOffs();const box=$("adm_remg");if(!box)return;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{});if(error||!r||!r.ok)throw 0;
   $("remg_on").checked=!!r.on;$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(e){$("remg_n").textContent=t("a.err")}}
 $("remg_on").addEventListener("change",async e=>{const on=e.target.checked;e.target.disabled=true;try{const {data:r,error}=await sb.rpc("admin_reminders_global",{p_on:on});if(error||!r||!r.ok)throw 0;$("adm_msg").textContent=t("a.done");$("remg_n").textContent=t("a.rem_g_n",{n:r.subscribed})}catch(x){admErr();e.target.checked=!on}e.target.disabled=false});
 function annForm(){const v=id=>$(id).value.trim();return {on:$("ann_on").checked,type:$("ann_type").value,title_en:v("ann_ti_en"),title_fr:v("ann_ti_fr"),en:v("ann_en"),fr:v("ann_fr"),
