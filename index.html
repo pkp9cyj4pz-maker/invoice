@@ -1589,6 +1589,11 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .mlform{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .mlform input{grid-column:1/-1;min-height:46px}.mlform select{min-height:46px}.mlform button{grid-column:1/-1;min-height:48px}
 #ml_msg.ok{color:var(--green)}#ml_msg.err{color:var(--red)}
+.pvlock{display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:8px 8px 8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--field)}
+.pvlock[hidden]{display:none}
+.pvlico{flex:none;color:var(--gold);display:grid;place-items:center}
+.pvltx{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}.pvltx b{font-size:.86rem;line-height:1.3}.pvltx small{font-size:.76rem;color:var(--muted);line-height:1.3}
+.pvlbtn{flex:none;display:inline-flex;align-items:center;gap:5px;min-height:34px;padding:0 11px;border-radius:999px;font-weight:800;font-size:.8rem;background:linear-gradient(180deg,#FFE9A3,#F5C542 55%,#D99A1E);color:#3A2500;border:0;cursor:pointer}
 </style>
 </head>
 <body>
@@ -1749,6 +1754,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 
     <section id="p_preview" hidden data-i18n-title="pv.title">
       <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice. Finish the invoice to get the real PDF.</p>
+      <div class="pvlock" id="pv_lock" hidden><span class="pvlico" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="pvltx"><b data-i18n="pv.lock_t">Details hidden</b><small data-i18n="pv.lock_s">Your final PDF will be complete.</small></span><button type="button" class="pvlbtn" id="pv_lock_pro"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5z"/></svg><span data-i18n="pv.lock_b">See all</span></button></div>
       <div id="pv_pages" class="pvpages"></div>
       <p class="note qrnote" id="pv_qr" hidden><span data-i18n="qr.note">On the free plan, a small SubbieBill verification code is printed at the bottom of your invoices. Premium removes it.</span> <button type="button" class="linkbtn qrprem" data-i18n="qr.cta">Remove it with Premium</button></p>
     </section>
@@ -2335,6 +2341,10 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "p.why_pv":"With Premium, the preview shows your full invoice.",
+  "pv.lock_b":"See all",
+  "pv.lock_s":"Your final PDF will be complete.",
+  "pv.lock_t":"Details hidden",
   "a.ml_down":"The weekly-reminder function didn't answer. Redeploy it in Supabase.",
   "a.ml_fail":"The email service refused the email. Check Resend.",
   "a.ml_forbid":"Only an admin can send test emails.",
@@ -2869,6 +2879,10 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "p.why_pv":"Avec Premium, l'aperçu montre ta facture en entier.",
+  "pv.lock_b":"Tout voir",
+  "pv.lock_s":"Ton PDF final sera complet.",
+  "pv.lock_t":"Détails masqués",
   "a.ml_down":"La fonction weekly-reminder n'a pas répondu. Redéploie-la dans Supabase.",
   "a.ml_fail":"Le service d'envoi a refusé le mail. Vérifie Resend.",
   "a.ml_forbid":"Seul un admin peut envoyer des mails de test.",
@@ -3397,6 +3411,10 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "p.why_pv":"Con Premium, la vista previa muestra tu factura completa.",
+  "pv.lock_b":"Ver todo",
+  "pv.lock_s":"Tu PDF final estará completo.",
+  "pv.lock_t":"Detalles ocultos",
   "a.roff_admin":"Desactivado por el admin",
   "a.roff_user":"Baja (fecha desconocida)",
   "a.roff_app":"Desactivado en la app",
@@ -3937,6 +3955,10 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "p.why_pv":"Con Premium, l'anteprima mostra la fattura completa.",
+  "pv.lock_b":"Vedi tutto",
+  "pv.lock_s":"Il PDF finale sarà completo.",
+  "pv.lock_t":"Dettagli nascosti",
   "a.roff_admin":"Disattivato dall'admin",
   "a.roff_user":"Disiscritto (data sconosciuta)",
   "a.roff_app":"Disattivato nell'app",
@@ -4626,6 +4648,10 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "p.why_pv":"Com o Premium, a prévia mostra sua fatura completa.",
+  "pv.lock_b":"Ver tudo",
+  "pv.lock_s":"Seu PDF final ficará completo.",
+  "pv.lock_t":"Detalhes ocultos",
   "a.roff_admin":"Desativado pelo admin",
   "a.roff_user":"Descadastrou (data desconhecida)",
   "a.roff_app":"Desativou no app",
@@ -7127,7 +7153,7 @@ function renderInvoice(JsPDF, me, inv) {
   drawInvoice(doc, me, inv);
   return new Uint8Array(doc.output("arraybuffer"));
 }
-function drawInvoice(doc, me, inv) {
+function drawInvoice(doc, me, inv, ro) {
   /* Classic layout (based on Thomas's own invoice). Only billable lines are printed; every figure comes from invCalc().
      "TAX INVOICE" only when the supplier is registered for GST and GST applies (ATO: the document must say it is a tax invoice;
      business.gov.au: a business not registered for GST must not use the words "tax invoice"). */
@@ -7140,6 +7166,8 @@ function drawInvoice(doc, me, inv) {
   const calc = invCalc({ ...inv, rows: Array.isArray(inv.rows) ? inv.rows.slice(0, 62) : [] }, me);
   const title = calc.taxable ? "TAX INVOICE" : "INVOICE";
   const STEP = 5.2, BOTTOM = 272;
+  const RED = !!(ro && ro.redact && typeof doc.bar === "function");
+  const sx = (s, x, y, o) => RED ? doc.bar(s, x, y, o) : doc.text(s, x, y, o);   /* sensitive text */
 
   // title
   font("bold", 22); col(tcolRGB(me.tcol) || ORANGE); doc.text(title, L, 24.7);
@@ -7155,7 +7183,7 @@ function drawInvoice(doc, me, inv) {
   font("normal", 9);
   [me.abn ? "ABN number: " + String(me.abn).replace(/\D/g, "") : "", me.email, me.phone, me.addr,
    me.bsb ? "BSB: " + me.bsb : "", me.acc ? "Account number: " + me.acc : ""]
-    .filter(Boolean).forEach((s) => { doc.text(fit(s, 95), L, ly); ly += STEP; });
+    .filter(Boolean).forEach((s) => { sx(fit(s, 95), L, ly); ly += STEP; });
 
   // invoice info (right): labels right-aligned, values right-aligned
   let ry = 37;
@@ -7188,13 +7216,13 @@ function drawInvoice(doc, me, inv) {
     if (y > BOTTOM) newPage();
     font("normal", 9); col(INK);
     const ex = l.kind === "exp", fx = l.kind === "fixed";
-    if (fx) doc.text(l.from && l.to ? (l.from === l.to ? pdm(l.from) : `${pdm(l.from)} – ${pdm(l.to)}`) : "", C.date, y);
-    else if (!ex) doc.text(pdm(l.date), C.date, y);
-    if (l.loc) doc.text(fit(l.loc, FIX ? 36 : 47), C.loc, y);
-    doc.text(fit(l.desc, ex ? (FIX ? 98 : 82) : (FIX ? 76 : 33)), ex ? C.loc : C.desc, y);
-    if (!ex && !fx) doc.text(l.kind === "day" ? String(l.qty || 1) : phrs(l.hours), C.qty, y, { align: "right" });
-    if (!ex && !fx) doc.text(c2(l.rate), C.rate, y, { align: "right" });
-    doc.text(c2(l.amt), C.amt, y, { align: "right" });
+    if (fx) sx(l.from && l.to ? (l.from === l.to ? pdm(l.from) : `${pdm(l.from)} – ${pdm(l.to)}`) : "", C.date, y);
+    else if (!ex) sx(pdm(l.date), C.date, y);
+    if (l.loc) sx(fit(l.loc, FIX ? 36 : 47), C.loc, y);
+    sx(fit(l.desc, ex ? (FIX ? 98 : 82) : (FIX ? 76 : 33)), ex ? C.loc : C.desc, y);
+    if (!ex && !fx) sx(l.kind === "day" ? String(l.qty || 1) : phrs(l.hours), C.qty, y, { align: "right" });
+    if (!ex && !fx) sx(c2(l.rate), C.rate, y, { align: "right" });
+    sx(c2(l.amt), C.amt, y, { align: "right" });
     hline(y + 3.2, LINE, 0.25); y += 8;
   });
 
@@ -7259,6 +7287,9 @@ class CanvasDoc {
   rect(x, y, w, h) { const c = this.cur; c.fillStyle = this.bg || "#eee"; c.fillRect(x * this.k, y * this.k, w * this.k, h * this.k); }
   line(x1, y1, x2, y2) { const c = this.cur; c.strokeStyle = this.stroke; c.lineWidth = this.lw * this.k; c.beginPath(); c.moveTo(x1 * this.k, y1 * this.k); c.lineTo(x2 * this.k, y2 * this.k); c.stroke(); }
   text(t, x, y, o) { const c = this.cur; this._font(c); c.fillStyle = this.fill; c.textBaseline = "alphabetic"; c.textAlign = o && o.align === "right" ? "right" : "left"; c.fillText(String(t), x * this.k, y * this.k); }
+  bar(t, x, y, o) { const s = String(t || ""); if (!s.trim()) return; const c = this.cur; this._font(c);
+    const w = Math.max(c.measureText(s).width, this.k * 3), h = this.size * 0.3528 * this.k * 0.78, X = (o && o.align === "right" ? x * this.k - w : x * this.k), Y = y * this.k - h * 0.92;
+    c.fillStyle = "#E4E8E3"; const r = h / 2; c.beginPath(); c.moveTo(X + r, Y); c.arcTo(X + w, Y, X + w, Y + h, r); c.arcTo(X + w, Y + h, X, Y + h, r); c.arcTo(X, Y + h, X, Y, r); c.arcTo(X, Y, X + w, Y, r); c.closePath(); c.fill(); }
   splitTextToSize(t, w) { const c = this.cur; this._font(c); const max = w * this.k, out = []; let line = "";
     String(t).split(/\s+/).filter(Boolean).forEach((word) => { const tryL = line ? line + " " + word : word;
       if (c.measureText(tryL).width <= max || !line) line = tryL; else { out.push(line); line = word; } });
@@ -7302,6 +7333,7 @@ $("il_file").addEventListener("change",async e=>{const fl=e.target.files&&e.targ
   if(!/^image\/(png|jpeg|webp)$/.test(fl.type)){$("il_note").textContent=t("lg2.bad");return}
   try{const d=await logoFromFile(fl);P().logo=d;logoPreload(d);renderLogoUI();save();flushSave();$("il_note").textContent=t("lg2.saved")}catch(x){$("il_note").textContent=t("lg2.bad")}});
 $("il_del").onclick=()=>{P().logo="";renderLogoUI();save();flushSave()};
+$("pv_lock_pro").onclick=()=>{if(isGuest()){openSheet("p_gsign");return}showPremium("p.why_pv")};
 $("m_brand").addEventListener("click",()=>{renderLogoUI();setTimeout(()=>{const b=$("ilogo");if(!b)return;b.scrollIntoView({block:"end",behavior:"smooth"});b.classList.add("flash");setTimeout(()=>b.classList.remove("flash"),1400)},380)});
 $("tc_sw").addEventListener("click",e=>{const b=e.target.closest("[data-tc]");if(!b)return;if(isGuest()){openSheet("p_gsign");return}if(!plan.premium){showPremium("p.why_tcol");return}
   P().tcol=b.dataset.tc===TCOLS[0]?"":b.dataset.tc;renderTcol();save()});
@@ -7309,13 +7341,13 @@ function previewInvoice(o) {
   const p = P(), ME2 = { name: fullName(p) || p.name, abn: p.abn, email: p.email, phone: p.phone, addr: p.addr, bsb: p.bsb, acc: p.acc, gst: !!p.gstReg, logo: myLogo(), tcol: myTcol() };
   const inv = clone(I()); if (!locked()) settleDates(inv);
   const free = QR_ON && (isGuest() || !plan.premium); if (free && !inv.vcode) inv.vcode = "XXXX-XXXX"; if (!free) delete inv.vcode;
-  showPreview(ME2, inv, { mark: true, back: o && o.back, qr: free });
+  showPreview(ME2, inv, { mark: true, back: o && o.back, qr: free, redact: isGuest() || !plan.premium });
 }
 let pvBack = null;   /* "admin": closing the preview goes back to the admin panel where it was */
 function showPreview(me, inv, opts) {
   opts = opts || {};
   const doc = new CanvasDoc(Math.min(6, Math.max(3.5, (window.devicePixelRatio || 1) * 2.4)));
-  drawInvoice(doc, me, inv); $("pv_qr").hidden = !opts.qr;
+  drawInvoice(doc, me, inv, { redact: !!opts.redact }); $("pv_qr").hidden = !opts.qr; $("pv_lock").hidden = !opts.redact;
   const label = t("pv.mark"), box = $("pv_pages"); box.innerHTML = "";
   doc.pages.forEach((cv, i) => { if (opts.mark) watermark(cv, label); cv.className = "pvpage"; cv.setAttribute("role", "img"); cv.setAttribute("aria-label", `${t("pv.title")} ${i + 1}/${doc.pages.length}`);
     cv.addEventListener("contextmenu", (e) => e.preventDefault()); box.appendChild(cv); });
