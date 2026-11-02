@@ -1594,6 +1594,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 .pvlico{flex:none;color:var(--gold);display:grid;place-items:center}
 .pvltx{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}.pvltx b{font-size:.86rem;line-height:1.3}.pvltx small{font-size:.76rem;color:var(--muted);line-height:1.3}
 .pvlbtn{flex:none;display:inline-flex;align-items:center;gap:5px;min-height:34px;padding:0 11px;border-radius:999px;font-weight:800;font-size:.8rem;background:linear-gradient(180deg,#FFE9A3,#F5C542 55%,#D99A1E);color:#3A2500;border:0;cursor:pointer}
+.pvpage.pvtap{pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;touch-action:manipulation}
 </style>
 </head>
 <body>
@@ -1754,7 +1755,7 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
 
     <section id="p_preview" hidden data-i18n-title="pv.title">
       <p class="note pvnote" data-i18n="pv.note">This is a preview, not a valid invoice. Finish the invoice to get the real PDF.</p>
-      <div class="pvlock" id="pv_lock" hidden><span class="pvlico" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="pvltx"><b data-i18n="pv.lock_t">Details hidden</b><small data-i18n="pv.lock_s">Your final PDF will be complete.</small></span><button type="button" class="pvlbtn" id="pv_lock_pro"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5z"/></svg><span data-i18n="pv.lock_b">See all</span></button></div>
+      <div class="pvlock" id="pv_lock" hidden><span class="pvlico" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span class="pvltx"><b data-i18n="pv.lock_t">Details hidden</b><small data-i18n="pv.lock_s">Tap a detail to see it. Your final PDF will be complete.</small></span><button type="button" class="pvlbtn" id="pv_lock_pro"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5z"/></svg><span data-i18n="pv.lock_b">See all</span></button></div>
       <div id="pv_pages" class="pvpages"></div>
       <p class="note qrnote" id="pv_qr" hidden><span data-i18n="qr.note">On the free plan, a small SubbieBill verification code is printed at the bottom of your invoices. Premium removes it.</span> <button type="button" class="linkbtn qrprem" data-i18n="qr.cta">Remove it with Premium</button></p>
     </section>
@@ -2343,7 +2344,7 @@ const I18N={
 en:{
   "p.why_pv":"With Premium, the preview shows your full invoice.",
   "pv.lock_b":"See all",
-  "pv.lock_s":"Your final PDF will be complete.",
+  "pv.lock_s":"Tap a detail to see it. Your final PDF will be complete.",
   "pv.lock_t":"Details hidden",
   "a.ml_down":"The weekly-reminder function didn't answer. Redeploy it in Supabase.",
   "a.ml_fail":"The email service refused the email. Check Resend.",
@@ -2881,7 +2882,7 @@ en:{
 fr:{
   "p.why_pv":"Avec Premium, l'aperçu montre ta facture en entier.",
   "pv.lock_b":"Tout voir",
-  "pv.lock_s":"Ton PDF final sera complet.",
+  "pv.lock_s":"Touche un détail pour le voir. Ton PDF final sera complet.",
   "pv.lock_t":"Détails masqués",
   "a.ml_down":"La fonction weekly-reminder n'a pas répondu. Redéploie-la dans Supabase.",
   "a.ml_fail":"Le service d'envoi a refusé le mail. Vérifie Resend.",
@@ -3413,7 +3414,7 @@ fr:{
 es:{
   "p.why_pv":"Con Premium, la vista previa muestra tu factura completa.",
   "pv.lock_b":"Ver todo",
-  "pv.lock_s":"Tu PDF final estará completo.",
+  "pv.lock_s":"Toca un detalle para verlo. Tu PDF final estará completo.",
   "pv.lock_t":"Detalles ocultos",
   "a.roff_admin":"Desactivado por el admin",
   "a.roff_user":"Baja (fecha desconocida)",
@@ -3957,7 +3958,7 @@ es:{
 it:{
   "p.why_pv":"Con Premium, l'anteprima mostra la fattura completa.",
   "pv.lock_b":"Vedi tutto",
-  "pv.lock_s":"Il PDF finale sarà completo.",
+  "pv.lock_s":"Tocca un dettaglio per vederlo. Il PDF finale sarà completo.",
   "pv.lock_t":"Dettagli nascosti",
   "a.roff_admin":"Disattivato dall'admin",
   "a.roff_user":"Disiscritto (data sconosciuta)",
@@ -4650,7 +4651,7 @@ it:{
 pt:{
   "p.why_pv":"Com o Premium, a prévia mostra sua fatura completa.",
   "pv.lock_b":"Ver tudo",
-  "pv.lock_s":"Seu PDF final ficará completo.",
+  "pv.lock_s":"Toque num detalhe para ver. Seu PDF final ficará completo.",
   "pv.lock_t":"Detalhes ocultos",
   "a.roff_admin":"Desativado pelo admin",
   "a.roff_user":"Descadastrou (data desconhecida)",
@@ -7270,11 +7271,11 @@ function drawInvoice(doc, me, inv, ro) {
 
 /* ---------- preview: same drawing on canvases (one per A4 page), never a downloadable PDF, with a watermark ---------- */
 class CanvasDoc {
-  constructor(pxPerMm) { this.k = pxPerMm; this.pages = []; this.size = 10; this.weight = "normal"; this.fill = "#000"; this.stroke = "#000"; this.lw = 0.2; this.addPage(); }
+  constructor(pxPerMm) { this.k = pxPerMm; this.pages = []; this.regions = []; this.pi = -1; this.size = 10; this.weight = "normal"; this.fill = "#000"; this.stroke = "#000"; this.lw = 0.2; this.addPage(); }
   addPage() { const c = document.createElement("canvas"); c.width = Math.round(210 * this.k); c.height = Math.round(297 * this.k);
-    const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); this.pages.push(c); this.cur = x; return this; }
+    const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); this.pages.push(c); this.cur = x; this.pi = this.pages.length - 1; return this; }
   getNumberOfPages() { return this.pages.length; }
-  setPage(i) { this.cur = this.pages[i - 1].getContext("2d"); }
+  setPage(i) { this.cur = this.pages[i - 1].getContext("2d"); this.pi = i - 1; }
   setProperties() {} setLanguage() {}
   setFont(f, w) { this.weight = w === "bold" ? "bold" : "normal"; }
   setFontSize(s) { this.size = s; }
@@ -7289,6 +7290,7 @@ class CanvasDoc {
   text(t, x, y, o) { const c = this.cur; this._font(c); c.fillStyle = this.fill; c.textBaseline = "alphabetic"; c.textAlign = o && o.align === "right" ? "right" : "left"; c.fillText(String(t), x * this.k, y * this.k); }
   bar(t, x, y, o) { const s = String(t || ""); if (!s.trim()) return; const c = this.cur; this._font(c);
     const w = Math.max(c.measureText(s).width, this.k * 3), h = this.size * 0.3528 * this.k * 0.78, X = (o && o.align === "right" ? x * this.k - w : x * this.k), Y = y * this.k - h * 0.92;
+    this.regions.push({ pi: this.pi, X, Y, w, h, s, font: c.font, fill: this.fill, align: o && o.align === "right" ? "right" : "left", tx: x * this.k, ty: y * this.k });
     c.fillStyle = "#E4E8E3"; const r = h / 2; c.beginPath(); c.moveTo(X + r, Y); c.arcTo(X + w, Y, X + w, Y + h, r); c.arcTo(X + w, Y + h, X, Y + h, r); c.arcTo(X, Y + h, X, Y, r); c.arcTo(X, Y, X + w, Y, r); c.closePath(); c.fill(); }
   splitTextToSize(t, w) { const c = this.cur; this._font(c); const max = w * this.k, out = []; let line = "";
     String(t).split(/\s+/).filter(Boolean).forEach((word) => { const tryL = line ? line + " " + word : word;
@@ -7343,6 +7345,25 @@ function previewInvoice(o) {
   const free = QR_ON && (isGuest() || !plan.premium); if (free && !inv.vcode) inv.vcode = "XXXX-XXXX"; if (!free) delete inv.vcode;
   showPreview(ME2, inv, { mark: true, back: o && o.back, qr: free, redact: isGuest() || !plan.premium });
 }
+/* free preview: a tap shows one hidden detail; tapping another one hides the previous one again */
+function pvReveal(doc, label, mark) {
+  let open = null;   // { r, img } : the revealed region and the pixels to put back
+  const pad = (r) => { const p = r.h * 0.45; return { x: Math.floor(r.X - p), y: Math.floor(r.Y - p), w: Math.ceil(r.w + p * 2), h: Math.ceil(r.h + p * 2) }; };
+  const hide = () => { if (!open) return; const b = pad(open.r); doc.pages[open.r.pi].getContext("2d").putImageData(open.img, b.x, b.y); open = null; };
+  const show = (r) => { const cv = doc.pages[r.pi], c = cv.getContext("2d"), b = pad(r);
+    open = { r, img: c.getImageData(b.x, b.y, b.w, b.h) };
+    c.save(); c.fillStyle = "#FFF6EC"; c.fillRect(b.x, b.y, b.w, b.h);
+    c.font = r.font; c.fillStyle = r.fill; c.textBaseline = "alphabetic"; c.textAlign = r.align; c.fillText(r.s, r.tx, r.ty); c.restore();
+    if (mark) { c.save(); c.beginPath(); c.rect(b.x, b.y, b.w, b.h); c.clip(); watermark(cv, label); c.restore(); } };
+  doc.pages.forEach((cv, pi) => {
+    cv.classList.add("pvtap");
+    cv.addEventListener("click", (e) => {
+      const q = cv.getBoundingClientRect(), k = cv.width / q.width, x = (e.clientX - q.left) * k, y = (e.clientY - q.top) * k;
+      const hit = doc.regions.find((r) => r.pi === pi && x >= r.X - r.h && x <= r.X + r.w + r.h && y >= r.Y - r.h * 0.9 && y <= r.Y + r.h * 1.9);
+      const same = open && hit && open.r === hit; hide(); if (hit && !same) show(hit);
+    });
+  });
+}
 let pvBack = null;   /* "admin": closing the preview goes back to the admin panel where it was */
 function showPreview(me, inv, opts) {
   opts = opts || {};
@@ -7352,6 +7373,7 @@ function showPreview(me, inv, opts) {
   doc.pages.forEach((cv, i) => { if (opts.mark) watermark(cv, label); cv.className = "pvpage"; cv.setAttribute("role", "img"); cv.setAttribute("aria-label", `${t("pv.title")} ${i + 1}/${doc.pages.length}`);
     cv.addEventListener("contextmenu", (e) => e.preventDefault()); box.appendChild(cv); });
   document.querySelector("#p_preview .pvnote").hidden = !opts.mark;
+  if (opts.redact) pvReveal(doc, label, opts.mark);
   pvBack = opts.back || null;
   openSheet("p_preview");
 }
