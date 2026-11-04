@@ -2307,6 +2307,11 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
       <label class="otl"><span data-i18n="ot.after">After</span><select id="ot_after" class="mono"></select><span data-i18n="ot.per_day">a day, paid</span><select id="ot_mult" class="mono"></select></label>
       <p id="ot_hint" class="note"></p>
     </div>
+    <label class="chk hronly"><input type="checkbox" id="nt_on"> <span data-i18n="nt.on">Night hours (higher rate)</span></label>
+    <div id="ntbox" class="otbox hronly" hidden>
+      <label class="otl"><span data-i18n="nt.from">From</span><select id="nt_from" class="mono"></select><span data-i18n="nt.to">to</span><select id="nt_to" class="mono"></select><span data-i18n="nt.paid">paid</span><select id="nt_mult" class="mono"></select></label>
+      <p id="nt_hint" class="note"></p>
+    </div>
     <label class="chk" id="gstwrap" hidden><input type="checkbox" id="gst_on"> <span data-i18n="g.apply">Add GST (10%) to this invoice</span></label>
     <label class="chk hronly"><input type="checkbox" id="ph_on"> <span data-i18n="ph.on">Public holidays at a higher rate</span></label>
     <div id="phbox" class="otbox hronly" hidden>
@@ -2342,6 +2347,14 @@ html[data-bill]:not([data-bill="hourly"]) .hronly{display:none!important}
    translate the values, keep the keys. Missing keys fall back to English. */
 const I18N={
 en:{
+  "days.nt_incl":"incl. {x} night",
+  "nt.need_times":"Night hours are worked out from your start and finish times (choose “Start – finish”).",
+  "nt.hint0":"Enter your hourly rate to see your night rate.",
+  "nt.hint":"{rate}/h becomes {nt}/h between {from} and {to}.",
+  "nt.paid":"paid",
+  "nt.to":"to",
+  "nt.from":"From",
+  "nt.on":"Night hours (higher rate)",
   "p.why_pv":"With Premium, the preview shows your full invoice.",
   "pv.lock_b":"See all",
   "pv.lock_s":"Tap a detail to see it. Your final PDF will be complete.",
@@ -2880,6 +2893,14 @@ en:{
   "pdf.thanks":"Thank you.","pdf.page":"Page {i} of {n}"
 },
 fr:{
+  "days.nt_incl":"dont {x} de nuit",
+  "nt.need_times":"Les heures de nuit se calculent avec tes heures de début et de fin (choisis « Début – fin »).",
+  "nt.hint0":"Mets ton taux horaire pour voir le taux de nuit.",
+  "nt.hint":"{rate}/h devient {nt}/h entre {from} et {to}.",
+  "nt.paid":"payées",
+  "nt.to":"à",
+  "nt.from":"De",
+  "nt.on":"Heures de nuit (taux majoré)",
   "p.why_pv":"Avec Premium, l'aperçu montre ta facture en entier.",
   "pv.lock_b":"Tout voir",
   "pv.lock_s":"Touche un détail pour le voir. Ton PDF final sera complet.",
@@ -3412,6 +3433,14 @@ fr:{
   "p.why_banner":"Garde toutes tes factures, sans limite.",
 },
 es:{
+  "days.nt_incl":"incl. {x} nocturnas",
+  "nt.need_times":"Las horas nocturnas se calculan con tu hora de inicio y de fin (elige «Inicio – fin»).",
+  "nt.hint0":"Pon tu tarifa por hora para ver la tarifa nocturna.",
+  "nt.hint":"{rate}/h pasa a {nt}/h entre las {from} y las {to}.",
+  "nt.paid":"pagadas",
+  "nt.to":"a",
+  "nt.from":"De",
+  "nt.on":"Horas nocturnas (tarifa más alta)",
   "p.why_pv":"Con Premium, la vista previa muestra tu factura completa.",
   "pv.lock_b":"Ver todo",
   "pv.lock_s":"Toca un detalle para verlo. Tu PDF final estará completo.",
@@ -3956,6 +3985,14 @@ es:{
   "a.sub_open":"Abrir en Stripe"
 },
 it:{
+  "days.nt_incl":"di cui {x} notturne",
+  "nt.need_times":"Le ore notturne si calcolano con l'orario di inizio e fine (scegli «Inizio – fine»).",
+  "nt.hint0":"Inserisci la tariffa oraria per vedere quella notturna.",
+  "nt.hint":"{rate}/h diventa {nt}/h tra le {from} e le {to}.",
+  "nt.paid":"pagate",
+  "nt.to":"alle",
+  "nt.from":"Dalle",
+  "nt.on":"Ore notturne (tariffa maggiorata)",
   "p.why_pv":"Con Premium, l'anteprima mostra la fattura completa.",
   "pv.lock_b":"Vedi tutto",
   "pv.lock_s":"Tocca un dettaglio per vederlo. Il PDF finale sarà completo.",
@@ -4649,6 +4686,14 @@ it:{
   "a.sub_open":"Apri in Stripe"
 },
 pt:{
+  "days.nt_incl":"incl. {x} noturnas",
+  "nt.need_times":"As horas noturnas são calculadas com o horário de início e fim (escolha «Início – fim»).",
+  "nt.hint0":"Digite sua taxa por hora para ver a taxa noturna.",
+  "nt.hint":"{rate}/h vira {nt}/h entre {from} e {to}.",
+  "nt.paid":"pagas",
+  "nt.to":"às",
+  "nt.from":"Das",
+  "nt.on":"Horas noturnas (taxa maior)",
   "p.why_pv":"Com o Premium, a prévia mostra sua fatura completa.",
   "pv.lock_b":"Ver tudo",
   "pv.lock_s":"Toque num detalhe para ver. Seu PDF final ficará completo.",
@@ -5454,6 +5499,17 @@ const hasHours=inv=>{if(!inv)return false;const b=billOf(inv);
 /* overtime: hours above "after" in a day are paid at rate × mult (settings saved on each invoice) */
 const OT_DEF={on:false,after:8,mult:1.5};
 function otSplit(r,ot){const h=+r.hours||0;if(!ot||!ot.on||!(+ot.after>0))return{n:h,x:0};const a=+ot.after;return{n:Math.min(h,a),x:Math.max(0,Math.round((h-a)*100)/100)}}
+/* night hours: minutes worked inside the night window (from → to, can cross midnight) are paid at rate × nt.mult.
+   Only for rows with a start and a finish that match the hours. An unpaid break is taken from the day hours first.
+   Overtime comes first (it is never paid twice), then night hours, then normal hours. Same rule in SQL _inv_total. */
+const NT_DEF={on:false,from:"22:00",to:"06:00",mult:1.25};
+const hm=s=>/^\d{2}:\d{2}$/.test(String(s||""))?(+s.slice(0,2))*60+(+s.slice(3,5)):null;
+function ntHours(r,nt){if(!nt||!nt.on)return 0;const s=hm(r.start),e=hm(r.end),f=hm(nt.from),to=hm(nt.to),h=+r.hours||0;
+  if(s==null||e==null||f==null||to==null||!(h>0)||f===to)return 0;
+  let span=e-s;if(span<=0)span+=1440;const brk=Math.round(span-h*60);if(brk<0||brk>span)return 0;
+  let night=0;for(let k=-1;k<=1;k++){const a=f+1440*k,b=(to>f?to:to+1440)+1440*k;night+=Math.max(0,Math.min(s+span,b)-Math.max(s,a))}
+  const fromDay=Math.min(brk,span-night);night-=brk-fromDay;
+  return Math.max(0,Math.min(h,Math.round(night/60*100)/100))}
 /* public holidays: a day marked "holiday" is paid at rate × ph.mult (all its hours). National holidays are spotted automatically. */
 const PH_DEF={on:false,mult:2.5};
 function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,
@@ -5478,8 +5534,9 @@ function invLines(inv){const out=[],ot=inv.ot,ph=inv.ph,bill=billOf(inv);
   else (inv.rows||[]).forEach(r=>{const h=+r.hours||0,rt=+r.rate||0;if(!(h>0))return;
     const base={date:r.date,loc:r.loc||inv.site||"",src:r};
     if(isPh(r,inv)){const m=+ph.mult||1,u=cents(rt*m);out.push({...base,kind:"ph",desc:`Public holiday (×${m})`,mult:m,hours:h,rate:u,amt:cents(h*u/100)});return}
-    const sp=otSplit(r,ot),u=cents(rt);
-    if(sp.n>0)out.push({...base,kind:"std",desc:r.desc||"Labour",hours:sp.n,rate:u,amt:cents(sp.n*u/100)});
+    const sp=otSplit(r,ot),u=cents(rt),nh=Math.min(ntHours(r,inv.nt),Math.round((h-sp.x)*100)/100),sn=Math.round((h-sp.x-nh)*100)/100;
+    if(sn>0)out.push({...base,kind:"std",desc:r.desc||"Labour",hours:sn,rate:u,amt:cents(sn*u/100)});
+    if(nh>0){const m=Math.min(3,Math.max(1,+inv.nt.mult||1)),un=cents(rt*m);out.push({...base,kind:"nt",desc:`Night hours (×${m})`,mult:m,hours:nh,rate:un,amt:cents(nh*un/100)})}
     if(sp.x>0){const m=+ot.mult||1,uo=cents(rt*m);out.push({...base,kind:"ot",desc:`Overtime (×${m})`,mult:m,hours:sp.x,rate:uo,amt:cents(sp.x*uo/100)})}});
   (Array.isArray(inv.exp)?inv.exp:[]).slice(0,EXP_MAX).forEach(e=>{if(!e)return;const a=cents(Math.min(100000,Math.max(0,+e.amt||0)));
     if(a>0)out.push({date:"",loc:"",kind:"exp",desc:String(e.desc||"").trim().slice(0,60)||"Expense",hours:0,rate:null,amt:a,src:null})});
@@ -5513,7 +5570,7 @@ function nextInvNo(billto){const p=P();if(billto===undefined)billto=p.inv&&p.inv
 function blankRow(date,site){const p=P();return{date,loc:site,desc:p.desc||"Services",start:"",end:"",pause:0,hours:0,rate:isWkd(date)?0:(p.rate||0)}}
 function buildRows(a,b,site,prev){const by={};(prev||[]).forEach(r=>{if(r.date)by[r.date]=r});return datesBetween(a,b).map(d=>by[d]||blankRow(d,site))}
 function newInv(type,ref){const p=P(),old=p.inv||{},[a,b]=periodRange(type,ref),site=old.site||state.sites[0]||"";
-  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(old.billto||state.clients[0]||""),issue:b,due:addDays(b,7),weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},bill:BILLS.includes(p.bill)?p.bill:"hourly",drate:p.drate||null,ddesc:p.ddesc||"",fx:p.bill==="period"?{amt:p.pamt||null,desc:p.pdesc||""}:{amt:null,desc:"",from:"",to:""},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||"",billto_email:(p.clientEmail||{})[old.billto||state.clients[0]||""]||"",exp:[]}}
+  return{id:newId(),type,start:a,end:b,billto:old.billto||state.clients[0]||"",site,invno:nextInvNo(old.billto||state.clients[0]||""),issue:b,due:addDays(b,7),weekstart:a,rows:buildRows(a,b,site),ot:clone(p.ot||OT_DEF),nt:clone(p.nt||NT_DEF),ph:clone(p.ph||PH_DEF),gst:{applies:true},bill:BILLS.includes(p.bill)?p.bill:"hourly",drate:p.drate||null,ddesc:p.ddesc||"",fx:p.bill==="period"?{amt:p.pamt||null,desc:p.pdesc||""}:{amt:null,desc:"",from:"",to:""},billto_abn:(p.clientAbn||{})[old.billto||state.clients[0]||""]||"",billto_email:(p.clientEmail||{})[old.billto||state.clients[0]||""]||"",exp:[]}}
 function curEntry(){const p=P();return p&&p.curSaved&&(p.saved||[]).find(x=>x.id===p.curSaved)}
 
 /* ---------- saving ---------- */
@@ -5616,12 +5673,22 @@ function renderMode(){const m=P().mode==="hours"?"hours":"times",lk=locked();
   $("ot_after").innerHTML=[6,7,7.6,8,9,10,11,12].map(v=>`<option value="${v}">${dur(v)}</option>`).join("");
   $("ot_mult").innerHTML=[1.25,1.5,2].map(v=>`<option value="${v}">× ${num(v,v===2?0:(v===1.5?1:2))}</option>`).join("");$("otbox").hidden=!ot.on;$("ot_after").value=String(ot.after);$("ot_mult").value=String(ot.mult);
   [$("ot_on"),$("ot_after"),$("ot_mult")].forEach(x=>x.disabled=lk);renderOtHint();
+  const nt=I().nt||NT_DEF;$("nt_on").checked=!!nt.on;$("ntbox").hidden=!nt.on;
+  $("nt_from").innerHTML=["18:00","19:00","20:00","21:00","22:00","23:00","00:00"].map(v=>`<option value="${v}">${v}</option>`).join("");
+  $("nt_to").innerHTML=["04:00","05:00","06:00","07:00"].map(v=>`<option value="${v}">${v}</option>`).join("");
+  $("nt_mult").innerHTML=[1.15,1.25,1.3,1.5,2].map(v=>`<option value="${v}">× ${num(v,v===2?0:(v===1.5||v===1.3?1:2))}</option>`).join("");
+  $("nt_from").value=nt.from;$("nt_to").value=nt.to;$("nt_mult").value=String(nt.mult);
+  [$("nt_on"),$("nt_from"),$("nt_to"),$("nt_mult")].forEach(x=>x.disabled=lk);renderNtHint();
   $("gstwrap").hidden=!p.gstReg;$("gst_on").checked=!(I().gst&&I().gst.applies===false);$("gst_on").disabled=lk;
   const ph=I().ph||PH_DEF;$("ph_on").checked=!!ph.on;$("phbox").hidden=!ph.on;
   $("ph_mult").innerHTML=[1.5,2,2.25,2.5].map(v=>`<option value="${v}">× ${num(v,v%1?(v===2.25?2:1):0)}</option>`).join("");$("ph_mult").value=String(ph.mult);
   [$("ph_on"),$("ph_mult")].forEach(x=>x.disabled=lk)}
 function renderOtHint(){const ot=I().ot||OT_DEF,rt=P().rate||0;
   $("ot_hint").textContent=rt>0?t("ot.hint",{rate:money(rt),ot:money(rt*ot.mult),after:dur(ot.after)}):t("ot.hint0",{after:dur(ot.after)})}
+function renderNtHint(){const nt=I().nt||NT_DEF,rt=P().rate||0,hrs=P().mode==="hours";
+  $("nt_hint").textContent=(hrs?t("nt.need_times")+" ":"")+(rt>0?t("nt.hint",{rate:money(rt),nt:money(rt*nt.mult),from:nt.from,to:nt.to}):t("nt.hint0"))}
+function setNt(k,v){if(locked())return;const inv=I();inv.nt=Object.assign(clone(NT_DEF),inv.nt||{},{[k]:v});P().nt=clone(inv.nt);
+  $("ntbox").hidden=!inv.nt.on;renderNtHint();inv.rows.forEach((r,i)=>renderAmt(i));renderTotals();save()}
 function setOt(k,v){if(locked())return;const inv=I();inv.ot=Object.assign(clone(OT_DEF),inv.ot||{},{[k]:v});P().ot=clone(inv.ot);
   $("otbox").hidden=!inv.ot.on;renderOtHint();inv.rows.forEach((r,i)=>renderAmt(i));renderTotals();save()}
 function setMode(m){if(m!=="hours")m="times";if(P().mode===m)return;P().mode=m;
@@ -5635,6 +5702,8 @@ function renderAmt(i){const r=I().rows[i],el=$("amt"+i);if(!el)return;
   if(r.hours>0&&ph){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ph_incl",{m:num(inv.ph.mult,inv.ph.mult%1?1:0)});el.appendChild(sm)}
   const chip=document.querySelector(`#day${i} .phchip`);if(chip){chip.setAttribute("aria-pressed",String(ph));chip.classList.toggle("on",ph)}
   if(r.hours>0&&sp.x>0){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.ot_incl",{x:dur(sp.x)});el.appendChild(sm)}
+  const nh=ph?0:Math.min(ntHours(r,inv.nt),Math.round((r.hours-sp.x)*100)/100);
+  if(r.hours>0&&nh>0){const sm=document.createElement("small");sm.className="otx";sm.textContent=t("days.nt_incl",{x:dur(nh)});el.appendChild(sm)}
   const warn=r.hours>0&&!(r.rate>0)?t("days.no_rate"):(r.hours>13?t("days.long"):"");
   if(warn){const sm=document.createElement("small");sm.className="otx warnx";sm.textContent=warn;el.appendChild(sm)}if(!$("day"+i).classList.contains("rest"))$("day"+i).classList.toggle("on",r.hours>0)}
 function renderTotals(){const inv=I(),d=inv.rows.filter(r=>r.hours>0).length,c=invCalc(inv,meNow());$("total").textContent=money(c.total/100);
@@ -5775,7 +5844,7 @@ $("unpaid").onchange=e=>{if(locked())return;P().unpaid=e.target.checked;I().rows
 /* hourly rate + description: typed once here, applied to every weekday (weekends keep their own rate) */
 $("defrate").addEventListener("input",e=>{if(locked())return;const v=parseFloat(e.target.value),nv=isNaN(v)||v<0?0:v,old=P().rate||0;P().rate=nv||null;
   I().rows.forEach(r=>{if(!isWkd(r.date)&&(r.rate===old||!r.rate))r.rate=nv});
-  I().rows.forEach((r,i)=>{const el=document.querySelector(`#day${i} [data-f="rate"]`);if(el&&document.activeElement!==el)el.value=r.rate?r.rate:"";renderAmt(i)});renderTotals();renderOtHint();save()});
+  I().rows.forEach((r,i)=>{const el=document.querySelector(`#day${i} [data-f="rate"]`);if(el&&document.activeElement!==el)el.value=r.rate?r.rate:"";renderAmt(i)});renderTotals();renderOtHint();renderNtHint();save()});
 $("ot_on").onchange=e=>setOt("on",e.target.checked);
 function setPh(k,v){if(locked())return;const inv=I();inv.ph=Object.assign(clone(PH_DEF),inv.ph||{},{[k]:v});P().ph=clone(inv.ph);renderDays();renderTotals();save()}
 $("ph_on").onchange=e=>setPh("on",e.target.checked);
@@ -5788,6 +5857,10 @@ $("billto_abn").addEventListener("input",e=>{if(locked())return;const v=e.target
   if(inv.billto){P().clientAbn=P().clientAbn||{};if(v)P().clientAbn[inv.billto]=v;else delete P().clientAbn[inv.billto]}renderCabnMsg();save()});
 $("ph_mult").onchange=e=>setPh("mult",parseFloat(e.target.value)||2.5);
 $("ot_after").onchange=e=>setOt("after",parseFloat(e.target.value)||8);
+$("nt_on").onchange=e=>setNt("on",e.target.checked);
+$("nt_from").onchange=e=>setNt("from",e.target.value);
+$("nt_to").onchange=e=>setNt("to",e.target.value);
+$("nt_mult").onchange=e=>setNt("mult",parseFloat(e.target.value)||1.25);
 $("ot_mult").onchange=e=>setOt("mult",parseFloat(e.target.value)||1.5);
 $("defdesc").addEventListener("input",e=>{if(locked())return;const v=e.target.value.trim(),old=P().desc||"Services",nv=v||"Services";P().desc=v;
   I().rows.forEach(r=>{if(!r.desc||r.desc===old||r.desc==="Labour"||r.desc==="Services")r.desc=nv});save()});
@@ -5887,6 +5960,7 @@ async function refreshPlan(){if(!session)return;const {data}=await sb.rpc("get_m
 function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=invType(inv);
   if(inv.bill!=null&&!BILLS.includes(inv.bill))delete inv.bill;if(inv.fx!=null&&typeof inv.fx!=="object")delete inv.fx;
   if(!inv.ot||typeof inv.ot!=="object")inv.ot=clone(OT_DEF);
+  if(!inv.nt||typeof inv.nt!=="object")inv.nt=clone(NT_DEF);
   if(!inv.ph||typeof inv.ph!=="object")inv.ph=clone(PH_DEF);
   if(!inv.gst||typeof inv.gst!=="object")inv.gst={applies:true};if(inv.billto_abn==null)inv.billto_abn="";if(inv.billto_email==null)inv.billto_email="";
   inv.exp=Array.isArray(inv.exp)?inv.exp.filter(e=>e&&typeof e==="object").slice(0,EXP_MAX):[];
@@ -5900,7 +5974,7 @@ function migrateInv(inv){inv.rows=Array.isArray(inv.rows)?inv.rows:[];inv.type=i
   return inv}
 function applyProfile(user,res){const data=(res&&res.data)||{};
   setPlan(res||{});
-  const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),desc:data.desc&&data.desc!=="Labour"&&data.desc!=="Services"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
+  const p={id:user.id,name:res.name||data.name||"",mode:data.mode==="hours"?"hours":"times",unpaid:!!data.unpaid,ph:data.ph&&typeof data.ph==="object"?{on:!!data.ph.on,mult:+data.ph.mult||2.5}:clone(PH_DEF),ot:data.ot&&typeof data.ot==="object"?{on:!!data.ot.on,after:+data.ot.after||8,mult:+data.ot.mult||1.5}:clone(OT_DEF),nt:data.nt&&typeof data.nt==="object"?{on:!!data.nt.on,from:hm(data.nt.from)!=null?data.nt.from:"22:00",to:hm(data.nt.to)!=null?data.nt.to:"06:00",mult:+data.nt.mult||1.25}:clone(NT_DEF),desc:data.desc&&data.desc!=="Labour"&&data.desc!=="Services"?data.desc:"",period:PT[data.period]?data.period:"week",inv:null};
   ME.forEach(k=>{if(k!=="name")p[k]=data[k]||""});
   p.logo=typeof data.logo==="string"&&/^data:image\/(png|jpeg);base64,/.test(data.logo)&&data.logo.length<200000?data.logo:"";logoPreload(p.logo);p.tcol=TCOLS.includes(data.tcol)?data.tcol:"";p.taxPct=[15,20,25,30,35].includes(+data.taxPct)?+data.taxPct:25;p.first=data.first||"";p.last=data.last||"";p.bill=BILLS.includes(data.bill)?data.bill:"hourly";p.drate=+data.drate>0?+data.drate:null;p.ddesc=data.ddesc||"";p.pamt=+data.pamt>0?+data.pamt:null;p.pdesc=data.pdesc||"";p.gstReg=!!data.gstReg;p.drafts=data.drafts&&typeof data.drafts==="object"&&!Array.isArray(data.drafts)?data.drafts:{};p.clientAbn=data.clientAbn&&typeof data.clientAbn==="object"?data.clientAbn:{};p.clientEmail=data.clientEmail&&typeof data.clientEmail==="object"?data.clientEmail:{};
   p.lastInvNo=+(res&&res.last_invno)||0;p.lastInvBy=res&&res.last_invno_by&&typeof res.last_invno_by==="object"?res.last_invno_by:null;
